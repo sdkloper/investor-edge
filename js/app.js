@@ -23,58 +23,39 @@ async function fetchDeals() {
 }
 
 function parseCSV(text) {
-  const rows = text.trim().split(/\r?\n/);
+  const rows = text.split(/\r?\n/);
   rawData = [];
 
   for (let i = 1; i < rows.length; i++) {
-    const cols = parseCSVRow(rows[i]);
-    if (cols.length < 10) continue;
+    if (!rows[i]) continue;
 
-    const countyClean = (cols[2] || "").trim();
+    const cols = rows[i].match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g);
+    if (!cols || cols.length < 10) continue;
+
+    const cleanCounty = (cols[2] || "")
+      .replace(/"/g, "")
+      .trim();
 
     const arvValue = cols[4] === "No Comps" ? null : toNumber(cols[4]);
 
     rawData.push({
-      mls: cols[0] || "",
-      address: cols[1] || "",
-      county: countyClean,
+      mls: clean(cols[0]),
+      address: clean(cols[1]),
+      county: cleanCounty,
       list: toNumber(cols[3]),
       arv: arvValue,
       diff: arvValue === null ? 0 : toNumber(cols[5]),
       percent: arvValue === null ? 0 : toNumber(cols[6]),
       rent: toNumber(cols[7]),
       compCount: parseInt(cols[8]) || 0,
-      confidence: cols[9] || "",
+      confidence: clean(cols[9]),
       compDetails: cols.slice(10).join(",") || "[]"
     });
   }
 }
 
-function parseCSVRow(row) {
-  const result = [];
-  let current = "";
-  let inQuotes = false;
-
-  for (let i = 0; i < row.length; i++) {
-    const char = row[i];
-
-    if (char === '"') {
-      if (inQuotes && row[i + 1] === '"') {
-        current += '"';
-        i++;
-      } else {
-        inQuotes = !inQuotes;
-      }
-    } else if (char === "," && !inQuotes) {
-      result.push(current);
-      current = "";
-    } else {
-      current += char;
-    }
-  }
-
-  result.push(current);
-  return result;
+function clean(val) {
+  return val ? val.replace(/"/g, "").trim() : "";
 }
 
 function toNumber(val) {
@@ -88,9 +69,7 @@ function populateCountyDropdown() {
   if (!countySelect) return;
 
   const counties = [...new Set(
-    rawData
-      .map(d => d.county)
-      .filter(c => c && c.length > 0)
+    rawData.map(d => d.county).filter(Boolean)
   )].sort();
 
   countySelect.innerHTML = `<option value="">All Counties</option>`;
@@ -127,56 +106,13 @@ function renderTable(data) {
         ${row.arv === null ? "-" : row.percent.toFixed(1) + "%"}
       </td>
       <td>${row.rent ? "$" + row.rent.toLocaleString() : "-"}</td>
-      <td class="comp-link" data-comps='${encodeURIComponent(row.compDetails)}'>
-        ${row.compCount}
-      </td>
+      <td>${row.compCount}</td>
       <td>${row.confidence}</td>
     `;
 
     tbody.appendChild(tr);
   });
-
-  attachCompClicks();
 }
-
-function attachCompClicks() {
-  document.querySelectorAll(".comp-link").forEach(el => {
-    el.addEventListener("click", function() {
-      let comps = [];
-      try {
-        comps = JSON.parse(decodeURIComponent(this.dataset.comps));
-      } catch {
-        comps = [];
-      }
-      showModal(comps);
-    });
-  });
-}
-
-function showModal(comps) {
-  const modal = document.getElementById("compModal");
-  const content = document.getElementById("compContent");
-
-  if (!comps.length) {
-    content.innerHTML = "<p>No comp details available.</p>";
-  } else {
-    content.innerHTML = comps.map(c => `
-      <div>
-        <strong>${c.address}</strong><br/>
-        ${c.sqft} sqft | ${c.beds} bd | ${c.baths} ba<br/>
-        Sold: $${Number(c.price).toLocaleString()}<br/>
-        Radius: ${c.radius} mi
-        <hr/>
-      </div>
-    `).join("");
-  }
-
-  modal.style.display = "flex";
-}
-
-document.getElementById("closeModal").onclick = () => {
-  document.getElementById("compModal").style.display = "none";
-};
 
 function initFilters() {
   document.querySelectorAll(".filters input, .filters select")
