@@ -1,4 +1,4 @@
-  const CSV_URL = "https://docs.google.com/spreadsheets/d/1s1h2TRyKsFkqpr-yW6yps-yh-AUTDW8ZkWwh8mYDfiY/export?format=csv";
+const CSV_URL = "YOUR_DEALS_CSV_URL";
 
 let deals = [];
 let sortField = null;
@@ -6,35 +6,36 @@ let sortDirection = 1;
 
 async function loadData() {
     const response = await fetch(CSV_URL);
-    const text = await response.text();
+    const csvText = await response.text();
 
-    const rows = text.split("\n").slice(1);
+    Papa.parse(csvText, {
+        header: true,
+        skipEmptyLines: true,
+        complete: function(results) {
+            deals = results.data.map(row => ({
+                mls: row["MLS"],
+                address: row["Address"],
+                county: row["County"],
+                list: parseFloat(row["List Price"]) || 0,
+                arv: row["ARV"] === "No Comps" ? "No Comps" : parseFloat(row["ARV"]) || 0,
+                diff: parseFloat(row["Diff"]) || 0,
+                percent: parseFloat(row["% Below ARV"]) || 0,
+                rent: row["Rent"],
+                comps: parseInt(row["Comp Count"]) || 0,
+                confidence: row["Confidence"],
+                compDetails: row["Comp Details"]
+            }));
 
-    deals = rows.map(row => {
-        const cols = row.split(",");
-
-        return {
-            mls: cols[0],
-            address: cols[1],
-            county: cols[2],
-            list: parseFloat(cols[3]) || 0,
-            arv: cols[4],
-            diff: parseFloat(cols[5]) || 0,
-            percent: parseFloat(cols[6]) || 0,
-            rent: cols[7],
-            comps: parseInt(cols[8]) || 0,
-            confidence: cols[9],
-            compDetails: cols.slice(10).join(",")
-        };
+            populateCountyFilter();
+            renderTable();
+        }
     });
-
-    populateCountyFilter();
-    renderTable();
 }
 
 function populateCountyFilter() {
     const counties = [...new Set(deals.map(d => d.county))];
     const select = document.getElementById("countyFilter");
+    select.innerHTML = '<option value="">All Counties</option>';
 
     counties.forEach(c => {
         const option = document.createElement("option");
@@ -67,7 +68,7 @@ function renderTable() {
             <td>${d.address}</td>
             <td>${d.county}</td>
             <td>$${d.list.toLocaleString()}</td>
-            <td>${d.arv === "No Comps" ? "No Comps" : "$"+parseInt(d.arv).toLocaleString()}</td>
+            <td>${d.arv === "No Comps" ? "No Comps" : "$" + d.arv.toLocaleString()}</td>
             <td>$${d.diff.toLocaleString()}</td>
             <td>${d.percent}%</td>
             <td>${d.rent}</td>
@@ -114,8 +115,12 @@ document.addEventListener("input", renderTable);
 
 document.addEventListener("click", function(e){
     if (e.target.classList.contains("comp-click")) {
-        const details = e.target.dataset.comp;
-        document.getElementById("compContent").textContent = details;
+        try {
+            const parsed = JSON.parse(e.target.dataset.comp);
+            document.getElementById("compContent").textContent = JSON.stringify(parsed, null, 2);
+        } catch {
+            document.getElementById("compContent").textContent = "Comp data unavailable";
+        }
         document.getElementById("compModal").style.display = "block";
     }
 });
