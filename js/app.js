@@ -1,4 +1,4 @@
-const CSV_URL = "YOUR_DEALS_CSV_URL";
+const CSV_URL = "YOUR_EXPORT_CSV_URL";
 
 let deals = [];
 let sortField = null;
@@ -11,7 +11,9 @@ async function loadData() {
     Papa.parse(csvText, {
         header: true,
         skipEmptyLines: true,
+        dynamicTyping: false,
         complete: function(results) {
+
             deals = results.data.map(row => ({
                 mls: row["MLS"],
                 address: row["Address"],
@@ -23,7 +25,7 @@ async function loadData() {
                 rent: row["Rent"],
                 comps: parseInt(row["Comp Count"]) || 0,
                 confidence: row["Confidence"],
-                compDetails: row["Comp Details"]
+                compDetails: row["Comp Details"] || ""
             }));
 
             populateCountyFilter();
@@ -35,6 +37,7 @@ async function loadData() {
 function populateCountyFilter() {
     const counties = [...new Set(deals.map(d => d.county))];
     const select = document.getElementById("countyFilter");
+
     select.innerHTML = '<option value="">All Counties</option>';
 
     counties.forEach(c => {
@@ -56,6 +59,7 @@ function renderTable() {
     }
 
     filtered.forEach(d => {
+
         const tr = document.createElement("tr");
 
         if (d.arv === "No Comps") tr.classList.add("nocomps");
@@ -72,7 +76,7 @@ function renderTable() {
             <td>$${d.diff.toLocaleString()}</td>
             <td>${d.percent}%</td>
             <td>${d.rent}</td>
-            <td class="comp-click" data-comp='${d.compDetails}'>${d.comps}</td>
+            <td class="comp-click" data-comp='${encodeURIComponent(d.compDetails)}'>${d.comps}</td>
             <td>${d.confidence}</td>
         `;
 
@@ -81,7 +85,6 @@ function renderTable() {
 }
 
 function applyFilters(d) {
-    const zipInput = document.getElementById("zipFilter").value;
     const county = document.getElementById("countyFilter").value;
     const minPercent = parseFloat(document.getElementById("minPercent").value) || 0;
     const minDiff = parseFloat(document.getElementById("minDiff").value) || 0;
@@ -93,11 +96,6 @@ function applyFilters(d) {
     if (d.diff < minDiff) return false;
     if (confidence && d.confidence !== confidence) return false;
     if (hideNoComps && d.arv === "No Comps") return false;
-
-    if (zipInput) {
-        const zips = zipInput.split(",").map(z => z.trim());
-        if (!zips.some(z => d.address.includes(z))) return false;
-    }
 
     return true;
 }
@@ -116,10 +114,12 @@ document.addEventListener("input", renderTable);
 document.addEventListener("click", function(e){
     if (e.target.classList.contains("comp-click")) {
         try {
-            const parsed = JSON.parse(e.target.dataset.comp);
-            document.getElementById("compContent").textContent = JSON.stringify(parsed, null, 2);
+            const decoded = decodeURIComponent(e.target.dataset.comp);
+            document.getElementById("compContent").textContent =
+                JSON.stringify(JSON.parse(decoded), null, 2);
         } catch {
-            document.getElementById("compContent").textContent = "Comp data unavailable";
+            document.getElementById("compContent").textContent =
+                "Comp data unavailable";
         }
         document.getElementById("compModal").style.display = "block";
     }
