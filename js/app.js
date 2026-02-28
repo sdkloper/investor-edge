@@ -1,3 +1,5 @@
+document.addEventListener("DOMContentLoaded", function () {
+
 const SHEET_ID = "1s1h2TRyKsFkqpr-yW6yps-yh-AUTDW8ZkWwh8mYDfiY";
 const SHEET_NAME = "Sheet1";
 
@@ -22,19 +24,20 @@ async function fetchDeals() {
 
 function parseCSV(text) {
   const rows = text.trim().split(/\r?\n/);
-
   rawData = [];
 
   for (let i = 1; i < rows.length; i++) {
     const cols = parseCSVRow(rows[i]);
     if (cols.length < 10) continue;
 
+    const countyClean = (cols[2] || "").trim();
+
     const arvValue = cols[4] === "No Comps" ? null : toNumber(cols[4]);
 
     rawData.push({
       mls: cols[0] || "",
       address: cols[1] || "",
-      county: cols[2] || "",
+      county: countyClean,
       list: toNumber(cols[3]),
       arv: arvValue,
       diff: arvValue === null ? 0 : toNumber(cols[5]),
@@ -82,11 +85,21 @@ function toNumber(val) {
 
 function populateCountyDropdown() {
   const countySelect = document.getElementById("countyFilter");
-  const counties = [...new Set(rawData.map(d => d.county).filter(Boolean))].sort();
+  if (!countySelect) return;
+
+  const counties = [...new Set(
+    rawData
+      .map(d => d.county)
+      .filter(c => c && c.length > 0)
+  )].sort();
 
   countySelect.innerHTML = `<option value="">All Counties</option>`;
+
   counties.forEach(county => {
-    countySelect.innerHTML += `<option value="${county}">${county}</option>`;
+    const option = document.createElement("option");
+    option.value = county;
+    option.textContent = county;
+    countySelect.appendChild(option);
   });
 }
 
@@ -202,3 +215,5 @@ function sortAndRender(data) {
 }
 
 fetchDeals();
+
+});
