@@ -1,34 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Investor Edge</title>
-<link rel="stylesheet" href="css/styles.css" />
+  <meta charset="UTF-8">
+  <title>Investor Edge</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
-
 <body>
-<script>
-const password = prompt("Enter Access Code:");
-if (password !== "zeus") {
-  document.body.innerHTML = "Access Denied";
-}
-</script>
+
 <header>
   <h1>Investor Edge</h1>
   <p>MLS Discount Screening Engine</p>
 </header>
 
 <section class="filters">
-
-  <input type="text" id="zipFilter" placeholder="ZIP codes (comma separated)" />
-
+  <input type="text" id="zipFilter" placeholder="ZIP codes (comma separated)">
+  
   <select id="countyFilter">
     <option value="">All Counties</option>
   </select>
 
-  <input type="number" id="minPercent" placeholder="Min % Below ARV" />
-  <input type="number" id="minDiff" placeholder="Min $ Diff" />
+  <input type="number" id="minPercent" placeholder="Min % Below ARV">
+  <input type="number" id="minDiff" placeholder="Min $ Diff">
 
   <select id="confidenceFilter">
     <option value="">All Confidence</option>
@@ -36,14 +29,13 @@ if (password !== "zeus") {
     <option>Medium</option>
     <option>Low</option>
     <option>Speculative</option>
+    <option>No Data</option>
   </select>
 
-  <label>
-    <input type="checkbox" id="hideNoComps" />
+  <label class="checkbox-label">
+    <input type="checkbox" id="hideNoComps">
     Hide No Comps
   </label>
-
- 
 </section>
 
 <section class="table-container">
@@ -53,10 +45,10 @@ if (password !== "zeus") {
         <th>MLS</th>
         <th>Address</th>
         <th>County</th>
-        <th>List</th>
+        <th>List Price</th>
         <th>ARV</th>
-        <th>Diff</th>
-        <th>%</th>
+        <th>Diff $</th>
+        <th>% Below</th>
         <th>Rent</th>
         <th>Comps</th>
         <th>Confidence</th>
@@ -66,15 +58,16 @@ if (password !== "zeus") {
   </table>
 </section>
 
-<!-- Modal -->
+<!-- Comp Modal -->
 <div id="compModal" class="modal">
   <div class="modal-content">
-    <span id="closeModal">&times;</span>
-    <h2>Comp Details</h2>
+    <span id="closeModal" class="close-btn">&times;</span>
+    <h2>Comparable Sales</h2>
     <div id="compContent"></div>
   </div>
 </div>
 
 <script src="js/app.js"></script>
+
 </body>
 </html>
