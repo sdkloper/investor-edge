@@ -5,6 +5,7 @@ const SHEET_NAME = "Sheet1";
 
 let rawData = [];
 let filteredData = [];
+let currentSort = { column: "diff", direction: "desc" };
 
 async function fetchDeals() {
   try {
@@ -15,6 +16,7 @@ async function fetchDeals() {
     parseCSV(text);
     populateCountyDropdown();
     initFilters();
+    enableHeaderSorting();
     sortAndRender(rawData);
 
   } catch (err) {
@@ -30,18 +32,17 @@ function parseCSV(text) {
     if (!rows[i]) continue;
 
     const cols = rows[i].match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g);
-    if (!cols || cols.length < 10) continue;
+    if (!cols || cols.length < 11) continue;
 
-    const cleanCounty = (cols[2] || "")
-      .replace(/"/g, "")
-      .trim();
-
+    const county = clean(cols[2]);
+    const zip = extractZip(clean(cols[1]));
     const arvValue = cols[4] === "No Comps" ? null : toNumber(cols[4]);
 
     rawData.push({
       mls: clean(cols[0]),
       address: clean(cols[1]),
-      county: cleanCounty,
+      county: county,
+      zip: zip,
       list: toNumber(cols[3]),
       arv: arvValue,
       diff: arvValue === null ? 0 : toNumber(cols[5]),
@@ -52,6 +53,11 @@ function parseCSV(text) {
       compDetails: cols.slice(10).join(",") || "[]"
     });
   }
+}
+
+function extractZip(address) {
+  const match = address.match(/\b\d{5}\b/);
+  return match ? match[0] : "";
 }
 
 function clean(val) {
@@ -68,9 +74,7 @@ function populateCountyDropdown() {
   const countySelect = document.getElementById("countyFilter");
   if (!countySelect) return;
 
-  const counties = [...new Set(
-    rawData.map(d => d.county).filter(Boolean)
-  )].sort();
+  const counties = [...new Set(rawData.map(d => d.county).filter(Boolean))].sort();
 
   countySelect.innerHTML = `<option value="">All Counties</option>`;
 
@@ -79,6 +83,33 @@ function populateCountyDropdown() {
     option.value = county;
     option.textContent = county;
     countySelect.appendChild(option);
+  });
+}
+
+function enableHeaderSorting() {
+  const headers = document.querySelectorAll("#dealsTable thead th");
+
+  headers.forEach((header, index) => {
+    header.style.cursor = "pointer";
+
+    header.addEventListener("click", () => {
+      let columnKey = null;
+
+      if (index === 3) columnKey = "list";
+      if (index === 5) columnKey = "diff";
+      if (index === 6) columnKey = "percent";
+
+      if (!columnKey) return;
+
+      if (currentSort.column === columnKey) {
+        currentSort.direction = currentSort.direction === "asc" ? "desc" : "asc";
+      } else {
+        currentSort.column = columnKey;
+        currentSort.direction = "desc";
+      }
+
+      sortAndRender(filteredData.length ? filteredData : rawData);
+    });
   });
 }
 
@@ -120,6 +151,9 @@ function initFilters() {
 }
 
 function applyFilters() {
+  const zipInput = document.getElementById("zipFilter").value;
+  const zips = zipInput.split(",").map(z => z.trim()).filter(Boolean);
+
   const minPercent = parseFloat(document.getElementById("minPercent").value);
   const minDiff = parseFloat(document.getElementById("minDiff").value);
   const hideNoComps = document.getElementById("hideNoComps").checked;
@@ -129,6 +163,7 @@ function applyFilters() {
   filteredData = rawData.filter(row => {
     if (hideNoComps && row.arv === null) return false;
     if (county && row.county !== county) return false;
+    if (zips.length && !zips.includes(row.zip)) return false;
     if (!isNaN(minPercent) && row.percent < minPercent) return false;
     if (!isNaN(minDiff) && row.diff < minDiff) return false;
     if (confidence && row.confidence !== confidence) return false;
@@ -139,12 +174,10 @@ function applyFilters() {
 }
 
 function sortAndRender(data) {
-  const sortBy = document.getElementById("sortBy")?.value || "diff";
-
   data.sort((a, b) => {
-    if (sortBy === "diff") return b.diff - a.diff;
-    if (sortBy === "percent") return b.percent - a.percent;
-    if (sortBy === "price") return a.list - b.list;
+    const col = currentSort.column;
+    const dir = currentSort.direction === "asc" ? 1 : -1;
+    return (a[col] - b[col]) * dir;
   });
 
   renderTable(data);
