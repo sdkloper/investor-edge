@@ -1,76 +1,38 @@
-const CSV_URL = "https://docs.google.com/spreadsheets/d/1s1h2TRyKsFkqpr-yW6yps-yh-AUTDW8ZkWwh8mYDfiY/export?format=csv";
+const SHEET_ID = "1s1h2TRyKsFkqpr-yW6yps-yh-AUTDW8ZkWwh8mYDfiY";
+const SHEET_NAME = "Sheet1";
 
 let rawData = [];
 let filteredData = [];
 
 async function fetchDeals() {
   try {
-    const response = await fetch(CSV_URL);
+    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
+    const response = await fetch(url);
     const text = await response.text();
-    parseCSV(text);
+
+    const json = JSON.parse(text.substring(47).slice(0, -2));
+    const rows = json.table.rows;
+
+    rawData = rows.map(r => ({
+      mls: r.c[0]?.v || "",
+      address: r.c[1]?.v || "",
+      county: r.c[2]?.v || "",
+      list: r.c[3]?.v || 0,
+      arv: r.c[4]?.v === "No Comps" ? null : r.c[4]?.v,
+      diff: r.c[5]?.v || 0,
+      percent: r.c[6]?.v || 0,
+      rent: r.c[7]?.v || 0,
+      compCount: r.c[8]?.v || 0,
+      confidence: r.c[9]?.v || "",
+      compDetails: r.c[10]?.v || "[]"
+    }));
+
     initFilters();
     sortAndRender(rawData);
+
   } catch (err) {
-    console.error("CSV Load Error:", err);
+    console.error("Sheet Load Error:", err);
   }
-}
-
-function parseCSV(text) {
-  const rows = text.trim().split(/\r?\n/);
-
-  rawData = [];
-
-  for (let i = 1; i < rows.length; i++) {
-    const cols = parseCSVRow(rows[i]);
-    if (cols.length < 10) continue;
-
-    rawData.push({
-      mls: cols[0] || "",
-      address: cols[1] || "",
-      county: cols[2] || "",
-      list: toNumber(cols[3]),
-      arv: cols[4] === "No Comps" ? null : toNumber(cols[4]),
-      diff: toNumber(cols[5]),
-      percent: toNumber(cols[6]),
-      rent: toNumber(cols[7]),
-      compCount: parseInt(cols[8]) || 0,
-      confidence: cols[9] || "",
-      compDetails: cols.slice(10).join(",") || "[]"
-    });
-  }
-}
-
-function parseCSVRow(row) {
-  const result = [];
-  let current = "";
-  let inQuotes = false;
-
-  for (let i = 0; i < row.length; i++) {
-    const char = row[i];
-
-    if (char === '"') {
-      if (inQuotes && row[i + 1] === '"') {
-        current += '"';
-        i++;
-      } else {
-        inQuotes = !inQuotes;
-      }
-    } else if (char === "," && !inQuotes) {
-      result.push(current);
-      current = "";
-    } else {
-      current += char;
-    }
-  }
-
-  result.push(current);
-  return result;
-}
-
-function toNumber(val) {
-  if (!val) return 0;
-  const cleaned = val.replace(/[^0-9.-]/g, "");
-  return cleaned ? parseFloat(cleaned) : 0;
 }
 
 function renderTable(data) {
@@ -88,15 +50,15 @@ function renderTable(data) {
       <td><a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${row.mls}" target="_blank">${row.mls}</a></td>
       <td>${row.address}</td>
       <td>${row.county}</td>
-      <td>$${row.list.toLocaleString()}</td>
-      <td>${row.arv ? "$" + row.arv.toLocaleString() : "No Comps"}</td>
+      <td>$${Number(row.list).toLocaleString()}</td>
+      <td>${row.arv ? "$" + Number(row.arv).toLocaleString() : "No Comps"}</td>
       <td class="${diffClass}">
-        ${row.arv ? "$" + row.diff.toLocaleString() : "-"}
+        ${row.arv ? "$" + Number(row.diff).toLocaleString() : "-"}
       </td>
       <td>
-        ${row.arv ? row.percent.toFixed(1) + "%" : "-"}
+        ${row.arv ? Number(row.percent).toFixed(1) + "%" : "-"}
       </td>
-      <td>${row.rent ? "$" + row.rent.toLocaleString() : "-"}</td>
+      <td>${row.rent ? "$" + Number(row.rent).toLocaleString() : "-"}</td>
       <td class="comp-link" data-comps='${encodeURIComponent(row.compDetails)}'>
         ${row.compCount}
       </td>
@@ -115,7 +77,7 @@ function attachCompClicks() {
       let comps = [];
       try {
         comps = JSON.parse(decodeURIComponent(this.dataset.comps));
-      } catch (e) {
+      } catch {
         comps = [];
       }
       showModal(comps);
