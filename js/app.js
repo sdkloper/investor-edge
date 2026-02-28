@@ -254,7 +254,23 @@ function sortAndRender(data) {
 
   renderTable(data);
 }
+  function forceCloseModal() {
+  document.getElementById("compModal").style.display = "none";
+}
+
+function closeModal(event) {
+  if (event.target.id === "compModal") {
+    document.getElementById("compModal").style.display = "none";
+  }
+}
+
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape") {
+    document.getElementById("compModal").style.display = "none";
+  }
+});
 
 fetchDeals();
 
 });
+
