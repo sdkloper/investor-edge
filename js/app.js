@@ -1,177 +1,127 @@
-document.addEventListener("DOMContentLoaded", function () {
+  const CSV_URL = "https://docs.google.com/spreadsheets/d/1s1h2TRyKsFkqpr-yW6yps-yh-AUTDW8ZkWwh8mYDfiY/export?format=csv";
 
-const SHEET_ID = "1s1h2TRyKsFkqpr-yW6yps-yh-AUTDW8ZkWwh8mYDfiY";
-const SHEET_NAME = "Sheet1";
+let deals = [];
+let sortField = null;
+let sortDirection = 1;
 
-let rawData = [];
-let filteredData = [];
-let currentSort = { column: "diff", direction: "desc" };
+async function loadData() {
+    const response = await fetch(CSV_URL);
+    const text = await response.text();
 
-const modal = document.getElementById("compModal");
-const modalContent = document.getElementById("compContent");
-const closeBtn = document.getElementById("modalCloseBtn");
+    const rows = text.split("\n").slice(1);
 
-/* FETCH DATA */
+    deals = rows.map(row => {
+        const cols = row.split(",");
 
-async function fetchDeals() {
-  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&sheet=${SHEET_NAME}`;
-  const response = await fetch(url);
-  const text = await response.text();
-  parseCSV(text);
-  populateCountyDropdown();
-  initFilters();
-  enableHeaderSorting();
-  sortAndRender(rawData);
-}
-
-/* CSV PARSE */
-
-function parseCSV(text) {
-  const rows = text.split(/\r?\n/);
-  rawData = [];
-
-  for (let i = 1; i < rows.length; i++) {
-    if (!rows[i]) continue;
-
-    const cols = rows[i].match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g);
-    if (!cols || cols.length < 11) continue;
-
-    const county = clean(cols[2]);
-    const zip = extractZip(clean(cols[1]));
-    const arvValue = cols[4] === "No Comps" ? null : toNumber(cols[4]);
-
-    rawData.push({
-      mls: clean(cols[0]),
-      address: clean(cols[1]),
-      county: county,
-      zip: zip,
-      list: toNumber(cols[3]),
-      arv: arvValue,
-      diff: arvValue === null ? 0 : toNumber(cols[5]),
-      percent: arvValue === null ? 0 : toNumber(cols[6]),
-      rent: toNumber(cols[7]),
-      compCount: parseInt(cols[8]) || 0,
-      confidence: clean(cols[9]),
-      compDetails: clean(cols.slice(10).join(","))
+        return {
+            mls: cols[0],
+            address: cols[1],
+            county: cols[2],
+            list: parseFloat(cols[3]) || 0,
+            arv: cols[4],
+            diff: parseFloat(cols[5]) || 0,
+            percent: parseFloat(cols[6]) || 0,
+            rent: cols[7],
+            comps: parseInt(cols[8]) || 0,
+            confidence: cols[9],
+            compDetails: cols.slice(10).join(",")
+        };
     });
-  }
+
+    populateCountyFilter();
+    renderTable();
 }
 
-function clean(val) {
-  return val ? val.replace(/^"|"$/g, "").replace(/""/g, '"').trim() : "";
+function populateCountyFilter() {
+    const counties = [...new Set(deals.map(d => d.county))];
+    const select = document.getElementById("countyFilter");
+
+    counties.forEach(c => {
+        const option = document.createElement("option");
+        option.value = c;
+        option.textContent = c;
+        select.appendChild(option);
+    });
 }
 
-function toNumber(val) {
-  if (!val) return 0;
-  const cleaned = val.replace(/[^0-9.-]/g, "");
-  return cleaned ? parseFloat(cleaned) : 0;
+function renderTable() {
+    const tbody = document.querySelector("#dealsTable tbody");
+    tbody.innerHTML = "";
+
+    let filtered = deals.filter(applyFilters);
+
+    if (sortField) {
+        filtered.sort((a,b) => (a[sortField] - b[sortField]) * sortDirection);
+    }
+
+    filtered.forEach(d => {
+        const tr = document.createElement("tr");
+
+        if (d.arv === "No Comps") tr.classList.add("nocomps");
+        else if (d.diff > 20000) tr.classList.add("positive");
+        else if (d.diff > 0) tr.classList.add("moderate");
+        else tr.classList.add("negative");
+
+        tr.innerHTML = `
+            <td><a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${d.mls}" target="_blank">${d.mls}</a></td>
+            <td>${d.address}</td>
+            <td>${d.county}</td>
+            <td>$${d.list.toLocaleString()}</td>
+            <td>${d.arv === "No Comps" ? "No Comps" : "$"+parseInt(d.arv).toLocaleString()}</td>
+            <td>$${d.diff.toLocaleString()}</td>
+            <td>${d.percent}%</td>
+            <td>${d.rent}</td>
+            <td class="comp-click" data-comp='${d.compDetails}'>${d.comps}</td>
+            <td>${d.confidence}</td>
+        `;
+
+        tbody.appendChild(tr);
+    });
 }
 
-function extractZip(address) {
-  const match = address.match(/\b\d{5}\b/);
-  return match ? match[0] : "";
-}
+function applyFilters(d) {
+    const zipInput = document.getElementById("zipFilter").value;
+    const county = document.getElementById("countyFilter").value;
+    const minPercent = parseFloat(document.getElementById("minPercent").value) || 0;
+    const minDiff = parseFloat(document.getElementById("minDiff").value) || 0;
+    const confidence = document.getElementById("confidenceFilter").value;
+    const hideNoComps = document.getElementById("hideNoComps").checked;
 
-/* COUNTY DROPDOWN */
+    if (county && d.county !== county) return false;
+    if (d.percent < minPercent) return false;
+    if (d.diff < minDiff) return false;
+    if (confidence && d.confidence !== confidence) return false;
+    if (hideNoComps && d.arv === "No Comps") return false;
 
-function populateCountyDropdown() {
-  const countySelect = document.getElementById("countyFilter");
-  const counties = [...new Set(rawData.map(d => d.county).filter(Boolean))].sort();
+    if (zipInput) {
+        const zips = zipInput.split(",").map(z => z.trim());
+        if (!zips.some(z => d.address.includes(z))) return false;
+    }
 
-  countySelect.innerHTML = `<option value="">All Counties</option>`;
-  counties.forEach(county => {
-    const option = document.createElement("option");
-    option.value = county;
-    option.textContent = county;
-    countySelect.appendChild(option);
-  });
-}
-
-/* TABLE */
-
-function renderTable(data) {
-  const tbody = document.querySelector("#dealsTable tbody");
-  tbody.innerHTML = "";
-
-  data.forEach(row => {
-    const tr = document.createElement("tr");
-
-    tr.innerHTML = `
-      <td>${row.mls}</td>
-      <td>${row.address}</td>
-      <td>${row.county}</td>
-      <td>$${row.list.toLocaleString()}</td>
-      <td>${row.arv === null ? "No Comps" : "$" + row.arv.toLocaleString()}</td>
-      <td>$${row.diff.toLocaleString()}</td>
-      <td>${row.percent.toFixed(1)}%</td>
-      <td>${row.rent ? "$" + row.rent.toLocaleString() : "-"}</td>
-      <td>${row.compCount}</td>
-      <td>${row.confidence}</td>
-    `;
-
-    tbody.appendChild(tr);
-  });
-}
-
-/* FILTERS */
-
-function initFilters() {
-  document.querySelectorAll(".filters input, .filters select")
-    .forEach(el => el.addEventListener("input", applyFilters));
-}
-
-function applyFilters() {
-  const zipInput = document.getElementById("zipFilter").value;
-  const zips = zipInput.split(",").map(z => z.trim()).filter(Boolean);
-  const county = document.getElementById("countyFilter").value;
-
-  filteredData = rawData.filter(row => {
-    if (county && row.county !== county) return false;
-    if (zips.length && !zips.includes(row.zip)) return false;
     return true;
-  });
-
-  sortAndRender(filteredData);
 }
 
-/* SORT */
-
-function enableHeaderSorting() {
-  const headers = document.querySelectorAll("#dealsTable thead th");
-
-  headers.forEach((header, index) => {
-    header.addEventListener("click", () => {
-      let columnKey = null;
-      if (index === 3) columnKey = "list";
-      if (index === 5) columnKey = "diff";
-      if (index === 6) columnKey = "percent";
-      if (!columnKey) return;
-
-      currentSort.direction =
-        currentSort.direction === "asc" ? "desc" : "asc";
-
-      sortAndRender(filteredData.length ? filteredData : rawData);
+document.querySelectorAll(".sortable").forEach(th => {
+    th.addEventListener("click", () => {
+        const field = th.dataset.sort;
+        sortField = field;
+        sortDirection *= -1;
+        renderTable();
     });
-  });
-}
-
-function sortAndRender(data) {
-  data.sort((a, b) =>
-    currentSort.direction === "asc"
-      ? a.diff - b.diff
-      : b.diff - a.diff
-  );
-  renderTable(data);
-}
-
-/* MODAL CLOSE */
-
-closeBtn.onclick = () => modal.style.display = "none";
-window.onclick = e => { if (e.target === modal) modal.style.display = "none"; };
-document.addEventListener("keydown", e => {
-  if (e.key === "Escape") modal.style.display = "none";
 });
 
-fetchDeals();
+document.addEventListener("input", renderTable);
 
+document.addEventListener("click", function(e){
+    if (e.target.classList.contains("comp-click")) {
+        const details = e.target.dataset.comp;
+        document.getElementById("compContent").textContent = details;
+        document.getElementById("compModal").style.display = "block";
+    }
 });
+
+document.getElementById("closeModal").onclick = function(){
+    document.getElementById("compModal").style.display = "none";
+};
+
+loadData();
