@@ -9,12 +9,10 @@
 <body>
 
 <script>
-  const accessCode = "investor2026";   // <-- CHANGE PASSWORD HERE
+  const accessCode = "investor2026";   // change this
   const entered = prompt("Enter Access Code:");
-
   if (entered !== accessCode) {
     document.body.innerHTML = "<h2 style='text-align:center;margin-top:100px;'>Access Denied</h2>";
-    throw new Error("Access denied");
   }
 </script>
 
@@ -42,7 +40,7 @@
     <option>No Data</option>
   </select>
 
-  <label class="checkbox-label">
+  <label>
     <input type="checkbox" id="hideNoComps">
     Hide No Comps
   </label>
@@ -68,7 +66,6 @@
   </table>
 </section>
 
-<!-- Modal -->
 <div id="compModal" class="modal">
   <div class="modal-content">
     <button id="modalCloseBtn" class="close-btn">×</button>
