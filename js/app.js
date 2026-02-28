@@ -8,20 +8,15 @@ let filteredData = [];
 let currentSort = { column: "diff", direction: "desc" };
 
 async function fetchDeals() {
-  try {
-    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&sheet=${SHEET_NAME}`;
-    const response = await fetch(url);
-    const text = await response.text();
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&sheet=${SHEET_NAME}`;
+  const response = await fetch(url);
+  const text = await response.text();
 
-    parseCSV(text);
-    populateCountyDropdown();
-    initFilters();
-    enableHeaderSorting();
-    sortAndRender(rawData);
-
-  } catch (err) {
-    console.error("Sheet Load Error:", err);
-  }
+  parseCSV(text);
+  populateCountyDropdown();
+  initFilters();
+  enableHeaderSorting();
+  sortAndRender(rawData);
 }
 
 function parseCSV(text) {
@@ -50,7 +45,7 @@ function parseCSV(text) {
       rent: toNumber(cols[7]),
       compCount: parseInt(cols[8]) || 0,
       confidence: clean(cols[9]),
-      compDetails: cols.slice(10).join(",") || "[]"
+      compDetails: clean(cols.slice(10).join(","))
     });
   }
 }
@@ -61,7 +56,7 @@ function extractZip(address) {
 }
 
 function clean(val) {
-  return val ? val.replace(/"/g, "").trim() : "";
+  return val ? val.replace(/^"|"$/g, "").replace(/""/g, '"').trim() : "";
 }
 
 function toNumber(val) {
@@ -77,7 +72,6 @@ function populateCountyDropdown() {
   const counties = [...new Set(rawData.map(d => d.county).filter(Boolean))].sort();
 
   countySelect.innerHTML = `<option value="">All Counties</option>`;
-
   counties.forEach(county => {
     const option = document.createElement("option");
     option.value = county;
@@ -137,12 +131,54 @@ function renderTable(data) {
         ${row.arv === null ? "-" : row.percent.toFixed(1) + "%"}
       </td>
       <td>${row.rent ? "$" + row.rent.toLocaleString() : "-"}</td>
-      <td>${row.compCount}</td>
+      <td class="comp-link" data-comps="${encodeURIComponent(row.compDetails)}">
+        ${row.compCount}
+      </td>
       <td>${row.confidence}</td>
     `;
 
     tbody.appendChild(tr);
   });
+
+  attachCompClicks();
+}
+
+function attachCompClicks() {
+  document.querySelectorAll(".comp-link").forEach(el => {
+    el.addEventListener("click", function () {
+      let comps = [];
+      try {
+        const decoded = decodeURIComponent(this.dataset.comps);
+        comps = JSON.parse(decoded);
+      } catch (e) {
+        comps = [];
+      }
+      showModal(comps);
+    });
+  });
+}
+
+function showModal(comps) {
+  const modal = document.getElementById("compModal");
+  const content = document.getElementById("compContent");
+
+  if (!comps || !comps.length) {
+    content.innerHTML = "<p>No comp details available.</p>";
+  } else {
+    content.innerHTML = comps.map(c => `
+      <div>
+        <strong>${c.address || "-"}</strong><br/>
+        ${(c.sqft || "-")} sqft |
+        ${(c.beds || "-")} bd |
+        ${(c.baths || "-")} ba<br/>
+        Sold: $${c.price ? Number(c.price).toLocaleString() : "-"}<br/>
+        Radius: ${c.radius || "-"} mi
+        <hr/>
+      </div>
+    `).join("");
+  }
+
+  modal.style.display = "flex";
 }
 
 function initFilters() {
