@@ -1,14 +1,18 @@
 body {
-  font-family: system-ui, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   margin: 0;
-  background: #111;
-  color: #fff;
+  background: #ffffff;
+  color: #111;
 }
 
 header {
   padding: 20px;
-  background: #000;
-  border-bottom: 1px solid #333;
+  background: #f4f6f8;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+header h1 {
+  margin: 0;
 }
 
 .filters {
@@ -16,13 +20,16 @@ header {
   flex-wrap: wrap;
   gap: 10px;
   padding: 15px;
-  background: #1a1a1a;
+  background: #fafafa;
+  border-bottom: 1px solid #e5e5e5;
 }
 
-.filters input, .filters select {
+.filters input,
+.filters select {
   padding: 8px;
   border-radius: 4px;
-  border: none;
+  border: 1px solid #dcdcdc;
+  background: #fff;
 }
 
 .table-container {
@@ -34,43 +41,54 @@ table {
   border-collapse: collapse;
 }
 
-th, td {
-  padding: 10px;
-  border-bottom: 1px solid #333;
+thead {
+  background: #f2f4f7;
+}
+
+th {
+  padding: 12px;
+  border-bottom: 2px solid #ddd;
   text-align: left;
+  font-weight: 600;
+}
+
+td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
 }
 
 tr:hover {
-  background: #222;
+  background: #f9fafb;
 }
 
-.green { color: #00e676; }
-.yellow { color: #ffd600; }
-.red { color: #ff5252; }
-.gray { color: #888; }
+.green { color: #1b8a3a; font-weight: 600; }
+.yellow { color: #b58900; font-weight: 600; }
+.red { color: #c0392b; font-weight: 600; }
+.gray { color: #999; }
 
 .modal {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0,0,0,0.5);
   justify-content: center;
   align-items: center;
 }
 
 .modal-content {
-  background: #1c1c1c;
+  background: #ffffff;
   padding: 20px;
   max-height: 80vh;
   overflow-y: auto;
   width: 90%;
   max-width: 600px;
+  border-radius: 6px;
 }
 
 #closeModal {
   float: right;
   cursor: pointer;
-  font-size: 24px;
+  font-size: 22px;
 }
 
 @media (max-width: 768px) {
