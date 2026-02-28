@@ -8,7 +8,12 @@
 </head>
 
 <body>
-
+<script>
+const password = prompt("Enter Access Code:");
+if (password !== "secretentry") {
+  document.body.innerHTML = "Access Denied";
+}
+</script>
 <header>
   <h1>Investor Edge</h1>
   <p>MLS Discount Screening Engine</p>
