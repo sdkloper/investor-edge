@@ -1,5 +1,16 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+/* -------- PASSWORD -------- */
+
+const accessCode = "investor2026";   // change this
+const entered = prompt("Enter Access Code:");
+if (entered !== accessCode) {
+  document.body.innerHTML = "<h2 style='text-align:center;margin-top:100px;'>Access Denied</h2>";
+  throw new Error("Access denied");
+}
+
+/* -------- CONFIG -------- */
+
 const SHEET_ID = "1s1h2TRyKsFkqpr-yW6yps-yh-AUTDW8ZkWwh8mYDfiY";
 const SHEET_NAME = "Sheet1";
 
@@ -8,16 +19,15 @@ let filteredData = [];
 let currentSort = { column: "diff", direction: "desc" };
 
 const modal = document.getElementById("compModal");
-const closeBtn = document.getElementById("closeModal");
 const modalContent = document.getElementById("compContent");
+const closeBtn = document.getElementById("modalCloseBtn");
 
-/* ---------------- FETCH DATA ---------------- */
+/* -------- FETCH DATA -------- */
 
 async function fetchDeals() {
   const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&sheet=${SHEET_NAME}`;
   const response = await fetch(url);
   const text = await response.text();
-
   parseCSV(text);
   populateCountyDropdown();
   initFilters();
@@ -25,7 +35,7 @@ async function fetchDeals() {
   sortAndRender(rawData);
 }
 
-/* ---------------- CSV PARSING ---------------- */
+/* -------- CSV PARSE -------- */
 
 function parseCSV(text) {
   const rows = text.split(/\r?\n/);
@@ -58,11 +68,6 @@ function parseCSV(text) {
   }
 }
 
-function extractZip(address) {
-  const match = address.match(/\b\d{5}\b/);
-  return match ? match[0] : "";
-}
-
 function clean(val) {
   return val ? val.replace(/^"|"$/g, "").replace(/""/g, '"').trim() : "";
 }
@@ -73,7 +78,12 @@ function toNumber(val) {
   return cleaned ? parseFloat(cleaned) : 0;
 }
 
-/* ---------------- COUNTY DROPDOWN ---------------- */
+function extractZip(address) {
+  const match = address.match(/\b\d{5}\b/);
+  return match ? match[0] : "";
+}
+
+/* -------- COUNTY DROPDOWN -------- */
 
 function populateCountyDropdown() {
   const countySelect = document.getElementById("countyFilter");
@@ -88,7 +98,7 @@ function populateCountyDropdown() {
   });
 }
 
-/* ---------------- TABLE RENDER ---------------- */
+/* -------- TABLE -------- */
 
 function renderTable(data) {
   const tbody = document.querySelector("#dealsTable tbody");
@@ -126,7 +136,7 @@ function renderTable(data) {
   attachCompClicks();
 }
 
-/* ---------------- COMP MODAL ---------------- */
+/* -------- COMP MODAL -------- */
 
 function attachCompClicks() {
   document.querySelectorAll(".comp-link").forEach(el => {
@@ -134,9 +144,7 @@ function attachCompClicks() {
       let comps = [];
       try {
         comps = JSON.parse(decodeURIComponent(this.dataset.comps));
-      } catch {
-        comps = [];
-      }
+      } catch {}
       showModal(comps);
     });
   });
@@ -146,49 +154,30 @@ function showModal(comps) {
   if (!comps || !comps.length) {
     modalContent.innerHTML = "<p>No comp details available.</p>";
   } else {
-    modalContent.innerHTML = comps.map(c => {
-      const sqft = c["PR AbvFinSQFT"] || "-";
-      const beds = c["Beds"] || "-";
-      const full = c["Bathrooms Full"] || "0";
-      const half = c["Bathrooms Half"] || "0";
-      const price = c["Close Price"] || "-";
-
-      return `
-        <div>
-          <strong>${c["Address"] || "-"}</strong><br/>
-          ${sqft} sqft | ${beds} bd | ${full}/${half} ba<br/>
-          Sold: $${price !== "-" ? Number(price).toLocaleString() : "-"}
-          <hr/>
-        </div>
-      `;
-    }).join("");
+    modalContent.innerHTML = comps.map(c => `
+      <div>
+        <strong>${c["Address"] || "-"}</strong><br/>
+        ${(c["PR AbvFinSQFT"] || "-")} sqft |
+        ${(c["Beds"] || "-")} bd |
+        ${(c["Bathrooms Full"] || "0")}/${(c["Bathrooms Half"] || "0")} ba<br/>
+        Sold: $${c["Close Price"] ? Number(c["Close Price"]).toLocaleString() : "-"}
+        <hr/>
+      </div>
+    `).join("");
   }
 
   modal.style.display = "flex";
 }
 
-/* ---------------- MODAL CLOSE BEHAVIOR ---------------- */
+/* CLOSE MODAL */
 
-// Click X
-closeBtn.addEventListener("click", function () {
-  modal.style.display = "none";
+closeBtn.onclick = () => modal.style.display = "none";
+window.onclick = (e) => { if (e.target === modal) modal.style.display = "none"; };
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") modal.style.display = "none";
 });
 
-// Click outside modal content
-modal.addEventListener("click", function (e) {
-  if (e.target === modal) {
-    modal.style.display = "none";
-  }
-});
-
-// Press ESC
-document.addEventListener("keydown", function (e) {
-  if (e.key === "Escape") {
-    modal.style.display = "none";
-  }
-});
-
-/* ---------------- FILTERS + SORT ---------------- */
+/* -------- FILTERS -------- */
 
 function initFilters() {
   document.querySelectorAll(".filters input, .filters select")
@@ -218,19 +207,17 @@ function applyFilters() {
   sortAndRender(filteredData);
 }
 
+/* -------- SORT -------- */
+
 function enableHeaderSorting() {
   const headers = document.querySelectorAll("#dealsTable thead th");
 
   headers.forEach((header, index) => {
-    header.style.cursor = "pointer";
-
     header.addEventListener("click", () => {
       let columnKey = null;
-
       if (index === 3) columnKey = "list";
       if (index === 5) columnKey = "diff";
       if (index === 6) columnKey = "percent";
-
       if (!columnKey) return;
 
       if (currentSort.column === columnKey) {
@@ -251,26 +238,9 @@ function sortAndRender(data) {
     const dir = currentSort.direction === "asc" ? 1 : -1;
     return (a[col] - b[col]) * dir;
   });
-
   renderTable(data);
 }
-  function forceCloseModal() {
-  document.getElementById("compModal").style.display = "none";
-}
-
-function closeModal(event) {
-  if (event.target.id === "compModal") {
-    document.getElementById("compModal").style.display = "none";
-  }
-}
-
-document.addEventListener("keydown", function (e) {
-  if (e.key === "Escape") {
-    document.getElementById("compModal").style.display = "none";
-  }
-});
 
 fetchDeals();
 
 });
-
