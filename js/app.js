@@ -4,47 +4,60 @@ let rawData = [];
 let filteredData = [];
 
 async function fetchDeals() {
-  const response = await fetch(CSV_URL);
-  const text = await response.text();
-  parseCSV(text);
-  initFilters();
-  sortAndRender(rawData);
+  try {
+    const response = await fetch(CSV_URL);
+    const text = await response.text();
+    parseCSV(text);
+    initFilters();
+    sortAndRender(rawData);
+  } catch (err) {
+    console.error("CSV Load Error:", err);
+  }
 }
 
 function parseCSV(text) {
   const rows = text.trim().split(/\r?\n/);
-  rawData = rows.slice(1).map(row => {
-    const cols = parseRow(row);
 
-    return {
+  rawData = [];
+
+  for (let i = 1; i < rows.length; i++) {
+    const cols = parseCSVRow(rows[i]);
+    if (cols.length < 10) continue;
+
+    rawData.push({
       mls: cols[0] || "",
       address: cols[1] || "",
       county: cols[2] || "",
-      list: cleanNumber(cols[3]),
-      arv: cols[4] === "No Comps" ? null : cleanNumber(cols[4]),
-      diff: cleanNumber(cols[5]),
-      percent: cleanNumber(cols[6]),
-      rent: cleanNumber(cols[7]),
+      list: toNumber(cols[3]),
+      arv: cols[4] === "No Comps" ? null : toNumber(cols[4]),
+      diff: toNumber(cols[5]),
+      percent: toNumber(cols[6]),
+      rent: toNumber(cols[7]),
       compCount: parseInt(cols[8]) || 0,
       confidence: cols[9] || "",
       compDetails: cols.slice(10).join(",") || "[]"
-    };
-  });
+    });
+  }
 }
 
-function parseRow(row) {
+function parseCSVRow(row) {
   const result = [];
-  let current = '';
-  let insideQuotes = false;
+  let current = "";
+  let inQuotes = false;
 
   for (let i = 0; i < row.length; i++) {
     const char = row[i];
 
     if (char === '"') {
-      insideQuotes = !insideQuotes;
-    } else if (char === ',' && !insideQuotes) {
+      if (inQuotes && row[i + 1] === '"') {
+        current += '"';
+        i++;
+      } else {
+        inQuotes = !inQuotes;
+      }
+    } else if (char === "," && !inQuotes) {
       result.push(current);
-      current = '';
+      current = "";
     } else {
       current += char;
     }
@@ -54,9 +67,9 @@ function parseRow(row) {
   return result;
 }
 
-function cleanNumber(value) {
-  if (!value) return 0;
-  const cleaned = value.replace(/[^0-9.-]/g, '');
+function toNumber(val) {
+  if (!val) return 0;
+  const cleaned = val.replace(/[^0-9.-]/g, "");
   return cleaned ? parseFloat(cleaned) : 0;
 }
 
@@ -100,13 +113,11 @@ function attachCompClicks() {
   document.querySelectorAll(".comp-link").forEach(el => {
     el.addEventListener("click", function() {
       let comps = [];
-
       try {
         comps = JSON.parse(decodeURIComponent(this.dataset.comps));
       } catch (e) {
         comps = [];
       }
-
       showModal(comps);
     });
   });
