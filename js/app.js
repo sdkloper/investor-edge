@@ -7,6 +7,12 @@ let rawData = [];
 let filteredData = [];
 let currentSort = { column: "diff", direction: "desc" };
 
+const modal = document.getElementById("compModal");
+const closeBtn = document.getElementById("closeModal");
+const modalContent = document.getElementById("compContent");
+
+/* ---------------- FETCH DATA ---------------- */
+
 async function fetchDeals() {
   const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&sheet=${SHEET_NAME}`;
   const response = await fetch(url);
@@ -18,6 +24,8 @@ async function fetchDeals() {
   enableHeaderSorting();
   sortAndRender(rawData);
 }
+
+/* ---------------- CSV PARSING ---------------- */
 
 function parseCSV(text) {
   const rows = text.split(/\r?\n/);
@@ -65,6 +73,8 @@ function toNumber(val) {
   return cleaned ? parseFloat(cleaned) : 0;
 }
 
+/* ---------------- COUNTY DROPDOWN ---------------- */
+
 function populateCountyDropdown() {
   const countySelect = document.getElementById("countyFilter");
   const counties = [...new Set(rawData.map(d => d.county).filter(Boolean))].sort();
@@ -78,32 +88,7 @@ function populateCountyDropdown() {
   });
 }
 
-function enableHeaderSorting() {
-  const headers = document.querySelectorAll("#dealsTable thead th");
-
-  headers.forEach((header, index) => {
-    header.style.cursor = "pointer";
-
-    header.addEventListener("click", () => {
-      let columnKey = null;
-
-      if (index === 3) columnKey = "list";
-      if (index === 5) columnKey = "diff";
-      if (index === 6) columnKey = "percent";
-
-      if (!columnKey) return;
-
-      if (currentSort.column === columnKey) {
-        currentSort.direction = currentSort.direction === "asc" ? "desc" : "asc";
-      } else {
-        currentSort.column = columnKey;
-        currentSort.direction = "desc";
-      }
-
-      sortAndRender(filteredData.length ? filteredData : rawData);
-    });
-  });
-}
+/* ---------------- TABLE RENDER ---------------- */
 
 function renderTable(data) {
   const tbody = document.querySelector("#dealsTable tbody");
@@ -141,6 +126,8 @@ function renderTable(data) {
   attachCompClicks();
 }
 
+/* ---------------- COMP MODAL ---------------- */
+
 function attachCompClicks() {
   document.querySelectorAll(".comp-link").forEach(el => {
     el.addEventListener("click", function () {
@@ -156,13 +143,10 @@ function attachCompClicks() {
 }
 
 function showModal(comps) {
-  const modal = document.getElementById("compModal");
-  const content = document.getElementById("compContent");
-
   if (!comps || !comps.length) {
-    content.innerHTML = "<p>No comp details available.</p>";
+    modalContent.innerHTML = "<p>No comp details available.</p>";
   } else {
-    content.innerHTML = comps.map(c => {
+    modalContent.innerHTML = comps.map(c => {
       const sqft = c["PR AbvFinSQFT"] || "-";
       const beds = c["Beds"] || "-";
       const full = c["Bathrooms Full"] || "0";
@@ -182,6 +166,29 @@ function showModal(comps) {
 
   modal.style.display = "flex";
 }
+
+/* ---------------- MODAL CLOSE BEHAVIOR ---------------- */
+
+// Click X
+closeBtn.addEventListener("click", function () {
+  modal.style.display = "none";
+});
+
+// Click outside modal content
+modal.addEventListener("click", function (e) {
+  if (e.target === modal) {
+    modal.style.display = "none";
+  }
+});
+
+// Press ESC
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape") {
+    modal.style.display = "none";
+  }
+});
+
+/* ---------------- FILTERS + SORT ---------------- */
 
 function initFilters() {
   document.querySelectorAll(".filters input, .filters select")
@@ -209,6 +216,33 @@ function applyFilters() {
   });
 
   sortAndRender(filteredData);
+}
+
+function enableHeaderSorting() {
+  const headers = document.querySelectorAll("#dealsTable thead th");
+
+  headers.forEach((header, index) => {
+    header.style.cursor = "pointer";
+
+    header.addEventListener("click", () => {
+      let columnKey = null;
+
+      if (index === 3) columnKey = "list";
+      if (index === 5) columnKey = "diff";
+      if (index === 6) columnKey = "percent";
+
+      if (!columnKey) return;
+
+      if (currentSort.column === columnKey) {
+        currentSort.direction = currentSort.direction === "asc" ? "desc" : "asc";
+      } else {
+        currentSort.column = columnKey;
+        currentSort.direction = "desc";
+      }
+
+      sortAndRender(filteredData.length ? filteredData : rawData);
+    });
+  });
 }
 
 function sortAndRender(data) {
