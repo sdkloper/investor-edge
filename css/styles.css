@@ -1,117 +1,83 @@
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  margin: 0;
-  background: #ffffff;
-  color: #111;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f4f6f8;
 }
 
 header {
-  padding: 20px;
-  background: #f5f7fa;
-  border-bottom: 1px solid #e5e5e5;
-}
-
-header h1 {
-  margin: 0;
-}
-
-header p {
-  margin: 5px 0 0;
-  color: #666;
+    background: #111;
+    color: white;
+    padding: 20px;
+    text-align: center;
 }
 
 .filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding: 15px;
-  background: #fafafa;
-  border-bottom: 1px solid #e5e5e5;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 15px;
+    background: #fff;
 }
 
 .filters input,
 .filters select {
-  padding: 8px;
-  border-radius: 4px;
-  border: 1px solid #ddd;
-  background: #fff;
-  font-size: 14px;
-}
-
-.checkbox-label {
-  display: flex;
-  align-items: center;
-  gap: 5px;
+    padding: 8px;
+    font-size: 14px;
 }
 
 .table-container {
-  overflow-x: auto;
+    overflow-x: auto;
+    padding: 15px;
 }
 
 table {
-  width: 100%;
-  border-collapse: collapse;
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
 }
 
-thead {
-  background: #f2f4f7;
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
 }
 
-th {
-  padding: 12px;
-  border-bottom: 2px solid #ddd;
-  text-align: left;
-  font-weight: 600;
-  cursor: pointer;
+th.sortable {
+    cursor: pointer;
 }
 
-td {
-  padding: 10px;
-  border-bottom: 1px solid #eee;
+tr.positive {
+    background: #e6f9e6;
 }
 
-tr:hover {
-  background: #f9fafb;
+tr.moderate {
+    background: #fff8e1;
 }
 
-.green { color: #1b8a3a; font-weight: 600; }
-.yellow { color: #b58900; font-weight: 600; }
-.red { color: #c0392b; font-weight: 600; }
-.gray { color: #999; }
+tr.negative {
+    background: #ffe6e6;
+}
+
+tr.nocomps {
+    background: #f0f0f0;
+}
 
 .modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
 }
 
 .modal-content {
-  background: #ffffff;
-  padding: 20px;
-  width: 90%;
-  max-width: 600px;
-  max-height: 80vh;
-  overflow-y: auto;
-  border-radius: 6px;
-  position: relative;
+    background: white;
+    margin: 10% auto;
+    padding: 20px;
+    width: 90%;
+    max-width: 600px;
 }
 
-.close-btn {
-  position: absolute;
-  top: 12px;
-  right: 16px;
-  font-size: 22px;
-  cursor: pointer;
-  border: none;
-  background: none;
-}
-
-@media (max-width: 768px) {
-  .filters {
-    flex-direction: column;
-  }
+#closeModal {
+    float: right;
+    cursor: pointer;
 }
