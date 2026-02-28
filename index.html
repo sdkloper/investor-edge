@@ -8,6 +8,16 @@
 </head>
 <body>
 
+<script>
+  const accessCode = "investor2026";   // <-- CHANGE PASSWORD HERE
+  const entered = prompt("Enter Access Code:");
+
+  if (entered !== accessCode) {
+    document.body.innerHTML = "<h2 style='text-align:center;margin-top:100px;'>Access Denied</h2>";
+    throw new Error("Access denied");
+  }
+</script>
+
 <header>
   <h1>Investor Edge</h1>
   <p>MLS Discount Screening Engine</p>
@@ -58,10 +68,10 @@
   </table>
 </section>
 
-<!-- Comp Modal -->
-<div id="compModal" class="modal" onclick="closeModal(event)">
+<!-- Modal -->
+<div id="compModal" class="modal">
   <div class="modal-content">
-    <span class="close-btn" onclick="forceCloseModal()">&times;</span>
+    <button id="modalCloseBtn" class="close-btn">×</button>
     <h2>Comparable Sales</h2>
     <div id="compContent"></div>
   </div>
