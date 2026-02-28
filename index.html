@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Investor Edge</title>
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+
+<header>
+  <h1>Investor Edge</h1>
+  <p>MLS Discount Screening Engine</p>
+</header>
+
+<section class="filters">
+
+  <input type="text" id="zipFilter" placeholder="ZIP codes (comma separated)" />
+
+  <select id="countyFilter">
+    <option value="">All Counties</option>
+  </select>
+
+  <input type="number" id="minPercent" placeholder="Min % Below ARV" />
+  <input type="number" id="minDiff" placeholder="Min $ Diff" />
+
+  <select id="confidenceFilter">
+    <option value="">All Confidence</option>
+    <option>High</option>
+    <option>Medium</option>
+    <option>Low</option>
+    <option>Speculative</option>
+  </select>
+
+  <label>
+    <input type="checkbox" id="hideNoComps" />
+    Hide No Comps
+  </label>
+
+  <select id="sortBy">
+    <option value="diff">Sort by Diff $</option>
+    <option value="percent">Sort by % Below ARV</option>
+    <option value="price">Sort by List Price</option>
+  </select>
+
+</section>
+
+<section class="table-container">
+  <table id="dealsTable">
+    <thead>
+      <tr>
+        <th>MLS</th>
+        <th>Address</th>
+        <th>County</th>
+        <th>List</th>
+        <th>ARV</th>
+        <th>Diff</th>
+        <th>%</th>
+        <th>Rent</th>
+        <th>Comps</th>
+        <th>Confidence</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</section>
+
+<!-- Modal -->
+<div id="compModal" class="modal">
+  <div class="modal-content">
+    <span id="closeModal">&times;</span>
+    <h2>Comp Details</h2>
+    <div id="compContent"></div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
