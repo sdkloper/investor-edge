@@ -11,6 +11,7 @@ async function fetchDeals() {
     const text = await response.text();
 
     parseCSV(text);
+    populateCountyDropdown();
     initFilters();
     sortAndRender(rawData);
 
@@ -21,23 +22,23 @@ async function fetchDeals() {
 
 function parseCSV(text) {
   const rows = text.trim().split(/\r?\n/);
-  const headers = rows[0];
 
   rawData = [];
 
   for (let i = 1; i < rows.length; i++) {
     const cols = parseCSVRow(rows[i]);
-
     if (cols.length < 10) continue;
+
+    const arvValue = cols[4] === "No Comps" ? null : toNumber(cols[4]);
 
     rawData.push({
       mls: cols[0] || "",
       address: cols[1] || "",
       county: cols[2] || "",
       list: toNumber(cols[3]),
-      arv: cols[4] === "No Comps" ? null : toNumber(cols[4]),
-      diff: toNumber(cols[5]),
-      percent: toNumber(cols[6]),
+      arv: arvValue,
+      diff: arvValue === null ? 0 : toNumber(cols[5]),
+      percent: arvValue === null ? 0 : toNumber(cols[6]),
       rent: toNumber(cols[7]),
       compCount: parseInt(cols[8]) || 0,
       confidence: cols[9] || "",
@@ -79,6 +80,16 @@ function toNumber(val) {
   return cleaned ? parseFloat(cleaned) : 0;
 }
 
+function populateCountyDropdown() {
+  const countySelect = document.getElementById("countyFilter");
+  const counties = [...new Set(rawData.map(d => d.county).filter(Boolean))].sort();
+
+  countySelect.innerHTML = `<option value="">All Counties</option>`;
+  counties.forEach(county => {
+    countySelect.innerHTML += `<option value="${county}">${county}</option>`;
+  });
+}
+
 function renderTable(data) {
   const tbody = document.querySelector("#dealsTable tbody");
   tbody.innerHTML = "";
@@ -86,7 +97,7 @@ function renderTable(data) {
   data.forEach(row => {
     const tr = document.createElement("tr");
 
-    const diffClass = !row.arv ? "gray" :
+    const diffClass = row.arv === null ? "gray" :
       row.diff > 30000 ? "green" :
       row.diff > 10000 ? "yellow" : "red";
 
@@ -95,12 +106,12 @@ function renderTable(data) {
       <td>${row.address}</td>
       <td>${row.county}</td>
       <td>$${row.list.toLocaleString()}</td>
-      <td>${row.arv ? "$" + row.arv.toLocaleString() : "No Comps"}</td>
+      <td>${row.arv === null ? "No Comps" : "$" + row.arv.toLocaleString()}</td>
       <td class="${diffClass}">
-        ${row.arv ? "$" + row.diff.toLocaleString() : "-"}
+        ${row.arv === null ? "-" : "$" + row.diff.toLocaleString()}
       </td>
       <td>
-        ${row.arv ? row.percent.toFixed(1) + "%" : "-"}
+        ${row.arv === null ? "-" : row.percent.toFixed(1) + "%"}
       </td>
       <td>${row.rent ? "$" + row.rent.toLocaleString() : "-"}</td>
       <td class="comp-link" data-comps='${encodeURIComponent(row.compDetails)}'>
@@ -160,15 +171,17 @@ function initFilters() {
 }
 
 function applyFilters() {
-  const minPercent = parseFloat(document.getElementById("minPercent").value) || -999;
-  const minDiff = parseFloat(document.getElementById("minDiff").value) || -999;
+  const minPercent = parseFloat(document.getElementById("minPercent").value);
+  const minDiff = parseFloat(document.getElementById("minDiff").value);
   const hideNoComps = document.getElementById("hideNoComps").checked;
   const confidence = document.getElementById("confidenceFilter").value;
+  const county = document.getElementById("countyFilter").value;
 
   filteredData = rawData.filter(row => {
-    if (hideNoComps && !row.arv) return false;
-    if (row.percent < minPercent) return false;
-    if (row.diff < minDiff) return false;
+    if (hideNoComps && row.arv === null) return false;
+    if (county && row.county !== county) return false;
+    if (!isNaN(minPercent) && row.percent < minPercent) return false;
+    if (!isNaN(minDiff) && row.diff < minDiff) return false;
     if (confidence && row.confidence !== confidence) return false;
     return true;
   });
