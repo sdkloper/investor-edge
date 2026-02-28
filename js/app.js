@@ -67,8 +67,6 @@ function toNumber(val) {
 
 function populateCountyDropdown() {
   const countySelect = document.getElementById("countyFilter");
-  if (!countySelect) return;
-
   const counties = [...new Set(rawData.map(d => d.county).filter(Boolean))].sort();
 
   countySelect.innerHTML = `<option value="">All Counties</option>`;
@@ -148,9 +146,8 @@ function attachCompClicks() {
     el.addEventListener("click", function () {
       let comps = [];
       try {
-        const decoded = decodeURIComponent(this.dataset.comps);
-        comps = JSON.parse(decoded);
-      } catch (e) {
+        comps = JSON.parse(decodeURIComponent(this.dataset.comps));
+      } catch {
         comps = [];
       }
       showModal(comps);
@@ -165,17 +162,22 @@ function showModal(comps) {
   if (!comps || !comps.length) {
     content.innerHTML = "<p>No comp details available.</p>";
   } else {
-    content.innerHTML = comps.map(c => `
-      <div>
-        <strong>${c.address || "-"}</strong><br/>
-        ${(c.sqft || "-")} sqft |
-        ${(c.beds || "-")} bd |
-        ${(c.baths || "-")} ba<br/>
-        Sold: $${c.price ? Number(c.price).toLocaleString() : "-"}<br/>
-        Radius: ${c.radius || "-"} mi
-        <hr/>
-      </div>
-    `).join("");
+    content.innerHTML = comps.map(c => {
+      const sqft = c["PR AbvFinSQFT"] || "-";
+      const beds = c["Beds"] || "-";
+      const full = c["Bathrooms Full"] || "0";
+      const half = c["Bathrooms Half"] || "0";
+      const price = c["Close Price"] || "-";
+
+      return `
+        <div>
+          <strong>${c["Address"] || "-"}</strong><br/>
+          ${sqft} sqft | ${beds} bd | ${full}/${half} ba<br/>
+          Sold: $${price !== "-" ? Number(price).toLocaleString() : "-"}
+          <hr/>
+        </div>
+      `;
+    }).join("");
   }
 
   modal.style.display = "flex";
