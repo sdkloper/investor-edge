@@ -2,7 +2,7 @@
    INVESTOR EDGE - FRONTEND ENGINE
    ========================================= */
 
-const CSV_URL = "PASTE_YOUR_PUBLIC_CSV_EXPORT_LINK_HERE";
+const CSV_URL = "https://docs.google.com/spreadsheets/d/1s1h2TRyKsFkqpr-yW6yps-yh-AUTDW8ZkWwh8mYDfiY/edit?gid=0#gid=0";
 
 let deals = [];
 let currentSort = { column: null, asc: false };
@@ -295,3 +295,4 @@ function openModal(e) {
 function closeModal() {
     document.getElementById("compModal").style.display = "none";
 }
+
