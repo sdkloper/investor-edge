@@ -132,8 +132,9 @@ function applyFilters(row) {
   if (!isNaN(minPercent) && parseNumber(row["% Below ARV"]) < minPercent)
     return false;
 
-  if (!showNoComps && parseInt(row["Comp Count"]) === 0)
-    return false;
+  // Hide rows where ARV says "No Comps" unless toggle is checked
+   if (!showNoComps && row.ARV && row.ARV.toString().trim() === "No Comps")
+     return false;
 
   if (!showAuction && (row["Sale Type"] || "").toLowerCase().includes("auction"))
     return false;
@@ -244,3 +245,4 @@ function openModal(e) {
 function closeModal() {
   document.getElementById("compModal").style.display = "none";
 }
+
