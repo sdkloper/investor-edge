@@ -1,5 +1,5 @@
 /* =========================================
-   INVESTOR EDGE - CLEAN PRODUCTION VERSION
+   INVESTOR EDGE - FINAL STABLE VERSION
    ========================================= */
 
 const CSV_URL =
@@ -10,6 +10,10 @@ let deals = [];
 let currentSort = { column: null, asc: false };
 
 document.addEventListener("DOMContentLoaded", () => {
+
+  // Default: hide negative diff
+  document.getElementById("diffFilter").value = 0;
+
   loadCSV();
 
   document
@@ -19,6 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .getElementById("closeModal")
     .addEventListener("click", closeModal);
+
 });
 
 /* ============================= */
@@ -68,7 +73,6 @@ function renderTable() {
 
   let filtered = deals.filter(applyFilters);
 
-  /* ---------- SORT ---------- */
   if (currentSort.column) {
     filtered.sort((a, b) => {
       let valA = parseNumber(a[currentSort.column]);
@@ -85,7 +89,6 @@ function renderTable() {
     const percentBelow = parseNumber(row["% Below ARV"]);
     const compCount = parseInt(row["Comp Count"]) || 0;
 
-    /* ---------- ROW COLOR ---------- */
     if (compCount === 0) {
       tr.classList.add("nocomps");
     } else if (percentBelow >= 25) {
@@ -98,7 +101,6 @@ function renderTable() {
 
     const grm = calculateGRM(row["List Price"], row["Rent"]);
 
-    /* ---------- ICONS ---------- */
     let icons = "";
     if ((row["Sale Type"] || "").toLowerCase().includes("auction")) {
       icons += "🔨 ";
@@ -117,13 +119,9 @@ function renderTable() {
 
       <td>${row.Address || ""}</td>
       <td>${row.County || ""}</td>
-
       <td>${formatCurrency(row["List Price"])}</td>
-
       <td>${row.ARV || ""}</td>
-
       <td>${formatCurrency(row["Diff"])}</td>
-
       <td>${formatPercent(row["% Below ARV"])}</td>
 
       <td>
@@ -135,7 +133,6 @@ function renderTable() {
       </td>
 
       <td>${formatCurrency(row["Rent"])}</td>
-
       <td>${grm !== null ? grm.toFixed(1) : "-"}</td>
     `;
 
@@ -157,23 +154,13 @@ function renderTable() {
 /* ============================= */
 
 function applyFilters(row) {
-  const zipInput = document.getElementById("zipFilter").value.trim();
-  const county = document.getElementById("countyFilter").value;
-  const maxPrice = parseFloat(
-    document.getElementById("priceFilter").value
-  );
-  const minDiff = parseFloat(
-    document.getElementById("diffFilter").value
-  );
-  const minPercent = parseFloat(
-    document.getElementById("percentFilter").value
-  );
+
+  const maxPrice = parseFloat(document.getElementById("priceFilter").value);
+  const minDiff = parseFloat(document.getElementById("diffFilter").value);
+  const minPercent = parseFloat(document.getElementById("percentFilter").value);
   const hideNoComps = document.getElementById("hideNoComps").checked;
   const hideAuction = document.getElementById("hideAuction").checked;
-  const hideWaterfront =
-    document.getElementById("hideWaterfront").checked;
-
-  if (county && row.County !== county) return false;
+  const hideWaterfront = document.getElementById("hideWaterfront").checked;
 
   if (!isNaN(maxPrice) && parseNumber(row["List Price"]) > maxPrice)
     return false;
@@ -181,32 +168,17 @@ function applyFilters(row) {
   if (!isNaN(minDiff) && parseNumber(row["Diff"]) < minDiff)
     return false;
 
-  if (
-    !isNaN(minPercent) &&
-    parseNumber(row["% Below ARV"]) < minPercent
-  )
+  if (!isNaN(minPercent) && parseNumber(row["% Below ARV"]) < minPercent)
     return false;
 
   if (hideNoComps && parseInt(row["Comp Count"]) === 0)
     return false;
 
-  if (
-    hideAuction &&
-    (row["Sale Type"] || "")
-      .toLowerCase()
-      .includes("auction")
-  )
+  if (hideAuction && (row["Sale Type"] || "").toLowerCase().includes("auction"))
     return false;
 
   if (hideWaterfront && row.Waterfront === "TRUE")
     return false;
-
-  if (zipInput) {
-    const zipArray = zipInput.split(",").map((z) => z.trim());
-    const rowZip = (row.Address || "").match(/\b\d{5}\b/);
-    if (!rowZip || !zipArray.includes(rowZip[0]))
-      return false;
-  }
 
   return true;
 }
@@ -246,9 +218,7 @@ function updateSortArrows() {
 
   if (active) {
     active.textContent = currentSort.asc ? "▲" : "▼";
-    active.classList.add(
-      currentSort.asc ? "sort-asc" : "sort-desc"
-    );
+    active.classList.add(currentSort.asc ? "sort-asc" : "sort-desc");
   }
 }
 
@@ -273,12 +243,7 @@ function parseNumber(val) {
 function formatCurrency(val) {
   const num = parseNumber(val);
   if (!num) return "";
-  return (
-    "$" +
-    num.toLocaleString("en-US", {
-      maximumFractionDigits: 0,
-    })
-  );
+  return "$" + num.toLocaleString("en-US", { maximumFractionDigits: 0 });
 }
 
 function formatPercent(val) {
@@ -288,15 +253,65 @@ function formatPercent(val) {
 }
 
 /* ============================= */
-/* MODAL (placeholder) */
+/* FULL WORKING MODAL */
 /* ============================= */
 
 function openModal(e) {
   e.preventDefault();
-  alert("Comp modal logic currently disabled.");
+
+  let compRaw = decodeURIComponent(e.target.dataset.comp);
+  let subject = JSON.parse(decodeURIComponent(e.target.dataset.row));
+  let compData = [];
+
+  try {
+    compRaw = compRaw.replace(/\\"/g, '"');
+    compData = JSON.parse(compRaw);
+  } catch (err) {
+    console.error("Comp JSON parse error:", err);
+    alert("Unable to load comp details.");
+    return;
+  }
+
+  const modal = document.getElementById("compModal");
+  const body = document.getElementById("modalBody");
+
+  body.innerHTML = `
+    <h3>Subject Property</h3>
+    <p>
+      <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${subject.MLS}" target="_blank">
+        ${subject.Address}
+      </a>
+    </p>
+    <p>List Price: ${formatCurrency(subject["List Price"])}</p>
+    <p>ARV: ${subject.ARV}</p>
+    <hr>
+    <h3>Comparable Sales</h3>
+  `;
+
+  if (compData.length === 0) {
+    body.innerHTML += `<p>No comparable sales available.</p>`;
+  } else {
+    compData.forEach((comp) => {
+      body.innerHTML += `
+        <p>
+          <strong>
+            <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${comp["MLS Number"] || ""}" target="_blank">
+              ${comp.Address || ""}
+            </a>
+          </strong><br>
+          ${comp["PR AbvFinSQFT"] || ""} SqFt<br>
+          ${comp.Beds || ""} Beds |
+          ${(comp["Bathrooms Full"] || 0)}.${(comp["Bathrooms Half"] || 0)} Baths<br>
+          Sold: ${formatCurrency(comp["Close Price"])}
+        </p>
+        <hr>
+      `;
+    });
+  }
+
+  modal.style.display = "block";
 }
 
 function closeModal() {
-  document.getElementById("compModal").style.display =
-    "none";
+  document.getElementById("compModal").style.display = "none";
 }
