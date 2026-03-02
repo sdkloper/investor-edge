@@ -1,52 +1,70 @@
-const CSV_URL = "YOUR_EXPORT_CSV_URL";
+/* =========================================
+   INVESTOR EDGE - FRONTEND ENGINE
+   ========================================= */
+
+const CSV_URL = "PASTE_YOUR_PUBLIC_CSV_EXPORT_LINK_HERE";
 
 let deals = [];
-let sortField = null;
-let sortDirection = 1;
+let currentSort = { column: null, asc: false };
 
-async function loadData() {
-    const response = await fetch(CSV_URL);
-    const csvText = await response.text();
+document.addEventListener("DOMContentLoaded", () => {
+    loadCSV();
 
-    Papa.parse(csvText, {
+    document.getElementById("applyFilters")
+        .addEventListener("click", renderTable);
+
+    document.getElementById("closeModal")
+        .addEventListener("click", closeModal);
+
+    // Close modal if clicking outside content
+    document.getElementById("compModal")
+        .addEventListener("click", (e) => {
+            if (e.target.id === "compModal") {
+                closeModal();
+            }
+        });
+});
+
+/* =========================================
+   LOAD CSV
+   ========================================= */
+
+function loadCSV() {
+    Papa.parse(CSV_URL, {
+        download: true,
         header: true,
         skipEmptyLines: true,
-        dynamicTyping: false,
-        complete: function(results) {
-
-            deals = results.data.map(row => ({
-                mls: row["MLS"],
-                address: row["Address"],
-                county: row["County"],
-                list: parseFloat(row["List Price"]) || 0,
-                arv: row["ARV"] === "No Comps" ? "No Comps" : parseFloat(row["ARV"]) || 0,
-                diff: parseFloat(row["Diff"]) || 0,
-                percent: parseFloat(row["% Below ARV"]) || 0,
-                rent: row["Rent"],
-                comps: parseInt(row["Comp Count"]) || 0,
-                confidence: row["Confidence"],
-                compDetails: row["Comp Details"] || ""
-            }));
-
+        worker: true, // performance for large datasets
+        complete: function (results) {
+            deals = results.data;
             populateCountyFilter();
             renderTable();
+        },
+        error: function (err) {
+            console.error("CSV Load Error:", err);
         }
     });
 }
 
+/* =========================================
+   COUNTY DROPDOWN
+   ========================================= */
+
 function populateCountyFilter() {
-    const counties = [...new Set(deals.map(d => d.county))];
+    const counties = [...new Set(deals.map(d => d.County).filter(Boolean))].sort();
     const select = document.getElementById("countyFilter");
 
-    select.innerHTML = '<option value="">All Counties</option>';
-
     counties.forEach(c => {
-        const option = document.createElement("option");
-        option.value = c;
-        option.textContent = c;
-        select.appendChild(option);
+        const opt = document.createElement("option");
+        opt.value = c;
+        opt.textContent = c;
+        select.appendChild(opt);
     });
 }
+
+/* =========================================
+   RENDER TABLE
+   ========================================= */
 
 function renderTable() {
     const tbody = document.querySelector("#dealsTable tbody");
@@ -54,79 +72,226 @@ function renderTable() {
 
     let filtered = deals.filter(applyFilters);
 
-    if (sortField) {
-        filtered.sort((a,b) => (a[sortField] - b[sortField]) * sortDirection);
+    /* ---------- SORTING ---------- */
+    if (currentSort.column) {
+        filtered.sort((a, b) => {
+            let valA = parseFloat(
+                (a[currentSort.column] || "0")
+                    .toString()
+                    .replace(/[$,%]/g, '')
+            ) || 0;
+
+            let valB = parseFloat(
+                (b[currentSort.column] || "0")
+                    .toString()
+                    .replace(/[$,%]/g, '')
+            ) || 0;
+
+            return currentSort.asc ? valA - valB : valB - valA;
+        });
     }
 
-    filtered.forEach(d => {
+    const fragment = document.createDocumentFragment();
+
+    filtered.forEach(row => {
 
         const tr = document.createElement("tr");
 
-        if (d.arv === "No Comps") tr.classList.add("nocomps");
-        else if (d.diff > 20000) tr.classList.add("positive");
-        else if (d.diff > 0) tr.classList.add("moderate");
-        else tr.classList.add("negative");
+        /* ---------- ROW COLOR LOGIC ---------- */
+        const percentBelow = parseFloat(
+            (row["% Below ARV"] || "0").toString().replace('%','')
+        ) || 0;
+
+        const compCount = parseInt(row["Comp Count"]) || 0;
+
+        if (compCount === 0) {
+            tr.classList.add("nocomps");
+        } else if (percentBelow >= 25) {
+            tr.classList.add("positive");
+        } else if (percentBelow >= 15) {
+            tr.classList.add("moderate");
+        } else {
+            tr.classList.add("negative");
+        }
+
+        /* ---------- GRM ---------- */
+        const grm = calculateGRM(row["List Price"], row["Rent"]);
 
         tr.innerHTML = `
-            <td><a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${d.mls}" target="_blank">${d.mls}</a></td>
-            <td>${d.address}</td>
-            <td>${d.county}</td>
-            <td>$${d.list.toLocaleString()}</td>
-            <td>${d.arv === "No Comps" ? "No Comps" : "$" + d.arv.toLocaleString()}</td>
-            <td>$${d.diff.toLocaleString()}</td>
-            <td>${d.percent}%</td>
-            <td>${d.rent}</td>
-            <td class="comp-click" data-comp='${encodeURIComponent(d.compDetails)}'>${d.comps}</td>
-            <td>${d.confidence}</td>
+            <td>
+                <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${row.MLS}" target="_blank">
+                    ${row.MLS}
+                </a>
+            </td>
+            <td>${row.County || ""}</td>
+            <td>${row["List Price"] || ""}</td>
+            <td>${row.ARV || ""}</td>
+            <td>${row.Diff || ""}</td>
+            <td>${row["% Below ARV"] || ""}</td>
+            <td>
+                <a href="#" 
+                   class="compLink"
+                   data-comp='${encodeURIComponent(row["Comp Details"] || "[]")}'
+                   data-row='${encodeURIComponent(JSON.stringify(row))}'>
+                   ${row["Comp Count"] || 0}
+                </a>
+            </td>
+            <td>${row.Rent || ""}</td>
+            <td>${grm}</td>
         `;
 
-        tbody.appendChild(tr);
+        fragment.appendChild(tr);
     });
+
+    tbody.appendChild(fragment);
+
+    attachSortHandlers();
+
+    document.querySelectorAll(".compLink")
+        .forEach(link => link.addEventListener("click", openModal));
 }
 
-function applyFilters(d) {
-    const county = document.getElementById("countyFilter").value;
-    const minPercent = parseFloat(document.getElementById("minPercent").value) || 0;
-    const minDiff = parseFloat(document.getElementById("minDiff").value) || 0;
-    const confidence = document.getElementById("confidenceFilter").value;
-    const hideNoComps = document.getElementById("hideNoComps").checked;
+/* =========================================
+   FILTERING
+   ========================================= */
 
-    if (county && d.county !== county) return false;
-    if (d.percent < minPercent) return false;
-    if (d.diff < minDiff) return false;
-    if (confidence && d.confidence !== confidence) return false;
-    if (hideNoComps && d.arv === "No Comps") return false;
+function applyFilters(row) {
+
+    const zipInput = document.getElementById("zipFilter").value.trim();
+    const county = document.getElementById("countyFilter").value;
+    const maxPrice = parseFloat(document.getElementById("priceFilter").value);
+    const minDiff = parseFloat(document.getElementById("diffFilter").value);
+    const minPercent = parseFloat(document.getElementById("percentFilter").value);
+    const hideNoComps = document.getElementById("hideNoComps").checked;
+    const hideAuction = document.getElementById("hideAuction").checked;
+    const hideWaterfront = document.getElementById("hideWaterfront").checked;
+
+    if (county && row.County !== county) return false;
+
+    if (maxPrice && parseFloat((row["List Price"] || "0").replace(/[$,]/g,'')) > maxPrice)
+        return false;
+
+    if (minDiff && parseFloat((row.Diff || "0").replace(/[$,]/g,'')) < minDiff)
+        return false;
+
+    if (minPercent && parseFloat((row["% Below ARV"] || "0").replace('%','')) < minPercent)
+        return false;
+
+    if (hideNoComps && parseInt(row["Comp Count"]) === 0)
+        return false;
+
+    if (hideAuction && (row["Sale Type"] || "").toLowerCase().includes("auction"))
+        return false;
+
+    if (hideWaterfront && row.Waterfront === "TRUE")
+        return false;
+
+    /* ---------- ZIP FILTER ---------- */
+    if (zipInput) {
+        const zipArray = zipInput.split(",").map(z => z.trim());
+        const rowZip = (row.Address || "").match(/\b\d{5}\b/);
+        if (!rowZip || !zipArray.includes(rowZip[0])) {
+            return false;
+        }
+    }
 
     return true;
 }
 
-document.querySelectorAll(".sortable").forEach(th => {
-    th.addEventListener("click", () => {
-        const field = th.dataset.sort;
-        sortField = field;
-        sortDirection *= -1;
-        renderTable();
+/* =========================================
+   SORT HANDLERS
+   ========================================= */
+
+function attachSortHandlers() {
+    document.querySelectorAll(".sortable").forEach(th => {
+        th.onclick = () => {
+            const column = th.dataset.sort;
+
+            if (currentSort.column === column) {
+                currentSort.asc = !currentSort.asc;
+            } else {
+                currentSort.column = column;
+                currentSort.asc = false;
+            }
+
+            renderTable();
+        };
     });
-});
+}
 
-document.addEventListener("input", renderTable);
+/* =========================================
+   GRM CALCULATION
+   ========================================= */
 
-document.addEventListener("click", function(e){
-    if (e.target.classList.contains("comp-click")) {
-        try {
-            const decoded = decodeURIComponent(e.target.dataset.comp);
-            document.getElementById("compContent").textContent =
-                JSON.stringify(JSON.parse(decoded), null, 2);
-        } catch {
-            document.getElementById("compContent").textContent =
-                "Comp data unavailable";
-        }
-        document.getElementById("compModal").style.display = "block";
+function calculateGRM(price, rent) {
+    let p = parseFloat((price || "0").toString().replace(/[$,]/g,'')) || 0;
+    let r = parseFloat((rent || "0").toString().replace(/[$,]/g,'')) || 0;
+
+    if (!p || !r) return "-";
+
+    return (p / (r * 12)).toFixed(2);
+}
+
+/* =========================================
+   MODAL
+   ========================================= */
+
+function openModal(e) {
+    e.preventDefault();
+
+    let compRaw = decodeURIComponent(e.target.dataset.comp);
+    let subject = JSON.parse(decodeURIComponent(e.target.dataset.row));
+
+    let compData = [];
+
+    try {
+        compRaw = compRaw.replace(/\\"/g, '"'); // Excel escape fix
+        compData = JSON.parse(compRaw);
+    } catch (err) {
+        console.error("Comp JSON parse error:", err);
+        alert("Unable to load comp details.");
+        return;
     }
-});
 
-document.getElementById("closeModal").onclick = function(){
+    const modal = document.getElementById("compModal");
+    const body = document.getElementById("modalBody");
+
+    body.innerHTML = "";
+
+    /* ---------- SUBJECT ---------- */
+    body.innerHTML += `
+        <h3>Subject Property</h3>
+        <p>
+            <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${subject.MLS}" target="_blank">
+                ${subject.Address}
+            </a>
+        </p>
+        <p>List Price: ${subject["List Price"] || ""}</p>
+        <p>ARV: ${subject.ARV || ""}</p>
+        <hr>
+        <h3>Comparable Sales</h3>
+    `;
+
+    /* ---------- COMPS ---------- */
+    compData.forEach(comp => {
+        body.innerHTML += `
+            <p>
+                <strong>
+                    <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${comp["MLS Number"]}" target="_blank">
+                        ${comp.Address}
+                    </a>
+                </strong><br>
+                ${comp["PR AbvFinSQFT"] || ""} SqFt<br>
+                ${comp.Beds || ""} Beds |
+                ${(comp["Bathrooms Full"] || 0)}.${(comp["Bathrooms Half"] || 0)} Baths<br>
+                Sold: ${comp["Close Price"] || ""}
+            </p>
+        `;
+    });
+
+    modal.style.display = "block";
+}
+
+function closeModal() {
     document.getElementById("compModal").style.display = "none";
-};
-
-loadData();
+}
