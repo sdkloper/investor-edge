@@ -93,3 +93,14 @@ tr.nocomps {
 .sort-desc {
     color: red;
 }
+.filter-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-group label {
+  font-size: 12px;
+  margin-top: 4px;
+  color: #555;
+}
+
