@@ -19,21 +19,38 @@
 </header>
 
 <section class="filters">
-    <input type="text" id="zipFilter" placeholder="ZIP codes (comma separated)">
-    
-    <select id="countyFilter">
-        <option value="">All Counties</option>
-    </select>
 
-    <input type="number" id="priceFilter" placeholder="Max List Price">
-    <input type="number" id="diffFilter" placeholder="Min $ Diff">
-    <input type="number" id="percentFilter" placeholder="Min % Below ARV">
+  <div class="filter-group">
+    <input type="text" id="zipFilter">
+    <label>ZIP Codes (comma separated)</label>
+  </div>
 
-    <label><input type="checkbox" id="hideNoComps"> Hide No Comps</label>
-    <label><input type="checkbox" id="hideAuction"> Hide Auction</label>
-    <label><input type="checkbox" id="hideWaterfront"> Hide Waterfront</label>
+  <div class="filter-group">
+    <select id="countyFilter"></select>
+    <label>County</label>
+  </div>
 
-    <button id="applyFilters">Apply</button>
+  <div class="filter-group">
+    <input type="text" id="priceFilter">
+    <label>Max List Price</label>
+  </div>
+
+  <div class="filter-group">
+    <input type="text" id="diffFilter">
+    <label>Minimum $ Diff</label>
+  </div>
+
+  <div class="filter-group">
+    <input type="number" id="percentFilter">
+    <label>Minimum % Below ARV</label>
+  </div>
+
+  <label><input type="checkbox" id="showNoComps"> Show No Comps</label>
+  <label><input type="checkbox" id="showAuction"> Show Auctions</label>
+  <label><input type="checkbox" id="hideWaterfront"> Hide Waterfront</label>
+
+  <button id="applyFilters">Apply</button>
+
 </section>
 
 <section class="table-container">
