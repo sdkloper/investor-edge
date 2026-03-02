@@ -220,10 +220,62 @@ function formatCurrency(val) {
 
 function openModal(e) {
     e.preventDefault();
-    alert("Comp modal unchanged for now.");
+
+    let compRaw = decodeURIComponent(e.target.dataset.comp);
+    let subject = JSON.parse(decodeURIComponent(e.target.dataset.row));
+    let compData = [];
+
+    try {
+        compRaw = compRaw.replace(/\\"/g, '"');
+        compData = JSON.parse(compRaw);
+    } catch (err) {
+        console.error("Comp JSON parse error:", err);
+        alert("Unable to load comp details.");
+        return;
+    }
+
+    const modal = document.getElementById("compModal");
+    const body = document.getElementById("modalBody");
+
+    body.innerHTML = `
+        <h3>Subject Property</h3>
+        <p>
+            <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${subject.MLS}" target="_blank">
+                ${subject.Address}
+            </a>
+        </p>
+        <p>List Price: ${formatCurrency(subject["List Price"])}</p>
+        <p>ARV: ${formatCurrency(subject.ARV)}</p>
+        <hr>
+        <h3>Comparable Sales</h3>
+    `;
+
+    if (compData.length === 0) {
+        body.innerHTML += `<p>No comparable sales available.</p>`;
+    } else {
+        compData.forEach(comp => {
+            body.innerHTML += `
+                <p>
+                    <strong>
+                        <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${comp["MLS Number"] || ""}" target="_blank">
+                            ${comp.Address || ""}
+                        </a>
+                    </strong><br>
+                    ${comp["PR AbvFinSQFT"] || ""} SqFt<br>
+                    ${comp.Beds || ""} Beds |
+                    ${(comp["Bathrooms Full"] || 0)}.${(comp["Bathrooms Half"] || 0)} Baths<br>
+                    Sold: ${formatCurrency(comp["Close Price"])}
+                </p>
+                <hr>
+            `;
+        });
+    }
+
+    modal.style.display = "block";
 }
 
 function closeModal() {
     document.getElementById("compModal").style.display = "none";
 }
+
 
