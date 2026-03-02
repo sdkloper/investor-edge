@@ -122,7 +122,9 @@ function applyFilters(row) {
   const showNoComps = document.getElementById("showNoComps").checked;
   const showAuction = document.getElementById("showAuction").checked;
   const hideWaterfront = document.getElementById("hideWaterfront").checked;
-
+  const showNoComps = document.getElementById("showNoComps").checked === true;
+  const showAuction = document.getElementById("showAuction").checked === true;
+   
   // Hide rows where ARV says "No Comps" unless toggle is checked
   if (!showNoComps && row.ARV && row.ARV.toString().trim() === "No Comps")
     return false;
@@ -296,6 +298,7 @@ function openModal(e) {
 function closeModal() {
   document.getElementById("compModal").style.display = "none";
 }
+
 
 
 
