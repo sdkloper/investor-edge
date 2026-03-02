@@ -8,6 +8,10 @@ let deals = [];
 let currentSort = { column: null, asc: false };
 
 document.addEventListener("DOMContentLoaded", () => {
+
+    // Default: hide negative diff
+    document.getElementById("diffFilter").value = 0;
+
     loadCSV();
 
     document.getElementById("applyFilters")
@@ -16,7 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("closeModal")
         .addEventListener("click", closeModal);
 
-    // Close modal if clicking outside content
     document.getElementById("compModal")
         .addEventListener("click", (e) => {
             if (e.target.id === "compModal") {
@@ -34,7 +37,7 @@ function loadCSV() {
         download: true,
         header: true,
         skipEmptyLines: true,
-        worker: true, // performance for large datasets
+        worker: true,
         complete: function (results) {
             deals = results.data;
             populateCountyFilter();
@@ -67,24 +70,20 @@ function populateCountyFilter() {
    ========================================= */
 
 function renderTable() {
+
     const tbody = document.querySelector("#dealsTable tbody");
     tbody.innerHTML = "";
 
     let filtered = deals.filter(applyFilters);
 
-    /* ---------- SORTING ---------- */
     if (currentSort.column) {
         filtered.sort((a, b) => {
             let valA = parseFloat(
-                (a[currentSort.column] || "0")
-                    .toString()
-                    .replace(/[$,%]/g, '')
+                (a[currentSort.column] || "0").toString().replace(/[$,%]/g,'')
             ) || 0;
 
             let valB = parseFloat(
-                (b[currentSort.column] || "0")
-                    .toString()
-                    .replace(/[$,%]/g, '')
+                (b[currentSort.column] || "0").toString().replace(/[$,%]/g,'')
             ) || 0;
 
             return currentSort.asc ? valA - valB : valB - valA;
@@ -97,7 +96,6 @@ function renderTable() {
 
         const tr = document.createElement("tr");
 
-        /* ---------- ROW COLOR LOGIC ---------- */
         const percentBelow = parseFloat(
             (row["% Below ARV"] || "0").toString().replace('%','')
         ) || 0;
@@ -114,7 +112,6 @@ function renderTable() {
             tr.classList.add("negative");
         }
 
-        /* ---------- GRM ---------- */
         const grm = calculateGRM(row["List Price"], row["Rent"]);
 
         tr.innerHTML = `
@@ -123,6 +120,7 @@ function renderTable() {
                     ${row.MLS}
                 </a>
             </td>
+            <td>${row.Address || ""}</td>
             <td>${row.County || ""}</td>
             <td>${row["List Price"] || ""}</td>
             <td>${row.ARV || ""}</td>
@@ -171,7 +169,7 @@ function applyFilters(row) {
     if (maxPrice && parseFloat((row["List Price"] || "0").replace(/[$,]/g,'')) > maxPrice)
         return false;
 
-    if (minDiff && parseFloat((row.Diff || "0").replace(/[$,]/g,'')) < minDiff)
+    if (!isNaN(minDiff) && parseFloat((row.Diff || "0").replace(/[$,]/g,'')) < minDiff)
         return false;
 
     if (minPercent && parseFloat((row["% Below ARV"] || "0").replace('%','')) < minPercent)
@@ -186,7 +184,6 @@ function applyFilters(row) {
     if (hideWaterfront && row.Waterfront === "TRUE")
         return false;
 
-    /* ---------- ZIP FILTER ---------- */
     if (zipInput) {
         const zipArray = zipInput.split(",").map(z => z.trim());
         const rowZip = (row.Address || "").match(/\b\d{5}\b/);
@@ -199,28 +196,26 @@ function applyFilters(row) {
 }
 
 /* =========================================
-   SORT HANDLERS
+   SORT
    ========================================= */
 
 function attachSortHandlers() {
     document.querySelectorAll(".sortable").forEach(th => {
         th.onclick = () => {
             const column = th.dataset.sort;
-
             if (currentSort.column === column) {
                 currentSort.asc = !currentSort.asc;
             } else {
                 currentSort.column = column;
                 currentSort.asc = false;
             }
-
             renderTable();
         };
     });
 }
 
 /* =========================================
-   GRM CALCULATION
+   GRM
    ========================================= */
 
 function calculateGRM(price, rent) {
@@ -241,11 +236,10 @@ function openModal(e) {
 
     let compRaw = decodeURIComponent(e.target.dataset.comp);
     let subject = JSON.parse(decodeURIComponent(e.target.dataset.row));
-
     let compData = [];
 
     try {
-        compRaw = compRaw.replace(/\\"/g, '"'); // Excel escape fix
+        compRaw = compRaw.replace(/\\"/g, '"');
         compData = JSON.parse(compRaw);
     } catch (err) {
         console.error("Comp JSON parse error:", err);
@@ -256,31 +250,23 @@ function openModal(e) {
     const modal = document.getElementById("compModal");
     const body = document.getElementById("modalBody");
 
-    body.innerHTML = "";
-
-    /* ---------- SUBJECT ---------- */
-    body.innerHTML += `
+    body.innerHTML = `
         <h3>Subject Property</h3>
         <p>
             <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${subject.MLS}" target="_blank">
                 ${subject.Address}
             </a>
         </p>
-        <p>List Price: ${subject["List Price"] || ""}</p>
-        <p>ARV: ${subject.ARV || ""}</p>
+        <p>List Price: ${subject["List Price"]}</p>
+        <p>ARV: ${subject.ARV}</p>
         <hr>
         <h3>Comparable Sales</h3>
     `;
 
-    /* ---------- COMPS ---------- */
     compData.forEach(comp => {
         body.innerHTML += `
             <p>
-                <strong>
-                    <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${comp["MLS Number"]}" target="_blank">
-                        ${comp.Address}
-                    </a>
-                </strong><br>
+                <strong>${comp.Address}</strong><br>
                 ${comp["PR AbvFinSQFT"] || ""} SqFt<br>
                 ${comp.Beds || ""} Beds |
                 ${(comp["Bathrooms Full"] || 0)}.${(comp["Bathrooms Half"] || 0)} Baths<br>
@@ -295,8 +281,3 @@ function openModal(e) {
 function closeModal() {
     document.getElementById("compModal").style.display = "none";
 }
-
-
-
-
-
