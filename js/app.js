@@ -123,6 +123,16 @@ function applyFilters(row) {
   const showAuction = document.getElementById("showAuction").checked;
   const hideWaterfront = document.getElementById("hideWaterfront").checked;
 
+  // Hide rows where ARV says "No Comps" unless toggle is checked
+  if (!showNoComps && row.ARV && row.ARV.toString().trim() === "No Comps")
+    return false;
+
+  if (!showAuction && (row["Sale Type"] || "").toLowerCase().includes("auction"))
+    return false;
+
+  if (hideWaterfront && row.Waterfront === "TRUE")
+    return false;
+
   if (maxPrice && parseNumber(row["List Price"]) > maxPrice)
     return false;
 
@@ -130,16 +140,6 @@ function applyFilters(row) {
     return false;
 
   if (!isNaN(minPercent) && parseNumber(row["% Below ARV"]) < minPercent)
-    return false;
-
-  // Hide rows where ARV says "No Comps" unless toggle is checked
-   if (!showNoComps && row.ARV && row.ARV.toString().trim() === "No Comps")
-     return false;
-
-  if (!showAuction && (row["Sale Type"] || "").toLowerCase().includes("auction"))
-    return false;
-
-  if (hideWaterfront && row.Waterfront === "TRUE")
     return false;
 
   return true;
@@ -245,4 +245,5 @@ function openModal(e) {
 function closeModal() {
   document.getElementById("compModal").style.display = "none";
 }
+
 
