@@ -118,12 +118,16 @@ function renderTable() {
             <td>${arv}</td>
             <td>${diff}</td>
             <td>${percent}</td>
-            <td>
-                <a href="#" class="compLink"
-                   data-comp='${encodeURIComponent(row["Comp Details"] || "[]")}'
-                   data-row='${encodeURIComponent(JSON.stringify(row))}'>
-                   ${compCount}
-                </a>
+           <td>
+                ${
+                    compCount === 0
+                    ? "No Comps"
+                    : `<a href="#" class="compLink"
+                         data-comp='${encodeURIComponent(row["Comp Details"] || "[]")}'
+                         data-row='${encodeURIComponent(JSON.stringify(row))}'>
+                         ${compCount}
+                       </a>`
+                }
             </td>
             <td>${rent}</td>
             <td>${grmDisplay}</td>
@@ -222,3 +226,4 @@ function openModal(e) {
 function closeModal() {
     document.getElementById("compModal").style.display = "none";
 }
+
