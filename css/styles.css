@@ -81,3 +81,15 @@ tr.nocomps {
     float: right;
     cursor: pointer;
 }
+.sort-arrow {
+    margin-left: 4px;
+    font-size: 12px;
+}
+
+.sort-asc {
+    color: green;
+}
+
+.sort-desc {
+    color: red;
+}
