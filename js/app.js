@@ -77,37 +77,41 @@ function renderTable() {
       icons += "🌊 ";
     }
 
-    tr.innerHTML = `
-      <td>${icons}
-        <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${row.MLS}" target="_blank">
-          ${row.MLS}
-        </a>
-      </td>
-      <td>${row.Address || ""}</td>
-      <td>${row.County || ""}</td>
-      <td>${formatCurrency(row["List Price"])}</td>
-      <td>
-        ${
-          row.ARV && row.ARV.toString().trim() !== "No Comps"
-            ? formatCurrency(row.ARV)
-            : row.ARV || ""
-        }
-</td>
-      <td>${formatCurrency(row["Diff"])}</td>
-      <td>${formatPercent(row["% Below ARV"])}</td>
-      <td>
-        <a href="#" class="compLink"
-           data-comp='${encodeURIComponent(row["Comp Details"] || "[]")}'
-           data-row='${encodeURIComponent(JSON.stringify(row))}'>
-           ${compCount}
-        </a>
-      </td>
-
-<td>${row.CDOM ? row.CDOM : "-"}</td>
-
-<td>${formatCurrency(row["Rent"])}</td>
-<td>${grm !== null ? grm.toFixed(1) : "-"}</td>
-    `;
+   tr.innerHTML = `
+     <td>${icons}
+       <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${row.MLS}" target="_blank">
+         ${row.MLS}
+       </a>
+     </td>
+   
+     <td>${row.Address || ""}</td>
+     <td>${row.County || ""}</td>
+     <td>${formatCurrency(row["List Price"])}</td>
+   
+     <td>
+       ${
+         row.ARV && row.ARV.toString().trim() !== "No Comps"
+           ? formatCurrency(row.ARV)
+           : row.ARV || ""
+       }
+     </td>
+   
+     <td>${formatCurrency(row["Diff"])}</td>
+     <td>${formatPercent(row["% Below ARV"])}</td>
+   
+     <td>
+       <a href="#" class="compLink"
+          data-comp='${encodeURIComponent(row["Comp Details"] || "[]")}'
+          data-row='${encodeURIComponent(JSON.stringify(row))}'>
+          ${compCount}
+       </a>
+     </td>
+   
+     <td>${row.CDOM ? row.CDOM : "-"}</td>
+   
+     <td>${formatCurrency(row["Rent"])}</td>
+     <td>${grm !== null ? grm.toFixed(1) : "-"}</td>
+   `;
 
     fragment.appendChild(tr);
   });
@@ -327,6 +331,7 @@ function openModal(e) {
 function closeModal() {
   document.getElementById("compModal").style.display = "none";
 }
+
 
 
 
