@@ -295,6 +295,18 @@ function openModal(e) {
   /* SUBJECT PROPERTY */
   /* ============================= */
 
+  const subjectSqft =
+    subject["PR AbvFinSQFT"] ||
+    subject["SqFt"] ||
+    "-";
+
+  const subjectBeds = subject["Beds"] || "-";
+
+  const subjectBaths =
+    (subject["Bathrooms Full"] || 0) +
+    "." +
+    (subject["Bathrooms Half"] || 0);
+
   body.innerHTML = `
     <h3>Subject Property</h3>
 
@@ -316,14 +328,12 @@ function openModal(e) {
     </p>
 
     <p>
-      ${subject["SqFt"] || subject["PR AbvFinSQFT"] || "-"} SqFt  ||  
-      ${subject.Beds || "-"} Beds | 
-      ${(subject["Bathrooms Full"] || 0)}.${(subject["Bathrooms Half"] || 0)} Baths  ||  
+      ${subjectSqft} SqFt  ||  
+      ${subjectBeds} Beds | ${subjectBaths} Baths  ||  
       DOM ${subject.CDOM || "-"}
     </p>
 
     <hr>
-
     <h3>Comparable Sales</h3>
   `;
 
@@ -335,6 +345,14 @@ function openModal(e) {
     body.innerHTML += `<p>No comparable sales available.</p>`;
   } else {
     compData.forEach((comp) => {
+
+      const compSqft = comp["PR AbvFinSQFT"] || "-";
+      const compBeds = comp["Beds"] || "-";
+      const compBaths =
+        (comp["Bathrooms Full"] || 0) +
+        "." +
+        (comp["Bathrooms Half"] || 0);
+
       body.innerHTML += `
         <p>
           <strong>
@@ -343,9 +361,8 @@ function openModal(e) {
             </a>
           </strong><br>
 
-          ${comp["PR AbvFinSQFT"] || "-"} SqFt  ||  
-          ${comp.Beds || "-"} Beds | 
-          ${(comp["Bathrooms Full"] || 0)}.${(comp["Bathrooms Half"] || 0)} Baths  ||  
+          ${compSqft} SqFt  ||  
+          ${compBeds} Beds | ${compBaths} Baths  ||  
           Sold: ${formatCurrency(comp["Close Price"])}  ||  
           DOM ${comp.CDOM || "-"}
         </p>
@@ -356,6 +373,26 @@ function openModal(e) {
 
   modal.style.display = "block";
 }
+
+/* ============================= */
+/* CLOSE MODAL */
+/* ============================= */
+
+function closeModal() {
+  document.getElementById("compModal").style.display = "none";
+}
+
+/* ============================= */
+/* CLICK OUTSIDE TO CLOSE */
+/* ============================= */
+
+window.addEventListener("click", function(event) {
+  const modal = document.getElementById("compModal");
+  if (event.target === modal) {
+    modal.style.display = "none";
+  }
+});
+
 
 
 
