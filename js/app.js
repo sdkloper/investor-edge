@@ -117,6 +117,10 @@ function renderTable() {
 
 function applyFilters(row) {
 
+  // Skip completely empty rows
+  if (!row.MLS || row.MLS.trim() === "")
+    return false;
+
   const maxPrice = parseNumber(document.getElementById("priceFilter").value);
   const minDiff = parseNumber(document.getElementById("diffFilter").value);
   const minPercent = parseFloat(document.getElementById("percentFilter").value);
@@ -125,11 +129,13 @@ function applyFilters(row) {
   const showAuction = document.getElementById("showAuction").checked;
   const hideWaterfront = document.getElementById("hideWaterfront").checked;
 
-  // Hide rows where ARV says "No Comps" unless toggle is checked
-  if (!showNoComps && row.ARV && row.ARV.toString().trim() === "No Comps")
+  // Detect No Comps by ARV not being numeric
+  const arvNumber = parseNumber(row.ARV);
+  const isNoComps = !arvNumber;
+
+  if (!showNoComps && isNoComps)
     return false;
 
-  // Hide auctions unless toggle checked
   if (!showAuction && (row["Sale Type"] || "").toLowerCase().includes("auction"))
     return false;
 
@@ -299,6 +305,7 @@ function openModal(e) {
 function closeModal() {
   document.getElementById("compModal").style.display = "none";
 }
+
 
 
 
