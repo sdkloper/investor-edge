@@ -300,10 +300,13 @@ function openModal(e) {
    
    const subjectBeds = subject["Beds"] || "-";
    
+   const fullBaths = subject["Bathrooms Full"] || 0;
+   const halfBaths = subject["Bathrooms Half"] || 0;
+   
    const subjectBaths =
-     (subject["Bathrooms Full"] || 0) +
-     "." +
-     (subject["Bathrooms Half"] || 0);
+     fullBaths || halfBaths
+       ? `${fullBaths}.${halfBaths}`
+       : "-";
    
    body.innerHTML = `
      <h3>Subject Property</h3>
@@ -390,6 +393,7 @@ window.addEventListener("click", function(event) {
     modal.style.display = "none";
   }
 });
+
 
 
 
