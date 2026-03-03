@@ -291,20 +291,47 @@ function openModal(e) {
   const modal = document.getElementById("compModal");
   const body = document.getElementById("modalBody");
 
+  /* ============================= */
+  /* SUBJECT PROPERTY */
+  /* ============================= */
+
   body.innerHTML = `
     <h3>Subject Property</h3>
+
     <p>
-      <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${subject.MLS}" target="_blank">
-        ${subject.Address}
-      </a>
+      <strong>
+        <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${subject.MLS}" target="_blank">
+          ${subject.Address || ""}
+        </a>
+      </strong>
     </p>
-    <p>List Price: ${formatCurrency(subject["List Price"])}</p>
-    <p>ARV: ${subject.ARV}</p>
+
+    <p>
+      List Price: ${formatCurrency(subject["List Price"])}  ||  
+      ARV: ${
+        subject.ARV && subject.ARV !== "No Comps"
+          ? formatCurrency(subject.ARV)
+          : subject.ARV || "-"
+      }
+    </p>
+
+    <p>
+      ${subject["SqFt"] || subject["PR AbvFinSQFT"] || "-"} SqFt  ||  
+      ${subject.Beds || "-"} Beds | 
+      ${(subject["Bathrooms Full"] || 0)}.${(subject["Bathrooms Half"] || 0)} Baths  ||  
+      DOM ${subject.CDOM || "-"}
+    </p>
+
     <hr>
+
     <h3>Comparable Sales</h3>
   `;
 
-  if (compData.length === 0) {
+  /* ============================= */
+  /* COMPS */
+  /* ============================= */
+
+  if (!compData || compData.length === 0) {
     body.innerHTML += `<p>No comparable sales available.</p>`;
   } else {
     compData.forEach((comp) => {
@@ -315,10 +342,12 @@ function openModal(e) {
               ${comp.Address || ""}
             </a>
           </strong><br>
-          ${comp["PR AbvFinSQFT"] || ""} SqFt<br>
-          ${comp.Beds || ""} Beds |
-          ${(comp["Bathrooms Full"] || 0)}.${(comp["Bathrooms Half"] || 0)} Baths<br>
-          Sold: ${formatCurrency(comp["Close Price"])}
+
+          ${comp["PR AbvFinSQFT"] || "-"} SqFt  ||  
+          ${comp.Beds || "-"} Beds | 
+          ${(comp["Bathrooms Full"] || 0)}.${(comp["Bathrooms Half"] || 0)} Baths  ||  
+          Sold: ${formatCurrency(comp["Close Price"])}  ||  
+          DOM ${comp.CDOM || "-"}
         </p>
         <hr>
       `;
@@ -328,9 +357,6 @@ function openModal(e) {
   modal.style.display = "block";
 }
 
-function closeModal() {
-  document.getElementById("compModal").style.display = "none";
-}
 
 
 
