@@ -102,8 +102,11 @@ function renderTable() {
            ${compCount}
         </a>
       </td>
-      <td>${formatCurrency(row["Rent"])}</td>
-      <td>${grm !== null ? grm.toFixed(1) : "-"}</td>
+
+<td>${row.CDOM ? row.CDOM : "-"}</td>
+
+<td>${formatCurrency(row["Rent"])}</td>
+<td>${grm !== null ? grm.toFixed(1) : "-"}</td>
     `;
 
     fragment.appendChild(tr);
@@ -324,6 +327,7 @@ function openModal(e) {
 function closeModal() {
   document.getElementById("compModal").style.display = "none";
 }
+
 
 
 
