@@ -130,9 +130,10 @@ function populateCountyFilter() {
 
 function applyFilters(row) {
 
-  // Skip completely empty rows
   if (!row.MLS || row.MLS.trim() === "")
     return false;
+
+  const selectedCounty = document.getElementById("countyFilter").value;
 
   const maxPrice = parseNumber(document.getElementById("priceFilter").value);
   const minDiff = parseNumber(document.getElementById("diffFilter").value);
@@ -142,11 +143,10 @@ function applyFilters(row) {
   const showAuction = document.getElementById("showAuction").checked;
   const hideWaterfront = document.getElementById("hideWaterfront").checked;
 
-  // Detect No Comps by ARV not being numeric
-  const arvNumber = parseNumber(row.ARV);
-  const isNoComps = !arvNumber;
+  if (selectedCounty && row.County !== selectedCounty)
+    return false;
 
-  if (!showNoComps && isNoComps)
+  if (!showNoComps && row.ARV && row.ARV.toString().trim() === "No Comps")
     return false;
 
   if (!showAuction && (row["Sale Type"] || "").toLowerCase().includes("auction"))
@@ -318,6 +318,7 @@ function openModal(e) {
 function closeModal() {
   document.getElementById("compModal").style.display = "none";
 }
+
 
 
 
