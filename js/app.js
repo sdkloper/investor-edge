@@ -86,7 +86,13 @@ function renderTable() {
       <td>${row.Address || ""}</td>
       <td>${row.County || ""}</td>
       <td>${formatCurrency(row["List Price"])}</td>
-      <td>${row.ARV || ""}</td>
+      <td>
+        ${
+          row.ARV && row.ARV.toString().trim() !== "No Comps"
+            ? formatCurrency(row.ARV)
+            : row.ARV || ""
+        }
+</td>
       <td>${formatCurrency(row["Diff"])}</td>
       <td>${formatPercent(row["% Below ARV"])}</td>
       <td>
@@ -318,6 +324,7 @@ function openModal(e) {
 function closeModal() {
   document.getElementById("compModal").style.display = "none";
 }
+
 
 
 
