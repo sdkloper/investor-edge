@@ -291,51 +291,49 @@ function openModal(e) {
   const modal = document.getElementById("compModal");
   const body = document.getElementById("modalBody");
 
+
   /* ============================= */
-  /* SUBJECT PROPERTY */
-  /* ============================= */
+/* SUBJECT PROPERTY */
+/* ============================= */
 
-  const subjectSqft =
-    subject["PR AbvFinSQFT"] ||
-    subject["SqFt"] ||
-    "-";
-
-  const subjectBeds = subject["Beds"] || "-";
-
-  const subjectBaths =
-    (subject["Bathrooms Full"] || 0) +
-    "." +
-    (subject["Bathrooms Half"] || 0);
-
-  body.innerHTML = `
-    <h3>Subject Property</h3>
-
-    <p>
-      <strong>
-        <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${subject.MLS}" target="_blank">
-          ${subject.Address || ""}
-        </a>
-      </strong>
-    </p>
-
-    <p>
-      List Price: ${formatCurrency(subject["List Price"])}  ||  
-      ARV: ${
-        subject.ARV && subject.ARV !== "No Comps"
-          ? formatCurrency(subject.ARV)
-          : subject.ARV || "-"
-      }
-    </p>
-
-    <p>
-      ${subjectSqft} SqFt  ||  
-      ${subjectBeds} Beds | ${subjectBaths} Baths  ||  
-      DOM ${subject.CDOM || "-"}
-    </p>
-
-    <hr>
-    <h3>Comparable Sales</h3>
-  `;
+   const subjectSqft = subject["SQFT"] || "-";
+   
+   const subjectBeds = subject["Beds"] || "-";
+   
+   const subjectBaths =
+     (subject["Bathrooms Full"] || 0) +
+     "." +
+     (subject["Bathrooms Half"] || 0);
+   
+   body.innerHTML = `
+     <h3>Subject Property</h3>
+   
+     <p>
+       <strong>
+         <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${subject.MLS}" target="_blank">
+           ${subject.Address || ""}
+         </a>
+       </strong>
+     </p>
+   
+     <p>
+       List Price: ${formatCurrency(subject["List Price"])}  ||  
+       ARV: ${
+         subject.ARV && subject.ARV !== "No Comps"
+           ? formatCurrency(subject.ARV)
+           : subject.ARV || "-"
+       }
+     </p>
+   
+     <p>
+       ${subjectSqft} SqFt  ||  
+       ${subjectBeds} Beds | ${subjectBaths} Baths  ||  
+       DOM ${subject.CDOM || "-"}
+     </p>
+   
+     <hr>
+     <h3>Comparable Sales</h3>
+   `;
 
   /* ============================= */
   /* COMPS */
@@ -392,6 +390,7 @@ window.addEventListener("click", function(event) {
     modal.style.display = "none";
   }
 });
+
 
 
 
