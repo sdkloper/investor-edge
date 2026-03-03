@@ -114,6 +114,19 @@ function renderTable() {
 }
 
 /* ============================= */
+function populateCountyFilter() {
+  const counties = [...new Set(deals.map(d => d.County).filter(Boolean))].sort();
+  const select = document.getElementById("countyFilter");
+
+  select.innerHTML = '<option value="">All Counties</option>';
+
+  counties.forEach(c => {
+    const opt = document.createElement("option");
+    opt.value = c;
+    opt.textContent = c;
+    select.appendChild(opt);
+  });
+}
 
 function applyFilters(row) {
 
@@ -305,6 +318,7 @@ function openModal(e) {
 function closeModal() {
   document.getElementById("compModal").style.display = "none";
 }
+
 
 
 
