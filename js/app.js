@@ -52,6 +52,7 @@ function authenticateUser() {
 
       if (match) {
         sessionStorage.setItem("investorAuth", "true");
+        updateLastLogin(user);
         showApp();
       } else {
         document.getElementById("loginError").textContent =
@@ -472,6 +473,17 @@ window.addEventListener("click", function(event) {
   }
 });
 
+const LOGIN_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbw767VP1uUIPk3RGgxJJnPi3kymTYyhkZiRqN-6z3T27SINQzrK6fGUI7sUdFS7Q0zBtA/exec";
+
+function updateLastLogin(userId) {
+  fetch(LOGIN_WEBHOOK_URL, {
+    method: "POST",
+    body: JSON.stringify({ userId: userId }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  }).catch(err => console.error("Login timestamp error:", err));
+}
 
 
 
