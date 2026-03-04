@@ -158,7 +158,8 @@ function populateCountyFilter() {
      const maxPrice = parseNumber(document.getElementById("priceFilter").value);
      const minDiff = parseNumber(document.getElementById("diffFilter").value);
      const minPercent = parseFloat(document.getElementById("percentFilter").value);
-   
+     
+     const hideCondo = document.getElementById("hideCondo").checked;
      const showNoComps = document.getElementById("showNoComps").checked;
      const showAuction = document.getElementById("showAuction").checked;
      const hideWaterfront = document.getElementById("hideWaterfront").checked;
@@ -174,7 +175,10 @@ function populateCountyFilter() {
          return false;
      }
    
-     if (!showNoComps && row.ARV && row.ARV.toString().trim() === "No Comps")
+     if (hideCondo && row["Structure Type"] === "CONDO")
+       return false;
+      
+      if (!showNoComps && row.ARV && row.ARV.toString().trim() === "No Comps")
        return false;
    
      if (!showAuction && (row["Sale Type"] || "").toLowerCase().includes("auction"))
@@ -409,6 +413,7 @@ window.addEventListener("click", function(event) {
     modal.style.display = "none";
   }
 });
+
 
 
 
