@@ -21,6 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .getElementById("applyFilters")
     .addEventListener("click", renderTable);
+   
+  document
+     .getElementById("countyFilter")
+     .addEventListener("change", renderTable);
 
   document
     .getElementById("closeModal")
@@ -141,43 +145,53 @@ function populateCountyFilter() {
   });
 }
 
-function applyFilters(row) {
-
-  if (!row.MLS || row.MLS.trim() === "")
-    return false;
-
-  const selectedCounty = document.getElementById("countyFilter").value;
-
-  const maxPrice = parseNumber(document.getElementById("priceFilter").value);
-  const minDiff = parseNumber(document.getElementById("diffFilter").value);
-  const minPercent = parseFloat(document.getElementById("percentFilter").value);
-
-  const showNoComps = document.getElementById("showNoComps").checked;
-  const showAuction = document.getElementById("showAuction").checked;
-  const hideWaterfront = document.getElementById("hideWaterfront").checked;
-
-  if (selectedCounty && row.County !== selectedCounty)
-    return false;
-
-  if (!showNoComps && row.ARV && row.ARV.toString().trim() === "No Comps")
-    return false;
-
-  if (!showAuction && (row["Sale Type"] || "").toLowerCase().includes("auction"))
-    return false;
-
-  if (hideWaterfront && row.Waterfront === "TRUE")
-    return false;
-
-  if (maxPrice && parseNumber(row["List Price"]) > maxPrice)
-    return false;
-
-  if (minDiff && parseNumber(row["Diff"]) < minDiff)
-    return false;
-
-  if (!isNaN(minPercent) && parseNumber(row["% Below ARV"]) < minPercent)
-    return false;
-
-  return true;
+   function applyFilters(row) {
+   
+     if (!row.MLS || row.MLS.trim() === "")
+       return false;
+   
+     const selectedCounty = document.getElementById("countyFilter").value;
+     const zipInput = document.getElementById("zipFilter").value.trim();
+   
+     const maxPrice = parseNumber(document.getElementById("priceFilter").value);
+     const minDiff = parseNumber(document.getElementById("diffFilter").value);
+     const minPercent = parseFloat(document.getElementById("percentFilter").value);
+   
+     const showNoComps = document.getElementById("showNoComps").checked;
+     const showAuction = document.getElementById("showAuction").checked;
+     const hideWaterfront = document.getElementById("hideWaterfront").checked;
+   
+     if (selectedCounty && row.County !== selectedCounty)
+       return false;
+   
+     // ZIP filter
+     if (zipInput) {
+       const zipArray = zipInput.split(",").map(z => z.trim());
+       const rowZipMatch = (row.Address || "").match(/\b\d{5}\b/);
+       if (!rowZipMatch || !zipArray.includes(rowZipMatch[0]))
+         return false;
+     }
+   
+     if (!showNoComps && row.ARV && row.ARV.toString().trim() === "No Comps")
+       return false;
+   
+     if (!showAuction && (row["Sale Type"] || "").toLowerCase().includes("auction"))
+       return false;
+   
+     if (hideWaterfront && row.Waterfront === "TRUE")
+       return false;
+   
+     if (maxPrice && parseNumber(row["List Price"]) > maxPrice)
+       return false;
+   
+     if (minDiff && parseNumber(row["Diff"]) < minDiff)
+       return false;
+   
+     if (!isNaN(minPercent) && parseNumber(row["% Below ARV"]) < minPercent)
+       return false;
+   
+     return true;
+   }
 }
 
 /* ============================= */
@@ -393,6 +407,7 @@ window.addEventListener("click", function(event) {
     modal.style.display = "none";
   }
 });
+
 
 
 
