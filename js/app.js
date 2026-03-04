@@ -192,7 +192,7 @@ function populateCountyFilter() {
    
      return true;
    }
-}
+
 
 /* ============================= */
 /* SORT */
@@ -407,6 +407,7 @@ window.addEventListener("click", function(event) {
     modal.style.display = "none";
   }
 });
+
 
 
 
