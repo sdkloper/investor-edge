@@ -12,6 +12,19 @@
 </head>
 
 <body>
+<div id="loginScreen" class="login-container">
+  <h2>Investor Edge Login</h2>
+
+  <input type="text" id="loginUser" placeholder="User ID">
+  <input type="password" id="loginPass" placeholder="Password">
+
+  <button id="loginBtn">Login</button>
+
+  <p id="loginError" class="login-error"></p>
+</div>
+
+<div id="appContainer" style="display:none;">
+  <!-- EVERYTHING ELSE ON YOUR SITE WRAPPED INSIDE THIS -->
 
 <header>
     <h1>Saul Kloper – Investor Edge</h1>
@@ -98,6 +111,7 @@
 </div>
 
 <script src="js/app.js?v=1400"></script>
+    </div>
 </body>
 </html>
 <!-- force deploy -->
