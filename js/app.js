@@ -2,6 +2,60 @@
 /* =========================================
    INVESTOR EDGE - ENHANCED UX VERSION
    ========================================= */
+const USER_SHEET_URL = "https://docs.google.com/spreadsheets/d/198ASh4Lh27lRk_ZOMmYJx0cCs3jIWgO1bID-COk1MEA/export?format=csv";
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  if (sessionStorage.getItem("investorAuth") === "true") {
+    showApp();
+  } else {
+    showLogin();
+  }
+
+  document.getElementById("loginBtn")
+    .addEventListener("click", authenticateUser);
+});
+
+function showLogin() {
+  document.getElementById("loginScreen").style.display = "block";
+  document.getElementById("appContainer").style.display = "none";
+}
+
+function showApp() {
+  document.getElementById("loginScreen").style.display = "none";
+  document.getElementById("appContainer").style.display = "block";
+
+  loadCSV(); // load deals after auth
+}
+
+function authenticateUser() {
+
+  const user = document.getElementById("loginUser").value.trim();
+  const pass = document.getElementById("loginPass").value.trim();
+
+  Papa.parse(USER_SHEET_URL, {
+    download: true,
+    header: true,
+    complete: function(results) {
+
+      const users = results.data;
+
+      const match = users.find(u =>
+        u.UserID === user &&
+        u.Password === pass &&
+        u.Active === "TRUE"
+      );
+
+      if (match) {
+        sessionStorage.setItem("investorAuth", "true");
+        showApp();
+      } else {
+        document.getElementById("loginError").textContent =
+          "Invalid credentials.";
+      }
+    }
+  });
+}
 
 const CSV_URL =
   "https://docs.google.com/spreadsheets/d/1s1h2TRyKsFkqpr-yW6yps-yh-AUTDW8ZkWwh8mYDfiY/export?format=csv&gid=0&t=" +
@@ -413,6 +467,7 @@ window.addEventListener("click", function(event) {
     modal.style.display = "none";
   }
 });
+
 
 
 
