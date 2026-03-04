@@ -83,13 +83,15 @@ function renderTable() {
 
    tr.innerHTML = `
      <td>${icons}
-       <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${row.MLS}" target="_blank">
-         ${row.MLS}
-       </a>
-     </td>
-   
-     <td>${row.Address || ""}</td>
-     <td>${row.County || ""}</td>
+        <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${row.MLS}" target="_blank">
+          ${row.MLS}
+        </a>
+      </td>
+      
+      <td>${row["Structure Type"] || "-"}</td>
+      
+      <td>${row.Address || ""}</td>
+      <td>${row.County || ""}</td>
      <td>${formatCurrency(row["List Price"])}</td>
    
      <td>
@@ -407,6 +409,7 @@ window.addEventListener("click", function(event) {
     modal.style.display = "none";
   }
 });
+
 
 
 
