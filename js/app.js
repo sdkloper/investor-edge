@@ -20,6 +20,10 @@ function showLogin() {
   document.getElementById("loginScreen").style.display = "block";
   document.getElementById("appContainer").style.display = "none";
 }
+function logout() {
+  sessionStorage.removeItem("investorAuth");
+  location.reload();
+}
 
 function showApp() {
   document.getElementById("loginScreen").style.display = "none";
@@ -467,6 +471,7 @@ window.addEventListener("click", function(event) {
     modal.style.display = "none";
   }
 });
+
 
 
 
