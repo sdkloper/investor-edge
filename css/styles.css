@@ -244,35 +244,41 @@ th, td {
   border-bottom: 1px solid #333;
 }
 /* ======================================
-   ANALYSIS PAGE INPUT OVERRIDES
-   ====================================== */
-
-.analysis-page .form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.analysis-page .field-help {
-  font-size: 12px;
-  margin-top: 6px;
-  color: #777;
-}
+   ANALYSIS PAGE - MATCH DEALS STYLING
+====================================== */
 
 .analysis-page input,
 .analysis-page select {
   background: #ffffff;
-  color: #111;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 10px;
+  color: #222;
+  border: 1px solid #ddd;
 }
 
 .analysis-page input:focus,
 .analysis-page select:focus {
   border-color: #1db954;
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(29,185,84,0.15);
+  box-shadow: none;
 }
 
+.analysis-page .card {
+  background: #ffffff;
+  border: 1px solid #e6e6e6;
+}
 
+.analysis-page .summary-metrics {
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
+}
 
+.analysis-page .metric {
+  font-weight: 500;
+}
+
+.analysis-page .green {
+  color: #1db954;
+}
+
+.analysis-page .red {
+  color: #d64545;
+}
