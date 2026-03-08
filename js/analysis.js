@@ -67,28 +67,30 @@ async function analyzeProperty() {
   errorCard.classList.add("hidden");
   results.classList.add("hidden");
 
-  const payload = {
-    address: document.getElementById("address").value,
-    structure: document.getElementById("structure").value,
-    beds: Number(document.getElementById("beds").value),
-    fullBath: Number(document.getElementById("fullBath").value),
-    halfBath: Number(document.getElementById("halfBath").value),
-    sqft: Number(document.getElementById("sqft").value),
-    waterfront: document.getElementById("waterfront").value,
-    garageSpaces: Number(document.getElementById("garage").value === "1"
+  const formData = new URLSearchParams();
+
+  formData.append("address", document.getElementById("address").value);
+  formData.append("structure", document.getElementById("structure").value);
+  formData.append("beds", document.getElementById("beds").value);
+  formData.append("fullBath", document.getElementById("fullBath").value);
+  formData.append("halfBath", document.getElementById("halfBath").value);
+  formData.append("sqft", document.getElementById("sqft").value);
+  formData.append("waterfront", document.getElementById("waterfront").value);
+  formData.append("garageSpaces",
+    document.getElementById("garage").value === "1"
       ? document.getElementById("garageSpaces").value || 1
-      : 0),
-    listPrice: Number(document.getElementById("listPrice").value || 0)
-  };
+      : 0
+  );
+  formData.append("listPrice", document.getElementById("listPrice").value || 0);
 
   try {
 
     const response = await fetch(BACKEND_URL, {
-     method: "POST",
-     body: JSON.stringify(payload)
-   });
-   
-   const data = await response.json();
+      method: "POST",
+      body: formData
+    });
+
+    const data = await response.json();
 
     if (data.error) {
       showError(data.error);
