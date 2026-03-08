@@ -20,7 +20,30 @@ function initAutocomplete() {
   });
 
   autocomplete.addListener("place_changed", () => {
-    const place = autocomplete.getPlace();
+
+     const place = autocomplete.getPlace();
+   
+     if (!place.formatted_address) return;
+   
+     // Force the input field to hold the formatted value
+     document.getElementById("address").value = place.formatted_address;
+   
+     geoData.address = place.formatted_address;
+   
+     geoData.lat = place.geometry.location.lat();
+     geoData.lng = place.geometry.location.lng();
+   
+     place.address_components.forEach(comp => {
+       if (comp.types.includes("postal_code"))
+         geoData.zip = comp.long_name;
+   
+       if (comp.types.includes("administrative_area_level_2"))
+         geoData.county = comp.long_name;
+   
+       if (comp.types.includes("neighborhood"))
+         geoData.neighborhood = comp.long_name;
+     });
+});
 
     geoData.lat = place.geometry.location.lat();
     geoData.lng = place.geometry.location.lng();
@@ -69,7 +92,7 @@ async function analyzeProperty() {
 
   const formData = new URLSearchParams();
 
-  formData.append("address", document.getElementById("address").value);
+  formData.append("address", geoData.address || document.getElementById("address").value);
   formData.append("structure", document.getElementById("structure").value);
   formData.append("beds", document.getElementById("beds").value);
   formData.append("fullBath", document.getElementById("fullBath").value);
