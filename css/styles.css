@@ -173,8 +173,8 @@ input, select {
   padding: 10px;
   border-radius: 6px;
   border: 1px solid #333;
-  background: #1c1c1c;
-  color: white;
+  background: #ffffff;
+  color: #111;
 }
 
 .primary-btn {
@@ -243,5 +243,6 @@ th, td {
   text-align: left;
   border-bottom: 1px solid #333;
 }
+
 
 
