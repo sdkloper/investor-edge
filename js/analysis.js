@@ -83,13 +83,12 @@ async function analyzeProperty() {
 
   try {
 
-    await fetch(BACKEND_URL, {
+    const response = await fetch(BACKEND_URL, {
      method: "POST",
-     mode: "no-cors",
      body: JSON.stringify(payload)
    });
-
-    const data = await response.json();
+   
+   const data = await response.json();
 
     if (data.error) {
       showError(data.error);
@@ -148,17 +147,18 @@ function populateCompTable(comps) {
   tbody.innerHTML = "";
 
   comps.forEach(comp => {
+
     const tr = document.createElement("tr");
 
     tr.innerHTML = `
-      <td>${comp.address || ""}</td>
-      <td>${formatCurrency(comp.closePrice)}</td>
-      <td>${comp.sqft || ""}</td>
-      <td>${comp.beds || ""}</td>
-      <td>${comp.fullBath || ""}</td>
-      <td>${comp.halfBath || ""}</td>
-      <td>${comp.distance || ""}</td>
-      <td>${formatCurrency(comp.adjustedPrice)}</td>
+      <td>${comp["Address"] || ""}</td>
+      <td>${formatCurrency(comp["Close Price"])}</td>
+      <td>${comp["PR AbvFinSQFT"] || ""}</td>
+      <td>${comp["Beds"] || ""}</td>
+      <td>${comp["Bathrooms Full"] || ""}</td>
+      <td>${comp["Bathrooms Half"] || ""}</td>
+      <td>${comp["Distance"] || ""}</td>
+      <td>${formatCurrency(comp["Adjusted Price"] || 0)}</td>
     `;
 
     tbody.appendChild(tr);
