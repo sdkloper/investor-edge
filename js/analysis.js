@@ -1,4 +1,12 @@
 /* ===============================
+   AUTH CHECK
+================================ */
+
+if (sessionStorage.getItem("investorAuth") !== "true") {
+  window.location.href = "index.html"; // your login page
+}
+
+/* ===============================
    CONFIG
 ================================ */
 
