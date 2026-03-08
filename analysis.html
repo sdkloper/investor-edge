@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investor Edge | Property Analysis</title>
+
+<link rel="stylesheet" href="css/styles.css">
+
+<!-- Google Places API -->
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places"
+  defer
+></script>
+
+</head>
+<body>
+
+<header class="page-header">
+  <h1>Property Analysis</h1>
+  <p class="subtitle">
+    Analyze any property using Investor Edge Valuation Engine
+  </p>
+</header>
+
+<div class="container">
+
+  <!-- INPUT CARD -->
+  <div class="card input-card">
+
+    <div class="form-grid">
+
+      <div class="form-group full-width">
+        <label>Property Address</label>
+        <input type="text" id="address" placeholder="Start typing address..." autocomplete="off">
+      </div>
+
+      <div class="form-group">
+        <label>Structure Type</label>
+        <select id="structure">
+          <option value="Detached">Detached</option>
+          <option value="TH">TH</option>
+          <option value="Condo">Condo</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Bedrooms</label>
+        <input type="number" id="beds" min="0">
+      </div>
+
+      <div class="form-group">
+        <label>Full Bathrooms</label>
+        <input type="number" id="fullBath" min="0">
+      </div>
+
+      <div class="form-group">
+        <label>Half Bathrooms</label>
+        <input type="number" id="halfBath" min="0">
+      </div>
+
+      <div class="form-group">
+        <label>Square Feet</label>
+        <input type="number" id="sqft" min="0">
+      </div>
+
+      <div class="form-group">
+        <label>Waterfront</label>
+        <select id="waterfront">
+          <option value="FALSE">No</option>
+          <option value="TRUE">Yes</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Garage</label>
+        <select id="garage">
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </div>
+
+      <div class="form-group hidden" id="garageSpacesGroup">
+        <label>Garage Spaces</label>
+        <input type="number" id="garageSpaces" min="0">
+      </div>
+
+      <div class="form-group">
+        <label>List Price (Optional)</label>
+        <input type="number" id="listPrice" min="0">
+      </div>
+
+    </div>
+
+    <button id="analyzeBtn" class="primary-btn">
+      Analyze Property
+    </button>
+
+    <div id="loading" class="loading hidden">
+      Analyzing...
+    </div>
+
+  </div>
+
+  <!-- RESULTS -->
+  <div id="resultsSection" class="hidden">
+
+    <div id="summaryCard" class="card summary-card"></div>
+
+    <div class="card">
+      <h3>Comparable Sales</h3>
+      <div class="table-wrapper">
+        <table id="compTable">
+          <thead>
+            <tr>
+              <th>Address</th>
+              <th>Close Price</th>
+              <th>SqFt</th>
+              <th>Beds</th>
+              <th>Full</th>
+              <th>Half</th>
+              <th>Distance</th>
+              <th>Adj Price</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ERROR -->
+  <div id="errorCard" class="card error-card hidden"></div>
+
+</div>
+
+<script src="js/analysis.js"></script>
+
+</body>
+</html>
