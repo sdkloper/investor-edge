@@ -59,7 +59,7 @@ function initAutocomplete() {
         geoData.neighborhood = comp.long_name;
     });
   });
-}
+
 
 window.initAutocomplete = initAutocomplete;
 
