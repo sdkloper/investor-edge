@@ -83,11 +83,11 @@ async function analyzeProperty() {
 
   try {
 
-    const response = await fetch(BACKEND_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
+    await fetch(BACKEND_URL, {
+     method: "POST",
+     mode: "no-cors",
+     body: JSON.stringify(payload)
+   });
 
     const data = await response.json();
 
