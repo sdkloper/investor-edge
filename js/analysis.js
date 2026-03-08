@@ -12,6 +12,7 @@ let autocomplete;
 let geoData = {};
 
 function initAutocomplete() {
+
   const input = document.getElementById("address");
 
   autocomplete = new google.maps.places.Autocomplete(input, {
@@ -19,36 +20,20 @@ function initAutocomplete() {
     componentRestrictions: { country: "us" }
   });
 
-  autocomplete.addListener("place_changed", () => {
+  autocomplete.addListener("place_changed", function () {
 
-     const place = autocomplete.getPlace();
-   
-     if (!place.formatted_address) return;
-   
-     // Force the input field to hold the formatted value
-     document.getElementById("address").value = place.formatted_address;
-   
-     geoData.address = place.formatted_address;
-   
-     geoData.lat = place.geometry.location.lat();
-     geoData.lng = place.geometry.location.lng();
-   
-     place.address_components.forEach(comp => {
-       if (comp.types.includes("postal_code"))
-         geoData.zip = comp.long_name;
-   
-       if (comp.types.includes("administrative_area_level_2"))
-         geoData.county = comp.long_name;
-   
-       if (comp.types.includes("neighborhood"))
-         geoData.neighborhood = comp.long_name;
-     });
-});
+    const place = autocomplete.getPlace();
 
+    if (!place || !place.formatted_address) return;
+
+    document.getElementById("address").value = place.formatted_address;
+
+    geoData.address = place.formatted_address;
     geoData.lat = place.geometry.location.lat();
     geoData.lng = place.geometry.location.lng();
 
-    place.address_components.forEach(comp => {
+    place.address_components.forEach(function (comp) {
+
       if (comp.types.includes("postal_code"))
         geoData.zip = comp.long_name;
 
@@ -58,8 +43,9 @@ function initAutocomplete() {
       if (comp.types.includes("neighborhood"))
         geoData.neighborhood = comp.long_name;
     });
-  });
 
+  });
+}
 
 window.initAutocomplete = initAutocomplete;
 
