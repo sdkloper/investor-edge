@@ -199,3 +199,7 @@ function formatCurrency(val) {
     maximumFractionDigits: 0
   });
 }
+document.getElementById("logoutBtn").addEventListener("click", function() {
+  sessionStorage.removeItem("investorAuth");
+  window.location.href = "index.html";
+});
