@@ -243,6 +243,36 @@ th, td {
   text-align: left;
   border-bottom: 1px solid #333;
 }
+/* ======================================
+   ANALYSIS PAGE INPUT OVERRIDES
+   ====================================== */
+
+.analysis-page .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.analysis-page .field-help {
+  font-size: 12px;
+  margin-top: 6px;
+  color: #777;
+}
+
+.analysis-page input,
+.analysis-page select {
+  background: #ffffff;
+  color: #111;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.analysis-page input:focus,
+.analysis-page select:focus {
+  border-color: #1db954;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(29,185,84,0.15);
+}
 
 
 
