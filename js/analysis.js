@@ -125,13 +125,14 @@ function displayResults(data) {
 
   summary.innerHTML = `
     <h2>${formatCurrency(data.arv)}</h2>
+
     <div class="summary-metrics">
-      <div class="metric">Rent: ${formatCurrency(data.rent)}</div>
-      <div class="metric ${data.diff >= 0 ? "green" : "red"}">
+      <div>Rent: ${formatCurrency(data.rent)}</div>
+      <div class="${data.diff >= 0 ? "green" : "red"}">
         Diff: ${formatCurrency(data.diff)}
       </div>
-      <div class="metric ${data.diff >= 0 ? "green" : "red"}">
-        ${data.diffPct}%
+      <div class="${data.diff >= 0 ? "green" : "red"}">
+        ${Number(data.diffPct).toFixed(2)}%
       </div>
     </div>
   `;
@@ -162,14 +163,19 @@ function populateCompTable(comps) {
     const tr = document.createElement("tr");
 
     tr.innerHTML = `
-      <td>${comp["Address"] || ""}</td>
+      <td>
+        <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${comp["MLS Number"] || ""}"
+           target="_blank">
+           ${comp["Address"] || ""}
+        </a>
+      </td>
       <td>${formatCurrency(comp["Close Price"])}</td>
       <td>${comp["PR AbvFinSQFT"] || ""}</td>
       <td>${comp["Beds"] || ""}</td>
       <td>${comp["Bathrooms Full"] || ""}</td>
       <td>${comp["Bathrooms Half"] || ""}</td>
-      <td>${comp["Distance"] || ""}</td>
-      <td>${formatCurrency(comp["Adjusted Price"] || 0)}</td>
+      <td>${comp["Distance"] ? comp["Distance"].toFixed(2) + " mi" : ""}</td>
+      <td>${formatCurrency(comp["adjustedPrice"] || comp["Adjusted Price"] || 0)}</td>
     `;
 
     tbody.appendChild(tr);
