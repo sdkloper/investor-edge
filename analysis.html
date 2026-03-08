@@ -31,67 +31,67 @@
 
     <div class="form-grid">
 
-      <div class="form-group full-width">
-        <label>Property Address</label>
-        <input type="text" id="address" placeholder="Start typing address..." autocomplete="off">
-      </div>
+  <div class="form-group full-width">
+    <input type="text" id="address" placeholder="Enter property address">
+    <div class="field-help">Property Address</div>
+  </div>
 
-      <div class="form-group">
-        <label>Structure Type</label>
-        <select id="structure">
-          <option value="Detached">Detached</option>
-          <option value="TH">TH</option>
-          <option value="Condo">Condo</option>
-        </select>
-      </div>
+  <div class="form-group">
+    <select id="structure">
+      <option value="Detached">Detached</option>
+      <option value="TH">Townhouse (TH)</option>
+      <option value="Condo">Condo</option>
+    </select>
+    <div class="field-help">Structure Type</div>
+  </div>
 
-      <div class="form-group">
-        <label>Bedrooms</label>
-        <input type="number" id="beds" min="0">
-      </div>
+  <div class="form-group">
+    <input type="number" id="beds" min="0">
+    <div class="field-help">Bedrooms</div>
+  </div>
 
-      <div class="form-group">
-        <label>Full Bathrooms</label>
-        <input type="number" id="fullBath" min="0">
-      </div>
+  <div class="form-group">
+    <input type="number" id="fullBath" min="0">
+    <div class="field-help">Full Bathrooms</div>
+  </div>
 
-      <div class="form-group">
-        <label>Half Bathrooms</label>
-        <input type="number" id="halfBath" min="0">
-      </div>
+  <div class="form-group">
+    <input type="number" id="halfBath" min="0">
+    <div class="field-help">Half Bathrooms</div>
+  </div>
 
-      <div class="form-group">
-        <label>Square Feet</label>
-        <input type="number" id="sqft" min="0">
-      </div>
+  <div class="form-group">
+    <input type="number" id="sqft" min="0">
+    <div class="field-help">Square Feet</div>
+  </div>
 
-      <div class="form-group">
-        <label>Waterfront</label>
-        <select id="waterfront">
-          <option value="FALSE">No</option>
-          <option value="TRUE">Yes</option>
-        </select>
-      </div>
+  <div class="form-group">
+    <select id="waterfront">
+      <option value="FALSE">No</option>
+      <option value="TRUE">Yes</option>
+    </select>
+    <div class="field-help">Waterfront</div>
+  </div>
 
-      <div class="form-group">
-        <label>Garage</label>
-        <select id="garage">
-          <option value="0">No</option>
-          <option value="1">Yes</option>
-        </select>
-      </div>
+  <div class="form-group">
+    <select id="garage">
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </select>
+    <div class="field-help">Garage</div>
+  </div>
 
-      <div class="form-group hidden" id="garageSpacesGroup">
-        <label>Garage Spaces</label>
-        <input type="number" id="garageSpaces" min="0">
-      </div>
+  <div class="form-group hidden" id="garageSpacesGroup">
+    <input type="number" id="garageSpaces" min="0">
+    <div class="field-help">Garage Spaces</div>
+  </div>
 
-      <div class="form-group">
-        <label>List Price (Optional)</label>
-        <input type="number" id="listPrice" min="0">
-      </div>
+  <div class="form-group">
+    <input type="number" id="listPrice" min="0">
+    <div class="field-help">List Price </div>
+  </div>
 
-    </div>
+</div>
 
     <button id="analyzeBtn" class="primary-btn">
       Analyze Property
