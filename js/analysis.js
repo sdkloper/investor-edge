@@ -6,6 +6,19 @@ if (sessionStorage.getItem("investorAuth") !== "true") {
   window.location.href = "index.html"; // your login page
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", function() {
+      sessionStorage.clear();
+      window.location.href = "index.html";
+    });
+  }
+
+});
+
 /* ===============================
    CONFIG
 ================================ */
@@ -199,7 +212,11 @@ function formatCurrency(val) {
     maximumFractionDigits: 0
   });
 }
-document.getElementById("logoutBtn").addEventListener("click", function() {
-  sessionStorage.removeItem("investorAuth");
-  window.location.href = "index.html";
-});
+const logoutBtn = document.getElementById("logoutBtn");
+
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", function() {
+    sessionStorage.clear();
+    window.location.href = "index.html";
+  });
+}
