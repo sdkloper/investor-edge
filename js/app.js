@@ -12,8 +12,15 @@ document.addEventListener("DOMContentLoaded", () => {
     showLogin();
   }
 
-  document.getElementById("loginBtn")
-    .addEventListener("click", authenticateUser);
+  const loginBtn = document.getElementById("loginBtn");
+  if (loginBtn) {
+    loginBtn.addEventListener("click", authenticateUser);
+  }
+
+  const logoutBtn = document.getElementById("logoutBtn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", logout);
+  }
 });
 
 function showLogin() {
@@ -21,8 +28,8 @@ function showLogin() {
   document.getElementById("appContainer").style.display = "none";
 }
 function logout() {
-  sessionStorage.removeItem("investorAuth");
-  location.reload();
+  sessionStorage.clear();
+  showLogin();
 }
 
 function showApp() {
@@ -486,6 +493,7 @@ function updateLastLogin(userId) {
     }
   }).catch(err => console.error("Login timestamp error:", err));
 }
+
 
 
 
