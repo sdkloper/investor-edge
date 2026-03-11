@@ -29,7 +29,14 @@
 <header>
     <h1>Saul Kloper – Investor Edge</h1>
     <p>Real-Time Investor Deal Finder with Proprietary ARV Calculator</p>
-     <P align="right"> <button onclick="logout()">Logout</button></P>
+    <div class="header-menu">
+    <div class="menu-left">
+      <a href="index.html" class="menu-btn active">Deals</a>
+      <a href="analysis.html" class="menu-btn">Comps</a>
+    </div>
+    <button id="logoutBtn" class="menu-btn logout-btn onclick="logout()">Logout</button>
+  </div>
+     
 </header>
 
 <section class="filters">
@@ -59,8 +66,8 @@
   </div>
 
   <label>
-    <input type="checkbox" id="hideCondo">
-    Hide Condos
+    <input type="checkbox" id="showCondo">
+    Show Condos
   </label>  
   <label><input type="checkbox" id="showAuction"> Show Auctions</label>
   <label><input type="checkbox" id="showNoComps"> Show No Comps</label>
@@ -112,7 +119,7 @@
   </div>
 </div>
 
-<script src="js/app.js?v=1900"></script>
+<script src="js/app.js?v=2000"></script>
     </div>
 </body>
 </html>
