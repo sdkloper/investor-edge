@@ -74,6 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Default hide auctions + no comps
   document.getElementById("showAuction").checked = false;
   document.getElementById("showNoComps").checked = false;
+  document.getElementById("showCondo").checked = false;
 
   loadCSV();
 
@@ -218,7 +219,7 @@ function populateCountyFilter() {
      const minDiff = parseNumber(document.getElementById("diffFilter").value);
      const minPercent = parseFloat(document.getElementById("percentFilter").value);
      
-     const hideCondo = document.getElementById("hideCondo").checked;
+     const showCondo = document.getElementById("showCondo").checked === true;
      const showNoComps = document.getElementById("showNoComps").checked;
      const showAuction = document.getElementById("showAuction").checked;
      const hideWaterfront = document.getElementById("hideWaterfront").checked;
@@ -234,8 +235,8 @@ function populateCountyFilter() {
          return false;
      }
    
-     if (hideCondo && row["Structure Type"] === "CONDO")
-       return false;
+     if (!showCondo && (row["Structure Type"] || "").toUpperCase() === "CONDO")
+        return false;
       
       if (!showNoComps && row.ARV && row.ARV.toString().trim() === "No Comps")
        return false;
@@ -485,6 +486,7 @@ function updateLastLogin(userId) {
     }
   }).catch(err => console.error("Login timestamp error:", err));
 }
+
 
 
 
