@@ -123,10 +123,28 @@ function calcCommission(price) {
 }
 
 // =====================
-// ESTIMATED SALE (NO ITERATION — MATCH SHEET)
+// SELLER COST FUNCTIONS
 // =====================
 
-// Step 1: estimate WITHOUT seller costs
+function calcSellerCosts(price) {
+
+  const fixed = 1000;
+
+  const taxes =
+    price * (rates.state + rates.county + rates.recordation);
+
+  return fixed + taxes;
+}
+
+function calcCommission(price) {
+  return price * commission;
+}
+
+// =====================
+// ESTIMATED SALE (EXACT PARITY)
+// =====================
+
+// Step 1: base (no seller costs)
 let estimatedSale =
 (
   purchase +
@@ -135,11 +153,11 @@ let estimatedSale =
   totalHolding
 ) * (1 + roiTarget);
 
-// Step 2: calculate components
+// Step 2: first pass seller + commission
 let sellerCosts = calcSellerCosts(estimatedSale);
 let commissionCost = calcCommission(estimatedSale);
 
-// Step 3: FINAL formula (MATCH YOUR SHEET EXACTLY)
+// Step 3: apply your formula
 estimatedSale =
 (
   purchase +
@@ -150,6 +168,9 @@ estimatedSale =
   commissionCost
 ) * (1 + roiTarget);
 
+// ✅ Step 4: FINAL correction (THIS WAS MISSING)
+sellerCosts = calcSellerCosts(estimatedSale);
+commissionCost = calcCommission(estimatedSale);
 
 
 // =====================
