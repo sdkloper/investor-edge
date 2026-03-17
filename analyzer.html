@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Flip Analyzer</title>
+
+<link rel="stylesheet" href="css/styles.css">
+
+</head>
+
+<body class="analysis-page">
+
+<header>
+<h1>Flip Deal Analyzer</h1>
+</header>
+
+<div class="container">
+
+<div class="card input-card">
+
+<h2>Purchase</h2>
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>County</label>
+<select id="county">
+<option>Baltimore County</option>
+<option>Anne Arundel County</option>
+<option>Carroll County</option>
+<option>Harford County</option>
+<option>Howard County</option>
+<option>Montgomery County</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Purchase Price</label>
+<input id="purchase" type="number">
+</div>
+
+<div class="form-group">
+<label>Rehab Budget</label>
+<input id="rehab" type="number">
+</div>
+
+<div class="form-group">
+<label>Holding Months</label>
+<input id="months" type="number" value="6">
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Financing</h2>
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>Financing Type</label>
+<select id="financeType">
+<option value="cash">Cash</option>
+<option value="hard">Hard Money</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Interest Rate %</label>
+<input id="rate" type="number" value="12">
+</div>
+
+<div class="form-group">
+<label>LTV %</label>
+<input id="ltv" type="number" value="90">
+</div>
+
+<div class="form-group">
+<label>Origination %</label>
+<input id="origination" type="number" value="2">
+</div>
+
+<div class="form-group">
+<label>Broker Fee ($)</label>
+<input id="brokerFee" type="number" value="0">
+</div>
+
+<div class="form-group">
+<label>Appraisal Fee ($)</label>
+<input id="appraisal" type="number" value="0">
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Holding Costs (Monthly)</h2>
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>Mortgage Payment (Auto)</label>
+<input id="mortgage" disabled>
+</div>
+
+<div class="form-group">
+<label>Property Taxes</label>
+<input id="taxes" type="number">
+</div>
+
+<div class="form-group">
+<label>Insurance</label>
+<input id="insurance" type="number">
+</div>
+
+<div class="form-group">
+<label>Utilities</label>
+<input id="utilities" type="number">
+</div>
+
+<div class="form-group">
+<label>Lawn</label>
+<input id="lawn" type="number">
+</div>
+
+<div class="form-group">
+<label>HOA</label>
+<input id="hoa" type="number">
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Sales</h2>
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>Desired ROI %</label>
+<input id="roi" type="number" value="12">
+</div>
+
+<div class="form-group">
+<label>Commission %</label>
+<input id="commission" type="number" value="5">
+</div>
+
+<div class="form-group full-width">
+<label>Override Sale Price (Optional)</label>
+<input id="saleOverride" type="number">
+</div>
+
+</div>
+
+<button class="primary-btn" onclick="analyzeDeal()">
+Analyze Deal
+</button>
+
+</div>
+
+<div class="card summary-card">
+
+<h2 id="profit">$0</h2>
+
+<div class="summary-metrics">
+
+<div class="metric">ROI: <span id="roiOut"></span></div>
+<div class="metric">Cash on Cash: <span id="cashRoi"></span></div>
+<div class="metric">Required Sale: <span id="requiredSale"></span></div>
+<div class="metric">Buyer Closing: <span id="buyerClose"></span></div>
+<div class="metric">Seller Closing: <span id="sellerClose"></span></div>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="js/analyzer.js"></script>
+
+</body>
+</html>
