@@ -20,8 +20,11 @@ const orig = +document.getElementById("origination").value / 100;
 const broker = +document.getElementById("brokerFee").value;
 const appraisal = +document.getElementById("appraisal").value;
 
-const taxes = +document.getElementById("taxes").value;
-const insurance = +document.getElementById("insurance").value;
+ 
+const annualTaxes = +document.getElementById("taxes").value;
+const taxes = annualTaxes / 12;
+const annualInsurance = +document.getElementById("insurance").value;
+const insurance = annualInsurance / 12;
 const utilities = +document.getElementById("utilities").value;
 const lawn = +document.getElementById("lawn").value;
 const hoa = +document.getElementById("hoa").value;
@@ -38,7 +41,7 @@ const rates = countyTaxRates[county];
 // LOAN + MORTGAGE
 // =====================
 
-let loan = purchase * ltv;
+let loan = (purchase + rehab) * ltv;
 
 let mortgage = 0;
 
@@ -87,30 +90,43 @@ const baseCosts =
 purchase + rehab + buyerClosing + totalHolding;
 
 // =====================
-// ESTIMATED SALE (YOUR FORMULA)
-// =====================
-
-let estimatedSale =
-baseCosts * (1 + roiTarget);
-
-// =====================
-// SELLER COSTS
+// SELLER COST FUNCTION
 // =====================
 
 function calcSellerCosts(price) {
 
-const fixed = 1000;
+  const fixed = 1000;
 
-const taxes =
-price * (rates.state + rates.county + rates.recordation);
+  const taxes =
+    price * (rates.state + rates.county + rates.recordation);
 
-const comm = price * commission;
+  const comm = price * commission;
 
-return fixed + taxes + comm;
+  return fixed + taxes + comm;
 }
 
-// refine once
-let sellerCosts = calcSellerCosts(estimatedSale);
+// =====================
+// ESTIMATED SALE (MATCH YOUR SHEET)
+// =====================
+
+// Step 1: rough estimate
+let roughSale = baseCosts * (1 + roiTarget);
+
+// Step 2: estimate seller costs from rough
+let sellerCosts = calcSellerCosts(roughSale);
+
+// Step 3: apply YOUR formula exactly
+let estimatedSale =
+(
+  purchase +
+  rehab +
+  buyerClosing +
+  totalHolding +
+  sellerCosts
+) * (1 + roiTarget);
+
+// Step 4: recalc seller costs using final price
+sellerCosts = calcSellerCosts(estimatedSale);
 
 estimatedSale =
 (baseCosts + sellerCosts) * (1 + roiTarget);
