@@ -18,7 +18,6 @@ const ltv = +document.getElementById("ltv").value / 100;
 const orig = +document.getElementById("origination").value / 100;
 
 const broker = +document.getElementById("brokerFee").value;
-const appraisal = +document.getElementById("appraisal").value;
 
  
 const annualTaxes = +document.getElementById("taxes").value;
@@ -72,7 +71,7 @@ const totalHolding = monthlyHolding * months;
 // =====================
 
 const buyerFixed =
-495 + 275 + 200 + 250 + 95 + 50 + 40 + 60 + 60 + 55;
+495 + 275 + 200 + 250 + 95 + 50 + 40 + 60 + 60 + 55 +650;
 
 // Title insurance
 const titleInsurance = purchase * 0.0065;
@@ -88,8 +87,7 @@ if (financeType === "hard") {
 
   lenderFees =
     (loan * orig) +   // origination
-    broker +
-    appraisal;
+    broker;
 
 }
 
@@ -115,13 +113,13 @@ function calcSellerCosts(price) {
   const fixed = 1000;
 
   const taxes =
-    Math.round(price * (rates.state + rates.county + rates.recordation));
+    price * (rates.state + rates.county + rates.recordation);
 
-  return fixed + taxes; // ❗ NO commission here
+  return fixed + taxes;
 }
 
 function calcCommission(price) {
-  return Math.round(price * commission);
+  return price * commission;
 }
 
 // =====================
