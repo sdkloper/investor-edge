@@ -152,13 +152,7 @@ estimatedSale =
   commissionCost
 ) * (1 + roiTarget);
 
-// Step 4: recalc seller costs using final price
-sellerCosts = calcSellerCosts(estimatedSale);
 
-estimatedSale =
-(baseCosts + sellerCosts) * (1 + roiTarget);
-
-sellerCosts = calcSellerCosts(estimatedSale);
 
 // =====================
 // FINAL SALE PRICE
