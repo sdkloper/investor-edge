@@ -114,15 +114,14 @@ function calcSellerCosts(price) {
 
   const fixed = 1000;
 
-  const taxRate =
-    rates.state + rates.county + rates.recordation;
+  const taxes =
+    Math.round(price * (rates.state + rates.county + rates.recordation));
 
-  // 🔥 ROUND LIKE EXCEL
-  const taxes = Math.round(price * taxRate);
+  return fixed + taxes; // ❗ NO commission here
+}
 
-  const comm = Math.round(price * commission);
-
-  return fixed + taxes + comm;
+function calcCommission(price) {
+  return Math.round(price * commission);
 }
 
 // =====================
@@ -138,17 +137,19 @@ let estimatedSale =
   totalHolding
 ) * (1 + roiTarget);
 
-// Step 2: calculate seller costs ONCE using that price
+// Step 2: calculate components
 let sellerCosts = calcSellerCosts(estimatedSale);
+let commissionCost = calcCommission(estimatedSale);
 
-// Step 3: final sale using YOUR formula
+// Step 3: FINAL formula (MATCH YOUR SHEET EXACTLY)
 estimatedSale =
 (
   purchase +
   rehab +
   buyerClosing +
   totalHolding +
-  sellerCosts
+  sellerCosts +
+  commissionCost
 ) * (1 + roiTarget);
 
 // Step 4: recalc seller costs using final price
@@ -172,7 +173,9 @@ const sale = override || estimatedSale;
 // NET + PROFIT
 // =====================
 
-const sellerFinal = calcSellerCosts(sale);
+const sellerFinal =
+  calcSellerCosts(sale) +
+  calcCommission(sale);
 
 const netSale = sale - sellerFinal;
 
