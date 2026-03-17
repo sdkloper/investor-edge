@@ -41,12 +41,18 @@ const rates = countyTaxRates[county];
 // LOAN + MORTGAGE
 // =====================
 
-let loan = (purchase + rehab) * ltv;
-
+let loan = 0;
 let mortgage = 0;
 
 if (financeType === "hard") {
+
+  loan = (purchase + rehab) * ltv;
+
   mortgage = loan * rate / 12;
+
+} else {
+  loan = 0;
+  mortgage = 0;
 }
 
 document.getElementById("mortgage").value =
@@ -62,25 +68,36 @@ mortgage + taxes + insurance + utilities + lawn + hoa;
 const totalHolding = monthlyHolding * months;
 
 // =====================
-// BUYER CLOSING
+// BUYER CLOSING (CORRECTED)
 // =====================
 
-const buyerFixed = 1580;
+const buyerFixed =
+495 + 275 + 200 + 250 + 95 + 50 + 40 + 60 + 60 + 55;
 
+// Title insurance
 const titleInsurance = purchase * 0.0065;
 
-const transfer =
+// Transfer taxes
+const transferTaxes =
 purchase * (rates.state + rates.county + rates.recordation);
 
+// Lender costs
 let lenderFees = 0;
 
 if (financeType === "hard") {
+
   lenderFees =
-    loan * orig + broker + appraisal;
+    (loan * orig) +   // origination
+    broker +
+    appraisal;
+
 }
 
 const buyerClosing =
-buyerFixed + titleInsurance + transfer + lenderFees;
+buyerFixed +
+titleInsurance +
+transferTaxes +
+lenderFees;
 
 // =====================
 // PRE-COSTS
