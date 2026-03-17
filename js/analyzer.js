@@ -114,26 +114,35 @@ function calcSellerCosts(price) {
 
   const fixed = 1000;
 
-  const taxes =
-    price * (rates.state + rates.county + rates.recordation);
+  const taxRate =
+    rates.state + rates.county + rates.recordation;
 
-  const comm = price * commission;
+  // 🔥 ROUND LIKE EXCEL
+  const taxes = Math.round(price * taxRate);
+
+  const comm = Math.round(price * commission);
 
   return fixed + taxes + comm;
 }
 
 // =====================
-// ESTIMATED SALE (MATCH YOUR SHEET)
+// ESTIMATED SALE (NO ITERATION — MATCH SHEET)
 // =====================
 
-// Step 1: rough estimate
-let roughSale = baseCosts * (1 + roiTarget);
-
-// Step 2: estimate seller costs from rough
-let sellerCosts = calcSellerCosts(roughSale);
-
-// Step 3: apply YOUR formula exactly
+// Step 1: estimate WITHOUT seller costs
 let estimatedSale =
+(
+  purchase +
+  rehab +
+  buyerClosing +
+  totalHolding
+) * (1 + roiTarget);
+
+// Step 2: calculate seller costs ONCE using that price
+let sellerCosts = calcSellerCosts(estimatedSale);
+
+// Step 3: final sale using YOUR formula
+estimatedSale =
 (
   purchase +
   rehab +
