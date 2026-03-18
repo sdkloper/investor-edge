@@ -1,3 +1,12 @@
+function getNumericValue(id) {
+  const el = document.getElementById(id);
+  if (!el) return 0;
+
+  return parseFloat(
+    el.value.replace(/[^0-9]/g, "")
+  ) || 0;
+}
+
 function formatCurrencyInput(input) {
 
   let raw = input.value;
@@ -123,24 +132,6 @@ const baseCosts =
 purchase + rehab + buyerClosing + totalHolding;
 
 // =====================
-// SELLER COST FUNCTION
-// =====================
-
-function calcSellerCosts(price) {
-
-  const fixed = 1000;
-
-  const taxes =
-    price * (rates.state + rates.county + rates.recordation);
-
-  return fixed + taxes;
-}
-
-function calcCommission(price) {
-  return price * commission;
-}
-
-// =====================
 // SELLER COST FUNCTIONS
 // =====================
 
@@ -195,8 +186,7 @@ commissionCost = calcCommission(estimatedSale);
 // FINAL SALE PRICE
 // =====================
 
-const override =
-+document.getElementById("saleOverride").value;
+const override = getNumericValue("saleOverride");
 
 const sale = override || estimatedSale;
 
@@ -249,6 +239,8 @@ document.getElementById("buyerClose").innerText =
 document.getElementById("sellerClose").innerText =
 "$" + Math.round(sellerFinal).toLocaleString();
 
+  //
+
 window.addEventListener("DOMContentLoaded", () => {
 
   const currencyFields = [
@@ -271,6 +263,12 @@ window.addEventListener("DOMContentLoaded", () => {
     input.addEventListener("blur", function () {
       formatCurrencyInput(input);
     });
+
+    // 🔥 Optional (recommended UX)
+    input.addEventListener("focus", function () {
+      input.value = input.value.replace(/[^0-9]/g, "");
+    });
+
   });
 
 });
