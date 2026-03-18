@@ -1,20 +1,18 @@
 function formatCurrencyInput(input) {
 
-  let value = input.value.replace(/[^0-9]/g, "");
+  let raw = input.value;
 
-  if (!value) {
-    input.value = "";
-    return;
-  }
+  if (!raw) return; // 🔥 do nothing if empty
+
+  let value = raw.replace(/[^0-9]/g, "");
+
+  if (!value) return; // 🔥 prevents clearing field
 
   let number = parseInt(value, 10);
 
+  if (isNaN(number)) return;
+
   input.value = "$" + number.toLocaleString();
-}
-function getNumericValue(id) {
-  return parseFloat(
-    document.getElementById(id).value.replace(/[^0-9]/g, "")
-  ) || 0;
 }
 
 const countyTaxRates = {
@@ -251,34 +249,28 @@ document.getElementById("buyerClose").innerText =
 document.getElementById("sellerClose").innerText =
 "$" + Math.round(sellerFinal).toLocaleString();
 
-}
-const currencyFields = [
-  "purchase",
-  "rehab",
-  "brokerFee",
-  "utilities",
-  "lawn",
-  "hoa",
-  "taxes",
-  "insurance",
-  "saleOverride"
-];
+window.addEventListener("DOMContentLoaded", () => {
 
-currencyFields.forEach(id => {
-  const input = document.getElementById(id);
+  const currencyFields = [
+    "purchase",
+    "rehab",
+    "brokerFee",
+    "utilities",
+    "lawn",
+    "hoa",
+    "taxes",
+    "insurance",
+    "saleOverride"
+  ];
 
-  if (!input) return;
-
-  input.addEventListener("blur", function () {
-    formatCurrencyInput(input);
-  });
-});
-
-window.addEventListener("load", () => {
   currencyFields.forEach(id => {
     const input = document.getElementById(id);
-    if (input && input.value) {
+
+    if (!input) return;
+
+    input.addEventListener("blur", function () {
       formatCurrencyInput(input);
-    }
+    });
   });
+
 });
