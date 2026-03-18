@@ -1,3 +1,22 @@
+function formatCurrencyInput(input) {
+
+  let value = input.value.replace(/[^0-9]/g, "");
+
+  if (!value) {
+    input.value = "";
+    return;
+  }
+
+  let number = parseInt(value, 10);
+
+  input.value = "$" + number.toLocaleString();
+}
+function getNumericValue(id) {
+  return parseFloat(
+    document.getElementById(id).value.replace(/[^0-9]/g, "")
+  ) || 0;
+}
+
 const countyTaxRates = {
   "Baltimore County": { recordation: 0.0025, county: 0.0075, state: 0.0025 },
   "Anne Arundel County": { recordation: 0.0035, county: 0.0050, state: 0.0025 },
@@ -9,24 +28,25 @@ const countyTaxRates = {
 
 function analyzeDeal() {
 
-const purchase = +document.getElementById("purchase").value;
-const rehab = +document.getElementById("rehab").value;
+const purchase = getNumericValue("purchase");
+const rehab = getNumericValue("rehab");
+const broker = getNumericValue("brokerFee");
+const utilities = getNumericValue("utilities");
+const lawn = getNumericValue("lawn");
+const hoa = getNumericValue("hoa");
+
+const annualTaxes = getNumericValue("taxes");
+const taxes = annualTaxes / 12;
+const annualInsurance = getNumericValue("insurance");
+const insurance = annualInsurance / 12;
+  
 const months = +document.getElementById("months").value;
 
 const rate = +document.getElementById("rate").value / 100;
 const ltv = +document.getElementById("ltv").value / 100;
 const orig = +document.getElementById("origination").value / 100;
 
-const broker = +document.getElementById("brokerFee").value;
 
- 
-const annualTaxes = +document.getElementById("taxes").value;
-const taxes = annualTaxes / 12;
-const annualInsurance = +document.getElementById("insurance").value;
-const insurance = annualInsurance / 12;
-const utilities = +document.getElementById("utilities").value;
-const lawn = +document.getElementById("lawn").value;
-const hoa = +document.getElementById("hoa").value;
 
 const roiTarget = +document.getElementById("roi").value / 100;
 const commission = +document.getElementById("commission").value / 100;
@@ -232,3 +252,33 @@ document.getElementById("sellerClose").innerText =
 "$" + Math.round(sellerFinal).toLocaleString();
 
 }
+const currencyFields = [
+  "purchase",
+  "rehab",
+  "brokerFee",
+  "utilities",
+  "lawn",
+  "hoa",
+  "taxes",
+  "insurance",
+  "saleOverride"
+];
+
+currencyFields.forEach(id => {
+  const input = document.getElementById(id);
+
+  if (!input) return;
+
+  input.addEventListener("blur", function () {
+    formatCurrencyInput(input);
+  });
+});
+
+window.addEventListener("load", () => {
+  currencyFields.forEach(id => {
+    const input = document.getElementById(id);
+    if (input && input.value) {
+      formatCurrencyInput(input);
+    }
+  });
+});
