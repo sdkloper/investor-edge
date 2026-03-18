@@ -239,6 +239,8 @@ document.getElementById("buyerClose").innerText =
 document.getElementById("sellerClose").innerText =
 "$" + Math.round(sellerFinal).toLocaleString();
 
+}
+
   //
 
 window.addEventListener("DOMContentLoaded", () => {
