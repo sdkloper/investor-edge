@@ -1,3 +1,24 @@
+/* ===============================
+   AUTH CHECK
+================================ */
+
+if (sessionStorage.getItem("investorAuth") !== "true") {
+  window.location.href = "index.html"; // your login page
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", function() {
+      sessionStorage.clear();
+      window.location.href = "index.html";
+    });
+  }
+
+});
+
 function getNumericValue(id) {
   const el = document.getElementById(id);
   if (!el) return 0;
