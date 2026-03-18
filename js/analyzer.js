@@ -11,16 +11,18 @@ function formatCurrencyInput(input) {
 
   let raw = input.value;
 
-  if (!raw) return; // 🔥 do nothing if empty
+  // remove everything except digits
+  let cleaned = raw.replace(/\D/g, "");
 
-  let value = raw.replace(/[^0-9]/g, "");
+  // if empty, just leave it blank (DON'T erase user input mid-typing)
+  if (cleaned === "") {
+    input.value = "";
+    return;
+  }
 
-  if (!value) return; // 🔥 prevents clearing field
+  let number = parseInt(cleaned, 10);
 
-  let number = parseInt(value, 10);
-
-  if (isNaN(number)) return;
-
+  // always set formatted value
   input.value = "$" + number.toLocaleString();
 }
 
