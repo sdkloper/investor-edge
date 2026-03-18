@@ -7,6 +7,12 @@ function getNumericValue(id) {
   ) || 0;
 }
 
+function getPercentValue(id) {
+  return parseFloat(
+    document.getElementById(id).value.replace(/[^0-9.]/g, "")
+  ) || 0;
+}
+
 function formatCurrencyInput(input) {
 
   let raw = input.value;
@@ -24,6 +30,20 @@ function formatCurrencyInput(input) {
 
   // always set formatted value
   input.value = "$" + number.toLocaleString();
+}
+
+function formatPercentInput(input) {
+
+  let raw = input.value;
+
+  let cleaned = raw.replace(/[^0-9.]/g, "");
+
+  if (cleaned === "") {
+    input.value = "";
+    return;
+  }
+
+  input.value = cleaned + "%";
 }
 
 const countyTaxRates = {
@@ -51,14 +71,11 @@ const insurance = annualInsurance / 12;
   
 const months = +document.getElementById("months").value;
 
-const rate = +document.getElementById("rate").value / 100;
-const ltv = +document.getElementById("ltv").value / 100;
-const orig = +document.getElementById("origination").value / 100;
-
-
-
-const roiTarget = +document.getElementById("roi").value / 100;
-const commission = +document.getElementById("commission").value / 100;
+const rate = getPercentValue("rate") / 100;
+const ltv = getPercentValue("ltv") / 100;
+const orig = getPercentValue("origination") / 100;
+const commission = getPercentValue("commission") / 100;
+const roiTarget = getPercentValue("roi") / 100;
 
 const county = document.getElementById("county").value;
 const financeType = document.getElementById("financeType").value;
@@ -273,6 +290,29 @@ window.addEventListener("DOMContentLoaded", () => {
       input.value = input.value.replace(/[^0-9]/g, "");
     });
 
+  });
+
+});
+
+const percentFields = [
+  "rate",
+  "ltv",
+  "origination",
+  "commission",
+  "roi"
+];
+
+percentFields.forEach(id => {
+  const input = document.getElementById(id);
+
+  if (!input) return;
+
+  input.addEventListener("blur", function () {
+    formatPercentInput(input);
+  });
+
+  input.addEventListener("focus", function () {
+    input.value = input.value.replace(/[^0-9.]/g, "");
   });
 
 });
