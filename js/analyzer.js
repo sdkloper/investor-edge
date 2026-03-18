@@ -117,7 +117,7 @@ const totalHolding = monthlyHolding * months;
 // =====================
 
 const buyerFixed =
-495 + 275 + 200 + 250 + 95 + 50 + 40 + 60 + 60 + 55 +650;
+495 + 275 + 200 + 250 + 95 + 50 + 40 + 60 + 60 + 55;
 
 // Title insurance
 const titleInsurance = purchase * 0.0065;
