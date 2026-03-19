@@ -184,12 +184,25 @@ function renderTable() {
    
      <td>${formatCurrency(row["Rent"])}</td>
      <td>${grm !== null ? grm.toFixed(1) : "-"}</td>
+
+     <td>
+        <button class="analyzeBtn"
+          data-price="${row["List Price"]}"
+          data-arv="${row["ARV"]}"
+          data-address="${encodeURIComponent(row["Address"])}">
+          Analyze
+        </button>
+      </td>
+     
    `;
 
     fragment.appendChild(tr);
   });
 
   tbody.appendChild(fragment);
+
+   document.querySelectorAll(".analyzeBtn")
+  .forEach(btn => btn.addEventListener("click", analyzeDealFromButton));
 
   attachSortHandlers();
   updateSortArrows();
@@ -494,7 +507,23 @@ function updateLastLogin(userId) {
   }).catch(err => console.error("Login timestamp error:", err));
 }
 
+function analyzeDealFromButton(e) {
 
+  const btn = e.target;
+
+  const params = new URLSearchParams({
+    price: btn.dataset.price || 0,
+    arv: btn.dataset.arv || 0,
+    taxes: btn.dataset.taxes || 0,
+    hoa: btn.dataset.hoa || 0,
+    hoaFreq: btn.dataset.hoafreq || "Monthly",
+    condo: btn.dataset.condo || 0,
+    condoFreq: btn.dataset.condofreq || "Monthly",
+    address: decodeURIComponent(btn.dataset.address || "")
+  });
+
+  window.open(`analyzer.html?${params.toString()}`, "_blank");
+}
 
 
 
