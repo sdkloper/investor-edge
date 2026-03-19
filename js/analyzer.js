@@ -84,6 +84,7 @@ const broker = getNumericValue("brokerFee");
 const utilities = getNumericValue("utilities");
 const lawn = getNumericValue("lawn");
 const hoa = getNumericValue("hoa");
+const condo = getNumericValue("condo");
 
 const annualTaxes = getNumericValue("taxes");
 const taxes = annualTaxes / 12;
@@ -129,7 +130,7 @@ document.getElementById("mortgage").value =
 // =====================
 
 const monthlyHolding =
-mortgage + taxes + insurance + utilities + lawn + hoa;
+mortgage + taxes + insurance + utilities + lawn + hoa + condo;
 
 const totalHolding = monthlyHolding * months;
 
