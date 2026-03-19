@@ -19,6 +19,30 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 
+function convertToMonthly(amount, frequency) {
+
+  if (!amount) return 0;
+
+  switch ((frequency || "").toLowerCase()) {
+    case "monthly":
+      return amount;
+
+    case "quarterly":
+      return amount / 3;
+
+    case "semi-annually":
+    case "semiannual":
+      return amount / 6;
+
+    case "annually":
+    case "annual":
+      return amount / 12;
+
+    default:
+      return amount;
+  }
+}
+
 function getNumericValue(id) {
   const el = document.getElementById(id);
   if (!el) return 0;
@@ -231,6 +255,9 @@ const override = getNumericValue("saleOverride");
 
 const sale = override || estimatedSale;
 
+const arv = getNumericValue("arv");
+const spread = arv - estimatedSale;
+
 // =====================
 // NET + PROFIT
 // =====================
@@ -280,7 +307,70 @@ document.getElementById("buyerClose").innerText =
 document.getElementById("sellerClose").innerText =
 "$" + Math.round(sellerFinal).toLocaleString();
 
+const spreadEl = document.getElementById("spread");
+
+if (spreadEl) {
+  spreadEl.innerText =
+    "Deal Spread: $" + Math.round(spread).toLocaleString();
+
+  spreadEl.style.color =
+    spread > 20000 ? "#16a34a" :
+    spread > 10000 ? "#f59e0b" :
+    "#dc2626";
 }
+
+}
+
+function loadFromURL() {
+
+  const params = new URLSearchParams(window.location.search);
+
+  const price = params.get("price");
+  const arv = params.get("arv");
+  const taxes = params.get("taxes");
+
+  const hoa = params.get("hoa");
+  const hoaFreq = params.get("hoaFreq");
+
+  const condo = params.get("condo");
+  const condoFreq = params.get("condoFreq");
+
+  const address = params.get("address");
+
+  if (price) {
+    document.getElementById("purchase").value = price;
+    formatCurrencyInput(document.getElementById("purchase"));
+  }
+
+  if (arv) {
+    document.getElementById("arv").value = arv;
+    formatCurrencyInput(document.getElementById("arv"));
+  }
+
+  if (taxes) {
+    document.getElementById("taxes").value = taxes;
+    formatCurrencyInput(document.getElementById("taxes"));
+  }
+
+  if (hoa) {
+    const monthlyHoa = convertToMonthly(Number(hoa), hoaFreq);
+    document.getElementById("hoa").value = monthlyHoa;
+    formatCurrencyInput(document.getElementById("hoa"));
+  }
+
+  if (condo) {
+    const monthlyCondo = convertToMonthly(Number(condo), condoFreq);
+    document.getElementById("condo").value = monthlyCondo;
+    formatCurrencyInput(document.getElementById("condo"));
+  }
+
+  if (address) {
+    document.getElementById("addressDisplay").innerText =
+      "Analyzing: " + address;
+  }
+}
+//listener
+window.addEventListener("DOMContentLoaded", loadFromURL);
 
   //
 
