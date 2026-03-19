@@ -19,6 +19,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 
+document.addEventListener("DOMContentLoaded", function() {
+
+  const params = new URLSearchParams(window.location.search);
+
+  const price = params.get("price");
+  const arv = params.get("arv");
+  const address = params.get("address");
+
+  if (price) document.getElementById("priceInput").value = price;
+  if (arv) document.getElementById("arvInput").value = arv;
+  if (address) document.getElementById("addressInput").value = address;
+
+});
+
 /* ===============================
    CONFIG
 ================================ */
