@@ -29,7 +29,8 @@
 <h2>Purchase</h2>
 
 <div class="form-grid">
-
+ <p><h2 id="addressDisplay"></h2>
+ </p>
 <div class="form-group">
 <label>County</label>
 <select id="county">
@@ -47,6 +48,11 @@
 <input id="purchase" type="text">
 </div>
 
+  <div class="form-group">
+<label>After Repair Value (ARV)</label>
+<input type="text" id="arv" placeholder="$0">
+</div>
+  
 <div class="form-group">
 <label>Rehab Budget</label>
 <input id="rehab" type="text">
@@ -132,7 +138,7 @@
 
 <div class="form-group">
 <label>HOA</label>
-<input id="hoa" type="text">
+<input id="hoa" type="text" placeholder="$0">
 </div>
   
   <div class="form-group">
@@ -175,7 +181,7 @@ Analyze Deal
 <div class="card summary-card">
 
 <h2 id="profit">$0</h2>
-
+<div id="spread"></div>
 <div class="summary-metrics">
 
 <div class="metric">ROI: <span id="roiOut"></span></div>
