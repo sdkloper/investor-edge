@@ -522,9 +522,9 @@ function analyzeDealFromButton(e) {
     arv: btn.dataset.arv || 0,
     taxes: btn.dataset.taxes || 0,
     hoa: btn.dataset.hoa || 0,
-    hoaFreq: btn.dataset.hoaFreq || "Monthly",
+    hoaFreq: btn.dataset.hoaFreq || "",
     condo: btn.dataset.condo || 0,
-    condoFreq: btn.dataset.condoFreq || "Monthly",
+    condoFreq: btn.dataset.condoFreq || "",
     address: decodeURIComponent(btn.dataset.address || "")
   });
 
