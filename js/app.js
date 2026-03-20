@@ -193,6 +193,20 @@ function renderTable() {
           Analyze
         </button>
       </td>
+
+      <td>
+        <button class="analyzeBtn"
+          data-price="${row["List Price"]}"
+          data-arv="${row["ARV"]}"
+          data-taxes="${row["Tax Annual Amount"]}"
+          data-hoa="${row["HOA Fee"]}"
+          data-hoafreq="${row["HOA Freq"]}"
+          data-condo="${row["Condo/Coop Fee"]}"
+          data-condofreq="${row["Condo/Coop Freq"]}"
+          data-address="${encodeURIComponent(row["Address"])}">
+          Analyze
+        </button>
+      </td>
      
    `;
 
