@@ -192,9 +192,9 @@ function renderTable() {
           data-arv="${row["ARV"]}"
           data-taxes="${row["Tax Annual Amount"]}"
           data-hoa="${row["HOA Fee"]}"
-          data-hoafreq="${row["HOA Freq"]}"
+          data-hoaFreq="${row["HOA Freq"]}"
           data-condo="${row["Condo/Coop Fee"]}"
-          data-condofreq="${row["Condo/Coop Freq"]}"
+          data-condoFreq="${row["Condo/Coop Freq"]}"
           data-address="${encodeURIComponent(row["Address"])}">
           Analyze
         </button>
@@ -522,9 +522,9 @@ function analyzeDealFromButton(e) {
     arv: btn.dataset.arv || 0,
     taxes: btn.dataset.taxes || 0,
     hoa: btn.dataset.hoa || 0,
-    hoaFreq: btn.dataset.hoafreq || "Monthly",
+    hoaFreq: btn.dataset.hoaFreq || "Monthly",
     condo: btn.dataset.condo || 0,
-    condoFreq: btn.dataset.condofreq || "Monthly",
+    condoFreq: btn.dataset.condoFreq || "Monthly",
     address: decodeURIComponent(btn.dataset.address || "")
   });
 
