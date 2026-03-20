@@ -185,14 +185,6 @@ function renderTable() {
      <td>${formatCurrency(row["Rent"])}</td>
      <td>${grm !== null ? grm.toFixed(1) : "-"}</td>
 
-     <td>
-        <button class="analyzeBtn"
-          data-price="${row["List Price"]}"
-          data-arv="${row["ARV"]}"
-          data-address="${encodeURIComponent(row["Address"])}">
-          Analyze
-        </button>
-      </td>
 
       <td>
         <button class="analyzeBtn"
