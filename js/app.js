@@ -513,18 +513,40 @@ function updateLastLogin(userId) {
   }).catch(err => console.error("Login timestamp error:", err));
 }
 
+function normalizeFrequency(freq) {
+  if (!freq) return "monthly";
+
+  const f = freq.toLowerCase();
+
+  if (f.includes("month")) return "monthly";
+  if (f.includes("quarter")) return "quarterly";
+  if (f.includes("semi")) return "semi-annually";
+  if (f.includes("annual") || f.includes("year")) return "annually";
+
+  return "monthly";
+}
 function analyzeDealFromButton(e) {
 
-  const btn = e.target;
+  const btn = e.currentTarget;
+
+  function debugFreq(value) {
+    if (value === undefined) return "undefined";
+
+    if (typeof value === "string" && value.trim() === "") {
+      return "Blank";
+    }
+
+    return value;
+  }
 
   const params = new URLSearchParams({
     price: btn.dataset.price || 0,
     arv: btn.dataset.arv || 0,
     taxes: btn.dataset.taxes || 0,
     hoa: btn.dataset.hoa || 0,
-    hoaFreq: btn.dataset.hoaFreq || "",
+    hoaFreq: debugFreq(btn.dataset.hoaFreq),
     condo: btn.dataset.condo || 0,
-    condoFreq: btn.dataset.condoFreq || "",
+    condoFreq: debugFreq(btn.dataset.condoFreq),
     address: decodeURIComponent(btn.dataset.address || "")
   });
 
