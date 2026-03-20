@@ -27,18 +27,18 @@ document.addEventListener("DOMContentLoaded", function() {
   const arv = params.get("arv");
   const taxes = params.get("taxes");
   const hoa = params.get("hoa");
-  const hoafreq = params.get("hoafreq");
+  const hoaFreq = params.get("hoaFreq");
   const condo = params.get("condo");
-  const condofreq = params.get("condofreq");
+  const condoFreq = params.get("condoFreq");
   const address = params.get("address");
 
   if (price) document.getElementById("priceInput").value = price;
   if (arv) document.getElementById("arvInput").value = arv;
   if (taxes) document.getElementById("taxes").value = taxes;
   if (hoa) document.getElementById("hoa").value = hoa;
-  if (hoafreq) document.getElementById("hoafreq").value = hoafreq;
+  if (hoaFreq) document.getElementById("hoaFreq").value = hoaFreq;
   if (condo) document.getElementById("condo").value = condo;
-  if (condofreq) document.getElementById("condofreq").value = condofreq;
+  if (condoFreq) document.getElementById("condoFreq").value = condoFreq;
   if (address) document.getElementById("address").value = address;
 
 });
