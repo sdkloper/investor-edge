@@ -192,9 +192,9 @@ function renderTable() {
           data-arv="${row["ARV"]}"
           data-taxes="${row["Tax Annual Amount"]}"
           data-hoa="${row["HOA Fee"]}"
-          data-hoaFreq="${row["Association Fee Frequency"]}"
+          data-hoafreq="${row["Association Fee Frequency"]}"
           data-condo="${row["Condo/Coop Fee"]}"
-          data-condoFreq="${row["Condo/Coop Fee Freq"]}"
+          data-condofreq="${row["Condo/Coop Fee Freq"]}"
           data-address="${encodeURIComponent(row["Address"])}">
           Analyze
         </button>
