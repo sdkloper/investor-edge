@@ -2,9 +2,11 @@
    AUTH CHECK
 ================================ */
 
-const isProtectedPage = window.location.pathname.includes("analyzer");
-
-if (isProtectedPage && sessionStorage.getItem("investorAuth") !== "true") {
+// Only protect analyzer page
+if (
+  window.location.pathname.includes("analyzer") &&
+  sessionStorage.getItem("investorAuth") !== "true"
+) {
   window.location.href = "index.html";
 }
 
