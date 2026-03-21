@@ -69,6 +69,12 @@ function authenticateUser() {
   });
 }
 
+function getField(row, key) {
+  return Object.keys(row).find(k => k.trim() === key)?.let
+    ? row[Object.keys(row).find(k => k.trim() === key)]
+    : "";
+}
+
 const CSV_URL =
   "https://docs.google.com/spreadsheets/d/1s1h2TRyKsFkqpr-yW6yps-yh-AUTDW8ZkWwh8mYDfiY/export?format=csv&gid=0&t=" +
   new Date().getTime();
