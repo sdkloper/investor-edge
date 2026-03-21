@@ -535,6 +535,13 @@ function analyzeDealFromButton(e) {
 
   const btn = e.currentTarget;
 
+// Clean + format numeric values
+  const formatTwo = (val) => {
+    const num = parseFloat(val);
+    if (isNaN(num)) return 0;
+    return Number(num.toFixed(2));
+  };
+   
   function debugFreq(value) {
     if (value === undefined) return "undefined";
 
