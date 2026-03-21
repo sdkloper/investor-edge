@@ -550,9 +550,9 @@ function analyzeDealFromButton(e) {
     arv: btn.dataset.arv || 0,
     taxes: btn.dataset.taxes || 0,
     hoa: btn.dataset.hoa || 0,
-    hoaFreq: debugFreq(btn.dataset.hoafreq),
+    hoaFreq: normalizeFrequency(btn.dataset.hoafreq),
     condo: btn.dataset.condo || 0,
-    condoFreq: debugFreq(btn.dataset.condofreq),
+    condoFreq: normalizeFrequency(btn.dataset.condofreq),
     address: decodeURIComponent(btn.dataset.address || "")
   });
 
