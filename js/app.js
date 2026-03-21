@@ -139,6 +139,8 @@ function renderTable() {
   const fragment = document.createDocumentFragment();
 
   filtered.forEach((row) => {
+     console.log("ROW SAMPLE:", row);
+     console.log("ROW KEYS:", Object.keys(row)); // 🔥 very important
     const tr = document.createElement("tr");
 
     const percentBelow = parseNumber(row["% Below ARV"]);
