@@ -28,15 +28,15 @@ function convertToMonthly(amount, frequency) {
       return amount;
 
     case "quarterly":
-      return amount / 3;
+      return Math.round((amount / 3);
 
     case "semi-annually":
     case "semiannual":
-      return amount / 6;
+      return Math.round((amount / 12);
 
     case "annually":
     case "annual":
-      return amount / 12;
+      return Math.round((amount / 12);
 
     default:
       return amount;
@@ -353,13 +353,13 @@ function loadFromURL() {
   }
 
   if (hoa) {
-    const monthlyHoa = convertToMonthly(Number(hoa), hoaFreq);
+    const monthlyHoa = convertToMonthly(parseNumber(hoa), hoaFreq);
     document.getElementById("hoa").value = monthlyHoa;
     formatCurrencyInput(document.getElementById("hoa"));
   }
 
   if (condo) {
-    const monthlyCondo = convertToMonthly(Number(condo), condoFreq);
+    const monthlyCondo = convertToMonthly(parseNumber(condo), condoFreq);
     document.getElementById("condo").value = monthlyCondo;
     formatCurrencyInput(document.getElementById("condo"));
   }
