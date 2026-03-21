@@ -542,12 +542,12 @@ function analyzeDealFromButton(e) {
     return Number(num.toFixed(2));
   };
    
-  function debugFreq(value) {
-    if (value === undefined) return "undefined";
+ // function debugFreq(value) {
+ //   if (value === undefined) return "undefined";
 
-    if (typeof value === "string" && value.trim() === "") {
-      return "Blank";
-    }
+//    if (typeof value === "string" && value.trim() === "") {
+//      return "Blank";
+//    }
 
     return value;
   }
