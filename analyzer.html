@@ -22,177 +22,168 @@
   </div>
 </header>
  <p><h3 id="addressDisplay"></h3>
-<div class="container">
+<div class="main-container">
 
-<div class="card input-card">
+  <!-- LEFT SIDE -->
+  <div class="inputs-panel">
 
-<h2>Purchase</h2>
+    <!-- ROW 1 -->
+    <div class="input-group">
+      <label>County</label>
+      <select id="county">
+      <option>Baltimore County</option>
+      <option>Anne Arundel County</option>
+      <option>Carroll County</option>
+      <option>Harford County</option>
+      <option>Howard County</option>
+      <option>Montgomery County</option>
+      </select>
 
-<div class="form-grid">
+    </div>
 
-<div class="form-group">
-<label>County</label>
-<select id="county">
-<option>Baltimore County</option>
-<option>Anne Arundel County</option>
-<option>Carroll County</option>
-<option>Harford County</option>
-<option>Howard County</option>
-<option>Montgomery County</option>
-</select>
-</div>
+    <div></div>
 
-<div class="form-group">
-<label>Purchase Price</label>
-<input id="purchase" type="text">
-</div>
+    <!-- ROW 2 -->
+    <div class="input-group">
+      <label>Purchase</label>
+      <input id="purchase" type="text">
+    </div>
 
-  <div class="form-group">
-<label>After Repair Value (ARV)</label>
-<input type="text" id="arv" placeholder="$0">
-</div>
-  
-<div class="form-group">
-<label>Rehab Budget</label>
-<input id="rehab" type="text">
-</div>
+    <div class="input-group">
+      <label>ARV</label>
+      <input id="arv" type="text">
+    </div>
 
-<div class="form-group">
-<label>Holding Months</label>
-<input id="months" type="number" value="6">
-</div>
+    <!-- ROW 3 -->
+    <div class="input-group">
+      <label>Rehab</label>
+      <input id="rehab" type="text" value="50000">
+    </div>
 
-</div>
+    <div class="input-group">
+      <label>Holding Months</label>
+      <input id="months" type="number" value="4">
+    </div>
 
-</div>
+    <!-- FINANCING HEADER -->
+    <div class="section-title">Financing</div>
 
-<div class="card">
+    <!-- ROW 4 -->
+    <div class="input-group">
+      <label>Finance Type</label>
+      <select id="financeType">
+        <option value="cash">Cash</option>
+        <option value="hard">Hard Money</option>
+      </select>
+    </div>
 
-<h2>Financing</h2>
+    <div></div>
 
-<div class="form-grid">
+    <!-- ROW 5 -->
+    <div class="input-group">
+      <label>Interest Rate</label>
+      <input id="rate" type="text" value="9">
+    </div>
 
-<div class="form-group">
-<label>Financing Type</label>
-<select id="financeType">
-<option value="cash">Cash</option>
-<option value="hard">Hard Money</option>
-</select>
-</div>
+    <div class="input-group">
+      <label>LTV</label>
+      <input id="ltv" type="text" value="90">
+    </div>
 
-<div class="form-group">
-<label>Interest Rate %</label>
-<input id="rate" type="text" value="12">
-</div>
+    <!-- ROW 6 -->
+    <div class="input-group">
+      <label>Origination</label>
+      <input id="origination" type="text" value="1.25">
+    </div>
 
-<div class="form-group">
-<label>LTV %</label>
-<input id="ltv" type="text" value="90">
-</div>
+    <div class="input-group">
+      <label>Broker Fee</label>
+      <input id="brokerFee" type="text" value="1350">
+    </div>
 
-<div class="form-group">
-<label>Origination %</label>
-<input id="origination" type="text" value="1.25">
-</div>
+    <!-- ROW 7 -->
+    <div class="input-group">
+      <label>Mortgage (Auto)</label>
+      <input id="mortgage" type="text" disabled>
+    </div>
 
-<div class="form-group">
-<label>Broker Fee ($)</label>
-<input id="brokerFee" type="text" value="1350">
-</div>
+    <div></div>
 
-</div>
+    <!-- HOLDING COSTS -->
+    <div class="section-title">Holding Costs</div>
 
-</div>
+    <!-- ROW 8 -->
+    <div class="input-group">
+      <label>Taxes (Annual)</label>
+      <input id="taxes" type="text">
+    </div>
 
-<div class="card">
+    <div class="input-group">
+      <label>Insurance (Annual)</label>
+      <input id="insurance" type="text" value="1400">
+    </div>
 
-<h2>Holding Costs (Monthly)</h2>
+    <!-- ROW 9 -->
+    <div class="input-group">
+      <label>Utilities (Monthly)</label>
+      <input id="utilities" type="text" value="200">
+    </div>
 
-<div class="form-grid">
+    <div class="input-group">
+      <label>Lawn (Monthly)</label>
+      <input id="lawn" type="text" value="100">
+    </div>
 
-<div class="form-group">
-<label>Mortgage Payment (Auto)</label>
-<input id="mortgage" disabled>
-</div>
+    <!-- ROW 10 -->
+    <div class="input-group">
+      <label>HOA (Monthly)</label>
+      <input id="hoa" type="text">
+    </div>
 
-<div class="form-group">
-<label>Property Taxes</label>
-<input id="taxes" type="text">
-</div>
+    <div class="input-group">
+      <label>Condo (Monthly)</label>
+      <input id="condo" type="text">
+    </div>
 
-<div class="form-group">
-<label>Insurance</label>
-<input id="insurance" type="text">
-</div>
+    <!-- SALES -->
+    <div class="section-title">Sales</div>
 
-<div class="form-group">
-<label>Utilities</label>
-<input id="utilities" type="text">
-</div>
+    <!-- ROW 11 -->
+    <div class="input-group">
+      <label>Desired ROI</label>
+      <input id="roi" type="text" value="12">
+    </div>
 
-<div class="form-group">
-<label>Lawn</label>
-<input id="lawn" type="text">
-</div>
+    <div class="input-group">
+      <label>Commission</label>
+      <input id="commission" type="text" value="5">
+    </div>
 
-<div class="form-group">
-<label>HOA</label>
-<input id="hoa" type="text" placeholder="$0">
-</div>
-  
-  <div class="form-group">
-<label>Condo Fee (Monthly)</label>
-<input type="text" id="condo" placeholder="$0">
+    <!-- ROW 12 -->
+    <div class="input-group">
+      <label>Override Sale Price</label>
+      <input id="saleOverride" type="text">
+    </div>
+
   </div>
-</div>
+
+  <!-- RIGHT SIDE -->
+  <div class="results-panel">
+
+    <h2>Deal Results</h2>
+
+    <div id="profit"></div>
+    <div id="requiredSale"></div>
+    <div id="spread"></div>
+    <div id="roiOut"></div>
+    <div id="cashRoi"></div>
+    <div id="cashToClose"></div>
+    <div id="buyerClose"></div>
+    <div id="sellerClose"></div>
+
+  </div>
 
 </div>
-
-<div class="card">
-
-<h2>Sales</h2>
-
-<div class="form-grid">
-
-<div class="form-group">
-<label>Desired ROI %</label>
-<input id="roi" type="text" value="12">
-</div>
-
-<div class="form-group">
-<label>Commission %</label>
-<input id="commission" type="text" value="5">
-</div>
-
-<div class="form-group full-width">
-<label>Override Sale Price (Optional)</label>
-<input id="saleOverride" type="text">
-</div>
-
-</div>
-
-<button class="primary-btn" onclick="analyzeDeal()">
-Analyze Deal
-</button>
-
-</div>
-
-<div class="card summary-card">
-
-<h2 id="profit">$0</h2>
-<div id="spread"></div>
-<div class="summary-metrics">
-
-<div class="metric">ROI: <span id="roiOut"></span></div>
-<div class="metric">Cash on Cash: <span id="cashRoi"></span></div>
-<div class="metric">Required Sale: <span id="requiredSale"></span></div>
-<div class="metric">Buyer Closing: <span id="buyerClose"></span></div>
-<div class="metric">Seller Closing: <span id="sellerClose"></span></div>
-
-</div>
-
-</div>
-
 </div>
 
 <script src="js/analyzer.js?v=1800"></script>
