@@ -415,3 +415,22 @@ th, td {
   color: #ef4444;
   font-weight: bold;
 }
+.analysis-page .result-item {
+  margin-bottom: 14px;
+}
+
+.analysis-page .result-item span {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.analysis-page .result-item div {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* Make profit pop */
+.analysis-page #profit {
+  font-size: 28px;
+  color: #22c55e;
+}
