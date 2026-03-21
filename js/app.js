@@ -536,18 +536,6 @@ function analyzeDealFromButton(e) {
   const btn = e.currentTarget;
 
 
-  };
-   
- // function debugFreq(value) {
- //   if (value === undefined) return "undefined";
-
-//    if (typeof value === "string" && value.trim() === "") {
-//      return "Blank";
-//    }
-
- //   return value;
-//  }
-
   const params = new URLSearchParams({
     price: btn.dataset.price || 0,
     arv: btn.dataset.arv || 0,
