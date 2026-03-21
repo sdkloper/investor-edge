@@ -322,3 +322,68 @@ th, td {
   background: #000;
   color: #fff;
 }
+.main-container {
+  display: flex;
+  gap: 30px;
+  padding: 20px;
+}
+
+/* LEFT SIDE */
+.inputs-panel {
+  flex: 2;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  font-size: 13px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.input-group input,
+.input-group select {
+  padding: 5px;
+  font-size: 13px;
+}
+
+/* SECTION HEADERS */
+.section-title {
+  grid-column: span 2;
+  font-weight: bold;
+  margin-top: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* RIGHT SIDE */
+.results-panel {
+  flex: 1;
+  background: #111;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  min-width: 280px;
+}
+
+.results-panel div {
+  margin-bottom: 12px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* ROI COLORS */
+.roi-good {
+  color: #16a34a;
+  font-weight: bold;
+}
+
+.roi-bad {
+  color: #dc2626;
+  font-weight: bold;
+}
