@@ -549,8 +549,8 @@ function analyzeDealFromButton(e) {
 //      return "Blank";
 //    }
 
-    return value;
-  }
+ //   return value;
+//  }
 
   const params = new URLSearchParams({
     price: btn.dataset.price || 0,
