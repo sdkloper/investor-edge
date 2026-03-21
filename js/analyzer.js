@@ -283,6 +283,18 @@ const profit = netSale - totalCosts;
 
 const roi = profit / totalCosts;
 
+const roiEl = document.getElementById("roiOut");
+
+roiEl.innerText = (roi * 100).toFixed(1) + "%";
+
+if (roi >= roiTarget) {
+  roiEl.classList.add("roi-good");
+  roiEl.classList.remove("roi-bad");
+} else {
+  roiEl.classList.add("roi-bad");
+  roiEl.classList.remove("roi-good");
+}
+
 // =====================
 // CASH ON CASH
 // =====================
@@ -291,6 +303,11 @@ const down = purchase * (1 - ltv);
 
 const cashInvested =
 down + rehab + buyerClosing + totalHolding;
+
+const cashToClose = down + buyerClosing;
+
+document.getElementById("cashToClose").innerText =
+"$" + Math.round(cashToClose).toLocaleString();
 
 const cashRoi = profit / cashInvested;
 
