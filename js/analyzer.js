@@ -28,19 +28,24 @@ function convertToMonthly(amount, frequency) {
       return amount;
 
     case "quarterly":
-      return Math.round((amount / 3);
+      return Math.round(amount / 3);
 
     case "semi-annually":
     case "semiannual":
-      return Math.round((amount / 12);
+      return Math.round(amount / 6);
 
     case "annually":
     case "annual":
-      return Math.round((amount / 12);
+      return Math.round(amount / 12);
 
     default:
       return amount;
   }
+}
+function parseNumber(val) {
+  if (!val) return 0;
+  const cleaned = val.toString().replace(/[^0-9.]/g, "");
+  return parseFloat(cleaned) || 0;
 }
 
 function getNumericValue(id) {
