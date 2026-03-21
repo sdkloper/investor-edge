@@ -2,8 +2,10 @@
    AUTH CHECK
 ================================ */
 
-if (sessionStorage.getItem("investorAuth") !== "true") {
-  window.location.href = "index.html"; // your login page
+const isProtectedPage = window.location.pathname.includes("analyzer");
+
+if (isProtectedPage && sessionStorage.getItem("investorAuth") !== "true") {
+  window.location.href = "index.html";
 }
 
 document.addEventListener("DOMContentLoaded", function() {
