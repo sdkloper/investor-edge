@@ -139,8 +139,6 @@ function renderTable() {
   const fragment = document.createDocumentFragment();
 
   filtered.forEach((row) => {
-     console.log("ROW SAMPLE:", row);
-     console.log("ROW KEYS:", Object.keys(row)); // 🔥 very important
     const tr = document.createElement("tr");
 
     const percentBelow = parseNumber(row["% Below ARV"]);
@@ -552,9 +550,9 @@ function analyzeDealFromButton(e) {
     arv: btn.dataset.arv || 0,
     taxes: btn.dataset.taxes || 0,
     hoa: btn.dataset.hoa || 0,
-    hoaFreq: debugFreq(btn.dataset.hoaFreq),
+    hoaFreq: debugFreq(btn.dataset.hoafreq),
     condo: btn.dataset.condo || 0,
-    condoFreq: debugFreq(btn.dataset.condoFreq),
+    condoFreq: debugFreq(btn.dataset.condofreq),
     address: decodeURIComponent(btn.dataset.address || "")
   });
 
