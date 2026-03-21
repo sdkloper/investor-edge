@@ -322,77 +322,92 @@ th, td {
   background: #000;
   color: #fff;
 }
-.main-container {
-  display: flex;
-  gap: 30px;
+/* ======================================
+   ANALYZER DASHBOARD LAYOUT (SCOPED)
+====================================== */
+
+.analysis-page .main-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
   padding: 20px;
+  height: 100vh;
 }
 
-/* LEFT SIDE */
-.inputs-panel {
-  flex: 2;
+/* INPUT PANEL */
+.analysis-page .inputs-panel {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  font-size: 13px;
+  gap: 8px;
+  font-size: 12px;
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+  overflow-y: auto;
 }
 
-.input-group {
+/* INPUT GROUP */
+.analysis-page .input-group {
   display: flex;
   flex-direction: column;
 }
 
-.input-group label {
-  font-size: 11px;
+.analysis-page .input-group label {
+  font-size: 10px;
   font-weight: 600;
+  color: #475569;
+  margin-bottom: 2px;
 }
 
-.input-group input,
-.input-group select {
+.analysis-page .input-group input,
+.analysis-page .input-group select {
   padding: 5px;
-  font-size: 13px;
+  font-size: 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
 }
 
 /* SECTION HEADERS */
-.section-title {
+.analysis-page .section-title {
   grid-column: span 2;
+  font-size: 11px;
   font-weight: bold;
-  margin-top: 10px;
+  margin-top: 8px;
   border-bottom: 1px solid #ddd;
+  color: #1e293b;
 }
 
-/* RIGHT SIDE */
-.results-panel {
-  flex: 1;
-  background: #111;
+/* RESULTS PANEL */
+.analysis-page .results-panel {
+  background: linear-gradient(180deg, #0f172a, #020617);
   color: white;
   padding: 20px;
-  border-radius: 10px;
-  min-width: 280px;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.results-panel div {
-  margin-bottom: 12px;
+/* RESULT ITEMS */
+.analysis-page .results-panel div {
+  margin-bottom: 10px;
   font-size: 18px;
   font-weight: 600;
 }
 
+/* PROFIT POP */
+.analysis-page #profit {
+  font-size: 26px;
+}
+
 /* ROI COLORS */
-.roi-good {
-  color: #16a34a;
+.analysis-page .roi-good {
+  color: #22c55e;
   font-weight: bold;
 }
 
-.roi-bad {
-  color: #dc2626;
+.analysis-page .roi-bad {
+  color: #ef4444;
   font-weight: bold;
-}
-.section-title {
-  grid-column: span 2;
-  font-size: 12px;
-  font-weight: bold;
-  margin-top: 10px;
-  margin-bottom: 4px;
-  color: #555;
-  border-bottom: 1px solid #ddd;
 }
