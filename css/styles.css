@@ -410,7 +410,7 @@ th, td {
 
 /* LEFT SIDE */
 .analysis-page .analysis-left {
-  flex: 2;
+  flex: 0 0 680px;
 }
 
 /* RIGHT SIDE */
@@ -433,11 +433,8 @@ th, td {
 }
 
 /* RESULT ROW */
-.analysis-page .result-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px; /* 🔥 tighter */
+.analysis-page .result-row span {
+  width: 140px; /* fixed label width */
 }
 
 /* LABEL */
