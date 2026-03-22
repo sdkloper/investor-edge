@@ -250,8 +250,9 @@ th, td {
 .analysis-page input,
 .analysis-page select {
   max-width: 100%;
-  height: 36px;
-  font-size: 14px;
+  height: 28px;
+  padding: 3px 6px;
+  font-size: 13px;
   background: #ffffff;
   color: #222;
   border: 1px solid #ddd;
