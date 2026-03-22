@@ -337,7 +337,7 @@ const spreadEl = document.getElementById("spread");
 
 if (spreadEl) {
   spreadEl.innerText =
-    "Deal Spread: $" + Math.round(spread).toLocaleString();
+    "$" + Math.round(spread).toLocaleString();
 
   spreadEl.style.color =
     spread > 20000 ? "#16a34a" :
