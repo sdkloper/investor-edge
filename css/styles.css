@@ -467,7 +467,7 @@ th, td {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px; /* 🔥 tighter */
+  margin-bottom: 12px; /* 🔥 tighter */
 }
 
 /* LABEL */
