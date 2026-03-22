@@ -250,7 +250,7 @@ th, td {
 .analysis-page input,
 .analysis-page select {
   max-width: 100%;
-  height: 20px;
+  height: 36px;
   font-size: 14px;
   background: #ffffff;
   color: #222;
@@ -345,7 +345,7 @@ th, td {
 
 .analysis-page input,
 .analysis-page select {
-  height: 36px;
+  height: 20px;
   font-size: 14px;
 }
 
