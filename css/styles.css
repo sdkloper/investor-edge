@@ -463,11 +463,11 @@ th, td {
 
 /* RESULT ROW */
 .analysis-page .result-row {
-  width: 140px;
+  width: 200px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px; /* 🔥 tighter */
+  margin-bottom: 8px; /* 🔥 tighter */
 }
 
 /* LABEL */
