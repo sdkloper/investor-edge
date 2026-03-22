@@ -470,7 +470,7 @@ th, td {
 .analysis-page .roi-bad {
   color: #dc2626;
 }
-}
+
 .analysis-page .form-grid {
   grid-template-columns: repeat(2, 320px);
   justify-content: start;
