@@ -492,5 +492,7 @@ th, td {
   .analysis-page .results-card {
     margin-bottom: 15px;
   }
-
+  .analysis-page .form-grid {
+    grid-template-columns: 1fr;
+  }
 
