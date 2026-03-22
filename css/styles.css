@@ -344,11 +344,6 @@ th, td {
   color: #333;
 }
 
-.analysis-page input,
-.analysis-page select {
-  height: 36px;
-  font-size: 14px;
-}
 
 /* SECTION HEADERS */
 .analysis-page .section-title {
