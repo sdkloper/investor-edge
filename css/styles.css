@@ -434,3 +434,69 @@ th, td {
   font-size: 28px;
   color: #22c55e;
 }
+/* ===== ANALYSIS LAYOUT ===== */
+
+.analysis-page .analysis-layout {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* LEFT SIDE */
+.analysis-page .analysis-left {
+  flex: 2;
+}
+
+/* RIGHT SIDE */
+.analysis-page .analysis-right {
+  flex: 1;
+}
+
+/* RESULTS CARD (LIGHT, CLEAN) */
+.analysis-page .results-card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 18px;
+  border: 1px solid #ddd;
+}
+
+/* HEADER */
+.analysis-page .results-card h3 {
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+/* RESULT ROW */
+.analysis-page .result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* LABEL */
+.analysis-page .result-row span {
+  font-size: 14px;
+  color: #555;
+}
+
+/* VALUE */
+.analysis-page .result-row div {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* PROFIT POP */
+.analysis-page #profit {
+  font-size: 20px;
+  color: #16a34a;
+}
+
+/* ROI COLORS */
+.analysis-page .roi-good {
+  color: #16a34a;
+}
+
+.analysis-page .roi-bad {
+  color: #dc2626;
+}
