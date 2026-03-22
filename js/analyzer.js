@@ -316,7 +316,7 @@ const cashRoi = profit / cashInvested;
 // =====================
 
 document.getElementById("profit").innerText =
-"Profit on the Deal: $" + Math.round(profit).toLocaleString();
+"$" + Math.round(profit).toLocaleString();
 
 document.getElementById("roiOut").innerText =
 (roi * 100).toFixed(1) + "%";
