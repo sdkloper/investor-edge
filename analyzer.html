@@ -20,11 +20,12 @@
   </div>
 </header>
   <body class="analysis-page">
- <p><h3 id="addressDisplay"></h3>
+ <h3 id="addressDisplay"></h3>
 <div class="main-container">
   <div class="analysis-layout">
 
   <!-- LEFT SIDE -->
+  <div class="analysis-left">
     <!-- INPUT HEADER -->
     <div class="section-title">Input</div>
     
@@ -77,15 +78,13 @@
     <!-- ROW 4 -->
     <div class="form-row">
       <div class="form-field">
-      <label>Finance Type:</label>
-
-      <div class="form-field">
-      <select id="financeType">
-        <option value="cash">Cash</option>
-        <option value="hard">Hard Money</option>
-      </select>
+        <label>Finance Type:</label>
+        <select id="financeType">
+          <option value="cash">Cash</option>
+          <option value="hard">Hard Money</option>
+        </select>
+      </div>
     </div>
-</div>
     <div></div>
 
     <!-- ROW 5 -->
@@ -182,12 +181,13 @@
       <input id="saleOverride" type="text">
     </div>
  
-   <div class="input-group">
+   <div class="form-field">
     <button class="primary-btn" onclick="analyzeDeal()">
     Analyze Deal
     </button>
    </div>
   
+</div>
 </div>
     <!-- RIGHT SIDE -->
     <div class="analysis-right">
