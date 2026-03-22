@@ -23,9 +23,10 @@
 </header>
  <p><h3 id="addressDisplay"></h3>
 <div class="main-container">
+  <div class="analysis-layout">
 
   <!-- LEFT SIDE -->
-  <div class="inputs-panel">
+  <div class="analysis-left">
 
     <!-- ROW 1 -->
     <div class="input-group">
@@ -172,54 +173,58 @@
    </div>
   
 </div>
-  <!-- RIGHT SIDE -->
-  <div class="results-panel">
+    <!-- RIGHT SIDE -->
+    <div class="analysis-right">
 
-    <h2>Deal Results</h2>
+      <div class="results-card">
+        <h3>Deal Results</h3>
 
-    <div class="result-item">
-      <span>Profit</span>
-      <div id="profit"></div>
-    </div>
-    
-    <div class="result-item">
-      <span>Required Sale Price</span>
-      <div id="requiredSale"></div>
-    </div>
-    
-    <div class="result-item">
-      <span>Deal Spread</span>
-      <div id="spread"></div>
-    </div>
-    
-    <div class="result-item">
-      <span>ROI</span>
-      <div id="roiOut"></div>
-    </div>
-    
-    <div class="result-item">
-      <span>Cash on Cash</span>
-      <div id="cashRoi"></div>
-    </div>
-    
-    <div class="result-item">
-      <span>Cash to Close</span>
-      <div id="cashToClose"></div>
-    </div>
-    
-    <div class="result-item">
-      <span>Buyer Closing</span>
-      <div id="buyerClose"></div>
-    </div>
-    
-    <div class="result-item">
-      <span>Seller Closing</span>
-      <div id="sellerClose"></div>
+        <div class="result-row">
+          <span>Profit</span>
+          <div id="profit"></div>
+        </div>
+
+        <div class="result-row">
+          <span>Required Sale</span>
+          <div id="requiredSale"></div>
+        </div>
+
+        <div class="result-row">
+          <span>Spread</span>
+          <div id="spread"></div>
+        </div>
+
+        <div class="result-row">
+          <span>ROI</span>
+          <div id="roiOut"></div>
+        </div>
+
+        <div class="result-row">
+          <span>Cash on Cash</span>
+          <div id="cashRoi"></div>
+        </div>
+
+        <div class="result-row">
+          <span>Cash to Close</span>
+          <div id="cashToClose"></div>
+        </div>
+
+        <div class="result-row">
+          <span>Buyer Closing</span>
+          <div id="buyerClose"></div>
+        </div>
+
+        <div class="result-row">
+          <span>Seller Closing</span>
+          <div id="sellerClose"></div>
+        </div>
+
+      </div>
+
     </div>
 
   </div>
 
-</div>
 </div>
 
 <script src="js/analyzer.js?v=1800"></script>
