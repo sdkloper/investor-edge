@@ -22,6 +22,18 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
 });
+function toggleFinancingFields() {
+  const financeType = document.getElementById("financeType").value;
+  const financingFields = document.getElementById("financingFields");
+
+  if (!financingFields) return; // safety
+
+  if (financeType === "cash") {
+    financingFields.style.display = "none";
+  } else {
+    financingFields.style.display = "block";
+  }
+}
 
 function convertToMonthly(amount, frequency) {
 
@@ -396,11 +408,9 @@ function loadFromURL() {
   }
 }
 //listener
-window.addEventListener("DOMContentLoaded", loadFromURL);
-
-  //
-
 window.addEventListener("DOMContentLoaded", () => {
+
+  loadFromURL();
 
   const currencyFields = [
     "purchase",
@@ -413,6 +423,18 @@ window.addEventListener("DOMContentLoaded", () => {
     "insurance",
     "saleOverride"
   ];
+
+  // your existing formatting logic here...
+
+  // 🔥 ADD THIS PART
+  toggleFinancingFields();
+
+  const financeDropdown = document.getElementById("financeType");
+  if (financeDropdown) {
+    financeDropdown.addEventListener("change", toggleFinancingFields);
+  }
+
+});
 
   currencyFields.forEach(id => {
     const input = document.getElementById(id);
