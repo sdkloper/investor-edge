@@ -433,8 +433,11 @@ th, td {
 }
 
 /* RESULT ROW */
-.analysis-page .result-row span {
-  width: 140px; /* fixed label width */
+.analysis-page .result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px; /* 🔥 tighter */
 }
 
 /* LABEL */
