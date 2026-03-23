@@ -138,14 +138,14 @@ async function analyzeProperty() {
   formData.append("listPrice", document.getElementById("listPrice").value || 0);
 
   try {
- 
+    const result = await response.json();    /////////////////////////////////////////////////
     const response = await fetch(BACKEND_URL, {
       method: "POST",
       body: formData
     });
 
     const data = await response.json();
-    console.log("Backend response:", result);
+    console.log("Backend response:", result);    ///////////////////////////////////////////////////
     if (data.error) {
       showError(data.error);
     } else {
