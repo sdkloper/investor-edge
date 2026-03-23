@@ -123,30 +123,34 @@ async function analyzeProperty() {
 
   const formData = new URLSearchParams();
 
-   const address = geoData.address || document.getElementById("address").value.trim();
-   const structure = document.getElementById("structure").value;
-   const beds = Number(document.getElementById("beds").value || 0);
-   const fullBath = Number(document.getElementById("fullBath").value || 0);
-   const halfBath = Number(document.getElementById("halfBath").value || 0);
-   const sqft = Number(document.getElementById("sqft").value || 0);
-   const waterfront = document.getElementById("waterfront").value;
-   const garageSpaces =
-     document.getElementById("garage").value === "1"
-       ? Number(document.getElementById("garageSpaces").value || 1)
-       : 0;
-   const listPrice = Number(document.getElementById("listPrice").value || 0);
-   
-   console.log("Sending payload:", {
-     address,
-     structure,
-     beds,
-     fullBath,
-     halfBath,
-     sqft,
-     waterfront,
-     garageSpaces,
-     listPrice
-   });
+  formData.append("address", geoData.address || document.getElementById("address").value);
+  formData.append("structure", document.getElementById("structure").value);
+  formData.append("beds", document.getElementById("beds").value);
+  formData.append("fullBath", document.getElementById("fullBath").value);
+  formData.append("halfBath", document.getElementById("halfBath").value);
+  formData.append("sqft", document.getElementById("sqft").value);
+  formData.append("waterfront", document.getElementById("waterfront").value);
+  formData.append("garageSpaces",
+    document.getElementById("garage").value === "1"
+      ? document.getElementById("garageSpaces").value || 1
+      : 0
+  );
+  formData.append("listPrice", document.getElementById("listPrice").value || 0);
+
+  try {
+
+      console.log("Sending payload:");
+      console.log({
+        address,
+        structure,
+        beds,
+        fullBath,
+        halfBath,
+        sqft,
+        waterfront,
+        garageSpaces,
+        listPrice
+      });
      
     const response = await fetch(BACKEND_URL, {
       method: "POST",
@@ -241,9 +245,7 @@ function populateCompTable(comps) {
 ================================ */
 
 function formatCurrency(val) {
-  const num = Number(val);
-  if (!num || isNaN(num)) return "-";
-  return "$" + num.toLocaleString("en-US", {
+  return "$" + Number(val).toLocaleString("en-US", {
     maximumFractionDigits: 0
   });
 }
