@@ -313,6 +313,10 @@ if (roi >= roiTarget) {
 
 const down = purchase * (1 - ltv);
 
+// =====================
+// CASH INVESTED (UPDATED)
+// =====================
+
 let cashInvested;
 
 if (financeType === "cash") {
@@ -323,7 +327,9 @@ if (financeType === "cash") {
     down + rehab + buyerClosing + totalHolding;
 }
 
-const down = purchase * (1 - ltv);
+// =====================
+// CASH TO CLOSE (UPDATED)
+// =====================
 
 let cashToClose;
 
