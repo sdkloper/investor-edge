@@ -424,18 +424,6 @@ window.addEventListener("DOMContentLoaded", () => {
     "saleOverride"
   ];
 
-  // your existing formatting logic here...
-
-  // 🔥 ADD THIS PART
-  toggleFinancingFields();
-
-  const financeDropdown = document.getElementById("financeType");
-  if (financeDropdown) {
-    financeDropdown.addEventListener("change", toggleFinancingFields);
-  }
-
-});
-
   currencyFields.forEach(id => {
     const input = document.getElementById(id);
 
@@ -445,34 +433,39 @@ window.addEventListener("DOMContentLoaded", () => {
       formatCurrencyInput(input);
     });
 
-    // 🔥 Optional (recommended UX)
     input.addEventListener("focus", function () {
       input.value = input.value.replace(/[^0-9]/g, "");
     });
-
   });
 
-});
+  const percentFields = [
+    "rate",
+    "ltv",
+    "origination",
+    "commission",
+    "roi"
+  ];
 
-const percentFields = [
-  "rate",
-  "ltv",
-  "origination",
-  "commission",
-  "roi"
-];
+  percentFields.forEach(id => {
+    const input = document.getElementById(id);
 
-percentFields.forEach(id => {
-  const input = document.getElementById(id);
+    if (!input) return;
 
-  if (!input) return;
+    input.addEventListener("blur", function () {
+      formatPercentInput(input);
+    });
 
-  input.addEventListener("blur", function () {
-    formatPercentInput(input);
+    input.addEventListener("focus", function () {
+      input.value = input.value.replace(/[^0-9.]/g, "");
+    });
   });
 
-  input.addEventListener("focus", function () {
-    input.value = input.value.replace(/[^0-9.]/g, "");
-  });
+  // ✅ FINANCING TOGGLE (NOW WORKS)
+  toggleFinancingFields();
+
+  const financeDropdown = document.getElementById("financeType");
+  if (financeDropdown) {
+    financeDropdown.addEventListener("change", toggleFinancingFields);
+  }
 
 });
