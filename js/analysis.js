@@ -145,7 +145,7 @@ async function analyzeProperty() {
     });
 
     const data = await response.json();
- 
+    console.log("Backend response:", result);
     if (data.error) {
       showError(data.error);
     } else {
@@ -159,7 +159,7 @@ async function analyzeProperty() {
   btn.disabled = false;
   loading.classList.add("hidden");
 }
-   console.log("Backend response:", result);
+   
 /* ===============================
    DISPLAY RESULTS
 ================================ */
