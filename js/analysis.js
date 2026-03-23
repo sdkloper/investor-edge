@@ -159,7 +159,7 @@ async function analyzeProperty() {
   btn.disabled = false;
   loading.classList.add("hidden");
 }
-
+   console.log("Backend response:", result);
 /* ===============================
    DISPLAY RESULTS
 ================================ */
