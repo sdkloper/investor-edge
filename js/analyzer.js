@@ -313,10 +313,25 @@ if (roi >= roiTarget) {
 
 const down = purchase * (1 - ltv);
 
-const cashInvested =
-down + rehab + buyerClosing + totalHolding;
+let cashInvested;
 
-const cashToClose = down + buyerClosing;
+if (financeType === "cash") {
+  cashInvested =
+    purchase + rehab + buyerClosing + totalHolding;
+} else {
+  cashInvested =
+    down + rehab + buyerClosing + totalHolding;
+}
+
+const down = purchase * (1 - ltv);
+
+let cashToClose;
+
+if (financeType === "cash") {
+  cashToClose = purchase + buyerClosing;
+} else {
+  cashToClose = down + buyerClosing;
+}
 
 document.getElementById("cashToClose").innerText =
 "$" + Math.round(cashToClose).toLocaleString();
