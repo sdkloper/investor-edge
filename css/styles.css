@@ -501,6 +501,27 @@ th, td {
   grid-template-columns: repeat(2, 320px);
   justify-content: start;
 }
+
+.analyzeFlipBtn,
+.analyzeRentBtn {
+  font-size: 12px;
+  padding: 4px 8px;
+  margin-right: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.analyzeFlipBtn {
+  background: black;
+  color: white;
+}
+
+.analyzeRentBtn {
+  background: white;
+  border: 1px solid black;
+  color: black;
+}
+
 /* ======================================
    MOBILE OPTIMIZATION (ANALYZER)
 ====================================== */
