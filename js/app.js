@@ -154,6 +154,9 @@ function renderTable() {
       icons += "🌊 ";
     }
 
+   const salesCompCount = parseInt(row["Comp Count"]) || 0;
+   const rentCompCount = parseInt(row["Rent Comp Count"]) || 0;
+     
    tr.innerHTML = `
      <td>${icons}
         <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${row.MLS}" target="_blank">
@@ -177,7 +180,7 @@ function renderTable() {
    
      <td>${formatCurrency(row["Diff"])}</td>
      <td>${formatPercent(row["% Below ARV"])}</td>
-   
+      <td>${row.CDOM ? row.CDOM : "-"}</td>
      <td>
        <a href="#" class="compLink"
           data-comp='${encodeURIComponent(row["Comp Details"] || "[]")}'
@@ -186,14 +189,19 @@ function renderTable() {
        </a>
      </td>
    
-     <td>${row.CDOM ? row.CDOM : "-"}</td>
-   
      <td>${formatCurrency(row["Rent"])}</td>
-     <td>${grm !== null ? grm.toFixed(1) : "-"}</td>
+     <td>
+    <a href="#" class="rentCompLink"
+       data-type="rent"
+       data-comp='${encodeURIComponent(row["Rent Comp Details"] || "[]")}'
+       data-row='${encodeURIComponent(JSON.stringify(row))}'>
+       ${rentCompCount}
+    </a>
+  </td>
 
 
       <td>
-        <button class="analyzeBtn"
+        <button class="analyzeFlipBtn"
           data-price="${row["List Price"]}"
           data-arv="${row["ARV"]}"
           data-taxes="${row["Tax Annual Amount"]}"
@@ -202,8 +210,9 @@ function renderTable() {
           data-condo="${row["Condo/Coop Fee"]}"
           data-condofreq="${row["Condo/Coop Fee Freq"]}"
           data-address="${encodeURIComponent(row["Address"])}">
-          Analyze
+          Flip
         </button>
+        <button class="analyzeRentBtn" data-mls="${row.MLS}">Rental</button>
       </td>
      
    `;
@@ -213,7 +222,7 @@ function renderTable() {
 
   tbody.appendChild(fragment);
 
-   document.querySelectorAll(".analyzeBtn")
+   document.querySelectorAll(".analyzeFlipBtn")
   .forEach(btn => btn.addEventListener("click", analyzeDealFromButton));
 
   attachSortHandlers();
@@ -222,6 +231,12 @@ function renderTable() {
   document
     .querySelectorAll(".compLink")
     .forEach((link) => link.addEventListener("click", openModal));
+
+   document.querySelectorAll(".salesCompLink")
+  .forEach(link => link.addEventListener("click", openCompModal));
+
+   document.querySelectorAll(".rentCompLink")
+     .forEach(link => link.addEventListener("click", openCompModal));
 }
 
 /* ============================= */
@@ -384,25 +399,121 @@ function formatPercent(val) {
 
 /* ============================= */
 
-function openModal(e) {
-  e.preventDefault();
+function renderCompTab(type, subject, comps) {
 
-  let compRaw = decodeURIComponent(e.target.dataset.comp);
-  let subject = JSON.parse(decodeURIComponent(e.target.dataset.row));
-  let compData = [];
+  const container = document.getElementById("modalContent");
 
-  try {
-    compRaw = compRaw.replace(/\\"/g, '"');
-    compData = JSON.parse(compRaw);
-  } catch (err) {
-    console.error("Comp JSON parse error:", err);
-    alert("Unable to load comp details.");
-    return;
+  let html = `
+    <h3>${subject.Address}</h3>
+    <p>
+      List Price: ${formatCurrency(subject["List Price"])} ||
+      ARV: ${formatCurrency(subject["ARV"])}
+    </p>
+    <hr>
+  `;
+
+  if (!comps.length) {
+    html += `<p>No comps available.</p>`;
+  } else {
+
+    comps.forEach(comp => {
+
+      if (type === "sales") {
+
+        html += `
+          <p>
+            <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${comp["MLS Number"] || ""}" target="_blank">
+              ${comp.Address || ""}
+            </a><br>
+            ${comp["PR AbvFinSQFT"] || "-"} SqFt ||
+            ${comp.Beds || "-"} Beds |
+            ${(comp["Bathrooms Full"] || 0)}.${(comp["Bathrooms Half"] || 0)} Baths ||
+            Sold: ${formatCurrency(comp["Close Price"])} ||
+            DOM ${comp["DOM"] || "-"}
+          </p>
+          <hr>
+        `;
+
+      } else {
+
+        html += `
+          <p>
+            <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${comp["MLS Number"] || ""}" target="_blank">
+              ${comp.Address || ""}
+            </a><br>
+            ${comp["PR AbvFinSQFT"] || "-"} SqFt ||
+            ${comp.Beds || "-"} Beds ||
+            Rent: ${formatCurrency(comp.adjustedRent)} ||
+            ${formatCurrency(comp["Close Price"])} ||
+            ${comp.distance ? comp.distance.toFixed(2) + " mi" : ""}
+          </p>
+          <hr>
+        `;
+      }
+
+    });
   }
 
-  const modal = document.getElementById("compModal");
-  const body = document.getElementById("modalBody");
+  container.innerHTML = html;
+}
 
+function renderCompTab(type, subject, comps) {
+
+  const container = document.getElementById("modalContent");
+
+  let html = `
+    <h3>${subject.Address}</h3>
+    <p>
+      List Price: ${formatCurrency(subject["List Price"])} ||
+      ARV: ${formatCurrency(subject["ARV"])}
+    </p>
+    <hr>
+  `;
+
+  if (!comps.length) {
+    html += `<p>No comps available.</p>`;
+  } else {
+
+    comps.forEach(comp => {
+
+      if (type === "sales") {
+
+        html += `
+          <p>
+            <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${comp["MLS Number"] || ""}" target="_blank">
+              ${comp.Address || ""}
+            </a><br>
+            ${comp["PR AbvFinSQFT"] || "-"} SqFt ||
+            ${comp.Beds || "-"} Beds |
+            ${(comp["Bathrooms Full"] || 0)}.${(comp["Bathrooms Half"] || 0)} Baths ||
+            Sold: ${formatCurrency(comp["Close Price"])} ||
+            DOM ${comp["DOM"] || "-"}
+          </p>
+          <hr>
+        `;
+
+      } else {
+
+        html += `
+          <p>
+            <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${comp["MLS Number"] || ""}" target="_blank">
+              ${comp.Address || ""}
+            </a><br>
+            ${comp["PR AbvFinSQFT"] || "-"} SqFt ||
+            ${comp.Beds || "-"} Beds ||
+            Rent: ${formatCurrency(comp.adjustedRent)} ||
+            ${formatCurrency(comp["Close Price"])} ||
+            ${comp.distance ? comp.distance.toFixed(2) + " mi" : ""}
+          </p>
+          <hr>
+        `;
+      }
+
+    });
+  }
+
+  container.innerHTML = html;
+}
 
   /* ============================= */
 /* SUBJECT PROPERTY */
