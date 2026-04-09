@@ -231,7 +231,7 @@ function renderCompTab(type, subject, comps) {
     `;
   }
 
-  // Build header
+  // Build modal header
   let html = `
     <h3>Subject Property</h3>
     <p>
@@ -242,18 +242,20 @@ function renderCompTab(type, subject, comps) {
       </strong>
     </p>
     <p>${subjectValueHTML}</p>
-    <p>${subjectSqft} SqFt  ||  
-       ${subjectBeds} Beds | ${subjectBaths} Baths  ||  
+    <p>${subjectSqft} SqFt  ||
+       ${subjectBeds} Beds | ${subjectBaths} Baths  ||
        DOM ${subject.CDOM || "-"}
     </p>
     <hr>
     <h3>${type === "sales" ? "Comparable Sales" : "Rental Comps"}</h3>
   `;
 
+  // If no comps
   if (!comps.length) {
     html += `<p>No comps available.</p>`;
   } else {
     comps.forEach(comp => {
+
       if (type === "sales") {
 
         html += `
@@ -269,7 +271,7 @@ function renderCompTab(type, subject, comps) {
           </p><hr>
         `;
 
-      } else {
+      } else {  // rental
 
         html += `
           <p>
@@ -283,6 +285,7 @@ function renderCompTab(type, subject, comps) {
           </p><hr>
         `;
       }
+
     });
   }
 
@@ -566,83 +569,7 @@ function formatPercent(val) {
 
 /* ============================= */
 
-function renderCompTab(type, subject, comps) {
 
-  const container = document.getElementById("modalContent");
-
-  // Build SUBJECT info
-  const subjectSqft = subject["SQFT"] || "-";
-  const subjectBeds = subject["Beds"] || "-";
-
-  const fullBaths = subject["Bathrooms Full"] || 0;
-  const halfBaths = subject["Bathrooms Half"] || 0;
-  const subjectBaths =
-    fullBaths || halfBaths
-      ? `${fullBaths}.${halfBaths}`
-      : "-";
-
-  let html = `
-    <h3>Subject Property</h3>
-    <p>
-      <strong>
-        <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${subject.MLS}" target="_blank">
-          ${subject.Address || ""}
-        </a>
-      </strong>
-    </p>
-    <p>
-      List Price: ${formatCurrency(subject["List Price"])}  ||  
-      ARV: ${
-        subject.ARV && subject.ARV !== "No Comps"
-          ? formatCurrency(subject.ARV)
-          : subject.ARV || "-"
-      }
-    </p>
-    <p>
-      ${subjectSqft} SqFt  ||  
-      ${subjectBeds} Beds | ${subjectBaths} Baths  ||  
-      DOM ${subject.CDOM || "-"}
-    </p>
-    <hr>
-    <h3>${type === "sales" ? "Comparable Sales" : "Rental Comps"}</h3>
-  `;
-
-  if (!comps.length) {
-    html += `<p>No comps available.</p>`;
-  } else {
-    comps.forEach(comp => {
-      if (type === "sales") {
-        html += `
-          <p>
-            <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${comp["MLS Number"] || ""}" target="_blank">
-              ${comp.Address || ""}
-            </a><br>
-            ${comp["PR AbvFinSQFT"] || "-"} SqFt ||
-            ${comp.Beds || "-"} Beds |
-            ${(comp["Bathrooms Full"] || 0)}.${(comp["Bathrooms Half"] || 0)} Baths ||
-            Sold: ${formatCurrency(comp["Close Price"])} ||
-            DOM ${comp["CDOM"] || "-"}
-          </p><hr>
-        `;
-      } else {
-        html += `
-          <p>
-            <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${comp["MLS Number"] || ""}" target="_blank">
-              ${comp.Address || ""}
-            </a><br>
-            ${comp["PR AbvFinSQFT"] || "-"} SqFt ||
-            ${comp.Beds || "-"} Beds ||
-            Rent: ${formatCurrency(comp.adjustedRent)} ||
-            ${formatCurrency(comp["Close Price"])} ||
-            DOM ${comp["CDOM"] || "-"}
-          </p><hr>
-        `;
-      }
-    });
-  }
-
-  container.innerHTML = html;
-}
 
 /* ============================= */
 /* CLOSE MODAL */
