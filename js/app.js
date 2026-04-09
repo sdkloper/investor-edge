@@ -131,68 +131,67 @@ function loadCSV() {
 function openCompModal(e) {
   e.preventDefault();
 
-  // Determine click source and type
   const clicked = e.currentTarget;
   const subject = JSON.parse(decodeURIComponent(clicked.dataset.row));
 
-  const rawSales = clicked.dataset.salesComp || "[]";
-  const rawRent  = clicked.dataset.rentComp  || "[]";
-
+  // ALWAYS get both datasets from the subject row
   let salesComps = [];
-  let rentComps  = [];
+  let rentComps = [];
 
   try {
-    salesComps = rawSales
-      ? JSON.parse(decodeURIComponent(rawSales).replace(/\\"/g, '"'))
+    salesComps = subject["Comp Details"]
+      ? JSON.parse(subject["Comp Details"])
       : [];
   } catch (err) {
-    console.error("Sales JSON parse error:", err);
+    console.error("Error parsing sales comps JSON:", err);
     salesComps = [];
   }
 
   try {
-    rentComps = rawRent
-      ? JSON.parse(decodeURIComponent(rawRent).replace(/\\"/g, '"'))
+    rentComps = subject["Rent Comp Details"]
+      ? JSON.parse(subject["Rent Comp Details"])
       : [];
   } catch (err) {
-    console.error("Rent JSON parse error:", err);
+    console.error("Error parsing rental comps JSON:", err);
     rentComps = [];
   }
 
-  // Decide default tab based on clicked link
+  // Determine starting tab
   const defaultTab = clicked.classList.contains("rentCompLink")
     ? "rent"
     : "sales";
 
-  // Build Modal Content
   const modal = document.getElementById("compModal");
-  const body  = document.getElementById("modalBody");
+  const body = document.getElementById("modalBody");
 
   body.innerHTML = `
     <div class="modal-tabs">
-      <button class="tabBtn ${defaultTab === "sales" ? "active" : ""}" data-tab="sales">
-        Sales Comps
-      </button>
-      <button class="tabBtn ${defaultTab === "rent" ? "active" : ""}" data-tab="rent">
-        Rental Comps
-      </button>
+      <button class="tabBtn ${defaultTab === "sales" ? "active" : ""}" data-tab="sales">Sales Comps</button>
+      <button class="tabBtn ${defaultTab === "rent" ? "active" : ""}" data-tab="rent">Rental Comps</button>
     </div>
     <div id="modalContent"></div>
   `;
 
-  // Initial render of correct tab
-  const initialComps = defaultTab === "sales" ? salesComps : rentComps;
-  renderCompTab(defaultTab, subject, initialComps);
+  const contentDiv = document.getElementById("modalContent");
 
-  // Tab button listeners
-  document.querySelectorAll(".tabBtn").forEach(btn => {
+  // Define a function to render content by tab
+  function showTab(tab) {
+    if (tab === "sales") {
+      renderCompTab("sales", subject, salesComps, contentDiv);
+    } else {
+      renderCompTab("rent", subject, rentComps, contentDiv);
+    }
+  }
+
+  // INITIAL RENDER
+  showTab(defaultTab);
+
+  // TAB SWITCH HANDLING
+  body.querySelectorAll(".tabBtn").forEach(btn => {
     btn.addEventListener("click", function () {
-      document.querySelectorAll(".tabBtn").forEach(b => b.classList.remove("active"));
+      body.querySelectorAll(".tabBtn").forEach(b => b.classList.remove("active"));
       this.classList.add("active");
-
-      const tab = this.dataset.tab;
-      const list = tab === "sales" ? salesComps : rentComps;
-      renderCompTab(tab, subject, list);
+      showTab(this.dataset.tab);
     });
   });
 
