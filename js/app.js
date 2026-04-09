@@ -123,6 +123,46 @@ function loadCSV() {
 }
 
 /* ============================= */
+///********** CompModal ******************///
+function openCompModal(e) {
+
+  e.preventDefault();
+
+  const type = e.target.dataset.type;
+  const compRaw = decodeURIComponent(e.target.dataset.comp);
+  const subject = JSON.parse(decodeURIComponent(e.target.dataset.row));
+  const comps = compRaw ? JSON.parse(compRaw.replace(/\\"/g, '"')) : [];
+
+  const modal = document.getElementById("compModal");
+  const body = document.getElementById("modalBody");
+
+  body.innerHTML = `
+    <div class="modal-tabs">
+      <button class="tabBtn ${type === "sales" ? "active" : ""}" data-tab="sales">Sales Comps</button>
+      <button class="tabBtn ${type === "rent" ? "active" : ""}" data-tab="rent">Rental Comps</button>
+    </div>
+
+    <div id="modalContent"></div>
+  `;
+
+  renderCompTab(type, subject, comps);
+
+  document.querySelectorAll(".tabBtn").forEach(btn => {
+    btn.addEventListener("click", function() {
+      document.querySelectorAll(".tabBtn").forEach(b => b.classList.remove("active"));
+      this.classList.add("active");
+      renderCompTab(this.dataset.tab, subject,
+        this.dataset.tab === "sales"
+          ? JSON.parse(decodeURIComponent(e.target.dataset.comp))
+          : JSON.parse(decodeURIComponent(e.target.dataset.comp))
+      );
+    });
+  });
+
+  modal.style.display = "block";
+}
+///***********************************///
+
 
 function renderTable() {
   const tbody = document.querySelector("#dealsTable tbody");
