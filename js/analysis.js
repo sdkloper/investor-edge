@@ -232,7 +232,7 @@ function populateCompTable(comps) {
       <td>${comp["Beds"] || ""}</td>
       <td>${comp["Bathrooms Full"] || ""}</td>
       <td>${comp["Bathrooms Half"] || ""}</td>
-      <td>${comp["Distance"] ? comp["Distance"].toFixed(2) + " mi" : ""}</td>
+      <td>${comp["Distance"] ? comp["distance"].toFixed(2) + " mi" : ""}</td>
       <td>${formatCurrency(comp["adjustedPrice"] || comp["Adjusted Price"] || 0)}</td>
     `;
 
