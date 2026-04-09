@@ -596,7 +596,7 @@ function renderCompTab(type, subject, comps) {
   }
 
   modal.style.display = "block";
-}
+//}
 
 /* ============================= */
 /* CLOSE MODAL */
