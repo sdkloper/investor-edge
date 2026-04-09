@@ -521,7 +521,39 @@ th, td {
   border: 1px solid black;
   color: black;
 }
+/* =========================================
+   Modal Tab Buttons (Sales / Rental Comps)
+   ========================================= */
 
+.modal-tabs {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.modal-tabs .tabBtn {
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: 2px solid #333;
+  border-radius: 4px;
+  background-color: #fff; /* inactive background */
+  color: #333;            /* inactive text */
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* Active tab style — highlighted */
+.modal-tabs .tabBtn.active {
+  background-color: #333; /* dark background like header menu */
+  color: #fff;            /* white text */
+  border-color: #333;
+}
+
+/* Hover state (optional) */
+.modal-tabs .tabBtn:hover:not(.active) {
+  background-color: #f0f0f0;
+}
 /* ======================================
    MOBILE OPTIMIZATION (ANALYZER)
 ====================================== */
