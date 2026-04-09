@@ -124,42 +124,169 @@ function loadCSV() {
 
 /* ============================= */
 ///********** CompModal ******************///
-function openCompModal(e) {
+/* =============================
+   COMPS + RENTAL COMPS MODAL
+   ============================= */
 
+function openCompModal(e) {
   e.preventDefault();
 
-  const type = e.target.dataset.type;
-  const compRaw = decodeURIComponent(e.target.dataset.comp);
-  const subject = JSON.parse(decodeURIComponent(e.target.dataset.row));
-  const comps = compRaw ? JSON.parse(compRaw.replace(/\\"/g, '"')) : [];
+  // Determine click source and type
+  const clicked = e.currentTarget;
+  const subject = JSON.parse(decodeURIComponent(clicked.dataset.row));
 
+  const rawSales = clicked.dataset.salesComp || "[]";
+  const rawRent  = clicked.dataset.rentComp  || "[]";
+
+  let salesComps = [];
+  let rentComps  = [];
+
+  try {
+    salesComps = rawSales
+      ? JSON.parse(decodeURIComponent(rawSales).replace(/\\"/g, '"'))
+      : [];
+  } catch (err) {
+    console.error("Sales JSON parse error:", err);
+    salesComps = [];
+  }
+
+  try {
+    rentComps = rawRent
+      ? JSON.parse(decodeURIComponent(rawRent).replace(/\\"/g, '"'))
+      : [];
+  } catch (err) {
+    console.error("Rent JSON parse error:", err);
+    rentComps = [];
+  }
+
+  // Decide default tab based on clicked link
+  const defaultTab = clicked.classList.contains("rentCompLink")
+    ? "rent"
+    : "sales";
+
+  // Build Modal Content
   const modal = document.getElementById("compModal");
-  const body = document.getElementById("modalBody");
+  const body  = document.getElementById("modalBody");
 
   body.innerHTML = `
     <div class="modal-tabs">
-      <button class="tabBtn ${type === "sales" ? "active" : ""}" data-tab="sales">Sales Comps</button>
-      <button class="tabBtn ${type === "rent" ? "active" : ""}" data-tab="rent">Rental Comps</button>
+      <button class="tabBtn ${defaultTab === "sales" ? "active" : ""}" data-tab="sales">
+        Sales Comps
+      </button>
+      <button class="tabBtn ${defaultTab === "rent" ? "active" : ""}" data-tab="rent">
+        Rental Comps
+      </button>
     </div>
-
     <div id="modalContent"></div>
   `;
 
-  renderCompTab(type, subject, comps);
+  // Initial render of correct tab
+  const initialComps = defaultTab === "sales" ? salesComps : rentComps;
+  renderCompTab(defaultTab, subject, initialComps);
 
+  // Tab button listeners
   document.querySelectorAll(".tabBtn").forEach(btn => {
-    btn.addEventListener("click", function() {
+    btn.addEventListener("click", function () {
       document.querySelectorAll(".tabBtn").forEach(b => b.classList.remove("active"));
       this.classList.add("active");
-      renderCompTab(this.dataset.tab, subject,
-        this.dataset.tab === "sales"
-          ? JSON.parse(decodeURIComponent(e.target.dataset.comp))
-          : JSON.parse(decodeURIComponent(e.target.dataset.comp))
-      );
+
+      const tab = this.dataset.tab;
+      const list = tab === "sales" ? salesComps : rentComps;
+      renderCompTab(tab, subject, list);
     });
   });
 
   modal.style.display = "block";
+}
+
+function renderCompTab(type, subject, comps) {
+  const container = document.getElementById("modalContent");
+
+  // Subject info
+  const subjectSqft = subject["SQFT"] || "-";
+  const subjectBeds = subject["Beds"] || "-";
+  const fullBaths   = subject["Bathrooms Full"] || 0;
+  const halfBaths   = subject["Bathrooms Half"] || 0;
+  const subjectBaths = (fullBaths || halfBaths) ? `${fullBaths}.${halfBaths}` : "-";
+
+  // Subject value (ARV vs Rent)
+  let subjectValueHTML = "";
+  if (type === "sales") {
+    subjectValueHTML = `
+      List Price: ${formatCurrency(subject["List Price"])}  ||
+      ARV: ${
+        subject.ARV && subject.ARV !== "No Comps"
+          ? formatCurrency(subject.ARV)
+          : subject.ARV || "-"
+      }
+    `;
+  } else {
+    subjectValueHTML = `
+      List Price: ${formatCurrency(subject["List Price"])}  ||
+      Rent: ${
+        subject.rent && subject.rent !== "No Comps"
+          ? formatCurrency(subject.rent)
+          : subject.rent || "-"
+      }
+    `;
+  }
+
+  // Build header
+  let html = `
+    <h3>Subject Property</h3>
+    <p>
+      <strong>
+        <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${subject.MLS}" target="_blank">
+          ${subject.Address || ""}
+        </a>
+      </strong>
+    </p>
+    <p>${subjectValueHTML}</p>
+    <p>${subjectSqft} SqFt  ||  
+       ${subjectBeds} Beds | ${subjectBaths} Baths  ||  
+       DOM ${subject.CDOM || "-"}
+    </p>
+    <hr>
+    <h3>${type === "sales" ? "Comparable Sales" : "Rental Comps"}</h3>
+  `;
+
+  if (!comps.length) {
+    html += `<p>No comps available.</p>`;
+  } else {
+    comps.forEach(comp => {
+      if (type === "sales") {
+
+        html += `
+          <p>
+            <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${comp["MLS Number"] || ""}" target="_blank">
+              ${comp.Address || ""}
+            </a><br>
+            ${comp["PR AbvFinSQFT"] || "-"} SqFt ||
+            ${comp.Beds || "-"} Beds |
+            ${(comp["Bathrooms Full"] || 0)}.${(comp["Bathrooms Half"] || 0)} Baths ||
+            Sold: ${formatCurrency(comp["Close Price"])} ||
+            DOM ${comp["DOM"] || "-"}
+          </p><hr>
+        `;
+
+      } else {
+
+        html += `
+          <p>
+            <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${comp["MLS Number"] || ""}" target="_blank">
+              ${comp.Address || ""}
+            </a><br>
+            ${comp["PR AbvFinSQFT"] || "-"} SqFt ||
+            ${comp.Beds || "-"} Beds ||
+            Rent: ${formatCurrency(comp.adjustedRent)} ||
+            ${comp.distance ? comp.distance.toFixed(2) + " mi" : ""}
+          </p><hr>
+        `;
+      }
+    });
+  }
+
+  container.innerHTML = html;
 }
 ///***********************************///
 
@@ -222,22 +349,22 @@ function renderTable() {
      <td>${formatPercent(row["% Below ARV"])}</td>
       <td>${row.CDOM ? row.CDOM : "-"}</td>
      <td>
-       <a href="#" class="compLink"
-          data-comp='${encodeURIComponent(row["Comp Details"] || "[]")}'
-          data-row='${encodeURIComponent(JSON.stringify(row))}'>
-          ${compCount}
-       </a>
-     </td>
-   
-     <td>${formatCurrency(row["Rent"])}</td>
-     <td>
-    <a href="#" class="rentCompLink"
-       data-type="rent"
-       data-comp='${encodeURIComponent(row["Rent Comp Details"] || "[]")}'
-       data-row='${encodeURIComponent(JSON.stringify(row))}'>
-       ${rentCompCount}
-    </a>
-  </td>
+  <a href="#" class="salesCompLink"
+     data-sales-comp='${encodeURIComponent(row["Comp Details"] || "[]")}'
+     data-row='${encodeURIComponent(JSON.stringify(row))}'>
+     ${salesCompCount}
+  </a>
+</td>
+
+<td>${formatCurrency(row["Rent"])}</td>
+
+<td>
+  <a href="#" class="rentCompLink"
+     data-rent-comp='${encodeURIComponent(row["Rent Comp Details"] || "[]")}'
+     data-row='${encodeURIComponent(JSON.stringify(row))}'>
+     ${rentCompCount}
+  </a>
+</td>
 
 
       <td>
