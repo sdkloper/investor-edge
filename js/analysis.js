@@ -182,7 +182,7 @@ function displayResults(data) {
   const summary = document.getElementById("summaryCard");
 
   summary.innerHTML = `
-    <h2>${formatCurrency(data.arv)}</h2>
+    <h2>ARV ${formatCurrency(data.arv)}</h2>
 
     <div class="summary-metrics">
       <div>Rent: ${formatCurrency(data.rent)}</div>
@@ -190,7 +190,7 @@ function displayResults(data) {
         Diff: ${formatCurrency(data.diff)}
       </div>
       <div class="${data.diff >= 0 ? "green" : "red"}">
-        ${Number(data.diffPct).toFixed(2)}%
+        ARV Discount ${Number(data.diffPct).toFixed(2)}%
       </div>
     </div>
   `;
