@@ -230,7 +230,7 @@ function renderTable() {
 
   document
     .querySelectorAll(".compLink")
-    .forEach((link) => link.addEventListener("click", openModal));
+    .forEach((link) => link.addEventListener("click", openCompModal));
 
    document.querySelectorAll(".salesCompLink")
   .forEach(link => link.addEventListener("click", openCompModal));
