@@ -280,7 +280,7 @@ function renderCompTab(type, subject, comps) {
             </a><br>
             ${comp["PR AbvFinSQFT"] || "-"} SqFt ||
             ${comp.Beds || "-"} Beds ||
-            Rent: ${formatCurrency(comp.Rent)} ||
+            Rent: ${formatCurrency(comp.adjustedRent)} ||
             DOM ${comp["CDOM"] || "-"}
           </p><hr>
         `;
