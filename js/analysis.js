@@ -190,7 +190,7 @@ function displayResults(data) {
         Diff: ${formatCurrency(data.diff)}
       </div>
       <div class="${data.diff >= 0 ? "green" : "red"}">
-        ARV Discount ${Number(data.diffPct).toFixed(2)}%
+        ARV Discount: ${Number(data.diffPct).toFixed(2)}%
       </div>
     </div>
   `;
