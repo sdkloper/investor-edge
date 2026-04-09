@@ -621,7 +621,7 @@ function renderCompTab(type, subject, comps) {
             ${comp.Beds || "-"} Beds |
             ${(comp["Bathrooms Full"] || 0)}.${(comp["Bathrooms Half"] || 0)} Baths ||
             Sold: ${formatCurrency(comp["Close Price"])} ||
-            DOM ${comp["DOM"] || "-"}
+            DOM ${comp["CDOM"] || "-"}
           </p><hr>
         `;
       } else {
@@ -634,7 +634,7 @@ function renderCompTab(type, subject, comps) {
             ${comp.Beds || "-"} Beds ||
             Rent: ${formatCurrency(comp.adjustedRent)} ||
             ${formatCurrency(comp["Close Price"])} ||
-            ${comp.distance ? comp.distance.toFixed(2) + " mi" : ""}
+            DOM ${comp["CDOM"] || "-"}
           </p><hr>
         `;
       }
