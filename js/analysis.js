@@ -150,7 +150,7 @@ async function analyzeProperty() {
    //     waterfront,
   //      garageSpaces,
     //    listPrice
-      });
+  //    });
      
     const response = await fetch(BACKEND_URL, {
       method: "POST",
