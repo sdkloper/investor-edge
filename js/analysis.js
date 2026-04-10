@@ -137,19 +137,19 @@ async function analyzeProperty() {
   );
   formData.append("listPrice", document.getElementById("listPrice").value || 0);
 
-  try {
+  //try {
 
-      console.log("Sending payload:");
-      console.log({
-        address,
-        structure,
-        beds,
-        fullBath,
-        halfBath,
-        sqft,
-        waterfront,
-        garageSpaces,
-        listPrice
+  //    console.log("Sending payload:");
+  //    console.log({
+  //      address,
+  //      structure,
+  //      beds,
+  //      fullBath,
+  //      halfBath,
+  //      sqft,
+   //     waterfront,
+  //      garageSpaces,
+    //    listPrice
       });
      
     const response = await fetch(BACKEND_URL, {
@@ -196,7 +196,7 @@ function displayResults(data) {
   `;
    console.log("RENT COMPS DATA:", data.rentComps);
   populateCompTable(data.comps);       // Sales comps
-  populateRentCompTable(data.rentComps); // Rental comps
+ // populateRentCompTable(data.rentComps); // Rental comps
 
   document.getElementById("resultsSection")
     .classList.remove("hidden");
