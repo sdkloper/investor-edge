@@ -113,38 +113,60 @@
 
   </div>
 
-  <!-- RESULTS -->
-  <div id="resultsSection" class="hidden">
+ <!-- RESULTS -->
+<div id="resultsSection" class="hidden">
 
-    <div id="summaryCard" class="card summary-card"></div>
+  <!-- Summary Card -->
+  <div id="summaryCard" class="card summary-card"></div>
 
-    <div class="card">
-      <h3>Comparable Sales</h3>
-      <div class="table-wrapper">
-        <table id="compTable">
-          <thead>
-            <tr>
-              <th>Address</th>
-              <th>Close Price</th>
-              <th>SqFt</th>
-              <th>Beds</th>
-              <th>Full</th>
-              <th>Half</th>
-              <th>Distance</th>
-              <th>Adj Price</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
+  <!-- Sale Comps Card -->
+  <div class="card">
+    <h3>Comparable Sales</h3>
+    <div class="table-wrapper">
+      <table id="compTable">
+        <thead>
+          <tr>
+            <th>Address</th>
+            <th>Close Price</th>
+            <th>SqFt</th>
+            <th>Beds</th>
+            <th>Full</th>
+            <th>Half</th>
+            <th>Distance</th>
+            <th>Adj Price</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
     </div>
-
   </div>
 
-  <!-- ERROR -->
-  <div id="errorCard" class="card error-card hidden"></div>
+  <!-- Rental Comps Card -->
+  <div class="card" style="margin-top: 1.5rem;">
+    <h3>Rental Comps</h3>
+    <div class="table-wrapper">
+      <table id="rentCompTable">
+        <thead>
+          <tr>
+            <th>Address</th>
+            <th>Close Price</th>
+            <th>SqFt</th>
+            <th>Beds</th>
+            <th>Full</th>
+            <th>Half</th>
+            <th>Distance</th>
+            <th>Adj Rent</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
 
 </div>
+
+<!-- ERROR -->
+<div id="errorCard" class="card error-card hidden"></div>
 
 <script src="js/analysis.js?v=1900"></script>
 
