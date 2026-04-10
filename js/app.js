@@ -174,14 +174,25 @@ function openCompModal(e) {
 
   const contentDiv = document.getElementById("modalContent");
 
+   
   // Define a function to render content by tab
-  function showTab(tab) {
-    if (tab === "sales") {
-      renderCompTab("sales", subject, salesComps, contentDiv);
-    } else {
-      renderCompTab("rent", subject, rentComps, contentDiv);
-    }
-  }
+   function showTab(tab) {
+   
+     // 🔹 Sort so flagged comps come first
+     const sortedSales = salesComps.slice().sort((a, b) => {
+       return (b.usedForARV ? 1 : 0) - (a.usedForARV ? 1 : 0);
+     });
+   
+     const sortedRent = rentComps.slice().sort((a, b) => {
+       return (b.usedForRent ? 1 : 0) - (a.usedForRent ? 1 : 0);
+     });
+   
+     if (tab === "sales") {
+       renderCompTab("sales", subject, sortedSales);
+     } else {
+       renderCompTab("rent", subject, sortedRent);
+     }
+   }
 
   // INITIAL RENDER
   showTab(defaultTab);
@@ -253,39 +264,44 @@ function renderCompTab(type, subject, comps) {
   if (!comps.length) {
     html += `<p>No comps available.</p>`;
   } else {
-    comps.forEach(comp => {
-
-      if (type === "sales") {
-
-        html += `
-          <p>
-            <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${comp["MLS Number"] || ""}" target="_blank">
-              ${comp.Address || ""}
-            </a><br>
-            ${comp["PR AbvFinSQFT"] || "-"} SqFt ||
-            ${comp.Beds || "-"} Beds |
-            ${(comp["Bathrooms Full"] || 0)}.${(comp["Bathrooms Half"] || 0)} Baths ||
-            Sold: ${formatCurrency(comp["Close Price"])} ||
-            DOM ${comp["CDOM"] || "-"}
-          </p><hr>
-        `;
-
-      } else {  // rental
-
-        html += `
-          <p>
-            <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${comp["MLS Number"] || ""}" target="_blank">
-              ${comp.Address || ""}
-            </a><br>
-            ${comp["PR AbvFinSQFT"] || "-"} SqFt ||
-            ${comp.Beds || "-"} Beds ||
-            Rent: ${formatCurrency(comp.adjustedRent)} ||
-            DOM ${comp["CDOM"] || "-"}
-          </p><hr>
-        `;
-      }
-
-    });
+   comps.forEach(comp => {
+   
+     // Determine if this comp is one of the flagged ones
+     const highlightClass =
+       (type === "sales" && comp.usedForARV) ||
+       (type === "rent" && comp.usedForRent)
+         ? "highlight-comp" : "";
+   
+     if (type === "sales") {
+       html += `
+         <p class="${highlight-comp}">
+           <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${comp["MLS Number"] || ""}" target="_blank">
+             ${comp.Address || ""}
+           </a><br>
+           ${comp["PR AbvFinSQFT"] || "-"} SqFt ||
+           ${comp.Beds || "-"} Beds |
+           ${(comp["Bathrooms Full"] || 0)}.${(comp["Bathrooms Half"] || 0)} Baths ||
+           Sold: ${formatCurrency(comp["Close Price"])} ||
+           DOM ${comp["CDOM"] || "-"}
+         </p>
+         <hr>
+       `;
+     } else {
+       html += `
+         <p class="${highlight-comp}">
+           <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${comp["MLS Number"] || ""}" target="_blank">
+             ${comp.Address || ""}
+           </a><br>
+           ${comp["PR AbvFinSQFT"] || "-"} SqFt ||
+           ${comp.Beds || "-"} Beds ||
+           Rent: ${formatCurrency(comp.adjustedRent)} ||
+           DOM ${comp["CDOM"] || "-"}
+         </p>
+         <hr>
+       `;
+     }
+   
+   });
   }
 
   container.innerHTML = html;
