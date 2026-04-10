@@ -194,7 +194,7 @@ function displayResults(data) {
       </div>
     </div>
   `;
-
+   console.log("RENT COMPS DATA:", data.rentComps);
   populateCompTable(data.comps);       // Sales comps
   populateRentCompTable(data.rentComps); // Rental comps
 
