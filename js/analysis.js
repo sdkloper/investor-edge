@@ -243,7 +243,9 @@ function populateCompTable(comps) {
 
 function populateRentCompTable(rentComps) {
   const tbody = document.querySelector("#rentCompTable tbody");
-  tbody.innerHTML = "";
+  if (!tbody) return; // safety
+
+  tbody.innerHTML = ""; // clear old rows
 
   rentComps.forEach(comp => {
     const tr = document.createElement("tr");
@@ -252,16 +254,16 @@ function populateRentCompTable(rentComps) {
       <td>
         <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${comp["MLS Number"] || ""}"
            target="_blank">
-           ${comp["Address"] || ""}
+          ${comp.Address || ""}
         </a>
       </td>
-      <td>${formatCurrency(comp["Close Price"])}</td>
+      <td>${formatCurrency(comp["Close Price"] || comp["ClosePrice"] || 0)}</td>
       <td>${comp["PR AbvFinSQFT"] || ""}</td>
       <td>${comp["Beds"] || ""}</td>
-      <td>${comp["Bathrooms Full"] || ""}</td>
-      <td>${comp["Bathrooms Half"] || ""}</td>
-      <td>${comp["distance"] ? comp["distance"].toFixed(2) + " mi" : ""}</td>
-      <td>${formatCurrency(comp["adjustedRent"] || 0)}</td>
+      <td>${comp["fullBath"] ?? ""}</td>
+      <td>${comp["halfBath"] ?? ""}</td>
+      <td>${comp.distance ? comp.distance.toFixed(2) + " mi" : ""}</td>
+      <td>${formatCurrency(comp.adjustedRent || 0)}</td>
     `;
 
     tbody.appendChild(tr);
