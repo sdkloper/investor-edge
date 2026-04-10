@@ -195,7 +195,8 @@ function displayResults(data) {
     </div>
   `;
 
-  populateCompTable(data.comps);
+  populateCompTable(data.comps);       // Sales comps
+  populateRentCompTable(data.rentComps); // Rental comps
 
   document.getElementById("resultsSection")
     .classList.remove("hidden");
@@ -234,6 +235,33 @@ function populateCompTable(comps) {
       <td>${comp["Bathrooms Half"] || ""}</td>
       <td>${comp["Distance"] ? comp["distance"].toFixed(2) + " mi" : ""}</td>
       <td>${formatCurrency(comp["adjustedPrice"] || comp["Adjusted Price"] || 0)}</td>
+    `;
+
+    tbody.appendChild(tr);
+  });
+}
+
+function populateRentCompTable(rentComps) {
+  const tbody = document.querySelector("#rentCompTable tbody");
+  tbody.innerHTML = "";
+
+  rentComps.forEach(comp => {
+    const tr = document.createElement("tr");
+
+    tr.innerHTML = `
+      <td>
+        <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${comp["MLS Number"] || ""}"
+           target="_blank">
+           ${comp["Address"] || ""}
+        </a>
+      </td>
+      <td>${formatCurrency(comp["Close Price"])}</td>
+      <td>${comp["PR AbvFinSQFT"] || ""}</td>
+      <td>${comp["Beds"] || ""}</td>
+      <td>${comp["Bathrooms Full"] || ""}</td>
+      <td>${comp["Bathrooms Half"] || ""}</td>
+      <td>${comp["distance"] ? comp["distance"].toFixed(2) + " mi" : ""}</td>
+      <td>${formatCurrency(comp["adjustedRent"] || 0)}</td>
     `;
 
     tbody.appendChild(tr);
