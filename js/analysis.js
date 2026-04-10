@@ -194,11 +194,9 @@ function displayResults(data) {
       </div>
     </div>
   `;
-   console.log("RENT COMPS DATA:", data.rentComps);
-   console.log("FULL ANALYSIS RESPONSE:", data);
-   console.log("rentComps field:", data.rentComps);
+   
   populateCompTable(data.comps);       // Sales comps
-  //populateRentCompTable(data.rentComps); // Rental comps
+  populateRentCompTable(data.rentComps); // Rental comps
 
   document.getElementById("resultsSection")
     .classList.remove("hidden");
