@@ -156,7 +156,8 @@ async function analyzeProperty() {
       method: "POST",
       body: formData
     });
-
+   console.log("FULL ANALYSIS RESPONSE:", data);
+   console.log("rentComps field:", data.rentComps);
     const data = await response.json();
    
     if (data.error) {
@@ -196,7 +197,7 @@ function displayResults(data) {
   `;
    console.log("RENT COMPS DATA:", data.rentComps);
   populateCompTable(data.comps);       // Sales comps
-  populateRentCompTable(data.rent); // Rental comps
+  populateRentCompTable(data.rentComps); // Rental comps
 
   document.getElementById("resultsSection")
     .classList.remove("hidden");
