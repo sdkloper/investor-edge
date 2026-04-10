@@ -156,8 +156,7 @@ async function analyzeProperty() {
       method: "POST",
       body: formData
     });
-   console.log("FULL ANALYSIS RESPONSE:", data);
-   console.log("rentComps field:", data.rentComps);
+   
     const data = await response.json();
    
     if (data.error) {
@@ -173,7 +172,8 @@ async function analyzeProperty() {
   btn.disabled = false;
   loading.classList.add("hidden");
 }
-   
+ console.log("FULL ANALYSIS RESPONSE:", data);
+ console.log("rentComps field:", data.rentComps);  
 /* ===============================
    DISPLAY RESULTS
 ================================ */
