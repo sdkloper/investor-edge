@@ -132,8 +132,10 @@ function openCompModal(e) {
   e.preventDefault();
 
   const clicked = e.currentTarget;
-  const subject = JSON.parse(decodeURIComponent(clicked.dataset.row));
+//  const subject = JSON.parse(decodeURIComponent(clicked.dataset.row));
  // debug ********************************************************************** 
+const compRaw = decodeURIComponent(e.target.dataset.comp);
+const subject = JSON.parse(decodeURIComponent(e.target.dataset.row));
 let comps = [];
 
 try {
