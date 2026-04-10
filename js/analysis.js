@@ -172,8 +172,7 @@ async function analyzeProperty() {
   btn.disabled = false;
   loading.classList.add("hidden");
 }
- console.log("FULL ANALYSIS RESPONSE:", data);
- console.log("rentComps field:", data.rentComps);  
+  
 /* ===============================
    DISPLAY RESULTS
 ================================ */
@@ -196,6 +195,8 @@ function displayResults(data) {
     </div>
   `;
    console.log("RENT COMPS DATA:", data.rentComps);
+   console.log("FULL ANALYSIS RESPONSE:", data);
+   console.log("rentComps field:", data.rentComps);
   populateCompTable(data.comps);       // Sales comps
   //populateRentCompTable(data.rentComps); // Rental comps
 
