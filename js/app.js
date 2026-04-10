@@ -133,7 +133,26 @@ function openCompModal(e) {
 
   const clicked = e.currentTarget;
   const subject = JSON.parse(decodeURIComponent(clicked.dataset.row));
-
+  
+   // debug logging of raw data**************************8
+   console.log("📊 RAW comps from row:", row);
+   console.log("📊 RAW sales comps:", compRaw);
+   
+   let parsedSales = [];
+   try {
+     let raw = decodeURIComponent(e.target.dataset.comp || "[]");
+     raw = raw.replace(/\\"/g, '"');
+     parsedSales = JSON.parse(raw);
+   } catch (err) {
+     console.error("Comp JSON parse error:", err);
+   }
+   
+   console.log("➡ Parsed comps array:", parsedSales);
+   parsedSales.forEach((c, i) => {
+     console.log(`  comp[${i}] usedForARV:`, c.usedForARV, ", usedForRent:", c.usedForRent);
+   });
+   //*********************************************************88
+   
   // ALWAYS get both datasets from the subject row
   let salesComps = [];
   let rentComps = [];
@@ -174,24 +193,7 @@ function openCompModal(e) {
   `;
 
   const contentDiv = document.getElementById("modalContent");
-   // debug logging of raw data**************************8
-   console.log("📊 RAW comps from row:", row);
-   console.log("📊 RAW sales comps:", compRaw);
-   
-   let parsedSales = [];
-   try {
-     let raw = decodeURIComponent(e.target.dataset.comp || "[]");
-     raw = raw.replace(/\\"/g, '"');
-     parsedSales = JSON.parse(raw);
-   } catch (err) {
-     console.error("Comp JSON parse error:", err);
-   }
-   
-   console.log("➡ Parsed comps array:", parsedSales);
-   parsedSales.forEach((c, i) => {
-     console.log(`  comp[${i}] usedForARV:`, c.usedForARV, ", usedForRent:", c.usedForRent);
-   });
-   //*********************************************************88
+  
    
   // Define a function to render content by tab
    function showTab(tab) {
