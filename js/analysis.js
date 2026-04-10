@@ -233,7 +233,7 @@ function populateCompTable(comps) {
       <td>${comp["Beds"] || ""}</td>
       <td>${comp["Bathrooms Full"] || ""}</td>
       <td>${comp["Bathrooms Half"] || ""}</td>
-      <td>${comp["Distance"] ? comp["distance"].toFixed(2) + " mi" : ""}</td>
+       <td>${comp.distance ? comp.distance.toFixed(2) + " mi" : ""}</td>
       <td>${formatCurrency(comp["adjustedPrice"] || comp["Adjusted Price"] || 0)}</td>
     `;
 
@@ -260,8 +260,8 @@ function populateRentCompTable(rentComps) {
       <td>${formatCurrency(comp["Close Price"] || comp["ClosePrice"] || 0)}</td>
       <td>${comp["PR AbvFinSQFT"] || ""}</td>
       <td>${comp["Beds"] || ""}</td>
-      <td>${comp["fullBath"] ?? ""}</td>
-      <td>${comp["halfBath"] ?? ""}</td>
+      <td>${comp["Bathrooms Full"] || ""}</td>
+      <td>${comp["Bathrooms Half"] || ""}</td>
       <td>${comp.distance ? comp.distance.toFixed(2) + " mi" : ""}</td>
       <td>${formatCurrency(comp.adjustedRent || 0)}</td>
     `;
