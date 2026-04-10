@@ -274,7 +274,7 @@ function renderCompTab(type, subject, comps) {
    
      if (type === "sales") {
        html += `
-         <p class="${highlight-comp}">
+         <p class="${highlightClass}">
            <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${comp["MLS Number"] || ""}" target="_blank">
              ${comp.Address || ""}
            </a><br>
@@ -288,7 +288,7 @@ function renderCompTab(type, subject, comps) {
        `;
      } else {
        html += `
-         <p class="${highlight-comp}">
+         <p class="${highlightClass}">
            <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${comp["MLS Number"] || ""}" target="_blank">
              ${comp.Address || ""}
            </a><br>
