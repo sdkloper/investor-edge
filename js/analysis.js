@@ -213,13 +213,21 @@ function showError(message) {
 ================================ */
 
 function populateCompTable(comps) {
-
   const tbody = document.querySelector("#compTable tbody");
   tbody.innerHTML = "";
 
-  comps.forEach(comp => {
+  // sort so flagged comps come first
+  const sorted = comps.slice().sort((a, b) => {
+    if (a.usedForARV && !b.usedForARV) return -1;
+    if (!a.usedForARV && b.usedForARV) return 1;
+    return 0;
+  });
 
+  sorted.forEach((comp, index) => {
     const tr = document.createElement("tr");
+
+    // highlight top 2
+    if (index < 2) tr.classList.add("highlight-comp");
 
     tr.innerHTML = `
       <td>
@@ -233,39 +241,45 @@ function populateCompTable(comps) {
       <td>${comp["Beds"] || ""}</td>
       <td>${comp["Bathrooms Full"] || ""}</td>
       <td>${comp["Bathrooms Half"] || ""}</td>
-       <td>${comp.distance ? comp.distance.toFixed(2) + " mi" : ""}</td>
+      <td>${comp["Distance"] ? comp["distance"].toFixed(2) + " mi" : ""}</td>
       <td>${formatCurrency(comp["adjustedPrice"] || comp["Adjusted Price"] || 0)}</td>
     `;
-
     tbody.appendChild(tr);
   });
 }
 
 function populateRentCompTable(rentComps) {
   const tbody = document.querySelector("#rentCompTable tbody");
-  if (!tbody) return; // safety
+  tbody.innerHTML = "";
 
-  tbody.innerHTML = ""; // clear old rows
+  // sort so flagged rent comps come first
+  const sorted = rentComps.slice().sort((a, b) => {
+    if (a.usedForRent && !b.usedForRent) return -1;
+    if (!a.usedForRent && b.usedForRent) return 1;
+    return 0;
+  });
 
-  rentComps.forEach(comp => {
+  sorted.forEach((comp, index) => {
     const tr = document.createElement("tr");
+
+    // highlight top 2 rents
+    if (index < 2) tr.classList.add("highlight-comp");
 
     tr.innerHTML = `
       <td>
         <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${comp["MLS Number"] || ""}"
            target="_blank">
-          ${comp.Address || ""}
+           ${comp["Address"] || ""}
         </a>
       </td>
-      <td>${formatCurrency(comp["Close Price"] || comp["ClosePrice"] || 0)}</td>
+      <td>${formatCurrency(comp["Close Price"])}</td>
       <td>${comp["PR AbvFinSQFT"] || ""}</td>
       <td>${comp["Beds"] || ""}</td>
       <td>${comp["Bathrooms Full"] || ""}</td>
       <td>${comp["Bathrooms Half"] || ""}</td>
-      <td>${comp.distance ? comp.distance.toFixed(2) + " mi" : ""}</td>
+      <td>${comp["Distance"] ? comp["distance"].toFixed(2) + " mi" : ""}</td>
       <td>${formatCurrency(comp.adjustedRent || 0)}</td>
     `;
-
     tbody.appendChild(tr);
   });
 }
