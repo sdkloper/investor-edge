@@ -136,28 +136,29 @@ function openCompModal(e) {
  // debug ********************************************************************** 
 const compRaw = decodeURIComponent(e.target.dataset.comp);
 const subject = JSON.parse(decodeURIComponent(e.target.dataset.row));
+// Safely parse the comp details
+let compJSON = e.target.dataset.comp;
 let comps = [];
 
-try {
-  // Safely parse the comp JSON
-  const cleaned = compRaw.replace(/\\"/g, '"');
-  comps = cleaned ? JSON.parse(cleaned) : [];
-} catch (err) {
-  console.error("Comp JSON parse error:", err);
+if (compJSON && compJSON !== "undefined") {
+  try {
+    const raw = decodeURIComponent(compJSON).replace(/\\"/g, '"').trim();
+    comps = raw ? JSON.parse(raw) : [];
+  } catch (err) {
+    console.error("Comp JSON parse error:", err);
+    comps = [];
+  }
+} else {
+  console.warn("Comp details are missing or undefined");
+  comps = [];
 }
 
-// 🧪 DEBUG: Log incoming data to the console
-console.log("🔍 Subject Row Data:", subject);
-console.log("🔍 Raw comp JSON:", compRaw);
-console.log("🔍 Parsed comps array:", comps);
-
-// Log each comp’s flags
-comps.forEach((c, index) => {
+// Debug logging
+console.log("📊 Parsed comps:", comps);
+comps.forEach((c, i) => {
   console.log(
-    `Comp #${index} — usedForARV:`,
-    c.usedForARV,
-    ", usedForRent:",
-    c.usedForRent
+    `Comp ${i}: usedForARV=`, c.usedForARV,
+    ` usedForRent=`, c.usedForRent
   );
 });
 //*****************************************************************************************   
