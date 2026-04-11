@@ -133,12 +133,11 @@ function openCompModal(e) {
 
   const clicked = e.currentTarget;
   const subject = JSON.parse(decodeURIComponent(clicked.dataset.row));
- // debug ********************************************************************** 
-// ====== DEBUG: show the raw comp data ======
-const rawCompData = clicked.dataset.comp;
-console.log("🔍 raw comp dataset string:", rawCompData);
+// ====== DEBUG: show the raw comp data ======********************************8
+const rawCompData = clicked.getAttribute("data-comp");
+console.log("🔍 raw data-comp attribute string:", rawCompData);
 
-if (rawCompData) {
+if (rawCompData !== null) {
   try {
     const decoded = decodeURIComponent(rawCompData).replace(/\\"/g, '"').trim();
     const comps = decoded ? JSON.parse(decoded) : [];
@@ -146,16 +145,21 @@ if (rawCompData) {
     console.log("📊 parsed comps array:", comps);
     console.table(comps);
 
-    // Log flag values for each comp if they exist
+    // Show whether your data contains the expected flags
     comps.forEach((c, i) => {
-      console.log(`comp[${i}] usedForARV:`, c.usedForARV, ", usedForRent:", c.usedForRent);
+      console.log(
+        `comp[${i}] usedForARV:`,
+        c.usedForARV,
+        "usedForRent:",
+        c.usedForRent
+      );
     });
 
   } catch (err) {
     console.error("Comp JSON parse error:", err);
   }
 } else {
-  console.warn("⚠️ clicked.dataset.comp is empty or undefined");
+  console.warn("⚠️ data-comp attribute was not found on this element");
 }
 //*****************************************************************************************   
   // ALWAYS get both datasets from the subject row
