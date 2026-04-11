@@ -134,36 +134,32 @@ function openCompModal(e) {
   const clicked = e.currentTarget;
 //  const subject = JSON.parse(decodeURIComponent(clicked.dataset.row));
  // debug ********************************************************************** 
-const el = e.currentTarget; // ALWAYS the element the listener is attached to
+const compRaw = decodeURIComponent(e.target.dataset.comp);
+const subject = JSON.parse(decodeURIComponent(e.target.dataset.row));
+let comps = [];
 
-const compRaw = el.dataset.comp;
-const rowRaw  = el.dataset.row;
-
-let subject = {};
-let comps   = [];
-
-// Parse subject safely
-if (rowRaw) {
-  try {
-    subject = JSON.parse(decodeURIComponent(rowRaw));
-  } catch (err) {
-    console.error("Subject JSON parse error:", err);
-    subject = {};
-  }
+try {
+  // Safely parse the comp JSON
+  const cleaned = compRaw.replace(/\\"/g, '"');
+  comps = cleaned ? JSON.parse(cleaned) : [];
+} catch (err) {
+  console.error("Comp JSON parse error:", err);
 }
 
-// Parse comps safely
-if (compRaw) {
-  try {
-    const rawDecoded = decodeURIComponent(compRaw).replace(/\\"/g, '"').trim();
-    comps = rawDecoded ? JSON.parse(rawDecoded) : [];
-  } catch (err) {
-    console.error("Comp JSON parse error:", err);
-    comps = [];
-  }
-}
+// 🧪 DEBUG: Log incoming data to the console
+//console.log("🔍 Subject Row Data:", subject);
+//console.log("🔍 Raw comp JSON:", compRaw);
+console.log("🔍 Parsed comps array:", comps);
 
-console.log("📊 Parsed comps:", comps);
+// Log each comp’s flags
+comps.forEach((c, index) => {
+  console.log(
+    `Comp #${index} — usedForARV:`,
+    c.usedForARV,
+    ", usedForRent:",
+    c.usedForRent
+  );
+});
 //*****************************************************************************************   
   // ALWAYS get both datasets from the subject row
   let salesComps = [];
