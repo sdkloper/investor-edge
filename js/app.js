@@ -230,9 +230,9 @@ function renderCompTab(type, subject, comps) {
   } else {
     subjectValueHTML = `
       List Price: ${formatCurrency(subject["List Price"])} ||
-      Rent: ${data.rent && data.rent !== "No Comps"
-        ? formatCurrency(data.rent)
-        : data.rent || "-"}
+      Rent: ${subject.rent && subject.rent !== "No Comps"
+        ? formatCurrency(subject.rent)
+        : subject.rent || "-"}
     `;
   }
 
