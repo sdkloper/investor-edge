@@ -228,12 +228,14 @@ function renderCompTab(type, subject, comps) {
         : subject.ARV || "-"}
     `;
   } else {
-    subjectValueHTML = `
-      List Price: ${formatCurrency(subject["List Price"])} ||
-      Rent: ${subject.rent && subject.rent !== "No Comps"
-        ? formatCurrency(subject.rent)
-        : subject.rent || "-"}
-    `;
+   subjectValueHTML = `
+     List Price: ${formatCurrency(subject["List Price"])} ||
+     Rent: ${
+       subject["Rent"] && subject["Rent"] !== "No Comps"
+         ? formatCurrency(subject["Rent"])
+         : subject["Rent"] || "-"
+     }
+   `;
   }
 
   let html = `
