@@ -276,6 +276,7 @@ function renderCompTab(type, subject, comps) {
             Sold: ${formatCurrency(comp["Close Price"])} ||
             Adj: ${formatCurrency(comp["adjustedPrice"])} ||
             DOM ${comp["CDOM"] || "-"}
+            || Used for ARV Calc.
           </p>
           <hr>
         `;
@@ -289,6 +290,7 @@ function renderCompTab(type, subject, comps) {
             ${comp.Beds || "-"} Beds ||
             Rent: ${formatCurrency(comp.adjustedRent)} ||
             DOM ${comp["CDOM"] || "-"}
+            || Used for Rent Calc.
           </p>
           <hr>
         `;
