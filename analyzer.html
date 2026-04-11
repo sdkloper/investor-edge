@@ -171,31 +171,33 @@
       <input id="condo" type="text">
     </div>
 </div>
-    <!-- SALES -->
-    <div class="section-title">Sales</div>
+    <!-- *********************************SALES -->
+    <div class="section-title">Purchase costs</div>
 
     <!-- ROW 11 -->
     <div class="form-row">
-      <div class="form-field">
-      <label>Desired ROI:</label>
-      <input id="roi" type="text" value="12%">
-    </div>
-
-      <div></div>
+    </div><div class="form-field">
+          <span>Cash to Close</span>
+          <div id="cashToClose"></div>
+      
 </div>
     <!-- ROW 12 -->
     <div class="form-row">
       <div class="form-field">
-      <label>Override Sale Price:</label>
-      <input id="saleOverride" type="text">
+       <span>Buyer Closing Costs</span>
+          <div id="buyerClose"></div>
     </div>
- 
-   <div class="form-field">
-    <button class="primary-btn" onclick="analyzeDeal()">
-    Analyze Deal
-    </button>
-   </div>
-  
+      <div class="form-field">
+      <span>Seller Closing Costs</span>
+          <div id="sellerClose"></div>
+      
+   <div class="form-row">
+     <div class="form-field">
+      <button class="primary-btn" onclick="analyzeDeal()">
+      Analyze Deal
+      </button>
+     </div>
+  <div></div>
 </div>
 </div>
     <!-- RIGHT SIDE -->
@@ -241,7 +243,7 @@
 
 </div>
 
-<script src="js/analyzer.js?v=3000"></script>
+<script src="js/analyzer.js?v=3100"></script>
  
 
 </body>
