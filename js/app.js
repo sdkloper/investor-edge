@@ -134,20 +134,28 @@ function openCompModal(e) {
   const clicked = e.currentTarget;
   const subject = JSON.parse(decodeURIComponent(clicked.dataset.row));
  // debug ********************************************************************** 
-//const compRaw = decodeURIComponent(e.target.dataset.comp);
-//const subject = JSON.parse(decodeURIComponent(e.target.dataset.row));
-//let comps = [];
+// ====== DEBUG: show the raw comp data ======
+const rawCompData = clicked.dataset.comp;
+console.log("🔍 raw comp dataset string:", rawCompData);
 
-try {
-  const rawDecoded = decodeURIComponent(el.dataset.comp).replace(/\\"/g, '"').trim();
-  const comps = rawDecoded ? JSON.parse(rawDecoded) : [];
+if (rawCompData) {
+  try {
+    const decoded = decodeURIComponent(rawCompData).replace(/\\"/g, '"').trim();
+    const comps = decoded ? JSON.parse(decoded) : [];
 
-  // ===== DEBUG: Show raw comp objects =====
-  console.log("🔍 Parsed comps (raw):", comps);
-  console.table(comps);
+    console.log("📊 parsed comps array:", comps);
+    console.table(comps);
 
-} catch (err) {
-  console.error("Comp JSON parse error:", err);
+    // Log flag values for each comp if they exist
+    comps.forEach((c, i) => {
+      console.log(`comp[${i}] usedForARV:`, c.usedForARV, ", usedForRent:", c.usedForRent);
+    });
+
+  } catch (err) {
+    console.error("Comp JSON parse error:", err);
+  }
+} else {
+  console.warn("⚠️ clicked.dataset.comp is empty or undefined");
 }
 //*****************************************************************************************   
   // ALWAYS get both datasets from the subject row
