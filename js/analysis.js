@@ -196,7 +196,7 @@ function displayResults(data) {
   `;
    
   populateCompTable(data.comps);       // Sales comps
-  populateRentCompTable(data.rentComps); // Rental comps
+ // populateRentCompTable(data.rentComps); // Rental comps
 
   document.getElementById("resultsSection")
     .classList.remove("hidden");
