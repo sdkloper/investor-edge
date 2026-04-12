@@ -187,8 +187,6 @@ function buildAnalyzeURL(type, subject, data) {
     price: subject["List Price"] || 0,
     arv: data.arv || 0,
     rent: data.rent || 0,
-    taxes: subject["Taxes"] || 0,
-    hoa: subject["HOA"] || 0,
     address: subject["Address"] || ""
   });
 
