@@ -183,20 +183,20 @@ function buildAnalyzeURL(type, data) {
       ? "rent-analyzer.html"
       : "analyzer.html";
 
-  const addressInput = document.getElementById("address");
+  const listPriceEl = document.getElementById("listPrice");
+  const addressEl   = document.getElementById("address");
 
-  const price = Number(
-    document.getElementById("listPrice").value.replace(/[^0-9.-]/g, "")
-);
+  const price = parseFloat(
+    listPriceEl.value.replace(/[^0-9.-]/g, "")
+  ) || 0;
 
-  const address = addressInput ? addressInput.value : "";
-  const price   = priceInput ? priceInput.value : 0;
+  const address = addressEl.value || "";
 
   const params = new URLSearchParams({
-    price: price || 0,
+    price: price,
     arv: data.arv || 0,
     rent: data.rent || 0,
-    address: address || ""
+    address: address
   });
 
   return `${baseURL}?${params.toString()}`;
