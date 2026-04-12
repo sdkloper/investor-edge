@@ -187,10 +187,10 @@ function buildAnalyzeURL(type, data) {
   const priceInput   = document.getElementById("listPrice");
 
   const address = addressInput ? addressInput.value : "";
-  const price   = priceInput ? priceInput.value : "";
+  const price   = priceInput ? priceInput.value : 0;
 
   const params = new URLSearchParams({
-    price: price ? price.replace(/[^0-9.]/g, "") : 0,
+    price: price || 0,
     arv: data.arv || 0,
     rent: data.rent || 0,
     address: address || ""
@@ -344,15 +344,4 @@ if (logoutBtn) {
     window.location.href = "index.html";
   });
 }
-const listPriceField = document.getElementById("listPrice");
 
-if (listPriceField) {
-  listPriceField.addEventListener("blur", function () {
-    const raw = this.value.replace(/[^\d]/g, "");
-    if (!raw) {
-      this.value = "";
-      return;
-    }
-    this.value = formatCurrency(raw);
-  });
-}
