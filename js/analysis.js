@@ -172,7 +172,30 @@ async function analyzeProperty() {
   btn.disabled = false;
   loading.classList.add("hidden");
 }
-  
+/* ============================= */
+/* ANALYZE Flip BUTTONS */
+/* ============================= */
+
+function buildAnalyzeURL(type, subject, data) {
+
+  const baseURL =
+    type === "rent"
+      ? "rent-analyzer.html"
+      : "analyzer.html";
+
+  const params = new URLSearchParams({
+    price: subject["List Price"] || 0,
+    arv: data.arv || 0,
+    rent: data.rent || 0,
+    taxes: subject["Taxes"] || 0,
+    hoa: subject["HOA"] || 0,
+    address: subject["Address"] || ""
+  });
+
+  return `${baseURL}?${params.toString()}`;
+}
+
+
 /* ===============================
    DISPLAY RESULTS
 ================================ */
@@ -200,6 +223,23 @@ function displayResults(data) {
 
   document.getElementById("resultsSection")
     .classList.remove("hidden");
+
+   document.getElementById("analyzeButtons")
+  .classList.remove("hidden");
+
+   const subject = data.subject || {}; // however you store subject
+
+   document.getElementById("analyzeFlipBtn")
+     .onclick = function () {
+       const url = buildAnalyzeURL("flip", subject, data);
+       window.open(url, "_blank");
+     };
+   
+   document.getElementById("analyzeRentBtn")
+     .onclick = function () {
+       const url = buildAnalyzeURL("rent", subject, data);
+       window.open(url, "_blank");
+     };
 }
 
 function showError(message) {
