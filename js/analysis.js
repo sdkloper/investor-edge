@@ -176,29 +176,28 @@ async function analyzeProperty() {
 /* ANALYZE Flip BUTTONS */
 /* ============================= */
 
-/* ============================= */
-/* ANALYZE BUTTONS */
-/* ============================= */
-
-function buildAnalyzeURL(type, subject, data) {
+function buildAnalyzeURL(type, data) {
 
   const baseURL =
     type === "rent"
       ? "rent-analyzer.html"
       : "analyzer.html";
 
+  const addressInput = document.getElementById("address");
+  const priceInput   = document.getElementById("listPrice");
+
+  const address = addressInput ? addressInput.value : "";
+  const price   = priceInput ? priceInput.value : 0;
+
   const params = new URLSearchParams({
-    price: getNumericValue("List Price") || subject.listPrice || 0,
+    price: price || 0,
     arv: data.arv || 0,
     rent: data.rent || 0,
-    address: encodeURIComponent(
-      document.getElementById("Property Address")?.value || subject.Address || ""
-    )
+    address: address || ""
   });
 
   return `${baseURL}?${params.toString()}`;
 }
-
 
 /* ===============================
    DISPLAY RESULTS
@@ -233,17 +232,15 @@ function displayResults(data) {
 
    const subject = data.subject || {}; // however you store subject
 
-   document.getElementById("analyzeFlipBtn")
-     .onclick = function () {
-       const url = buildAnalyzeURL("flip", subject, data);
-       window.open(url, "_blank");
-     };
+   document.getElementById("analyzeFlipBtn").onclick = function () {
+     const url = buildAnalyzeURL("flip", data);
+     window.open(url, "_blank");
+   };
    
-   document.getElementById("analyzeRentBtn")
-     .onclick = function () {
-       const url = buildAnalyzeURL("rent", subject, data);
-       window.open(url, "_blank");
-     };
+   document.getElementById("analyzeRentBtn").onclick = function () {
+     const url = buildAnalyzeURL("rent", data);
+     window.open(url, "_blank");
+   };
 }
 
 function showError(message) {
