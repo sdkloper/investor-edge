@@ -274,9 +274,10 @@ commissionCost = calcCommission(estimatedSale);
 
 const override = getNumericValue("saleOverride");
 
+const arv = getNumericValue("arv");
+   
 const sale = override || arv;
 
-const arv = getNumericValue("arv");
 const spread = arv - estimatedSale;
 
 // =====================
