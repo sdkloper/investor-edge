@@ -355,8 +355,8 @@ document.getElementById("profit").innerText =
 document.getElementById("roiOut").innerText =
 (roi * 100).toFixed(1) + "%";
 
-document.getElementById("cashRoi").innerText =
-(cashRoi * 100).toFixed(1) + "%";
+//document.getElementById("cashRoi").innerText =
+//(cashRoi * 100).toFixed(1) + "%";
 
 document.getElementById("requiredSale").innerText =
 "$" + Math.round(estimatedSale).toLocaleString();
