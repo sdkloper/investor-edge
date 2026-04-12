@@ -192,7 +192,9 @@ function buildAnalyzeURL(type, data) {
   : 0;
 
   const params = new URLSearchParams({
-    price: price || 0,
+    price: price
+     ? price.replace(/[^0-9.]/g, "")
+     : 0,
     arv: data.arv || 0,
     rent: data.rent || 0,
     address: address || ""
