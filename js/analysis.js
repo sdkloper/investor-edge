@@ -185,7 +185,7 @@ function buildAnalyzeURL(type, data) {
 
   const addressInput = document.getElementById("address");
 
-  const priceInput = Number(
+  const price = Number(
     document.getElementById("listPrice").value.replace(/[^0-9.-]/g, "")
 );
 
