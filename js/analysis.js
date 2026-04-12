@@ -339,3 +339,27 @@ if (logoutBtn) {
     window.location.href = "index.html";
   });
 }
+
+//listener
+window.addEventListener("DOMContentLoaded", () => {
+
+  loadFromURL();
+
+  const currencyFields = [
+    "listprice"
+  ];
+
+  currencyFields.forEach(id => {
+    const input = document.getElementById(id);
+
+    if (!input) return;
+
+    input.addEventListener("blur", function () {
+      formatCurrencyInput(input);
+    });
+
+    input.addEventListener("focus", function () {
+      input.value = input.value.replace(/[^0-9]/g, "");
+    });
+  });
+
