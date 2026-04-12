@@ -187,14 +187,10 @@ function buildAnalyzeURL(type, data) {
   const priceInput   = document.getElementById("listPrice");
 
   const address = addressInput ? addressInput.value : "";
-  const price = priceInput
-  ? priceInput.value.replace(/[^\d]/g, "")
-  : 0;
+  const price   = priceInput ? priceInput.value : "";
 
   const params = new URLSearchParams({
-    price: price
-     ? price.replace(/[^0-9.]/g, "")
-     : 0,
+    price: price ? price.replace(/[^0-9.]/g, "") : 0,
     arv: data.arv || 0,
     rent: data.rent || 0,
     address: address || ""
