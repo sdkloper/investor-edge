@@ -188,11 +188,11 @@ function buildAnalyzeURL(type, subject, data) {
       : "analyzer.html";
 
   const params = new URLSearchParams({
-    price: getNumericValue("listPrice") || subject.listPrice || 0,
+    price: getNumericValue("List Price") || subject.listPrice || 0,
     arv: data.arv || 0,
     rent: data.rent || 0,
     address: encodeURIComponent(
-      document.getElementById("address")?.value || subject.Address || ""
+      document.getElementById("Property Address")?.value || subject.Address || ""
     )
   });
 
