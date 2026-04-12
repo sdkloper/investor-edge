@@ -184,7 +184,10 @@ function buildAnalyzeURL(type, data) {
       : "analyzer.html";
 
   const addressInput = document.getElementById("address");
-  const priceInput   = document.getElementById("listPrice");
+
+  const priceInput = Number(
+    document.getElementById("listPrice").value.replace(/[^0-9.-]/g, "")
+);
 
   const address = addressInput ? addressInput.value : "";
   const price   = priceInput ? priceInput.value : 0;
@@ -197,6 +200,12 @@ function buildAnalyzeURL(type, data) {
   });
 
   return `${baseURL}?${params.toString()}`;
+}
+
+function formatCurrencyInput(value) {
+  const number = value.replace(/[^0-9]/g, "");
+  if (!number) return "";
+  return "$" + Number(number).toLocaleString("en-US");
 }
 
 /* ===============================
@@ -342,4 +351,8 @@ if (logoutBtn) {
     window.location.href = "index.html";
   });
 }
+const listPriceInput = document.getElementById("listPrice");
 
+listPriceInput.addEventListener("blur", function () {
+  this.value = formatCurrencyInput(this.value);
+});
