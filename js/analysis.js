@@ -199,11 +199,7 @@ function buildAnalyzeURL(type, data) {
   return `${baseURL}?${params.toString()}`;
 }
 
-function formatCurrencyInput(value) {
-  const number = value.replace(/[^0-9]/g, "");
-  if (!number) return "";
-  return "$" + Number(number).toLocaleString("en-US");
-}
+
 
 /* ===============================
    DISPLAY RESULTS
@@ -348,8 +344,4 @@ if (logoutBtn) {
     window.location.href = "index.html";
   });
 }
-const listPriceInput = document.getElementById("listPrice");
 
-listPriceInput.addEventListener("blur", function () {
-  this.value = formatCurrencyInput(this.value);
-});
