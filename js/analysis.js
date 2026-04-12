@@ -184,10 +184,10 @@ function buildAnalyzeURL(type, subject, data) {
       : "analyzer.html";
 
   const params = new URLSearchParams({
-    price: subject["List Price"] || 0,
+    price: data.listprice || 0,
     arv: data.arv || 0,
     rent: data.rent || 0,
-    address: subject["Address"] || ""
+    address: data.address || ""
   });
 
   return `${baseURL}?${params.toString()}`;
