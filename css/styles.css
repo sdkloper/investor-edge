@@ -84,6 +84,9 @@ tr.nocomps {
     position: fixed;
     inset: 0;
     background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .modal-content {
@@ -96,6 +99,7 @@ tr.nocomps {
 
 #closeModal {
     float: right;
+    font-size: 22px;
     cursor: pointer;
 }
 .sort-arrow {
