@@ -392,6 +392,7 @@ function renderTable() {
         <button class="analyzeRentalBtn"
            data-price="${row["List Price"]}"
            data-rent="${row["Rent"]}"
+           data-arv="${row["ARV"]}"
            data-taxes="${row["Tax Annual Amount"]}"
            data-hoa="${row["HOA Fee"]}"
            data-hoafreq="${row["Association Fee Frequency"]}"
