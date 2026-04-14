@@ -227,8 +227,14 @@ function analyzeRental(){
   document.getElementById("totalReturn").innerText=f(totalReturn);
 
   document.getElementById("rtv").innerText=(rtv*100).toFixed(2)+"%";
+  const rtvEl = document.getElementById("rtv");
+    rtvEl.style.color = rtv >= 1 ? "#16a34a" : "#dc2626";
   document.getElementById("coc").innerText=(coc*100).toFixed(2)+"%";
+  const cocEl = document.getElementById("coc");
+    cocEl.style.color = coc >= 0.10 ? "#16a34a" : "#dc2626";
   document.getElementById("grm").innerText=grm.toFixed(2);
+  const grmEl = document.getElementById("grm");
+    grmEl.style.color = grm >= 4 ? "#16a34a" : "#dc2626";
   let dscrDisplay = "N/A";
 
   if (debtService > 0) {
@@ -236,7 +242,11 @@ function analyzeRental(){
   }
   
   document.getElementById("dscr").innerText = dscrDisplay;
+  const dscrEl = document.getElementById("dscr");
+    dscrEl.style.color = dscr >= 1.25 ? "#16a34a" : "#dc2626";
   document.getElementById("cap").innerText=(cap*100).toFixed(2)+"%";
+  const capEl = document.getElementById("cap");
+    capEl.style.color = cap >= 0.08 ? "#16a34a" : "#dc2626";
   
 
   // Monthly values
