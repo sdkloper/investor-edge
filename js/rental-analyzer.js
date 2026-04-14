@@ -228,7 +228,7 @@ function analyzeRental(){
 
   document.getElementById("rtv").innerText=(rtv*100).toFixed(2)+"%";
   const rtvEl = document.getElementById("rtv");
-    rtvEl.style.color = rtv >= 1 ? "#16a34a" : "#dc2626";
+    rtvEl.style.color = rtv >= .01 ? "#16a34a" : "#dc2626";
   document.getElementById("coc").innerText=(coc*100).toFixed(2)+"%";
   const cocEl = document.getElementById("coc");
     cocEl.style.color = coc >= 0.10 ? "#16a34a" : "#dc2626";
