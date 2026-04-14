@@ -7,6 +7,51 @@ const countyTaxRates = {
   "Montgomery County": { recordation: 0.0022, county: 0.0050, state: 0.0025 }
 };
 
+function openModal(type) {
+
+  const modal = document.getElementById("metricModal");
+  const title = document.getElementById("modalTitle");
+  const formula = document.getElementById("modalFormula");
+  const desc = document.getElementById("modalDescription");
+
+  if (type === "rtv") {
+    title.innerText = "Rent To Value 1% Rule (RTV)";
+    formula.innerText = "Formula: Monthly Rent / Purchase Price";
+    desc.innerText = "This ratio indicates the gross rental income as a percentage of the total property cost, often called the "1% rule" gauge";
+  }
+
+    if (type === "coc") {
+    title.innerText = "Cash On Cash Return (COC)";
+    formula.innerText = "Annual Cash Flow / Total Cash Invested";
+    desc.innerText = "Shows The return on the actual cash invested (down payment, closing costs, renovations), not the total property value.";
+  }
+  
+  if (type === "grm") {
+    title.innerText = "Gross Rent Multiplier (GRM)";
+    formula.innerText = "Formula: Property Value / Gross Annual Rental Income";
+    desc.innerText = "Shows how many years it takes for rent to pay off the property. Lower is better.";
+  }
+
+  if (type === "dscr") {
+    title.innerText = "Debt Service Coverage Ratio (DSCR)";
+    formula.innerText = "Formula: Net Operating Income / Annual Debt Service";
+    desc.innerText = "Measures if the property generates enough income to cover its mortgage.";
+  }
+
+  if (type === "cap") {
+    title.innerText = "Cap Rate";
+    formula.innerText = "Formula: Net Operating Income / Purchase Price";
+    desc.innerText = "Represents the return if the property was purchased in cash.";
+  }
+
+  modal.style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("metricModal").style.display = "none";
+}
+
+
 function formatCurrencyInput(input) {
   let val = input.value.replace(/[^0-9]/g, "");
   if (!val) return;
