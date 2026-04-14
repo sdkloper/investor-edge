@@ -28,7 +28,7 @@ function openModal(type) {
   
   if (type === "grm") {
     title.innerText = "Gross Rent Multiplier (GRM)";
-    formula.innerText = "Formula: GRM = Property Value / Gross Annual Rental Income";
+    formula.innerText = "Formula: GRM = Purchase Price / Gross Annual Rental Income";
     desc.innerText = "Shows how many years it takes for rent to pay off the property. Lower is better.";
   }
 
