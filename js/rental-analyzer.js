@@ -223,6 +223,7 @@ window.addEventListener("DOMContentLoaded", () => {
   // ✅ DEFINE ONCE
   const currencyFields = [
     "purchase",
+    "arv",
     "rehab",
     "rent",
     "taxes",
