@@ -412,6 +412,9 @@ function renderTable() {
    document.querySelectorAll(".analyzeFlipBtn")
   .forEach(btn => btn.addEventListener("click", analyzeDealFromButton));
 
+   document.querySelectorAll(".analyzeRentalBtn")
+     .forEach(btn => btn.addEventListener("click", analyzeDealFromButton));
+   
   attachSortHandlers();
   updateSortArrows();
 
