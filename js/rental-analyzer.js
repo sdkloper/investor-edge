@@ -17,7 +17,7 @@ function openModal(type) {
   if (type === "rtv") {
     title.innerText = "Rent To Value 1% Rule (RTV)";
     formula.innerText = "Formula: Monthly Rent / Purchase Price";
-    desc.innerText = "This ratio indicates the gross rental income as a percentage of the total property cost, often called the "1% rule" gauge";
+    desc.innerText = "This ratio indicates the gross rental income as a percentage of the total property cost";
   }
 
     if (type === "coc") {
