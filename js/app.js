@@ -414,7 +414,7 @@ function renderTable() {
   .forEach(btn => btn.addEventListener("click", analyzeDealFromButton));
 
    document.querySelectorAll(".analyzeRentalBtn")
-     .forEach(btn => btn.addEventListener("click", analyzeDealFromButton));
+     .forEach(btn => btn.addEventListener("click", analyzeRentalDealFromButton));
    
   attachSortHandlers();
   updateSortArrows();
