@@ -247,6 +247,26 @@ function analyzeRental(){
   document.getElementById("mHoa").innerText = f(hoa);
   document.getElementById("mCondo").innerText = f(condo);
   document.getElementById("mNet").innerText = f(netMonthly);
+
+  // =====================
+// WORKSHEET DISPLAY
+// =====================
+
+// reuse existing formatter
+// const f = x => "$" + Math.round(x).toLocaleString();
+
+document.getElementById("wPotentialRent").innerText = f(potentialRent);
+document.getElementById("wVacancy").innerText = f(vacancy);
+document.getElementById("wGrossIncome").innerText = f(grossIncome);
+
+document.getElementById("wTaxes").innerText = f(taxes);
+document.getElementById("wInsurance").innerText = f(insurance);
+document.getElementById("wHoaCondo").innerText = f((hoa * 12) + (condo * 12));
+document.getElementById("wTotalExpenses").innerText = f(operatingExpenses);
+
+document.getElementById("wNOI").innerText = f(NOI);
+document.getElementById("wDebtService").innerText = f(debtService);
+document.getElementById("wCashflow").innerText = f(cashflow);
 }
 
 function loadFromURL(){
