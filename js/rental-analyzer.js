@@ -212,7 +212,7 @@ function analyzeRental(){
   // =====================
   // FINAL METRICS
   // =====================
-
+  const rtv=rent/purchase;
   const coc = cashflow / cashInvested;
   const grm = purchase / potentialRent;
   const dscr = debtService > 0 ? NOI / debtService : 0;
