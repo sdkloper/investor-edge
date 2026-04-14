@@ -1,3 +1,12 @@
+const countyTaxRates = {
+  "Baltimore County": { recordation: 0.0025, county: 0.0075, state: 0.0025 },
+  "Anne Arundel County": { recordation: 0.0035, county: 0.0050, state: 0.0025 },
+  "Carroll County": { recordation: 0.0050, county: 0.0000, state: 0.0025 },
+  "Harford County": { recordation: 0.0033, county: 0.0050, state: 0.0025 },
+  "Howard County": { recordation: 0.0025, county: 0.0063, state: 0.0025 },
+  "Montgomery County": { recordation: 0.0022, county: 0.0050, state: 0.0025 }
+};
+
 function formatCurrencyInput(input) {
   let val = input.value.replace(/[^0-9]/g, "");
   if (!val) return;
@@ -25,8 +34,8 @@ function monthly(val,freq){
 }
 
 function toggleLoanFields(){
-  const type=document.getElementById("financeType").value;
-  const block=document.getElementById("loanFields");
+  const type=document.("financeType").value;
+  const block=document.("loanFields");
 
   if(type==="cash"){
     block.style.display="none";
@@ -51,130 +60,161 @@ function mortgagePayment(loan,rate){
 
 function analyzeRental(){
 
+  // =====================
+  // INPUTS FIRST (CRITICAL)
+  // =====================
+
+  const purchase = num("purchase");
+  const rehab = num("rehab");
+  const rent = num("rent");
+
+  const taxes = num("taxes");
+  const insurance = num("insurance");
+
+  const hoa = monthly(num("hoa"), document.getElementById("hoaFreq").value);
+  const condo = monthly(num("condo"), document.getElementById("condoFreq").value);
+
+  const type = document.getElementById("financeType").value;
+  const downPct = pct("downPct");
+  const rate = pct("rate");
+
+  // =====================
+  // LOAN + MORTGAGE
+  // =====================
+
+  let loan = 0;
+  let mortgage = 0;
+
+  if (type === "hard") {
+
+    loan = (purchase + rehab) * pct("ltv");
+
+    mortgage = loan * rate / 12;
+
+  } else if (type === "conv") {
+
+    loan = purchase * (1 - downPct);
+
+    mortgage = mortgagePayment(loan, rate);
+
+  }
+
+  // =====================
+  // COUNTY TAXES
+  // =====================
+
+  const county = document.getElementById("county")?.value;
+
+  const rates = countyTaxRates[county] || {
+    recordation: 0.0025,
+    county: 0.0075,
+    state: 0.0025
+  };
+
+  const transferTaxes =
+    purchase * (rates.state + rates.county + rates.recordation);
+
+  // =====================
+  // BUYER CLOSING
+  // =====================
+
   const buyerFixed =
-495 + 275 + 200 + 250 + 95 + 50 + 40 + 60 + 60 + 55;
+    495 + 275 + 200 + 250 + 95 + 50 + 40 + 60 + 60 + 55;
 
   const titleInsurance = purchase * 0.0065;
-  
-  // you may already have rates defined — reuse them
-  const transferTaxes =
-  purchase * (rates.state + rates.county + rates.recordation);
-  
+
   let lenderFees = 0;
-  
+
   if (type === "hard") {
     lenderFees =
       (loan * pct("origination")) +
       num("brokerFee");
   }
-  
+
   const buyerClosing =
-  buyerFixed +
-  titleInsurance +
-  transferTaxes +
-  lenderFees;
-  
-  const purchase=num("purchase");
-  const rehab=num("rehab");
-  const rent=num("rent");
+    buyerFixed +
+    titleInsurance +
+    transferTaxes +
+    lenderFees;
 
-  const taxes=num("taxes");
-  const insurance=num("insurance");
+  // =====================
+  // MONTHLY / NOI
+  // =====================
 
-  const hoa=monthly(num("hoa"),document.getElementById("hoaFreq").value);
-  const condo=monthly(num("condo"),document.getElementById("condoFreq").value);
-
-  const type=document.getElementById("financeType").value;
-  const downPct=pct("downPct");
-  const rate=pct("rate");
-
-  let loan = 0;
-  let mortgage = 0;
-  
-  if (type === "hard") {
-  
-    loan = (purchase + rehab) * pct("ltv");
-  
-    mortgage = loan * rate / 12; // interest-only
-  
-  } else if (type === "conv") {
-  
-    loan = purchase * (1 - downPct);
-  
-    mortgage = mortgagePayment(loan, rate);
-  
-  } else {
-  
-    loan = 0;
-    mortgage = 0;
-  
-  }
-
-  const monthlyExpenses=
+  const monthlyExpenses =
     mortgage +
-    (taxes/12) +
-    (insurance/12) +
+    (taxes / 12) +
+    (insurance / 12) +
     hoa +
     condo;
 
-  const netMonthly=rent-monthlyExpenses;
+  const netMonthly = rent - monthlyExpenses;
 
-  const potentialRent=rent*12;
-  const vacancy=potentialRent*0.05;
-  const grossIncome=potentialRent-vacancy;
+  const potentialRent = rent * 12;
+  const vacancy = potentialRent * 0.05;
+  const grossIncome = potentialRent - vacancy;
 
-  const operatingExpenses=
-    taxes+insurance+(hoa*12)+(condo*12);
+  const operatingExpenses =
+    taxes + insurance + (hoa * 12) + (condo * 12);
 
-  const NOI=grossIncome-operatingExpenses;
-  const debtService=mortgage*12;
-  const cashflow=NOI-debtService;
+  const NOI = grossIncome - operatingExpenses;
+  const debtService = mortgage * 12;
+  const cashflow = NOI - debtService;
 
-  const costBasis=purchase + 0 - (purchase*0.2);
-  const depreciation=costBasis/27.5;
-  const appreciation=purchase*0.03;
+  // =====================
+  // RETURNS
+  // =====================
+
+  const costBasis = purchase - (purchase * 0.2);
+  const depreciation = costBasis / 27.5;
+  const appreciation = purchase * 0.03;
 
   let paydown = 0;
 
   if (type === "conv") {
-  
     const monthlyInterest = (loan * rate) / 12;
-  
     paydown = (mortgage - monthlyInterest) * 12;
-  
   }
 
-  const totalReturn=cashflow+depreciation+appreciation+paydown;
+  const totalReturn =
+    cashflow + depreciation + appreciation + paydown;
 
-  const rtv=rent/purchase;
+  // =====================
+  // CASH INVESTED
+  // =====================
+
   let cashInvested;
-  
+
   if (type === "hard") {
-  
+
     cashInvested =
       (purchase * (1 - pct("ltv"))) +
       buyerClosing;
-  
+
   } else if (type === "conv") {
-  
+
     cashInvested =
       (purchase * downPct) +
       rehab +
       buyerClosing;
-  
+
   } else {
-  
+
     cashInvested =
       purchase +
       rehab +
       buyerClosing;
-  
+
   }
-  
+
+  // =====================
+  // FINAL METRICS
+  // =====================
+
   const coc = cashflow / cashInvested;
-  const grm=purchase/potentialRent;
-  const dscr=NOI/debtService;
-  const cap=NOI/purchase;
+  const grm = purchase / potentialRent;
+  const dscr = debtService > 0 ? NOI / debtService : 0;
+  const cap = NOI / purchase;
 
   //const f=x=>"$"+Math.round(x).toLocaleString();
   const f = x => "$" + Math.round(x).toLocaleString();
