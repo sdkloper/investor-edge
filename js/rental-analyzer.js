@@ -183,7 +183,10 @@ function loadFromURL(){
   if(p.get("arv")) document.getElementById("arv").value=p.get("arv");
   if(p.get("rent")) document.getElementById("rent").value=p.get("rent");
   if(p.get("taxes")) document.getElementById("taxes").value=p.get("taxes");
-  if(p.get("address")) document.getElementById("addressDisplay").innerText="Analyzing: "+p.get("address");
+  if (p.get("address")) {
+    document.getElementById("addressDisplay").innerText =
+      "Analyzing: " + decodeURIComponent(p.get("address"));
+  }
 
   if(p.get("hoa")){
     document.getElementById("hoa").value=p.get("hoa");
