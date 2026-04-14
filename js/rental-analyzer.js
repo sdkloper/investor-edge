@@ -190,7 +190,7 @@ function analyzeRental(){
   if (type === "hard") {
 
     cashInvested =
-      (purchase * (1 - pct("ltv"))) +
+      (purchase + rehab) * (1 - pct("ltv"))) +
       buyerClosing;
 
   } else if (type === "conv") {
