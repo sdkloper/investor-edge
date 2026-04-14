@@ -156,8 +156,24 @@ function analyzeRental(){
   document.getElementById("rtv").innerText=(rtv*100).toFixed(2)+"%";
   document.getElementById("coc").innerText=(coc*100).toFixed(2)+"%";
   document.getElementById("grm").innerText=grm.toFixed(2);
-  document.getElementById("dscr").innerText=dscr.toFixed(2);
+  let dscrDisplay = "N/A";
+
+  if (debtService > 0) {
+    dscrDisplay = dscr.toFixed(2);
+  }
+  
+  document.getElementById("dscr").innerText = dscrDisplay;
   document.getElementById("cap").innerText=(cap*100).toFixed(2)+"%";
+  const f = x => "$" + Math.round(x).toLocaleString();
+
+  // Monthly values
+  document.getElementById("mRent").innerText = f(rent);
+  document.getElementById("mMortgage").innerText = f(mortgage);
+  document.getElementById("mTaxes").innerText = f(taxes / 12);
+  document.getElementById("mInsurance").innerText = f(insurance / 12);
+  document.getElementById("mHoa").innerText = f(hoa);
+  document.getElementById("mCondo").innerText = f(condo);
+  document.getElementById("mNet").innerText = f(netMonthly);
 }
 
 function loadFromURL(){
