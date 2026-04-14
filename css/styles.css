@@ -597,3 +597,8 @@ th, td {
   text-decoration: underline;
   color: #2563eb;
 }
+.info-icon {
+  font-size: 12px;
+  margin-left: 6px;
+  color: #6b7280;
+}
