@@ -51,6 +51,29 @@ function mortgagePayment(loan,rate){
 
 function analyzeRental(){
 
+  const buyerFixed =
+495 + 275 + 200 + 250 + 95 + 50 + 40 + 60 + 60 + 55;
+
+  const titleInsurance = purchase * 0.0065;
+  
+  // you may already have rates defined — reuse them
+  const transferTaxes =
+  purchase * (rates.state + rates.county + rates.recordation);
+  
+  let lenderFees = 0;
+  
+  if (type === "hard") {
+    lenderFees =
+      (loan * pct("origination")) +
+      num("brokerFee");
+  }
+  
+  const buyerClosing =
+  buyerFixed +
+  titleInsurance +
+  transferTaxes +
+  lenderFees;
+  
   const purchase=num("purchase");
   const rehab=num("rehab");
   const rent=num("rent");
@@ -125,18 +148,26 @@ function analyzeRental(){
 
   const rtv=rent/purchase;
   let cashInvested;
-
+  
   if (type === "hard") {
   
-    cashInvested = (purchase * (1 - pct("ltv")));
+    cashInvested =
+      (purchase * (1 - pct("ltv"))) +
+      buyerClosing;
   
   } else if (type === "conv") {
   
-    cashInvested = (purchase * downPct) + rehab;
+    cashInvested =
+      (purchase * downPct) +
+      rehab +
+      buyerClosing;
   
   } else {
   
-    cashInvested = purchase + rehab;
+    cashInvested =
+      purchase +
+      rehab +
+      buyerClosing;
   
   }
   
