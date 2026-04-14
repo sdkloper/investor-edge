@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Rental Analyzer</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+
+<header>
+<h1>Rental Property Analyzer</h1>
+<div class="header-menu">
+  <div class="menu-left">
+    <a href="index.html" class="menu-btn">Deals</a>
+    <a href="analysis.html" class="menu-btn">Comps</a>
+    <a href="rental-analyzer.html" class="menu-btn active">Analyze Rental</a>
+  </div>
+  <button id="logoutBtn" class="menu-btn logout-btn">Logout</button>
+</div>
+</header>
+
+<body class="analysis-page">
+
+<h3 id="addressDisplay"></h3>
+
+<div class="main-container">
+<div class="analysis-layout">
+
+<!-- LEFT -->
+<div class="analysis-left">
+
+<div class="section-title">Inputs</div>
+
+<div class="form-row">
+  <div class="form-field">
+    <label>Purchase Price *</label>
+    <input id="purchase">
+  </div>
+  <div class="form-field">
+    <label>ARV</label>
+    <input id="arv">
+  </div>
+</div>
+
+<div class="form-row">
+  <div class="form-field">
+    <label>Renovation *</label>
+    <input id="rehab">
+  </div>
+  <div class="form-field">
+    <label>Monthly Rent *</label>
+    <input id="rent">
+  </div>
+</div>
+
+<div class="section-title">Loan</div>
+
+<div class="form-row">
+  <div class="form-field">
+    <label>Loan Type *</label>
+    <select id="financeType">
+      <option value="cash">Cash</option>
+      <option value="conv">Conventional</option>
+      <option value="hard">Hard Money</option>
+    </select>
+  </div>
+  <div class="form-field">
+    <label>Down % *</label>
+    <input id="downPct" value="20%">
+  </div>
+</div>
+
+<div id="loanFields">
+
+<div class="form-row">
+  <div class="form-field">
+    <label>Interest Rate *</label>
+    <input id="rate" value="7%">
+  </div>
+  <div class="form-field">
+    <label>LTV</label>
+    <input id="ltv" value="90%">
+  </div>
+</div>
+
+<div class="form-row">
+  <div class="form-field">
+    <label>Origination</label>
+    <input id="origination" value="1%">
+  </div>
+  <div class="form-field">
+    <label>Broker Fee</label>
+    <input id="brokerFee">
+  </div>
+</div>
+
+</div>
+
+<div class="section-title">Expenses</div>
+
+<div class="form-row">
+  <div class="form-field">
+    <label>Taxes (Annual)</label>
+    <input id="taxes">
+  </div>
+  <div class="form-field">
+    <label>Insurance (Annual)</label>
+    <input id="insurance">
+  </div>
+</div>
+
+<div class="form-row">
+  <div class="form-field">
+    <label>HOA</label>
+    <input id="hoa">
+  </div>
+  <div class="form-field">
+    <select id="hoaFreq">
+      <option>Monthly</option>
+      <option>Quarterly</option>
+      <option>Annually</option>
+    </select>
+  </div>
+</div>
+
+<div class="form-row">
+  <div class="form-field">
+    <label>Condo</label>
+    <input id="condo">
+  </div>
+  <div class="form-field">
+    <select id="condoFreq">
+      <option>Monthly</option>
+      <option>Quarterly</option>
+      <option>Annually</option>
+    </select>
+  </div>
+</div>
+
+<button class="primary-btn" onclick="analyzeRental()">Analyze Rental</button>
+
+</div>
+
+<!-- RIGHT -->
+<div class="analysis-right">
+
+<div class="results-card">
+
+<h3>Key Metrics</h3>
+
+<div class="result-row"><span>Annual Cashflow</span><div id="cashflow"></div></div>
+<div class="result-row"><span>Depreciation</span><div id="depreciation"></div></div>
+<div class="result-row"><span>Appreciation</span><div id="appreciation"></div></div>
+<div class="result-row"><span>Debt Paydown</span><div id="paydown"></div></div>
+<div class="result-row"><span>Total Return</span><div id="totalReturn"></div></div>
+
+<h3>Investment Metrics</h3>
+
+<div class="result-row"><span>1% Rule</span><div id="rtv"></div></div>
+<div class="result-row"><span>Cash on Cash</span><div id="coc"></div></div>
+<div class="result-row"><span>GRM</span><div id="grm"></div></div>
+<div class="result-row"><span>DSCR</span><div id="dscr"></div></div>
+<div class="result-row"><span>Cap Rate</span><div id="cap"></div></div>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+<script src="js/rental-analyzer.js"></script>
+</body>
+</html>
