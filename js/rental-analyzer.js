@@ -51,6 +51,12 @@ function closeModal() {
   document.getElementById("metricModal").style.display = "none";
 }
 
+window.onclick = function(e) {
+  const modal = document.getElementById("metricModal");
+  if (e.target === modal) {
+    modal.style.display = "none";
+  }
+}
 
 function formatCurrencyInput(input) {
   let val = input.value.replace(/[^0-9]/g, "");
