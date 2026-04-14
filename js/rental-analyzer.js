@@ -65,12 +65,26 @@ function analyzeRental(){
   const downPct=pct("downPct");
   const rate=pct("rate");
 
-  let loan=0;
-  let mortgage=0;
-
-  if(type!=="cash"){
-    loan=purchase*(1-downPct);
-    mortgage=mortgagePayment(loan,rate);
+  let loan = 0;
+  let mortgage = 0;
+  
+  if (type === "hard") {
+  
+    loan = (purchase + rehab) * pct("ltv");
+  
+    mortgage = loan * rate / 12; // interest-only
+  
+  } else if (type === "conv") {
+  
+    loan = purchase * (1 - downPct);
+  
+    mortgage = mortgagePayment(loan, rate);
+  
+  } else {
+  
+    loan = 0;
+    mortgage = 0;
+  
   }
 
   const monthlyExpenses=
@@ -97,13 +111,36 @@ function analyzeRental(){
   const depreciation=costBasis/27.5;
   const appreciation=purchase*0.03;
 
-  const monthlyInterest=(loan*rate)/12;
-  const paydown=(mortgage-monthlyInterest)*12;
+  let paydown = 0;
+
+  if (type === "conv") {
+  
+    const monthlyInterest = (loan * rate) / 12;
+  
+    paydown = (mortgage - monthlyInterest) * 12;
+  
+  }
 
   const totalReturn=cashflow+depreciation+appreciation+paydown;
 
   const rtv=rent/purchase;
-  const coc=cashflow/(purchase*downPct + rehab);
+  let cashInvested;
+
+  if (type === "hard") {
+  
+    cashInvested = (purchase * (1 - pct("ltv")));
+  
+  } else if (type === "conv") {
+  
+    cashInvested = (purchase * downPct) + rehab;
+  
+  } else {
+  
+    cashInvested = purchase + rehab;
+  
+  }
+  
+  const coc = cashflow / cashInvested;
   const grm=purchase/potentialRent;
   const dscr=NOI/debtService;
   const cap=NOI/purchase;
