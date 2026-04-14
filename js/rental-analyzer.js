@@ -33,22 +33,24 @@ function monthly(val,freq){
   return val;
 }
 
-function toggleLoanFields(){
-  const type=document.("financeType").value;
-  const block=document.("loanFields");
+function toggleLoanFields() {
+  const type = document.getElementById("financeType").value;
+  const block = document.getElementById("loanFields");
 
-  if(type==="cash"){
-    block.style.display="none";
-  }else if(type==="conv"){
-    block.style.display="block";
-    document.getElementById("ltv").parentElement.style.display="none";
-    document.getElementById("origination").parentElement.style.display="none";
-    document.getElementById("brokerFee").parentElement.style.display="none";
-  }else{
-    block.style.display="block";
-    document.getElementById("ltv").parentElement.style.display="";
-    document.getElementById("origination").parentElement.style.display="";
-    document.getElementById("brokerFee").parentElement.style.display="";
+  if (!block) return;
+
+  if (type === "cash") {
+    block.style.display = "none";
+  } else if (type === "conv") {
+    block.style.display = "block";
+    document.getElementById("ltv").parentElement.style.display = "none";
+    document.getElementById("origination").parentElement.style.display = "none";
+    document.getElementById("brokerFee").parentElement.style.display = "none";
+  } else {
+    block.style.display = "block";
+    document.getElementById("ltv").parentElement.style.display = "";
+    document.getElementById("origination").parentElement.style.display = "";
+    document.getElementById("brokerFee").parentElement.style.display = "";
   }
 }
 
