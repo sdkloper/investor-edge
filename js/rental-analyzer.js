@@ -1,3 +1,15 @@
+function formatCurrencyInput(input) {
+  let val = input.value.replace(/[^0-9]/g, "");
+  if (!val) return;
+  input.value = "$" + Number(val).toLocaleString("en-US");
+}
+
+function formatPercentInput(input) {
+  let val = input.value.replace(/[^0-9.]/g, "");
+  if (!val) return;
+  input.value = val + "%";
+}
+
 function num(id){
   return parseFloat((document.getElementById(id).value || "").replace(/[^0-9.]/g,''))||0;
 }
@@ -131,8 +143,59 @@ function loadFromURL(){
   }
 }
 
-window.addEventListener("DOMContentLoaded",()=>{
+window.addEventListener("DOMContentLoaded", () => {
+
   loadFromURL();
+  
+  setTimeout(() => {
+    document.querySelectorAll("input").forEach(input => {
+      if (input.value.includes("%")) return;
+      if (input.value.match(/^\d+$/)) formatCurrencyInput(input);
+    });
+  }, 100);
+  
   toggleLoanFields();
-  document.getElementById("financeType").addEventListener("change",toggleLoanFields);
+
+  // ✅ ADD IT RIGHT HERE
+  const currencyFields = [
+    "purchase",
+    "rehab",
+    "rent",
+    "taxes",
+    "insurance",
+    "hoa",
+    "condo",
+    "brokerFee"
+  ];
+
+  currencyFields.forEach(id => {
+    const input = document.getElementById(id);
+    if (!input) return;
+
+    input.addEventListener("blur", () => formatCurrencyInput(input));
+    input.addEventListener("focus", () => {
+      input.value = input.value.replace(/[^0-9]/g, "");
+    });
+  });
+
+  const percentFields = [
+    "rate",
+    "downPct",
+    "origination"
+  ];
+
+  percentFields.forEach(id => {
+    const input = document.getElementById(id);
+    if (!input) return;
+
+    input.addEventListener("blur", () => formatPercentInput(input));
+    input.addEventListener("focus", () => {
+      input.value = input.value.replace(/[^0-9.]/g, "");
+    });
+  });
+
+  // ✅ KEEP THIS AFTER
+  document.getElementById("financeType")
+    .addEventListener("change", toggleLoanFields);
+
 });
