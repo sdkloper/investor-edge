@@ -389,7 +389,17 @@ function renderTable() {
           data-address="${encodeURIComponent(row["Address"])}">
           Flip
         </button>
-        <button class="analyzeRentBtn" data-mls="${row.MLS}">Rental</button>
+        <button class="analyzeRentalBtn"
+           data-price="${row["List Price"]}"
+           data-rent="${row["Rent"]}"
+           data-taxes="${row["Tax Annual Amount"]}"
+           data-hoa="${row["HOA Fee"]}"
+           data-hoafreq="${row["Association Fee Frequency"]}"
+           data-condo="${row["Condo/Coop Fee"]}"
+           data-condofreq="${row["Condo/Coop Fee Freq"]}"
+           data-address="${encodeURIComponent(row["Address"])}">
+           Rental
+         </button>
       </td>
      
    `;
