@@ -187,29 +187,37 @@ function loadFromURL(){
 
   if(p.get("hoa")){
     document.getElementById("hoa").value=p.get("hoa");
-    document.getElementById("hoaFreq").value=p.get("hoaFreq")||"Monthly";
+    function normalizeFreq(val) {
+      if (!val) return "Monthly";
+    
+      val = val.toLowerCase();
+    
+      if (val.includes("month")) return "Monthly";
+      if (val.includes("quarter")) return "Quarterly";
+      if (val.includes("annual")) return "Annually";
+    
+      return "Monthly";
+    }
+    if (p.get("hoa")) {
+      document.getElementById("hoa").value = p.get("hoa");
+      document.getElementById("hoaFreq").value = normalizeFreq(p.get("hoaFreq"));
+    }
+    
+    if (p.get("condo")) {
+      document.getElementById("condo").value = p.get("condo");
+      document.getElementById("condoFreq").value = normalizeFreq(p.get("condoFreq"));
+    }
   }
 
-  if(p.get("condo")){
-    document.getElementById("condo").value=p.get("condo");
-    document.getElementById("condoFreq").value=p.get("condoFreq")||"Monthly";
-  }
 }
 
 window.addEventListener("DOMContentLoaded", () => {
 
   loadFromURL();
-  
-  setTimeout(() => {
-    document.querySelectorAll("input").forEach(input => {
-      if (input.value.includes("%")) return;
-      if (input.value.match(/^\d+$/)) formatCurrencyInput(input);
-    });
-  }, 100);
-  
+
   toggleLoanFields();
 
-  // ✅ ADD IT RIGHT HERE
+  // ✅ DEFINE ONCE
   const currencyFields = [
     "purchase",
     "rehab",
@@ -221,6 +229,32 @@ window.addEventListener("DOMContentLoaded", () => {
     "brokerFee"
   ];
 
+  const percentFields = [
+    "rate",
+    "downPct",
+    "origination"
+  ];
+
+  // ✅ FORMAT AFTER URL LOAD
+  setTimeout(() => {
+
+    currencyFields.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.value) {
+        formatCurrencyInput(el);
+      }
+    });
+
+    percentFields.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.value) {
+        formatPercentInput(el);
+      }
+    });
+
+  }, 100);
+
+  // ✅ ADD EVENT LISTENERS (NO DUPLICATION)
   currencyFields.forEach(id => {
     const input = document.getElementById(id);
     if (!input) return;
@@ -230,12 +264,6 @@ window.addEventListener("DOMContentLoaded", () => {
       input.value = input.value.replace(/[^0-9]/g, "");
     });
   });
-
-  const percentFields = [
-    "rate",
-    "downPct",
-    "origination"
-  ];
 
   percentFields.forEach(id => {
     const input = document.getElementById(id);
@@ -247,7 +275,7 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ✅ KEEP THIS AFTER
+  // ✅ DROPDOWN LISTENER
   document.getElementById("financeType")
     .addEventListener("change", toggleLoanFields);
 
