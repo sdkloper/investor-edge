@@ -655,7 +655,25 @@ function analyzeDealFromButton(e) {
   window.open(`analyzer.html?${params.toString()}`, "_blank");
 }
 
+function analyzeRentalDealFromButton(e) {
 
+  const btn = e.currentTarget;
+
+
+  const params = new URLSearchParams({
+    price: btn.dataset.price || 0,
+    arv: btn.dataset.arv || 0,
+    rent: btn.dataset.rent || 0,
+    taxes: btn.dataset.taxes || 0,
+    hoa: btn.dataset.hoa || 0,
+    hoaFreq: normalizeFrequency(btn.dataset.hoafreq),
+    condo: btn.dataset.condo || 0,
+    condoFreq: normalizeFrequency(btn.dataset.condofreq),
+    address: decodeURIComponent(btn.dataset.address || "")
+  });
+
+  window.open(`rental-analyzer.html?${params.toString()}`, "_blank");
+}
 
 
 
