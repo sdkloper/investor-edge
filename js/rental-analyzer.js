@@ -146,7 +146,7 @@ function analyzeRental(){
   const cap=NOI/purchase;
 
   //const f=x=>"$"+Math.round(x).toLocaleString();
-
+  const f = x => "$" + Math.round(x).toLocaleString();
   document.getElementById("cashflow").innerText=f(cashflow);
   document.getElementById("depreciation").innerText=f(depreciation);
   document.getElementById("appreciation").innerText=f(appreciation);
@@ -164,7 +164,7 @@ function analyzeRental(){
   
   document.getElementById("dscr").innerText = dscrDisplay;
   document.getElementById("cap").innerText=(cap*100).toFixed(2)+"%";
-  const f = x => "$" + Math.round(x).toLocaleString();
+  
 
   // Monthly values
   document.getElementById("mRent").innerText = f(rent);
