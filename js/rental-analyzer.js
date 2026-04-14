@@ -145,7 +145,7 @@ function analyzeRental(){
   const dscr=NOI/debtService;
   const cap=NOI/purchase;
 
-  const f=x=>"$"+Math.round(x).toLocaleString();
+  //const f=x=>"$"+Math.round(x).toLocaleString();
 
   document.getElementById("cashflow").innerText=f(cashflow);
   document.getElementById("depreciation").innerText=f(depreciation);
