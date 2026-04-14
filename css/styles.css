@@ -583,4 +583,17 @@ th, td {
   .analysis-page .form-grid {
     grid-template-columns: 1fr;
   }
+.result-row.clickable {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
 
+.result-row.clickable:hover {
+  background: #f3f4f6;
+  transform: translateY(-1px);
+}
+
+.result-row.clickable:hover span {
+  text-decoration: underline;
+  color: #2563eb;
+}
