@@ -583,6 +583,7 @@ th, td {
   .analysis-page .form-grid {
     grid-template-columns: 1fr;
   }
+    
 .result-row.clickable {
   cursor: pointer;
   transition: all 0.2s ease;
@@ -597,6 +598,7 @@ th, td {
   text-decoration: underline;
   color: #2563eb;
 }
+    
 .info-icon {
   font-size: 12px;
   margin-left: 6px;
