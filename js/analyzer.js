@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
     formula.innerText = "Formula: ROI = Net Profit / Total Investmnt Cost";
     desc.innerText = "Net Profit: Final Sale Price - Total Investment Cost";
     desc.innerText = "Total Investment Cost: Purchase price + closing costs + renovation costs + holding costs (taxes, insurance, utilities).";
-    desc.innerText "It tells you how much money you made for every dollar invested.";
+    desc.innerText = "It tells you how much money you made for every dollar invested.";
   }
 
 
