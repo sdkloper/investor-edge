@@ -328,6 +328,15 @@ document.getElementById("wTotalExpenses").innerText = f(operatingExpenses);
 document.getElementById("wNOI").innerText = f(NOI);
 document.getElementById("wDebtService").innerText = f(debtService);
 document.getElementById("wCashflow").innerText = f(cashflow);
+
+
+//===================
+//Total Cash Invested 
+//====================
+document.getElementById("tcashInvested").innerText = f(cashInvested);
+document.getElementById("tloan").innerText = f(loan);
+document.getElementById("tbuyerClosing").innerText = f(buyerClosing);
+document.getElementById("trehab").innerText = f(rehab);
 }
 
 function loadFromURL(){
