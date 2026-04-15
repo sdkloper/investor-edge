@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const desc = document.getElementById("modalDescription");
 
   if (type === "roiOut") {
-    title.innerText = "Gross Rent Multiplier (ROI)";
+    title.innerText = "Return On Investment (ROI)";
     formula.innerText = "Formula: ROI = Net Profit / Total Investmnt Cost";
     desc.innerText = "Net Profit: Final Sale Price - Total Investment Cost";
     desc.innerText = "Total Investment Cost: Purchase price + closing costs + renovation costs + holding costs (taxes, insurance, utilities).";
@@ -44,7 +44,12 @@ function closeModal() {
   document.getElementById("metricModal").style.display = "none";
 }
 
-
+window.onclick = function(e) {
+  const modal = document.getElementById("metricModal");
+  if (e.target === modal) {
+    modal.style.display = "none";
+  }
+}
 
 function toggleFinancingFields() {
   const financeType = document.getElementById("financeType").value;
