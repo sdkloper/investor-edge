@@ -21,7 +21,31 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-});
+});function openModal(type) {
+
+  const modal = document.getElementById("metricModal");
+  const title = document.getElementById("modalTitle");
+  const formula = document.getElementById("modalFormula");
+  const desc = document.getElementById("modalDescription");
+
+  if (type === "roiOut") {
+    title.innerText = "Gross Rent Multiplier (ROI)";
+    formula.innerText = "Formula: ROI = Net Profit / Total Investmnt Cost";
+    desc.innerText = "Net Profit: Final Sale Price - Total Investment Cost";
+    desc.innerText = "Total Investment Cost: Purchase price + closing costs + renovation costs + holding costs (taxes, insurance, utilities).";
+    desc.innerText "It tells you how much money you made for every dollar invested.";
+  }
+
+
+  modal.style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("metricModal").style.display = "none";
+}
+
+
+
 function toggleFinancingFields() {
   const financeType = document.getElementById("financeType").value;
   const financingFields = document.getElementById("financingFields");
