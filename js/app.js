@@ -59,6 +59,11 @@ function authenticateUser() {
 
       if (match) {
         sessionStorage.setItem("investorAuth", "true");
+        // Store user identity
+        sessionStorage.setItem("userID", row["UserID"]);
+         sessionStorage.setItem("firstName", row["First Name"] || "");
+         sessionStorage.setItem("lastName", row["Last Name"] || "");
+         
         updateLastLogin(user);
         showApp();
       } else {
@@ -68,6 +73,24 @@ function authenticateUser() {
     }
   });
 }
+function logUserActivity(data) {
+
+  fetch(https://script.google.com/macros/s/AKfycbzuGtr2AtmQB9-E0vVxRaS-Jtpgz8anqbHO6LGCxJPGPD3Oom8wV9nFRtdU-HPjPI_x/exec, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      type: "activityLog",
+      userID: sessionStorage.getItem("userID"),
+      firstName: sessionStorage.getItem("firstName"),
+      lastName: sessionStorage.getItem("lastName"),
+      ...data
+    })
+  }).catch(err => console.error("Logging error:", err));
+
+}
+
 
 function getField(row, key) {
   return Object.keys(row).find(k => k.trim() === key)?.let
