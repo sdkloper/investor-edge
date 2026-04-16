@@ -373,6 +373,13 @@ function loadFromURL(){
       document.getElementById("condo").value = p.get("condo");
       document.getElementById("condoFreq").value = normalizeFreq(p.get("condoFreq"));
     }
+    logUserActivity(
+      "Open Rent Analyzer",
+      document.getElementById("address")?.value || "",
+      getNumericValue("arv"),
+      getNumericValue("rent"),
+      "Rent Analyzer"
+    );
   }
 
 }
