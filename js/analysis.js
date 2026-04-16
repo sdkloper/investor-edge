@@ -139,37 +139,28 @@ async function analyzeProperty() {
 
   try {
 
-      console.log("Sending payload:");
-      console.log({
-        address,
-        structure,
-        beds,
-        fullBath,
-        halfBath,
-        sqft,
-        waterfront,
-        garageSpaces,
-        listPrice
-      });
-     
+    console.log("Sending payload:");
+    console.log(Object.fromEntries(formData.entries()));
+
     const response = await fetch(BACKEND_URL, {
       method: "POST",
       body: formData
     });
-   
+
     const data = await response.json();
-   
+
     if (data.error) {
       showError(data.error);
     } else {
       displayResults(data);
-      logUserActivity(
-        "View Comps",
-        document.getElementById("address").value,
-        data.arv,
-        data.rent,
-        "Comps Page"
-      );
+
+      logUserActivity({
+        action: "View Comps",
+        page: "Comps Page",
+        address: document.getElementById("address").value,
+        arv: data.arv,
+        rent: data.rent
+      });
     }
 
   } catch (err) {
@@ -179,6 +170,7 @@ async function analyzeProperty() {
   btn.disabled = false;
   loading.classList.add("hidden");
 }
+
 /* ============================= */
 /* ANALYZE Flip BUTTONS */
 /* ============================= */
