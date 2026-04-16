@@ -163,6 +163,13 @@ async function analyzeProperty() {
       showError(data.error);
     } else {
       displayResults(data);
+      logUserActivity(
+        "View Comps",
+        document.getElementById("address").value,
+        data.arv,
+        data.rent,
+        "Comps Page"
+      );
     }
 
   } catch (err) {
