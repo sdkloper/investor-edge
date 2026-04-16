@@ -639,12 +639,17 @@ const LOGIN_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbw767VP1uUIPk
 function updateLastLogin(userId) {
   fetch(LOGIN_WEBHOOK_URL, {
     method: "POST",
-    mode: "no-cors",
-    body: JSON.stringify({ userId: userId }),
     headers: {
       "Content-Type": "application/json"
-    }
-  }).catch(err => console.error("Login timestamp error:", err));
+    },
+    body: JSON.stringify({
+      type: "lastLogin",
+      userId: userId
+    })
+  })
+  .then(res => res.json())
+  .then(data => console.log("Login log success:", data))
+  .catch(err => console.error("Login timestamp error:", err));
 }
 
 function normalizeFrequency(freq) {
