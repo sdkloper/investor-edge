@@ -75,7 +75,7 @@ function authenticateUser() {
 }
 function logUserActivity(data) {
 
-  fetch(https://script.google.com/macros/s/AKfycbzuGtr2AtmQB9-E0vVxRaS-Jtpgz8anqbHO6LGCxJPGPD3Oom8wV9nFRtdU-HPjPI_x/exec, {
+  fetch("https://script.google.com/macros/s/AKfycbzuGtr2AtmQB9-E0vVxRaS-Jtpgz8anqbHO6LGCxJPGPD3Oom8wV9nFRtdU-HPjPI_x/exec", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
