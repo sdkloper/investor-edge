@@ -60,9 +60,9 @@ function authenticateUser() {
       if (match) {
         sessionStorage.setItem("investorAuth", "true");
         // Store user identity
-        sessionStorage.setItem("userID", row["UserID"]);
-         sessionStorage.setItem("firstName", row["First Name"] || "");
-         sessionStorage.setItem("lastName", row["Last Name"] || "");
+       sessionStorage.setItem("userID", match["UserID"]);
+       sessionStorage.setItem("firstName", match["First Name"] || "");
+       sessionStorage.setItem("lastName", match["Last Name"] || "");
          
         updateLastLogin(user);
         showApp();
