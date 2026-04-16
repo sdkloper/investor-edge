@@ -460,6 +460,13 @@ function loadFromURL() {
     document.getElementById("addressDisplay").innerText =
       "Analyzing: " + address;
   }
+   logUserActivity(
+     "Open Flip Analyzer",
+     document.getElementById("address")?.value || "",
+     getNumericValue("arv"),
+     0,
+     "Flip Analyzer"
+   );
 }
 //listener
 window.addEventListener("DOMContentLoaded", () => {
