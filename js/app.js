@@ -702,13 +702,14 @@ function analyzeRentalDealFromButton(e) {
     condoFreq: normalizeFrequency(btn.dataset.condofreq),
     address: decodeURIComponent(btn.dataset.address || "")
   });
-   logUserActivity(
-     "Analyze Rental",
-     data.Address,
-     data.ARV,
-     data.Rent,
-     "Deals Page"
-   );
+   // ✅ Correct logging
+  logUserActivity(
+    "Analyze Rental",
+    decodeURIComponent(btn.dataset.address || ""),
+    btn.dataset.arv || 0,
+    btn.dataset.rent || 0,
+    "Deals Page"
+  );
   window.open(`rental-analyzer.html?${params.toString()}`, "_blank");
 }
 
