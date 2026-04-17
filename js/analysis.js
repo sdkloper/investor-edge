@@ -123,7 +123,12 @@ async function analyzeProperty() {
 
   const formData = new URLSearchParams();
 
-  formData.append("address", geoData.address || document.getElementById("address").value);
+  formData.append(
+     "address",
+     (typeof geoData !== "undefined" && geoData.address)
+       ? geoData.address
+       : document.getElementById("address").value.trim()
+   );
   formData.append("structure", document.getElementById("structure").value);
   formData.append("beds", document.getElementById("beds").value);
   formData.append("fullBath", document.getElementById("fullBath").value);
@@ -142,6 +147,8 @@ async function analyzeProperty() {
     console.log("Sending payload:");
     console.log(Object.fromEntries(formData.entries()));
 
+     console.log("Final address being sent:", formData.get("address"));
+     
     const response = await fetch(BACKEND_URL, {
       method: "POST",
       body: formData
