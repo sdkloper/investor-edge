@@ -639,7 +639,8 @@ window.addEventListener("click", function(event) {
   }
 });
 
-const LOGIN_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbw767VP1uUIPk3RGgxJJnPi3kymTYyhkZiRqN-6z3T27SINQzrK6fGUI7sUdFS7Q0zBtA/exec";
+const LOGIN_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbzuGtr2AtmQB9-E0vVxRaS-Jtpgz8anqbHO6LGCxJPGPD3Oom8wV9nFRtdU-HPjPI_x/exec
+";
 
 function updateLastLogin(userId) {
   fetch(LOGIN_WEBHOOK_URL, {
