@@ -201,7 +201,7 @@ function buildAnalyzeURL(type, data) {
   const Input = document.getElementById("");
   const priceInput   = document.getElementById("listPrice");
 
-  const  = Input ? addressInput.value : "";
+  const address = addressInput ? addressInput.value : "";
   const price   = priceInput ? priceInput.value : 0;
 
   const params = new URLSearchParams({
