@@ -173,7 +173,7 @@ async function analyzeProperty() {
       logUserActivity({
         action: "View Comps",
         page: "Comps Page",
-        : document.getElementById("").value,
+        address: document.getElementById("address").value,
         arv: data.arv,
         rent: data.rent
       });
