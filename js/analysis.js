@@ -137,6 +137,8 @@ async function analyzeProperty() {
 
   try {
 
+   console.log("Address being sent:", address);
+     
     const response = await fetch(BACKEND_URL, {
       method: "POST",
       headers: {
