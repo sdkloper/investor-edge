@@ -151,7 +151,7 @@ async function analyzeProperty() {
           "Content-Type": "application/x-www-form-urlencoded"
         },
         body: new URLSearchParams({
-          : ,
+          address: address,
           structure: structure,
           beds: beds,
           fullBath: fullBath,
