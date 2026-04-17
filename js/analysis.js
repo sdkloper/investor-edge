@@ -122,46 +122,38 @@ async function analyzeProperty() {
   errorCard.classList.add("hidden");
   results.classList.add("hidden");
 
-   //const formData = new URLSearchParams();
-
-  formData.append("address", geoData.address || document.getElementById("address").value);
-  formData.append("structure", document.getElementById("structure").value);
-  formData.append("beds", document.getElementById("beds").value);
-  formData.append("fullBath", document.getElementById("fullBath").value);
-  formData.append("halfBath", document.getElementById("halfBath").value);
-  formData.append("sqft", document.getElementById("sqft").value);
-  formData.append("waterfront", document.getElementById("waterfront").value);
-  formData.append("garageSpaces",
+  const address = document.getElementById("address").value.trim();
+  const structure = document.getElementById("structure").value;
+  const beds = document.getElementById("beds").value;
+  const fullBath = document.getElementById("fullBath").value;
+  const halfBath = document.getElementById("halfBath").value;
+  const sqft = document.getElementById("sqft").value;
+  const waterfront = document.getElementById("waterfront").value;
+  const garageSpaces =
     document.getElementById("garage").value === "1"
       ? document.getElementById("garageSpaces").value || 1
-      : 0
-  );
-  formData.append("listPrice", document.getElementById("listPrice").value || 0);
+      : 0;
+  const listPrice = document.getElementById("listPrice").value || 0;
 
   try {
 
-    console.log("Sending payload:");
-    console.log(Object.fromEntries(formData.entries()));
-
-     console.log("Final  being sent:", formData.get(""));
-     
     const response = await fetch(BACKEND_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: new URLSearchParams({
-          address: address,
-          structure: structure,
-          beds: beds,
-          fullBath: fullBath,
-          halfBath: halfBath,
-          sqft: sqft,
-          waterfront: waterfront,
-          garageSpaces: garageSpaces,
-          listPrice: listPrice
-        })
-      });
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: new URLSearchParams({
+        address,
+        structure,
+        beds,
+        fullBath,
+        halfBath,
+        sqft,
+        waterfront,
+        garageSpaces,
+        listPrice
+      })
+    });
 
     const data = await response.json();
 
@@ -173,7 +165,7 @@ async function analyzeProperty() {
       logUserActivity({
         action: "View Comps",
         page: "Comps Page",
-        address: document.getElementById("address").value,
+        address,
         arv: data.arv,
         rent: data.rent
       });
