@@ -129,6 +129,7 @@ async function analyzeProperty() {
        ? geoData.address
        : document.getElementById("address").value.trim()
    );
+  formData.append("address", geoData.address || document.getElementById("address").value);
   formData.append("structure", document.getElementById("structure").value);
   formData.append("beds", document.getElementById("beds").value);
   formData.append("fullBath", document.getElementById("fullBath").value);
