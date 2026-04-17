@@ -121,7 +121,6 @@ async function analyzeProperty() {
   errorCard.classList.add("hidden");
   results.classList.add("hidden");
 
-  const formData = new URLSearchParams();
 
   formData.append(
      "address",
@@ -151,9 +150,22 @@ async function analyzeProperty() {
      console.log("Final address being sent:", formData.get("address"));
      
     const response = await fetch(BACKEND_URL, {
-      method: "POST",
-      body: formData
-    });
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams({
+          address: address,
+          structure: structure,
+          beds: beds,
+          fullBath: fullBath,
+          halfBath: halfBath,
+          sqft: sqft,
+          waterfront: waterfront,
+          garageSpaces: garageSpaces,
+          listPrice: listPrice
+        })
+      });
 
     const data = await response.json();
 
