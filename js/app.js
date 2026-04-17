@@ -76,18 +76,23 @@ function authenticateUser() {
 function logUserActivity(data) {
 
   fetch("https://script.google.com/macros/s/AKfycbzuGtr2AtmQB9-E0vVxRaS-Jtpgz8anqbHO6LGCxJPGPD3Oom8wV9nFRtdU-HPjPI_x/exec", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      type: "activityLog",
-      userID: sessionStorage.getItem("userID"),
-      firstName: sessionStorage.getItem("firstName"),
-      lastName: sessionStorage.getItem("lastName"),
-      ...data
-    })
-  }).catch(err => console.error("Logging error:", err));
+     method: "POST",
+     headers: {
+       "Content-Type": "application/x-www-form-urlencoded"
+     },
+     body: new URLSearchParams({
+       type: "activityLog",
+       userID,
+       firstName,
+       lastName,
+       page,
+       address,
+       price,
+       arv,
+       rent,
+       action
+     })
+   });
 
 }
 
