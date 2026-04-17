@@ -122,7 +122,7 @@ async function analyzeProperty() {
   errorCard.classList.add("hidden");
   results.classList.add("hidden");
 
-
+   //const formData = new URLSearchParams();
 
   formData.append("address", geoData.address || document.getElementById("address").value);
   formData.append("structure", document.getElementById("structure").value);
@@ -143,7 +143,7 @@ async function analyzeProperty() {
     console.log("Sending payload:");
     console.log(Object.fromEntries(formData.entries()));
 
-     console.log("Final address being sent:", formData.get("address"));
+     console.log("Final  being sent:", formData.get(""));
      
     const response = await fetch(BACKEND_URL, {
         method: "POST",
@@ -151,7 +151,7 @@ async function analyzeProperty() {
           "Content-Type": "application/x-www-form-urlencoded"
         },
         body: new URLSearchParams({
-          address: address,
+          : ,
           structure: structure,
           beds: beds,
           fullBath: fullBath,
@@ -173,7 +173,7 @@ async function analyzeProperty() {
       logUserActivity({
         action: "View Comps",
         page: "Comps Page",
-        address: document.getElementById("address").value,
+        : document.getElementById("").value,
         arv: data.arv,
         rent: data.rent
       });
@@ -198,10 +198,10 @@ function buildAnalyzeURL(type, data) {
       ? "rent-analyzer.html"
       : "analyzer.html";
 
-  const addressInput = document.getElementById("address");
+  const Input = document.getElementById("");
   const priceInput   = document.getElementById("listPrice");
 
-  const address = addressInput ? addressInput.value : "";
+  const  = Input ? addressInput.value : "";
   const price   = priceInput ? priceInput.value : 0;
 
   const params = new URLSearchParams({
