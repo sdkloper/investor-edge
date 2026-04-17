@@ -123,12 +123,7 @@ async function analyzeProperty() {
   results.classList.add("hidden");
 
 
-  formData.append(
-     "address",
-     (typeof geoData !== "undefined" && geoData.address)
-       ? geoData.address
-       : document.getElementById("address").value.trim()
-   );
+
   formData.append("address", geoData.address || document.getElementById("address").value);
   formData.append("structure", document.getElementById("structure").value);
   formData.append("beds", document.getElementById("beds").value);
