@@ -103,6 +103,7 @@ document.getElementById("garage").addEventListener("change", e => {
   group.classList.toggle("hidden", e.target.value === "0");
 });
 
+
 /* ===============================
    ANALYZE BUTTON
 ================================ */
@@ -218,7 +219,27 @@ function buildAnalyzeURL(type, data) {
   return `${baseURL}?${params.toString()}`;
 }
 
+function logUserActivity(data) {
 
+  fetch(WEB_APP_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: new URLSearchParams({
+      type: "activityLog",
+      userID: sessionStorage.getItem("userID") || "",
+      firstName: sessionStorage.getItem("firstName") || "",
+      lastName: sessionStorage.getItem("lastName") || "",
+      page: data.page || "",
+      address: data.address || "",
+      price: data.price || "",
+      arv: data.arv || "",
+      rent: data.rent || "",
+      action: data.action || ""
+    })
+  }).catch(err => console.error("Logging error:", err));
+}
 
 /* ===============================
    DISPLAY RESULTS
