@@ -183,17 +183,19 @@ async function analyzeProperty() {
     if (data.error) {
       showError(data.error);
     } else {
-      displayResults(data);
+     displayResults(data);
 
-      logUserActivity({
-        action: "View Comps",
-        page: "Comps Page",
-        address,
-        arv: data.arv,
-        rent: data.rent
-      }).catch(err => {
+      try {
+        logUserActivity({
+          action: "View Comps",
+          page: "Comps Page",
+          address,
+          arv: data.arv,
+          rent: data.rent
+        });
+      } catch (err) {
         console.warn("Logging failed:", err);
-      });
+      }
 
   btn.disabled = false;
   loading.classList.add("hidden");
