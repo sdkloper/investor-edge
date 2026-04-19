@@ -137,18 +137,6 @@ async function analyzeProperty() {
 
   try {
 
-    console.log({
-      address,
-      structure,
-      beds,
-      fullBath,
-      halfBath,
-      sqft,
-      waterfront,
-      garageSpaces,
-      listPrice
-    });
-
     const response = await fetch(BACKEND_URL, {
       method: "POST",
       headers: {
@@ -168,7 +156,7 @@ async function analyzeProperty() {
     });
 
     const text = await response.text();
-    console.log("Raw backend response:", text);
+    //console.log("Raw backend response:", text);
 
     let data;
     try {
