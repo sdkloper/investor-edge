@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const hoaFreq = params.get("hoaFreq");
   const condo = params.get("condo");
   const condoFreq = params.get("condoFreq");
-  const address = params.get("address");
+  const  = params.get("address");
 
   if (price) document.getElementById("priceInput").value = price;
   if (arv) document.getElementById("arvInput").value = arv;
@@ -137,7 +137,7 @@ async function analyzeProperty() {
 
   try {
 
-   console.log("Address being sent:", address);
+   //console.log("Address being sent:", address);
      
     const response = await fetch(BACKEND_URL, {
       method: "POST",
@@ -192,7 +192,7 @@ function buildAnalyzeURL(type, data) {
       ? "rent-analyzer.html"
       : "analyzer.html";
 
-  const Input = document.getElementById("");
+  const Input = document.getElementById("address");
   const priceInput   = document.getElementById("listPrice");
 
   const address = addressInput ? addressInput.value : "";
@@ -341,7 +341,7 @@ function populateRentCompTable(rentComps) {
       <td>
         <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${comp["MLS Number"] || ""}"
            target="_blank">
-           ${comp["Address"] || ""}
+           ${comp[""] || ""}
         </a>
       </td>
       <td>${formatCurrency(comp["Close Price"])}</td>
