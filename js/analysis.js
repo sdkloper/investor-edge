@@ -191,12 +191,9 @@ async function analyzeProperty() {
         address,
         arv: data.arv,
         rent: data.rent
+      }).catch(err => {
+        console.warn("Logging failed:", err);
       });
-    }
-
-  } catch (err) {
-    showError("Network error. Please try again.");
-  }
 
   btn.disabled = false;
   loading.classList.add("hidden");
