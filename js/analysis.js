@@ -167,7 +167,7 @@ async function analyzeProperty() {
       logUserActivity({
         action: "View Comps",
         page: "Comps Page",
-        address,
+        address: data.address,
         arv: data.arv,
         rent: data.rent
       });
