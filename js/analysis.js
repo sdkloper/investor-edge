@@ -214,7 +214,7 @@ function buildAnalyzeURL(type, data) {
 
   const baseURL =
     type === "rent"
-      ? "rent-analyzer.html"
+      ? "rental-analyzer.html"
       : "analyzer.html";
 
   const addressInput = document.getElementById("address");
