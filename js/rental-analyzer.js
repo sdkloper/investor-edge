@@ -1,3 +1,27 @@
+/* ===============================
+   AUTH CHECK
+================================ */
+
+// Only protect analyzer page
+if (
+  window.location.pathname.includes("analyzer") &&
+  sessionStorage.getItem("investorAuth") !== "true"
+) {
+  window.location.href = "index.html";
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", function() {
+      sessionStorage.clear();
+      window.location.href = "index.html";
+    });
+  }
+
+
 const countyTaxRates = {
   "Baltimore County": { recordation: 0.0025, county: 0.0075, state: 0.0025 },
   "Anne Arundel County": { recordation: 0.0035, county: 0.0050, state: 0.0025 },
