@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const hoaFreq = params.get("hoaFreq");
   const condo = params.get("condo");
   const condoFreq = params.get("condoFreq");
-  const  address = params.get("address");
+  const address = params.get("address");
 
   if (price) document.getElementById("priceInput").value = price;
   if (arv) document.getElementById("arvInput").value = arv;
@@ -167,7 +167,7 @@ async function analyzeProperty() {
       logUserActivity({
         action: "View Comps",
         page: "Comps Page",
-        address: data.address,
+        address,
         arv: data.arv,
         rent: data.rent
       });
@@ -192,7 +192,7 @@ function buildAnalyzeURL(type, data) {
       ? "rent-analyzer.html"
       : "analyzer.html";
 
-  const Input = document.getElementById("address");
+  const addressInput = document.getElementById("address");
   const priceInput   = document.getElementById("listPrice");
 
   const address = addressInput ? addressInput.value : "";
