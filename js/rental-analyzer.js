@@ -373,7 +373,7 @@ function loadFromURL(){
       document.getElementById("condo").value = p.get("condo");
       document.getElementById("condoFreq").value = normalizeFreq(p.get("condoFreq"));
     }
-    logUserActivity(
+    logActivity(
       "Open Rent Analyzer",
       document.getElementById("address")?.value || "",
       getNumericValue("arv"),
