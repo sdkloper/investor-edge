@@ -1,3 +1,13 @@
+// ===============================
+// GLOBAL WEB APP URL
+// ===============================
+
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzuGtr2AtmQB9-E0vVxRaS-Jtpgz8anqbHO6LGCxJPGPD3Oom8wV9nFRtdU-HPjPI_x/exec";
+
+// Alias for analysis calls
+const BACKEND_URL = WEB_APP_URL;
+
+
 function logActivity(payload) {
   return fetch(WEB_APP_URL, {
     method: "POST",
