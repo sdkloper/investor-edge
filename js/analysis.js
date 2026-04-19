@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function() {
    CONFIG
 ================================ */
 
-const BACKEND_URL = "https://script.google.com/macros/s/AKfycbzuGtr2AtmQB9-E0vVxRaS-Jtpgz8anqbHO6LGCxJPGPD3Oom8wV9nFRtdU-HPjPI_x/exec";
+//const BACKEND_URL = "https://script.google.com/macros/s/AKfycbzuGtr2AtmQB9-E0vVxRaS-Jtpgz8anqbHO6LGCxJPGPD3Oom8wV9nFRtdU-HPjPI_x/exec";
 
 /* ===============================
    GOOGLE AUTOCOMPLETE
@@ -173,7 +173,7 @@ async function analyzeProperty() {
       displayResults(data);
 
       try {
-        logUserActivity({
+        logActivity({
           action: "View Comps",
           page: "Comps Page",
           address,
@@ -221,27 +221,6 @@ function buildAnalyzeURL(type, data) {
   return `${baseURL}?${params.toString()}`;
 }
 
-function logUserActivity(data) {
-
-  fetch(WEB_APP_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    body: new URLSearchParams({
-      type: "activityLog",
-      userID: sessionStorage.getItem("userID") || "",
-      firstName: sessionStorage.getItem("firstName") || "",
-      lastName: sessionStorage.getItem("lastName") || "",
-      page: data.page || "",
-      address: data.address || "",
-      price: data.price || "",
-      arv: data.arv || "",
-      rent: data.rent || "",
-      action: data.action || ""
-    })
-  }).catch(err => console.error("Logging error:", err));
-}
 
 /* ===============================
    DISPLAY RESULTS
