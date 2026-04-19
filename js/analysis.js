@@ -137,18 +137,18 @@ async function analyzeProperty() {
 
   try {
 
-   console.log({
-     address,
-     structure,
-     beds,
-     fullBath,
-     halfBath,
-     sqft,
-     waterfront,
-     garageSpaces,
-     listPrice
-   });
-     
+    console.log({
+      address,
+      structure,
+      beds,
+      fullBath,
+      halfBath,
+      sqft,
+      waterfront,
+      garageSpaces,
+      listPrice
+    });
+
     const response = await fetch(BACKEND_URL, {
       method: "POST",
       headers: {
@@ -167,23 +167,22 @@ async function analyzeProperty() {
       })
     });
 
-   // const data = await response.json();
-     const text = await response.text();
-      console.log("Raw backend response:", text);
-      
-      let data;
-      try {
-        data = JSON.parse(text);
-      } catch (err) {
-        console.error("JSON parse failed:", err);
-        showError("Invalid backend response.");
-        return;
-      }
+    const text = await response.text();
+    console.log("Raw backend response:", text);
+
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch (err) {
+      console.error("JSON parse failed:", err);
+      showError("Invalid backend response.");
+      return;
+    }
 
     if (data.error) {
       showError(data.error);
     } else {
-     displayResults(data);
+      displayResults(data);
 
       try {
         logUserActivity({
@@ -197,6 +196,12 @@ async function analyzeProperty() {
         console.warn("Logging failed:", err);
       }
     }
+
+  } catch (err) {
+    console.error(err);
+    showError("Network error. Please try again.");
+  }
+
   btn.disabled = false;
   loading.classList.add("hidden");
 }
