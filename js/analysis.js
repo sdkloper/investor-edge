@@ -378,12 +378,5 @@ function formatCurrency(val) {
     maximumFractionDigits: 0
   });
 }
-const logoutBtn = document.getElementById("logoutBtn");
 
-if (logoutBtn) {
-  logoutBtn.addEventListener("click", function() {
-    sessionStorage.clear();
-    window.location.href = "index.html";
-  });
-}
 
