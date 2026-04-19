@@ -137,7 +137,17 @@ async function analyzeProperty() {
 
   try {
 
-   //console.log("Address being sent:", address);
+   console.log({
+     address,
+     structure,
+     beds,
+     fullBath,
+     halfBath,
+     sqft,
+     waterfront,
+     garageSpaces,
+     listPrice
+   });
      
     const response = await fetch(BACKEND_URL, {
       method: "POST",
