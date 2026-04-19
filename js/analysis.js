@@ -196,11 +196,11 @@ async function analyzeProperty() {
       } catch (err) {
         console.warn("Logging failed:", err);
       }
-
+    }
   btn.disabled = false;
   loading.classList.add("hidden");
 }
-
+  
 /* ============================= */
 /* ANALYZE Flip BUTTONS */
 /* ============================= */
