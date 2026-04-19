@@ -333,7 +333,7 @@ function populateCompTable(comps) {
       <td>${comp["Beds"] || ""}</td>
       <td>${comp["Bathrooms Full"] || ""}</td>
       <td>${comp["Bathrooms Half"] || ""}</td>
-      <td>${comp["Distance"] ? comp["distance"].toFixed(2) + " mi" : ""}</td>
+      <td>${comp.distance ? comp.distance.toFixed(2) + " mi" : ""}</td>
       <td>${formatCurrency(comp["adjustedPrice"] || comp["Adjusted Price"] || 0)}</td>
     `;
     tbody.appendChild(tr);
@@ -361,7 +361,7 @@ function populateRentCompTable(rentComps) {
       <td>
         <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${comp["MLS Number"] || ""}"
            target="_blank">
-           ${comp[""] || ""}
+           ${comp["Address"] || ""}
         </a>
       </td>
       <td>${formatCurrency(comp["Close Price"])}</td>
@@ -369,7 +369,7 @@ function populateRentCompTable(rentComps) {
       <td>${comp["Beds"] || ""}</td>
       <td>${comp["Bathrooms Full"] || ""}</td>
       <td>${comp["Bathrooms Half"] || ""}</td>
-      <td>${comp["Distance"] ? comp["distance"].toFixed(2) + " mi" : ""}</td>
+      <td>${comp.distance ? comp.distance.toFixed(2) + " mi" : ""}</td>
       <td>${formatCurrency(comp.adjustedRent || 0)}</td>
     `;
     tbody.appendChild(tr);
