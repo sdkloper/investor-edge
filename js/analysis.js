@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const hoaFreq = params.get("hoaFreq");
   const condo = params.get("condo");
   const condoFreq = params.get("condoFreq");
-  const  = params.get("address");
+  const  address = params.get("address");
 
   if (price) document.getElementById("priceInput").value = price;
   if (arv) document.getElementById("arvInput").value = arv;
