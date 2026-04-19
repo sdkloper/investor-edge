@@ -73,29 +73,6 @@ function authenticateUser() {
     }
   });
 }
-function logUserActivity(data) {
-
-  fetch("https://script.google.com/macros/s/AKfycbzuGtr2AtmQB9-E0vVxRaS-Jtpgz8anqbHO6LGCxJPGPD3Oom8wV9nFRtdU-HPjPI_x/exec", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    body: new URLSearchParams({
-      type: "activityLog",
-      userID: sessionStorage.getItem("userID"),
-      firstName: sessionStorage.getItem("firstName"),
-      lastName: sessionStorage.getItem("lastName"),
-      page: data.page || "",
-      address: data.address || "",
-      price: data.price || "",
-      arv: data.arv || "",
-      rent: data.rent || "",
-      action: data.action || ""
-    })
-  }).catch(err => console.error("Logging error:", err));
-
-}
-
 
 function getField(row, key) {
   return Object.keys(row).find(k => k.trim() === key)?.let
