@@ -64,7 +64,7 @@ function authenticateUser() {
        sessionStorage.setItem("firstName", match["First Name"] || "");
        sessionStorage.setItem("lastName", match["Last Name"] || "");
          
-        updateLastLogin(user);
+        updateLastLogin(match["UserID"]);
         showApp();
       } else {
         document.getElementById("loginError").textContent =
@@ -660,7 +660,7 @@ function analyzeDealFromButton(e) {
   });
 
   // ✅ Correct logging
-  logUserActivity(
+  logActivity(
     "Analyze Flip",
     decodeURIComponent(btn.dataset.address || ""),
     btn.dataset.arv || 0,
@@ -688,7 +688,7 @@ function analyzeRentalDealFromButton(e) {
     address: decodeURIComponent(btn.dataset.address || "")
   });
    // ✅ Correct logging
-  logUserActivity(
+  logActivity(
     "Analyze Rental",
     decodeURIComponent(btn.dataset.address || ""),
     btn.dataset.arv || 0,
