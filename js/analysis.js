@@ -157,7 +157,18 @@ async function analyzeProperty() {
       })
     });
 
-    const data = await response.json();
+   // const data = await response.json();
+     const text = await response.text();
+      console.log("Raw backend response:", text);
+      
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (err) {
+        console.error("JSON parse failed:", err);
+        showError("Invalid backend response.");
+        return;
+      }
 
     if (data.error) {
       showError(data.error);
