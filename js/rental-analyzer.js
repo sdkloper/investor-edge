@@ -416,8 +416,11 @@ function loadFromURL(){
   if(p.get("arv")) document.getElementById("arv").value=p.get("arv");
   if(p.get("rent")) document.getElementById("rent").value=p.get("rent");
   if(p.get("taxes")) document.getElementById("taxes").value=p.get("taxes");
-   if (address) {
-     document.getElementById("address").value = decodeURIComponent(address);
+  const addressFromURL = p.get("address");
+
+   if (addressFromURL) {
+     document.getElementById("address").value =
+       decodeURIComponent(addressFromURL);
    }
 
   if(p.get("hoa")){
