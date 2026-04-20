@@ -263,11 +263,39 @@ function displayResults(data) {
 
    document.getElementById("analyzeFlipBtn").onclick = function () {
      const url = buildAnalyzeURL("flip", data);
+
+      try {
+        logActivity({
+          action: "Analyze Flip",
+          page: "Comps Page",
+          address: address,
+          price: document.getElementById("listPrice")?.value || "",
+          arv: data.arv || "",
+          rent: ""
+        });
+      } catch (err) {
+        console.warn("Logging failed:", err);
+      }
+      
      window.open(url, "_blank");
    };
    
    document.getElementById("analyzeRentBtn").onclick = function () {
      const url = buildAnalyzeURL("rent", data);
+
+      try {
+        logActivity({
+          action: "nalyze Rental",
+          page: "Comps Page",
+          address: address,
+          price: document.getElementById("listPrice")?.value || "",
+          arv: data.arv || "",
+          rent: data.rent || ""
+        });
+      } catch (err) {
+        console.warn("Logging failed:", err);
+      }
+      
      window.open(url, "_blank");
    };
 }
