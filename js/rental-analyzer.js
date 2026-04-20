@@ -403,13 +403,13 @@ function loadFromURL(){
     }
       try {
         logActivity({
-          action: "Analyze Rentals",
-          page: "Rent-Analyzer Page",
-          address,
-          price: data.price,
-          arv: data.arv,
-          rent: data.rent
-        });
+           action: "Analyze Rental",
+           page: "Rental Analyzer Page",
+           address: document.getElementById("address").value,
+           price: document.getElementById("purchase").value,
+           arv: document.getElementById("arv").value,
+           rent: document.getElementById("rent").value
+         });
       } catch (err) {
         console.warn("Logging failed:", err);
       }
