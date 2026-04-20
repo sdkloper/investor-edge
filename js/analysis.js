@@ -277,7 +277,7 @@ function displayResults(data) {
         console.warn("Logging failed:", err);
       }
       
-     window.open(url, "_blank");
+     window.location.href = url;
    };
    
    document.getElementById("analyzeRentBtn").onclick = function () {
@@ -296,7 +296,7 @@ function displayResults(data) {
         console.warn("Logging failed:", err);
       }
       
-     window.open(url, "_blank");
+     window.location.href = url;
    };
 }
 
