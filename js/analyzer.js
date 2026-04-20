@@ -439,7 +439,7 @@ if (spreadEl) {
 }
 
   const params = new URLSearchParams(window.location.search);
-  const address = params.get("address") || "";
+  //const address = params.get("address") || "";
    
       try {
          logActivity({
