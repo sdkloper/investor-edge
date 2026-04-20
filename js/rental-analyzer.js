@@ -383,7 +383,7 @@ document.getElementById("trehab").innerText = f(rehab);
   }
 }
    
-}
+
 
 function loadFromURL(){
 
