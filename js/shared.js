@@ -41,3 +41,31 @@ function updateLastLogin(userId) {
     })
   }).catch(err => console.error("Login timestamp error:", err));
 }
+
+const SESSION_TIMEOUT = 60 * 60 * 1000; // 1 hour
+let sessionTimer;
+
+function startSessionTimer() {
+  clearTimeout(sessionTimer);
+
+  sessionTimer = setTimeout(() => {
+    sessionStorage.clear();
+    alert("Session expired. Please log in again.");
+    window.location.href = "index.html";
+  }, SESSION_TIMEOUT);
+}
+
+function resetSessionTimer() {
+  startSessionTimer();
+}
+
+// Start timer on page load
+document.addEventListener("DOMContentLoaded", () => {
+  if (sessionStorage.getItem("investorAuth") === "true") {
+    startSessionTimer();
+
+    ["click", "mousemove", "keypress", "scroll"].forEach(event => {
+      document.addEventListener(event, resetSessionTimer);
+    });
+  }
+});
