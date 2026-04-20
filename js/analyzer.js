@@ -2,16 +2,18 @@
    AUTH CHECK
 ================================ */
 
-// Only protect analyzer page
-if (
-  window.location.pathname.includes("analyzer") &&
-  sessionStorage.getItem("investorAuth") !== "true"
-) {
-  window.location.href = "index.html";
-}
-
 document.addEventListener("DOMContentLoaded", function() {
 
+  // 🔐 Authentication Guard
+  if (
+    sessionStorage.getItem("investorAuth") !== "true" ||
+    !sessionStorage.getItem("userID")
+  ) {
+    window.location.href = "index.html";
+    return;
+  }
+
+  // 🔓 Logout handler
   const logoutBtn = document.getElementById("logoutBtn");
 
   if (logoutBtn) {
@@ -20,6 +22,8 @@ document.addEventListener("DOMContentLoaded", function() {
       window.location.href = "index.html";
     });
   }
+
+});
 
 });function openModal(type) {
 
