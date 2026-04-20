@@ -25,7 +25,21 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 
+//-------------- Google Auto Complete -------//
+let autocomplete;
 
+function initAutocomplete() {
+  const input = document.getElementById("address");
+  if (!input) return;
+
+  autocomplete = new google.maps.places.Autocomplete(input, {
+    types: ["address"],
+    componentRestrictions: { country: "us" }
+  });
+}
+
+window.initAutocomplete = initAutocomplete;
+//---
 
 function openModal(type) {
 
