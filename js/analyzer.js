@@ -445,9 +445,9 @@ if (spreadEl) {
          logActivity({
            action: "Analyze Flip",
            page: "Analyzer Page",
-           address: document.getElementById("address").value,
-           price: document.getElementById("purchase").value,
-           arv: document.getElementById("arv").value,
+           address: document.getElementById("address")?.value || "",
+           price: document.getElementById("purchase")?.value || "",
+           arv: document.getElementById("arv")?.value || "",
            rent: ""
          });
       } catch (err) {
