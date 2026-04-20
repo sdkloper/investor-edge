@@ -467,13 +467,24 @@ function loadFromURL() {
     document.getElementById("addressDisplay").innerText =
       "Analyzing: " + address;
   }
-   logActivity(
-     "Open Flip Analyzer",
-     document.getElementById("address")?.value || "",
-     getNumericValue("arv"),
-     0,
-     "Flip Analyzer"
-   );
+      try {
+        logActivity({
+          action: "Analyze Flips",
+          page: "Analyzer Page",
+          address,
+          price: data.price,
+          arv: data.arv,
+          rent: data.rent
+        });
+      } catch (err) {
+        console.warn("Logging failed:", err);
+      }
+    }
+
+  } catch (err) {
+    console.error(err);
+    showError("Network error. Please try again.");
+  }
 }
 //listener
 window.addEventListener("DOMContentLoaded", () => {
