@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 
-});
+
 
 function openModal(type) {
 
