@@ -30,7 +30,7 @@ function logActivity(payload) {
 }
 
 function updateLastLogin(userId) {
-  return fetch(WEB_APP_URL, {
+  fetch(WEB_APP_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded"
@@ -39,5 +39,5 @@ function updateLastLogin(userId) {
       type: "lastLogin",
       userId: userId
     })
-  });
+  }).catch(err => console.error("Login timestamp error:", err));
 }
