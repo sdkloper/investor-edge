@@ -676,7 +676,9 @@ function analyzeDealFromButton(e) {
          }
     
 
+  setTimeout(() => {
   window.location.href = `analyzer.html?${params.toString()}`;
+}, 150);
 }
 
 function analyzeRentalDealFromButton(e) {
@@ -710,7 +712,9 @@ function analyzeRentalDealFromButton(e) {
       }
     
 
+  setTimeout(() => {
   window.location.href = `rental-analyzer.html?${params.toString()}`;
+}, 150);
 }
 
 
