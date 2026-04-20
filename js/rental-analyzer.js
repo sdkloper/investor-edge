@@ -415,13 +415,7 @@ function loadFromURL(){
       }
     }
 
-  } catch (err) {
-    console.error(err);
-    showError("Network error. Please try again.");
-  }
-  }
 
-}
 
 window.addEventListener("DOMContentLoaded", () => {
 
