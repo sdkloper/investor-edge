@@ -396,7 +396,7 @@ document.getElementById("trehab").innerText = f(rehab);
     logActivity({
       action: "Analyze Rental",
       page: "Rental Analyzer Page",
-      address: address,
+      address: document.getElementById("address")?.value || "",
       price: document.getElementById("purchase")?.value || "",
       arv: document.getElementById("arv")?.value || "",
       rent: document.getElementById("rent")?.value || ""
