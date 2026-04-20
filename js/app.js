@@ -706,7 +706,7 @@ function analyzeRentalDealFromButton(e) {
       } catch (err) {
         console.warn("Logging failed:", err);
       }
-    }
+    
 
   window.open(`rental-analyzer.html?${params.toString()}`, "_blank");
 }
