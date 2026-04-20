@@ -664,7 +664,7 @@ function analyzeDealFromButton(e) {
         logActivity({
            action: "Analyze Flips",
            page: "Deals Page",
-           address: document.getElementById("address").value,
+           address: address,
            price: document.getElementById("purchase").value,
            arv: document.getElementById("arv").value,
            rent: document.getElementById("rent").value
@@ -698,7 +698,7 @@ function analyzeRentalDealFromButton(e) {
        logActivity({
            action: "Analyze Rentals",
            page: "Deals Page",
-           address: document.getElementById("address").value,
+           address: address,
            price: document.getElementById("purchase").value,
            arv: document.getElementById("arv").value,
            rent: document.getElementById("rent").value
