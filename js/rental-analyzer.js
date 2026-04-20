@@ -24,7 +24,21 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
 });
+//------- Google Auto Complete -------//
+let autocomplete;
 
+function initAutocomplete() {
+  const input = document.getElementById("address");
+  if (!input) return;
+
+  autocomplete = new google.maps.places.Autocomplete(input, {
+    types: ["address"],
+    componentRestrictions: { country: "us" }
+  });
+}
+
+window.initAutocomplete = initAutocomplete;
+//---
 
 const countyTaxRates = {
   "Baltimore County": { recordation: 0.0025, county: 0.0075, state: 0.0025 },
@@ -34,6 +48,8 @@ const countyTaxRates = {
   "Howard County": { recordation: 0.0025, county: 0.0063, state: 0.0025 },
   "Montgomery County": { recordation: 0.0022, county: 0.0050, state: 0.0025 }
 };
+
+
 
 function openModal(type) {
 
@@ -144,7 +160,14 @@ function analyzeRental(){
   // =====================
   // INPUTS FIRST (CRITICAL)
   // =====================
+  const address = document.getElementById("address").value.trim();
 
+   if (!address) {
+     showError("Address is required.");
+     btn.disabled = false;
+     loading.classList.add("hidden");
+     return;
+   }
   const purchase = num("purchase");
   const rehab = num("rehab");
   const rent = num("rent");
