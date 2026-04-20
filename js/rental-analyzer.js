@@ -405,7 +405,7 @@ function loadFromURL(){
         logActivity({
            action: "Analyze Rental",
            page: "Rental Analyzer Page",
-           address: document.getElementById("address").value,
+           address: address,
            price: document.getElementById("purchase").value,
            arv: document.getElementById("arv").value,
            rent: document.getElementById("rent").value
