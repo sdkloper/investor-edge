@@ -662,13 +662,13 @@ function analyzeDealFromButton(e) {
   // ✅ Correct logging
       try {
         logActivity({
-          action: "Analyze Flip",
-          page: "Deals Page",
-          address,
-          price: data.price,
-          arv: data.arv,
-          rent: data.rent
-        });
+           action: "Analyze Flips",
+           page: "Deals Page",
+           address: document.getElementById("address").value,
+           price: document.getElementById("purchase").value,
+           arv: document.getElementById("arv").value,
+           rent: document.getElementById("rent").value
+         });
       } catch (err) {
         console.warn("Logging failed:", err);
       }
@@ -695,14 +695,14 @@ function analyzeRentalDealFromButton(e) {
   });
    // ✅ Correct logging
       try {
-        logActivity({
-          action: "Analyze Rentals",
-          page: "Deals Page",
-          address,
-          price: data.price,
-          arv: data.arv,
-          rent: data.rent
-        });
+       logActivity({
+           action: "Analyze Rentals",
+           page: "Deals Page",
+           address: document.getElementById("address").value,
+           price: document.getElementById("purchase").value,
+           arv: document.getElementById("arv").value,
+           rent: document.getElementById("rent").value
+         });
       } catch (err) {
         console.warn("Logging failed:", err);
       }
