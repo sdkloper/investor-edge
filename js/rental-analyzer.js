@@ -390,7 +390,7 @@ document.getElementById("tbuyerClosing").innerText = f(buyerClosing);
 document.getElementById("trehab").innerText = f(rehab);
 
   const params = new URLSearchParams(window.location.search);
-  const address = params.get("address") || "";
+  //const address = params.get("address") || "";
 
   try {
     logActivity({
