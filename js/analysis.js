@@ -2,14 +2,19 @@
    AUTH CHECK
 ================================ */
 
-if (sessionStorage.getItem("investorAuth") !== "true") {
-  window.location.href = "index.html"; // your login page
-}
-
 document.addEventListener("DOMContentLoaded", function() {
 
-  const logoutBtn = document.getElementById("logoutBtn");
+  // 🔐 Authentication Guard FIRST
+  if (
+    sessionStorage.getItem("investorAuth") !== "true" ||
+    !sessionStorage.getItem("userID")
+  ) {
+    window.location.href = "index.html";
+    return;
+  }
 
+  // 🔓 Logout handler (if page has one)
+  const logoutBtn = document.getElementById("logoutBtn");
   if (logoutBtn) {
     logoutBtn.addEventListener("click", function() {
       sessionStorage.clear();
@@ -17,9 +22,9 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-});
-
-document.addEventListener("DOMContentLoaded", function() {
+  // ===============================
+  // Load URL Parameters
+  // ===============================
 
   const params = new URLSearchParams(window.location.search);
 
