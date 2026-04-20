@@ -416,7 +416,20 @@ if (spreadEl) {
     spread > 10000 ? "#f59e0b" :
     "#dc2626";
 }
+      try {
+         logActivity({
+           action: "Analyze Flip",
+           page: "Analyzer Page",
+           address: address,
+           price: document.getElementById("purchase").value,
+           arv: document.getElementById("arv").value,
+           rent: ""
+         });
+      } catch (err) {
+        console.warn("Logging failed:", err);
+      }
 
+   
 }
 
 
@@ -467,18 +480,6 @@ function loadFromURL() {
     document.getElementById("addressDisplay").innerText =
       "Analyzing: " + address;
   }
-      try {
-         logActivity({
-           action: "Analyze Flip",
-           page: "Analyzer Page",
-           address: address,
-           price: document.getElementById("purchase").value,
-           arv: document.getElementById("arv").value,
-           rent: ""
-         });
-      } catch (err) {
-        console.warn("Logging failed:", err);
-      }
     }
 
 //listener
