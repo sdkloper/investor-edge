@@ -471,7 +471,7 @@ function loadFromURL() {
          logActivity({
            action: "Analyze Flip",
            page: "Analyzer Page",
-           address: document.getElementById("addressDisplay").value,
+           address: address,
            price: document.getElementById("purchase").value,
            arv: document.getElementById("arv").value,
            rent: ""
