@@ -382,7 +382,7 @@ document.getElementById("trehab").innerText = f(rehab);
 }
 
 function loadFromURL(){
-  const address = p.get("address");
+
   const p=new URLSearchParams(window.location.search);
 
   if(p.get("price")) document.getElementById("purchase").value=p.get("price");
