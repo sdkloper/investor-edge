@@ -182,7 +182,7 @@ async function analyzeProperty() {
           action: "View Comps",
           page: "Comps Page",
           address,
-          price: data.price,
+          listPrice: data.listPrice,
           arv: data.arv,
           rent: data.rent
         });
