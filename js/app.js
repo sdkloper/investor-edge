@@ -36,8 +36,10 @@ function showApp() {
   document.getElementById("loginScreen").style.display = "none";
   document.getElementById("appContainer").style.display = "block";
 
-  loadCSV(); // load deals after auth
-}
+  document.getElementById("dealsLoading").style.display = "block";
+   loadCSV(); 
+   document.getElementById("dealsLoading").style.display = "none";
+   }
 
 function authenticateUser() {
 
