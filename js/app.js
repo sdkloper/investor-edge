@@ -672,12 +672,7 @@ function analyzeDealFromButton(e) {
       } catch (err) {
         console.warn("Logging failed:", err);
       }
-    }
-
-  } catch (err) {
-    console.error(err);
-    showError("Network error. Please try again.");
-  }
+    
 
   window.open(`analyzer.html?${params.toString()}`, "_blank");
 }
