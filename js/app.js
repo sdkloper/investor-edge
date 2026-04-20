@@ -708,10 +708,6 @@ function analyzeRentalDealFromButton(e) {
       }
     }
 
-  } catch (err) {
-    console.error(err);
-    showError("Network error. Please try again.");
-  }
   window.open(`rental-analyzer.html?${params.toString()}`, "_blank");
 }
 
