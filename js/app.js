@@ -660,18 +660,18 @@ function analyzeDealFromButton(e) {
   });
 
   // ✅ Correct logging
-      try {
-        logActivity({
-           action: "Analyze Flips",
-           page: "Deals Page",
-           address: decodeURIComponent(btn.dataset.address || ""),
-           price: document.getElementById("purchase").value,
-           arv: document.getElementById("arv").value,
-           rent: document.getElementById("rent").value
-         });
-      } catch (err) {
-        console.warn("Logging failed:", err);
-      }
+         try {
+           logActivity({
+             action: "Analyze Flip",
+             page: "Deals Page",
+             address: decodeURIComponent(btn.dataset.address || ""),
+             price: btn.dataset.price || "",
+             arv: btn.dataset.arv || "",
+             rent: btn.dataset.rent || ""
+           });
+         } catch (err) {
+           console.warn("Logging failed:", err);
+         }
     
 
   window.open(`analyzer.html?${params.toString()}`, "_blank");
@@ -695,14 +695,14 @@ function analyzeRentalDealFromButton(e) {
   });
    // ✅ Correct logging
       try {
-       logActivity({
-           action: "Analyze Rentals",
-           page: "Deals Page",
-           address: address,
-           price: document.getElementById("purchase").value,
-           arv: document.getElementById("arv").value,
-           rent: document.getElementById("rent").value
-         });
+        logActivity({
+          action: "Analyze Rentals",
+          page: "Deals Page",
+          address: decodeURIComponent(btn.dataset.address || ""),
+          price: btn.dataset.price || "",
+          arv: btn.dataset.arv || "",
+          rent: btn.dataset.rent || ""
+        });
       } catch (err) {
         console.warn("Logging failed:", err);
       }
