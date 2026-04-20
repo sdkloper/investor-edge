@@ -468,14 +468,14 @@ function loadFromURL() {
       "Analyzing: " + address;
   }
       try {
-        logActivity({
-          action: "Analyze Flips",
-          page: "Analyzer Page",
-          address,
-          price: data.price,
-          arv: data.arv,
-          rent: data.rent
-        });
+         logActivity({
+           action: "Analyze Flip",
+           page: "Analyzer Page",
+           address: document.getElementById("address").value,
+           price: document.getElementById("purchase").value,
+           arv: document.getElementById("arv").value,
+           rent: ""
+         });
       } catch (err) {
         console.warn("Logging failed:", err);
       }
