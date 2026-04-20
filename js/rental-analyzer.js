@@ -365,6 +365,20 @@ document.getElementById("tcashInvested").innerText = f(cashInvested);
 document.getElementById("tloan").innerText = f(loan);
 document.getElementById("tbuyerClosing").innerText = f(buyerClosing);
 document.getElementById("trehab").innerText = f(rehab);
+
+         try {
+        logActivity({
+           action: "Analyze Rental",
+           page: "Rental Analyzer Page",
+           address: address,
+           price: document.getElementById("purchase").value,
+           arv: document.getElementById("arv").value,
+           rent: document.getElementById("rent").value
+         });
+      } catch (err) {
+        console.warn("Logging failed:", err);
+      }
+   
 }
 
 function loadFromURL(){
@@ -402,18 +416,7 @@ function loadFromURL(){
       document.getElementById("condo").value = p.get("condo");
       document.getElementById("condoFreq").value = normalizeFreq(p.get("condoFreq"));
     }
-      try {
-        logActivity({
-           action: "Analyze Rental",
-           page: "Rental Analyzer Page",
-           address: address,
-           price: document.getElementById("purchase").value,
-           arv: document.getElementById("arv").value,
-           rent: document.getElementById("rent").value
-         });
-      } catch (err) {
-        console.warn("Logging failed:", err);
-      }
+
     }
 }
 
