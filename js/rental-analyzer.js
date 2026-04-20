@@ -414,7 +414,7 @@ function loadFromURL(){
         console.warn("Logging failed:", err);
       }
     }
-
+}
 
 
 window.addEventListener("DOMContentLoaded", () => {
