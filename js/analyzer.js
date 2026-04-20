@@ -481,9 +481,8 @@ function loadFromURL() {
   }
 
   if (address) {
-    document.getElementById("addressDisplay").innerText =
-      "Analyzing: " + address;
-  }
+     document.getElementById("address").value = decodeURIComponent(address);
+   }
     }
 
 //listener
