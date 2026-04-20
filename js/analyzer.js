@@ -416,6 +416,10 @@ if (spreadEl) {
     spread > 10000 ? "#f59e0b" :
     "#dc2626";
 }
+
+  const params = new URLSearchParams(window.location.search);
+  const address = params.get("address") || "";
+   
       try {
          logActivity({
            action: "Analyze Flip",
