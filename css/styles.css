@@ -221,7 +221,12 @@ input, select {
   margin-top: 15px;
   text-align: center;
 }
-
+.loading-overlay {
+  text-align: center;
+  padding: 40px;
+  font-size: 20px;
+  font-weight: bold;
+}
 .error-card {
   text-align: center;
   background: #2a0f0f;
