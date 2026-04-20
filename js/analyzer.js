@@ -25,7 +25,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 
-});function openModal(type) {
+});
+
+function openModal(type) {
 
   const modal = document.getElementById("metricModal");
   const title = document.getElementById("modalTitle");
