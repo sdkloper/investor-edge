@@ -38,7 +38,6 @@ function showApp() {
 
   document.getElementById("dealsLoading").style.display = "block";
    loadCSV(); 
-   document.getElementById("dealsLoading").style.display = "none";
    }
 
 function authenticateUser() {
@@ -125,6 +124,7 @@ function loadCSV() {
       deals = results.data;
       populateCountyFilter();
       renderTable();
+      document.getElementById("dealsLoading").style.display = "none";
     },
   });
 }
