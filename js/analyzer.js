@@ -174,7 +174,14 @@ const countyTaxRates = {
 };
 
 function analyzeDeal() {
+const address = document.getElementById("address").value.trim();
 
+if (!address) {
+  showError("Address is required.");
+  btn.disabled = false;
+  loading.classList.add("hidden");
+  return;
+}
 const purchase = getNumericValue("purchase");
 const rehab = getNumericValue("rehab");
 const broker = getNumericValue("brokerFee");
