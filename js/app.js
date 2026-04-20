@@ -660,13 +660,24 @@ function analyzeDealFromButton(e) {
   });
 
   // ✅ Correct logging
-  logActivity(
-    "Analyze Flip",
-    decodeURIComponent(btn.dataset.address || ""),
-    btn.dataset.arv || 0,
-    btn.dataset.rent || 0,
-    "Deals Page"
-  );
+      try {
+        logActivity({
+          action: "Analyze Flip",
+          page: "Deals Page",
+          address,
+          price: data.price,
+          arv: data.arv,
+          rent: data.rent
+        });
+      } catch (err) {
+        console.warn("Logging failed:", err);
+      }
+    }
+
+  } catch (err) {
+    console.error(err);
+    showError("Network error. Please try again.");
+  }
 
   window.open(`analyzer.html?${params.toString()}`, "_blank");
 }
@@ -688,13 +699,24 @@ function analyzeRentalDealFromButton(e) {
     address: decodeURIComponent(btn.dataset.address || "")
   });
    // ✅ Correct logging
-  logActivity(
-    "Analyze Rental",
-    decodeURIComponent(btn.dataset.address || ""),
-    btn.dataset.arv || 0,
-    btn.dataset.rent || 0,
-    "Deals Page"
-  );
+      try {
+        logActivity({
+          action: "Analyze Rentals",
+          page: "Deals Page",
+          address,
+          price: data.price,
+          arv: data.arv,
+          rent: data.rent
+        });
+      } catch (err) {
+        console.warn("Logging failed:", err);
+      }
+    }
+
+  } catch (err) {
+    console.error(err);
+    showError("Network error. Please try again.");
+  }
   window.open(`rental-analyzer.html?${params.toString()}`, "_blank");
 }
 
