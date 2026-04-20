@@ -268,7 +268,7 @@ function displayResults(data) {
         logActivity({
           action: "Analyze Flip",
           page: "Comps Page",
-          address: address,
+          address: document.getElementById("address")?.value || "",
           price: document.getElementById("listPrice")?.value || "",
           arv: data.arv || "",
           rent: ""
@@ -285,9 +285,9 @@ function displayResults(data) {
 
       try {
         logActivity({
-          action: "nalyze Rental",
+          action: "Analyze Rental",
           page: "Comps Page",
-          address: address,
+          address: address,address: document.getElementById("address")?.value || "",
           price: document.getElementById("listPrice")?.value || "",
           arv: data.arv || "",
           rent: data.rent || ""
