@@ -664,7 +664,7 @@ function analyzeDealFromButton(e) {
         logActivity({
            action: "Analyze Flips",
            page: "Deals Page",
-           address: address,
+           address: decodeURIComponent(btn.dataset.address || ""),
            price: document.getElementById("purchase").value,
            arv: document.getElementById("arv").value,
            rent: document.getElementById("rent").value
