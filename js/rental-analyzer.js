@@ -401,13 +401,24 @@ function loadFromURL(){
       document.getElementById("condo").value = p.get("condo");
       document.getElementById("condoFreq").value = normalizeFreq(p.get("condoFreq"));
     }
-    logActivity(
-      "Open Rent Analyzer",
-      document.getElementById("address")?.value || "",
-      getNumericValue("arv"),
-      getNumericValue("rent"),
-      "Rent Analyzer"
-    );
+      try {
+        logActivity({
+          action: "Analyze Rentals",
+          page: "Rent-Analyzer Page",
+          address,
+          price: data.price,
+          arv: data.arv,
+          rent: data.rent
+        });
+      } catch (err) {
+        console.warn("Logging failed:", err);
+      }
+    }
+
+  } catch (err) {
+    console.error(err);
+    showError("Network error. Please try again.");
+  }
   }
 
 }
