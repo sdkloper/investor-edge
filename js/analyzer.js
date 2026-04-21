@@ -237,6 +237,9 @@ mortgage + taxes + insurance + utilities + hoa + condo;
 
 const totalHolding = monthlyHolding * months;
 
+document.getElementById("totalHolding").textContent =
+  formatCurrency(totalHolding);
+
 // =====================
 // BUYER CLOSING (CORRECTED)
 // =====================
