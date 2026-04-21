@@ -274,7 +274,7 @@ function renderCompTab(type, subject, comps) {
       if (type === "sales") {
         html += `
           <p class="${highlightClass}">
-            <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${comp["MLS Number"] || ""}" target="_blank">
+            <a href="https://samsonproperties.net/listing/382-${comp["MLS Number"] || ""}" target="_blank">
               ${comp.Address || ""}
             </a><br>
             ${comp["PR AbvFinSQFT"] || "-"} SqFt ||
@@ -289,7 +289,7 @@ function renderCompTab(type, subject, comps) {
       } else {
         html += `
           <p class="${highlightClass}">
-            <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${comp["MLS Number"] || ""}" target="_blank">
+            <a href="https://samsonproperties.net/listing/382-${comp["MLS Number"] || ""}" target="_blank">
               ${comp.Address || ""}
             </a><br>
             ${comp["PR AbvFinSQFT"] || "-"} SqFt ||
@@ -343,7 +343,7 @@ function renderTable() {
      
    tr.innerHTML = `
      <td>${icons}
-        <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${row.MLS}" target="_blank">
+        <a href="https://samsonproperties.net/listing/382-${row.MLS}" target="_blank">
           ${row.MLS}
         </a>
       </td>
