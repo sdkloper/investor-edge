@@ -518,7 +518,6 @@ window.addEventListener("DOMContentLoaded", () => {
     "rehab",
     "brokerFee",
     "utilities",
-    "totalHolding",
     "hoa",
     "taxes",
     "insurance",
