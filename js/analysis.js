@@ -139,7 +139,8 @@ async function analyzeProperty() {
       ? document.getElementById("garageSpaces").value || 1
       : 0;
   const listPrice = document.getElementById("listPrice").value || 0;
-
+  const yearBuilt = document.getElementById("yearBuilt").value || 0;
+   
   try {
 
     const response = await fetch(BACKEND_URL, {
@@ -156,7 +157,8 @@ async function analyzeProperty() {
         sqft,
         waterfront,
         garageSpaces,
-        listPrice
+        listPrice,
+        yearBuilt
       })
     });
 
