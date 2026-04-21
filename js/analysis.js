@@ -239,7 +239,11 @@ function displayResults(data) {
   const summary = document.getElementById("summaryCard");
 
   summary.innerHTML = `
-    <h2>ARV ${formatCurrency(data.arv)}</h2>
+    <h2>ARV ${
+     isNaN(Number(data.arv))
+       ? "No Comps"
+       : formatCurrency(data.arv)
+   }</h2>
 
     <div class="summary-metrics">
       <div>Rent: ${formatCurrency(data.rent)}</div>
