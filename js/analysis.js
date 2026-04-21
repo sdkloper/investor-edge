@@ -353,7 +353,7 @@ function populateRentCompTable(rentComps) {
   tbody.innerHTML = "";
 
   // sort so flagged rent comps come first
-  const sorted = rentComps.slice().sort((a, b) => {
+  const sorted = (rentComps || []).slice().sort((a, b) => {
     if (a.usedForRent && !b.usedForRent) return -1;
     if (!a.usedForRent && b.usedForRent) return 1;
     return 0;
