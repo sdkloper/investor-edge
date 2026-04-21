@@ -186,7 +186,6 @@ const purchase = getNumericValue("purchase");
 const rehab = getNumericValue("rehab");
 const broker = getNumericValue("brokerFee");
 const utilities = getNumericValue("utilities");
-const lawn = getNumericValue("lawn");
 const hoa = getNumericValue("hoa");
 const condo = getNumericValue("condo");
 
@@ -234,7 +233,7 @@ document.getElementById("mortgage").value =
 // =====================
 
 const monthlyHolding =
-mortgage + taxes + insurance + utilities + lawn + hoa + condo;
+mortgage + taxes + insurance + utilities + hoa + condo;
 
 const totalHolding = monthlyHolding * months;
 
@@ -516,7 +515,7 @@ window.addEventListener("DOMContentLoaded", () => {
     "rehab",
     "brokerFee",
     "utilities",
-    "lawn",
+    "totalHolding",
     "hoa",
     "taxes",
     "insurance",
