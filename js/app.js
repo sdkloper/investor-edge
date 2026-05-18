@@ -255,7 +255,7 @@ function renderCompTab(type, subject, comps) {
       </strong>
     </p>
     <p>${subjectValueHTML}</p>
-    <p>${subjectSqft} SqFt || ${subjectBeds} Beds | ${subjectBaths} Baths || DOM ${subject.CDOM || "-" || Distance ${subject.distance || "-"}</p>
+    <p>${subjectSqft} SqFt || ${subjectBeds} Beds | ${subjectBaths} Baths || DOM ${subject.CDOM || "-"} || Distance ${subject.distance || "-"}</p>
     <hr>
     <h3>${type === "sales" ? "Comparable Sales" : "Rental Comps"}</h3>
   `;
