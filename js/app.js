@@ -282,7 +282,7 @@ function renderCompTab(type, subject, comps) {
             ${(comp["Bathrooms Full"] || 0)}.${(comp["Bathrooms Half"] || 0)} Baths ||
             Sold: ${formatCurrency(comp["Close Price"])} ||
             Adj: ${formatCurrency(comp["adjustedPrice"])} ||
-            DOM ${comp["CDOM"] || "-"} 
+            DOM ${comp["CDOM"] || "-"} ||
             Distance: ${comp["distance"] ||"-"}
           </p>
           <hr>
