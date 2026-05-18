@@ -283,6 +283,7 @@ function renderCompTab(type, subject, comps) {
             Sold: ${formatCurrency(comp["Close Price"])} ||
             Adj: ${formatCurrency(comp["adjustedPrice"])} ||
             DOM ${comp["CDOM"] || "-"} 
+            Distance: ${comp["distance"] ||"-"}
           </p>
           <hr>
         `;
