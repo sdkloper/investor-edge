@@ -255,7 +255,7 @@ function renderCompTab(type, subject, comps) {
       </strong>
     </p>
     <p>${subjectValueHTML}</p>
-    <p>${subjectSqft} SqFt || ${subjectBeds} Beds | ${subjectBaths} Baths || DOM ${subject.CDOM || "-"} || Distance ${subject.distance || "-"}</p>
+    <p>${subjectSqft} SqFt || ${subjectBeds} Beds | ${subjectBaths} Baths || DOM ${subject.CDOM || "-"}</p>
     <hr>
     <h3>${type === "sales" ? "Comparable Sales" : "Rental Comps"}</h3>
   `;
@@ -282,7 +282,7 @@ function renderCompTab(type, subject, comps) {
             ${(comp["Bathrooms Full"] || 0)}.${(comp["Bathrooms Half"] || 0)} Baths ||
             Sold: ${formatCurrency(comp["Close Price"])} ||
             Adj: ${formatCurrency(comp["adjustedPrice"])} ||
-            DOM ${comp["CDOM"] || "-"}
+            DOM ${comp["CDOM"] || "-"} 
           </p>
           <hr>
         `;
@@ -295,7 +295,8 @@ function renderCompTab(type, subject, comps) {
             ${comp["PR AbvFinSQFT"] || "-"} SqFt ||
             ${comp.Beds || "-"} Beds ||
             Rent: ${formatCurrency(comp.adjustedRent)} ||
-            DOM ${comp["CDOM"] || "-"}
+            DOM ${comp["CDOM"] || "-"} ||
+            Distance: ${comp["distance"] ||"-"}
           </p>
           <hr>
         `;
