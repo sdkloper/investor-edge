@@ -42,6 +42,15 @@ function showApp() {
 
 function authenticateUser() {
 
+  const termsCheckbox = document.getElementById("terms");
+
+  // 2. Check if the checkbox exists and if it is checked
+  if (termsCheckbox && !termsCheckbox.checked) {
+    // Stop the login process
+    alert("You must agree to the terms to log in.");
+    return; // Exits the function early so login code below doesn't run
+  }
+   
   const user = document.getElementById("loginUser").value.trim();
   const pass = document.getElementById("loginPass").value.trim();
 
