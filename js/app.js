@@ -48,7 +48,7 @@ function authenticateUser() {
   if (termsCheckbox && !termsCheckbox.checked) {
     // Stop the login process
     alert("You must agree to the Disclaimer to log in.");
-    }
+    
     return; // Exits the function early so login code below doesn't run
   }
    
