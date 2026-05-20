@@ -46,7 +46,12 @@ header {
     overflow-x: auto;
     padding: 15px;
 }
-
+thead th {
+  position: sticky;
+  top: 0;
+  background-color: #ffffff; /* Must set a background color so data doesn't bleed through */
+  z-index: 1; /* Keeps header above the scrolling body rows */
+}
 table {
     width: 100%;
     border-collapse: collapse;
