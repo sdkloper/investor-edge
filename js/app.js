@@ -47,7 +47,12 @@ function authenticateUser() {
   // 2. Check if the checkbox exists and if it is checked
   if (termsCheckbox && !termsCheckbox.checked) {
     // Stop the login process
-    alert("You must agree to the Disclaimer to log in.");
+    //alert("You must agree to the Disclaimer to log in.");
+
+     if (errorElement) {
+      errorElement.textContent = "You must agree to the disclaimer to log in.";
+      errorElement.style.color = "red"; // Makes the error pop out
+    }
     return; // Exits the function early so login code below doesn't run
   }
    
