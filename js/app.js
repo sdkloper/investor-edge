@@ -40,9 +40,7 @@ function showApp() {
    loadCSV(); 
    }
 
-  });
-}
-
+  
 // 2. Your existing function with the minor validation upgrade
 function authenticateUser() {
    
