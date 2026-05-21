@@ -40,17 +40,43 @@ function showApp() {
    loadCSV(); 
    }
 
-function authenticateUser() {
+// 1. Track if the user has successfully scrolled to the bottom
+let hasScrolledToBottom = false;
 
+const agreementBox = document.getElementById("agreementBox");
+const termsCheckbox = document.getElementById("terms");
+
+if (agreementBox && termsCheckbox) {
+  // Ensure checkbox is disabled on initial page load
+  termsCheckbox.disabled = true;
+
+  agreementBox.addEventListener("scroll", function() {
+    // Determine if user reached the bottom
+    const isAtBottom = agreementBox.scrollHeight - agreementBox.scrollTop <= agreementBox.clientHeight + 2;
+    
+    if (isAtBottom) {
+      hasScrolledToBottom = true;  // Mark scroll condition as met
+      termsCheckbox.disabled = false; // Unlock the checkbox for clicking
+    }
+  });
+}
+
+// 2. Your existing function with the minor validation upgrade
+function authenticateUser() {
   const termsCheckbox = document.getElementById("terms");
 
-  // 2. Check if the checkbox exists and if it is checked
-  if (termsCheckbox && !termsCheckbox.checked) {
+  // COMPLICATED RULE CHECK: Force scroll completion AND manual checkbox check
+  if (!hasScrolledToBottom || (termsCheckbox && !termsCheckbox.checked)) {
     // Stop the login process
-    alert("You must agree to the Disclaimer to log in.");
+    alert("You must scroll to the bottom of the Disclaimer and check the agreement box to log in.");
     
     return; // Exits the function early so login code below doesn't run
   }
+
+  // --- REST OF YOUR AUTHENTICATEUSER() CODE CONTINUES UNTOUCHED BELOW ---
+  console.log("Proceeding with authentication logic...");
+}
+
    
   const user = document.getElementById("loginUser").value.trim();
   const pass = document.getElementById("loginPass").value.trim();
