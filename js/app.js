@@ -40,27 +40,21 @@ function showApp() {
    loadCSV(); 
    }
 
-
-if (termsCheckbox) {
-  // Ensure checkbox is disabled on initial page load
-  termsCheckbox.disabled = true;
-
     }
   });
 }
 
 // 2. Your existing function with the minor validation upgrade
 function authenticateUser() {
-  
-   const termsCheckbox = document.getElementById("terms");
    
+   // Prevent the form from submitting automatically
+  event.preventDefault(); 
 
-  // COMPLICATED RULE CHECK: Force scroll completion AND manual checkbox check
-  if (termsCheckbox && !termsCheckbox.checked)) {
-    // Stop the login process
-    alert("You must scroll to the bottom of the Disclaimer and check the agreement box to log in.");
-    
-    return; // Exits the function early so login code below doesn't run
+  const termsCheckbox = document.getElementById("terms");
+
+  if (termsCheckbox && !termsCheckbox.checked) {
+    alert("You must check I agree to Disclaimer to log in.");
+    return false; 
   }
 
    
