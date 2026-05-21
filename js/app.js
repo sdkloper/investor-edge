@@ -73,10 +73,6 @@ function authenticateUser() {
     return; // Exits the function early so login code below doesn't run
   }
 
-  // --- REST OF YOUR AUTHENTICATEUSER() CODE CONTINUES UNTOUCHED BELOW ---
-  console.log("Proceeding with authentication logic...");
-}
-
    
   const user = document.getElementById("loginUser").value.trim();
   const pass = document.getElementById("loginPass").value.trim();
