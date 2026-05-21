@@ -48,7 +48,9 @@ function authenticateUser() {
 
   // Block login if disclaimer not accepted
   if (!termsCheckbox.checked) {
-    alert("You must agree to the Disclaimer before logging in.");
+    document.getElementById("loginError").textContent =
+      "You must agree to the Disclaimer before logging in.";
+     
     return;
   }
 
