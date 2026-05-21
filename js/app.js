@@ -41,32 +41,32 @@ function showApp() {
    }
 
 // 1. Track if the user has successfully scrolled to the bottom
-let hasScrolledToBottom = false;
+//let hasScrolledToBottom = false;
 
-const agreementBox = document.getElementById("agreementBox");
-const termsCheckbox = document.getElementById("terms");
 
 if (agreementBox && termsCheckbox) {
   // Ensure checkbox is disabled on initial page load
   termsCheckbox.disabled = true;
 
-  agreementBox.addEventListener("scroll", function() {
+ // agreementBox.addEventListener("scroll", function() {
     // Determine if user reached the bottom
-    const isAtBottom = agreementBox.scrollHeight - agreementBox.scrollTop <= agreementBox.clientHeight + 2;
+  //  const isAtBottom = agreementBox.scrollHeight - agreementBox.scrollTop <= agreementBox.clientHeight + 2;
     
-    if (isAtBottom) {
-      hasScrolledToBottom = true;  // Mark scroll condition as met
-      termsCheckbox.disabled = false; // Unlock the checkbox for clicking
+ //   if (isAtBottom) {
+ //     hasScrolledToBottom = true;  // Mark scroll condition as met
+ //     termsCheckbox.disabled = false; // Unlock the checkbox for clicking
     }
   });
 }
 
 // 2. Your existing function with the minor validation upgrade
 function authenticateUser() {
-  const termsCheckbox = document.getElementById("terms");
+  const agreementBox = document.getElementById("agreementBox");
+   const termsCheckbox = document.getElementById("terms");
+   
 
   // COMPLICATED RULE CHECK: Force scroll completion AND manual checkbox check
-  if (!hasScrolledToBottom || (termsCheckbox && !termsCheckbox.checked)) {
+  if (termsCheckbox && !termsCheckbox.checked)) {
     // Stop the login process
     alert("You must scroll to the bottom of the Disclaimer and check the agreement box to log in.");
     
