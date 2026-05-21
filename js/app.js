@@ -72,6 +72,41 @@ function authenticateUser() {
       );
 
       if (match) {
+         const disclaimerAccepted =
+           match["Disclaimer Accepted"] === "TRUE";
+         
+         const termsCheckbox =
+           document.getElementById("terms");
+         
+         const disclaimerStatus =
+           document.getElementById("disclaimerStatus");
+         
+         // Returning user
+         if (disclaimerAccepted) {
+         
+           termsCheckbox.checked = true;
+           termsCheckbox.disabled = true;
+         
+           disclaimerStatus.textContent =
+             "Disclaimer previously accepted on " +
+             match["Disclaimer Timestamp"];
+         
+         }
+         
+         // First-time user
+         else {
+         
+           if (!termsCheckbox.checked) {
+         
+             document.getElementById("loginError").textContent =
+               "You must agree to the Disclaimer before logging in.";
+         
+             return;
+           }
+         
+           // Save acceptance
+           updateDisclaimerAcceptance(match["UserID"]);
+         }
         sessionStorage.setItem("investorAuth", "true");
         // Store user identity
        sessionStorage.setItem("userID", match["UserID"]);
@@ -649,6 +684,24 @@ function updateLastLogin(userId) {
   }).catch(err => console.error("Login timestamp error:", err));
 
 }
+
+function updateDisclaimerAcceptance(userId) {
+
+  fetch(WEB_APP_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: new URLSearchParams({
+      type: "disclaimer",
+      userId: userId
+    })
+  }).catch(err =>
+    console.error("Disclaimer update error:", err)
+  );
+
+}
+
 
 function normalizeFrequency(freq) {
   if (!freq) return "monthly";
