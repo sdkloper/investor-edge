@@ -73,7 +73,9 @@ function authenticateUser() {
 
       if (match) {
          const disclaimerAccepted =
-           match["Disclaimer Accepted"] === "TRUE";
+           String(match["Disclaimer Accepted"])
+             .trim()
+             .toUpperCase() === "TRUE";
          
          const termsCheckbox =
            document.getElementById("terms");
