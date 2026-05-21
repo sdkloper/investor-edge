@@ -103,10 +103,25 @@ window.initAutocomplete = initAutocomplete;
    GARAGE TOGGLE
 ================================ */
 
-document.getElementById("garage").addEventListener("change", e => {
-  const group = document.getElementById("garageSpacesGroup");
-  group.classList.toggle("hidden", e.target.value === "0");
-});
+const garageField = document.getElementById("garage");
+
+if (garageField) {
+
+  garageField.addEventListener("change", e => {
+
+    const group =
+      document.getElementById("garageSpacesGroup");
+
+    if (group) {
+      group.classList.toggle(
+        "hidden",
+        e.target.value === "0"
+      );
+    }
+
+  });
+
+}
 
 
 /* ===============================
