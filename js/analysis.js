@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
   if (condoFreq) document.getElementById("condoFreq").value = condoFreq;
   if (address) document.getElementById("address").value = address;
 
-});
+
 
 /* ===============================
    CONFIG
