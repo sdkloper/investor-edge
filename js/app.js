@@ -44,17 +44,6 @@ function showApp() {
 // 2. Your existing function with the minor validation upgrade
 function authenticateUser() {
    
- const termsCheckbox = document.getElementById("terms");
-
-  // Block login if disclaimer not accepted
-  if (!termsCheckbox.checked) {
-    document.getElementById("loginError").textContent =
-      "You must agree to the Disclaimer before logging in.";
-     
-    return;
-  }
-
-   
   const user = document.getElementById("loginUser").value.trim();
   const pass = document.getElementById("loginPass").value.trim();
 
