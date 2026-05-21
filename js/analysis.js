@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
       window.location.href = "index.html";
     });
   }
-});
+
   // ===============================
   // Load URL Parameters
   // ===============================
@@ -103,25 +103,10 @@ window.initAutocomplete = initAutocomplete;
    GARAGE TOGGLE
 ================================ */
 
-const garageField = document.getElementById("garage");
-
-if (garageField) {
-
-  garageField.addEventListener("change", e => {
-
-    const group =
-      document.getElementById("garageSpacesGroup");
-
-    if (group) {
-      group.classList.toggle(
-        "hidden",
-        e.target.value === "0"
-      );
-    }
-
-  });
-
-}
+document.getElementById("garage").addEventListener("change", e => {
+  const group = document.getElementById("garageSpacesGroup");
+  group.classList.toggle("hidden", e.target.value === "0");
+});
 
 
 /* ===============================
@@ -412,5 +397,5 @@ function formatCurrency(val) {
     maximumFractionDigits: 0
   });
 }
-
+ });
 
