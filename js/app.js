@@ -44,14 +44,12 @@ function showApp() {
 // 2. Your existing function with the minor validation upgrade
 function authenticateUser() {
    
-   // Prevent the form from submitting automatically
-  event.preventDefault(); 
+ const termsCheckbox = document.getElementById("terms");
 
-  const termsCheckbox = document.getElementById("terms");
-
-  if (termsCheckbox && !termsCheckbox.checked) {
-    alert("You must check I agree to Disclaimer to log in.");
-    return false; 
+  // Block login if disclaimer not accepted
+  if (!termsCheckbox.checked) {
+    alert("You must agree to the Disclaimer before logging in.");
+    return;
   }
 
    
