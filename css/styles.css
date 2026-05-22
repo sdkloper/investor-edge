@@ -132,8 +132,6 @@ tr.nocomps {
 }
 
 .filter-groupag {
-  display: flex;
-  flex-direction: column;
   text-align: right;
 }
 
