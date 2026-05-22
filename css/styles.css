@@ -377,7 +377,7 @@ th, td {
 }
 
 .logout-btn {
-  margin-left: auto;
+  margin-left: 0;
 }
 .menu-btn.active {
   background: #000;
