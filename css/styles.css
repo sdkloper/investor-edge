@@ -494,7 +494,7 @@ th, td {
 
 /* RESULT ROW */
 .analysis-page .result-row {
-  width: 250px;
+  width: 280px;
   display: flex;
   justify-content: space-between;
   align-items: center;
