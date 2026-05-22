@@ -350,7 +350,7 @@ th, td {
 .menu-right {
   display: flex;
   flex-direction: column;
-  align-items: flex-end; /* aligns both items to the right */
+  align-items: flex-center; /* aligns both items to the right */
 }
 
 .menu-right label {
