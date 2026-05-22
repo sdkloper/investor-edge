@@ -92,6 +92,8 @@ tr.nocomps {
     background: rgba(0,0,0,0.6);
     align-items: center;
     justify-content: center;
+    overflow-y: auto; /* 👈 allows scrolling */
+    padding: 20px;    /* 👈 prevents content from touching edges */
 }
 
 .modal-content {
