@@ -350,8 +350,7 @@ th, td {
 .menu-right {
   display: flex;
   flex-direction: column;
-  align-items: flex-center; /* aligns both items to the right */
-}
+  align-items: center; 
 
 .menu-right label {
   font-size: 12px;
