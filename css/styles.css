@@ -478,6 +478,10 @@ th, td {
   flex: 0 0 300px;
 }
 
+.analysis-page .analysis-extra {
+  flex: 0 0 300px;  
+}
+
 /* RESULTS CARD */
 .analysis-page .results-card {
   background: #ffffff;
