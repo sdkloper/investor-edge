@@ -43,7 +43,29 @@ function initAutocomplete() {
   });
 }
 
-window.initAutocomplete = initAutocomplete;
+window.initAutocomplete =
+  initAutocomplete;
+
+// 🔹 VERIFY AUTOCOMPLETE LOADED
+setTimeout(() => {
+
+  const input =
+    document.getElementById("address");
+
+  if (
+    input &&
+    !autocomplete
+  ) {
+
+    console.log(
+      "Retrying autocomplete..."
+    );
+
+    initAutocomplete();
+
+  }
+
+}, 1500);
 
 
 /* ===============================
