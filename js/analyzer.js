@@ -13,31 +13,6 @@ function initAutocomplete() {
 
 window.initAutocomplete =
   initAutocomplete;
-
-// 🔹 VERIFY AUTOCOMPLETE LOADED
-setTimeout(() => {
-
-  const input =
-    document.getElementById("address");
-
-   if (
-      input &&
-      (
-        !autocomplete ||
-        typeof autocomplete.getPlace !==
-          "function"
-      )
-    ) {
-
-    console.log(
-      "Retrying autocomplete..."
-    );
-
-    initAutocomplete();
-
-  }
-
-}, 1500);
 //---
 
 /* ===============================
@@ -64,7 +39,30 @@ document.addEventListener("DOMContentLoaded", function() {
       window.location.href = "index.html";
     });
   }
-
+  // 🔹 VERIFY AUTOCOMPLETE LOADED
+  setTimeout(() => {
+  
+    const input =
+      document.getElementById("address");
+  
+     if (
+        input &&
+        (
+          !autocomplete ||
+          typeof autocomplete.getPlace !==
+            "function"
+        )
+      ) {
+  
+      console.log(
+        "Retrying autocomplete..."
+      );
+  
+      initAutocomplete();
+  
+    }
+  
+  }, 1500);
 });
 
 
