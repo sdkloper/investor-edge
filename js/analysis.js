@@ -1,4 +1,50 @@
 /* ===============================
+   GOOGLE AUTOCOMPLETE
+================================ */
+
+let autocomplete;
+let geoData = {};
+
+function initAutocomplete() {
+
+  const input = document.getElementById("address");
+
+  autocomplete = new google.maps.places.Autocomplete(input, {
+    types: ["address"],
+    componentRestrictions: { country: "us" }
+  });
+
+  autocomplete.addListener("place_changed", function () {
+
+    const place = autocomplete.getPlace();
+
+    if (!place || !place.formatted_address) return;
+
+    document.getElementById("address").value = place.formatted_address;
+
+    geoData.address = place.formatted_address;
+    geoData.lat = place.geometry.location.lat();
+    geoData.lng = place.geometry.location.lng();
+
+    place.address_components.forEach(function (comp) {
+
+      if (comp.types.includes("postal_code"))
+        geoData.zip = comp.long_name;
+
+      if (comp.types.includes("administrative_area_level_2"))
+        geoData.county = comp.long_name;
+
+      if (comp.types.includes("neighborhood"))
+        geoData.neighborhood = comp.long_name;
+    });
+
+  });
+}
+
+window.initAutocomplete = initAutocomplete;
+
+
+/* ===============================
    AUTH CHECK
 ================================ */
 
@@ -54,50 +100,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 //const BACKEND_URL = "https://script.google.com/macros/s/AKfycbzuGtr2AtmQB9-E0vVxRaS-Jtpgz8anqbHO6LGCxJPGPD3Oom8wV9nFRtdU-HPjPI_x/exec";
 
-/* ===============================
-   GOOGLE AUTOCOMPLETE
-================================ */
-
-let autocomplete;
-let geoData = {};
-
-function initAutocomplete() {
-
-  const input = document.getElementById("address");
-
-  autocomplete = new google.maps.places.Autocomplete(input, {
-    types: ["address"],
-    componentRestrictions: { country: "us" }
-  });
-
-  autocomplete.addListener("place_changed", function () {
-
-    const place = autocomplete.getPlace();
-
-    if (!place || !place.formatted_address) return;
-
-    document.getElementById("address").value = place.formatted_address;
-
-    geoData.address = place.formatted_address;
-    geoData.lat = place.geometry.location.lat();
-    geoData.lng = place.geometry.location.lng();
-
-    place.address_components.forEach(function (comp) {
-
-      if (comp.types.includes("postal_code"))
-        geoData.zip = comp.long_name;
-
-      if (comp.types.includes("administrative_area_level_2"))
-        geoData.county = comp.long_name;
-
-      if (comp.types.includes("neighborhood"))
-        geoData.neighborhood = comp.long_name;
-    });
-
-  });
-}
-
-window.initAutocomplete = initAutocomplete;
 
 /* ===============================
    GARAGE TOGGLE
