@@ -488,56 +488,149 @@ if (spreadEl) {
 
 function loadFromURL() {
 
-  const params = new URLSearchParams(window.location.search);
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
 
-  const price = params.get("price");
-  const arv = params.get("arv");
-  const taxes = params.get("taxes");
+  const price =
+    params.get("price");
 
-  const hoa = params.get("hoa");
-  const hoaFreq = params.get("hoaFreq");
+  const arv =
+    params.get("arv");
 
-  const condo = params.get("condo");
-  const condoFreq = params.get("condoFreq");
+  const taxes =
+    params.get("taxes");
 
-  const address = params.get("address");
+  const hoa =
+    params.get("hoa");
+
+  const hoaFreq =
+    params.get("hoaFreq");
+
+  const condo =
+    params.get("condo");
+
+  const condoFreq =
+    params.get("condoFreq");
+
+  const address =
+    params.get("address");
 
   if (price) {
-    document.getElementById("purchase").value = price;
-    formatCurrencyInput(document.getElementById("purchase"));
+
+    document.getElementById(
+      "purchase"
+    ).value = price;
+
+    formatCurrencyInput(
+      document.getElementById(
+        "purchase"
+      )
+    );
+
   }
 
   if (arv) {
-    document.getElementById("arv").value = arv;
-    formatCurrencyInput(document.getElementById("arv"));
+
+    document.getElementById(
+      "arv"
+    ).value = arv;
+
+    formatCurrencyInput(
+      document.getElementById(
+        "arv"
+      )
+    );
+
   }
 
   if (taxes) {
-    document.getElementById("taxes").value = taxes;
-    formatCurrencyInput(document.getElementById("taxes"));
+
+    document.getElementById(
+      "taxes"
+    ).value = taxes;
+
+    formatCurrencyInput(
+      document.getElementById(
+        "taxes"
+      )
+    );
+
   }
 
   if (hoa) {
-    const monthlyHoa = convertToMonthly(parseNumber(hoa), hoaFreq);
-    document.getElementById("hoa").value = monthlyHoa;
-    formatCurrencyInput(document.getElementById("hoa"));
+
+    const monthlyHoa =
+      convertToMonthly(
+        parseNumber(hoa),
+        hoaFreq
+      );
+
+    document.getElementById(
+      "hoa"
+    ).value = monthlyHoa;
+
+    formatCurrencyInput(
+      document.getElementById(
+        "hoa"
+      )
+    );
+
   }
 
   if (condo) {
-    const monthlyCondo = convertToMonthly(parseNumber(condo), condoFreq);
-    document.getElementById("condo").value = monthlyCondo;
-    formatCurrencyInput(document.getElementById("condo"));
+
+    const monthlyCondo =
+      convertToMonthly(
+        parseNumber(condo),
+        condoFreq
+      );
+
+    document.getElementById(
+      "condo"
+    ).value = monthlyCondo;
+
+    formatCurrencyInput(
+      document.getElementById(
+        "condo"
+      )
+    );
+
   }
 
   if (address) {
-     document.getElementById("address").value = decodeURIComponent(address);
-   }
-  
-  if (address)
-  document.getElementById("addressDisplay").innerText =
-    address;
-  }
+
+    const decodedAddress =
+      decodeURIComponent(address);
+
+    const addressInput =
+      document.getElementById(
+        "address"
+      );
+
+    if (addressInput) {
+
+      addressInput.value =
+        decodedAddress;
+
     }
+
+    const addressDisplay =
+      document.getElementById(
+        "addressDisplay"
+      );
+
+    if (addressDisplay) {
+
+      addressDisplay.innerText =
+        decodedAddress;
+
+    }
+
+  }
+
+}
 
 //listener
 window.addEventListener("DOMContentLoaded", () => {
