@@ -20,10 +20,14 @@ setTimeout(() => {
   const input =
     document.getElementById("address");
 
-  if (
-    input &&
-    !autocomplete
-  ) {
+   if (
+      input &&
+      (
+        !autocomplete ||
+        typeof autocomplete.getPlace !==
+          "function"
+      )
+    ) {
 
     console.log(
       "Retrying autocomplete..."
