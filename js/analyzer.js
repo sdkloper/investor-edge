@@ -532,6 +532,11 @@ function loadFromURL() {
   if (address) {
      document.getElementById("address").value = decodeURIComponent(address);
    }
+  
+  if (address)
+  document.getElementById("addressDisplay").innerText =
+    address;
+  }
     }
 
 //listener
