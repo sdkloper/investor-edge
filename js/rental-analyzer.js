@@ -1,3 +1,41 @@
+//------- Google Auto Complete -------//
+let autocomplete;
+
+function initAutocomplete() {
+  const input = document.getElementById("address");
+  if (!input) return;
+
+  autocomplete = new google.maps.places.Autocomplete(input, {
+    types: ["address"],
+    componentRestrictions: { country: "us" }
+  });
+}
+
+window.initAutocomplete =
+  initAutocomplete;
+
+// 🔹 VERIFY AUTOCOMPLETE LOADED
+setTimeout(() => {
+
+  const input =
+    document.getElementById("address");
+
+  if (
+    input &&
+    !autocomplete
+  ) {
+
+    console.log(
+      "Retrying autocomplete..."
+    );
+
+    initAutocomplete();
+
+  }
+
+}, 1500);
+//---
+
 /* ===============================
    AUTH CHECK
 ================================ */
@@ -24,21 +62,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
 });
-//------- Google Auto Complete -------//
-let autocomplete;
 
-function initAutocomplete() {
-  const input = document.getElementById("address");
-  if (!input) return;
-
-  autocomplete = new google.maps.places.Autocomplete(input, {
-    types: ["address"],
-    componentRestrictions: { country: "us" }
-  });
-}
-
-window.initAutocomplete = initAutocomplete;
-//---
 
 const countyTaxRates = {
   "Baltimore County": { recordation: 0.0025, county: 0.0075, state: 0.0025 },
