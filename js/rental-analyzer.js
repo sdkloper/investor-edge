@@ -448,6 +448,11 @@ function loadFromURL(){
      document.getElementById("address").value =
        decodeURIComponent(addressFromURL);
    }
+  
+  if (addressFromURL)
+  document.getElementById("addressDisplay").innerText =
+    address;
+  }
 
   if(p.get("hoa")){
     document.getElementById("hoa").value=p.get("hoa");
