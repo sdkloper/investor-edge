@@ -205,7 +205,7 @@ function analyzeRental(){
   const condo = monthly(num("condo"), document.getElementById("condoFreq").value);
 
   const type = document.getElementById("financeType").value;
-  const downPct = pct("downPct");
+  const  = pct("");
   const rate = pct("rate");
 
   // =====================
@@ -223,7 +223,7 @@ function analyzeRental(){
 
   } else if (type === "conv") {
 
-    loan = purchase * (1 - downPct);
+    loan = purchase * (downPct);
 
     mortgage = mortgagePayment(loan, rate);
 
