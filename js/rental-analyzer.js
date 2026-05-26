@@ -223,7 +223,7 @@ function analyzeRental(){
 
   } else if (type === "conv") {
 
-    loan = purchase * (downPct);
+    loan = purchase * (1 - downPct);
 
     mortgage = mortgagePayment(loan, rate);
 
