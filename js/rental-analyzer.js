@@ -413,12 +413,12 @@ document.getElementById("wCashflow").innerText = f(cashflow);
 
 let downPaymentDisplay = loan;
 
-  if (type === "conv") {
+if (type === "conv") {
   
-    downPaymentDisplay =
-      purchase * downPct;
+  downPaymentDisplay =
+    purchase * downPct;
   
-  }
+ }
   
 document.getElementById("tcashInvested").innerText = f(cashInvested);
 document.getElementById("tloan").innerText = f(downPaymentDisplay);
