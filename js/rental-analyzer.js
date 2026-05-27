@@ -205,7 +205,7 @@ function analyzeRental(){
   const condo = monthly(num("condo"), document.getElementById("condoFreq").value);
 
   const type = document.getElementById("financeType").value;
-  const  = pct("");
+  const  = downPct("downPct");
   const rate = pct("rate");
 
   // =====================
@@ -411,9 +411,17 @@ document.getElementById("wCashflow").innerText = f(cashflow);
 //Total Cash Invested 
 //====================
 
+let downPaymentDisplay = loan;
+
+if (type === "conv") {
+
+  downPaymentDisplay =
+    purchase * downPct;
+
+}
   
 document.getElementById("tcashInvested").innerText = f(cashInvested);
-document.getElementById("tloan").innerText = f(loan);
+document.getElementById("tloan").innerText = f(downPaymentDisplay);
 document.getElementById("tbuyerClosing").innerText = f(buyerClosing);
 document.getElementById("trehab").innerText = f(rehab);
 
