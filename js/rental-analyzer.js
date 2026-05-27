@@ -205,7 +205,7 @@ function analyzeRental(){
   const condo = monthly(num("condo"), document.getElementById("condoFreq").value);
 
   const type = document.getElementById("financeType").value;
-  const  = downPct("downPct");
+  const downPct = pct("downPct");
   const rate = pct("rate");
 
   // =====================
