@@ -313,7 +313,7 @@ function renderCompTab(type, subject, comps) {
       if (type === "sales") {
         html += `
           <p class="${highlightClass}">
-            <a href="https://samsonproperties.net/listing/382-${comp["MLS Number"] || ""}" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.kathyshipley.com/detail-house.html?mls=${comp["MLS Number"] || ""}" target="_blank" rel="noopener noreferrer">
               ${comp.Address || ""}
             </a><br>
             ${comp["PR AbvFinSQFT"] || "-"} SqFt ||
