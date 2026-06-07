@@ -465,14 +465,20 @@ function renderCompTab(type, subject, comps) {
      });
    
      const markerString =
-       markers
-         .map(m => "&markers=" + encodeURIComponent(m))
-         .join("");
-   
-     const mapUrl =
-       `https://maps.googleapis.com/maps/api/staticmap?` +
-       `size=800x600` +
-       markerString +
+        markers
+          .map(m => "&markers=" + encodeURIComponent(m))
+          .join("");
+      
+      // Center map on subject
+      const center =
+        `&center=${subjectLat},${subjectLon}`;
+      
+      const mapUrl =
+        `https://maps.googleapis.com/maps/api/staticmap?` +
+        `size=700x500` +
+        center +
+        `&zoom=13` +
+        markerString +
        `&key=AIzaSyAzmRrPFCK8iN0YigmtI7IIGTATqCHqQH0`;
    
      mapBody.innerHTML = `
