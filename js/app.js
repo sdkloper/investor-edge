@@ -390,7 +390,9 @@ function renderCompTab(type, subject, comps) {
 }
 ///***********************************///
   function showMap(type, subject, comps) {
-
+      console.log(
+        comps.map(c => c.distance)
+      );
      const mapModal =
        document.getElementById("mapModal");
    
