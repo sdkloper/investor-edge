@@ -2,7 +2,7 @@
 /* =========================================
    INVESTOR EDGE - ENHANCED UX VERSION
    ========================================= */
-const USER_SHEET_URL = "https://docs.google.com/spreadsheets/d/198ASh4Lh27lRk_ZOMmYJx0cCs3jIWgO1bID-COk1MEA/export?format=csv";
+//const USER_SHEET_URL = "https://docs.google.com/spreadsheets/d/198ASh4Lh27lRk_ZOMmYJx0cCs3jIWgO1bID-COk1MEA/export?format=csv";
 
 document.addEventListener("DOMContentLoaded", () => {
 
