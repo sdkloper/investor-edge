@@ -324,7 +324,71 @@ function renderCompTab(type, subject, comps) {
      }
    `;
   }
+   
+  let html = `
+    <h3>Subject Property</h3>
+    <p>
+      <strong>
+        <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${subject.MLS}" target="_blank" rel="noopener noreferrer">
+          ${subject.Address || ""}
+        </a>
+      </strong>
+    </p>
+    <p>${subjectValueHTML}</p>
+    <p>${subjectSqft} SqFt || ${subjectBeds} Beds | ${subjectBaths} Baths || DOM ${subject.CDOM || "-"}</p>
+    <hr>
+    <h3>${type === "sales" ? "Comparable Sales" : "Rental Comps"}</h3>
+  `;
 
+  if (!comps.length) {
+    html += `<p>No comps available.</p>`;
+  } else {
+    comps.forEach(comp => {
+
+      const isHighlighted =
+        (type === "sales" && comp.usedForARV) ||
+        (type === "rent" && comp.usedForRent);
+
+      const highlightClass = isHighlighted ? "highlight-comp" : "";
+
+      if (type === "sales") {
+        html += `
+          <p class="${highlightClass}">
+            <a href="https://samsonproperties.net/listing/382-${comp["MLS Number"] || ""}" target="_blank" rel="noopener noreferrer">
+              ${comp.Address || ""}
+            </a><br>
+            ${comp["PR AbvFinSQFT"] || "-"} SqFt ||
+            ${comp.Beds || "-"} Beds |
+            ${(comp["Bathrooms Full"] || 0)}.${(comp["Bathrooms Half"] || 0)} Baths ||
+            Sold: ${formatCurrency(comp["Close Price"])} ||
+            Adj: ${formatCurrency(comp["adjustedPrice"])} ||
+            DOM ${comp["CDOM"] || "-"} ||
+            Distance: ${comp["distance"] ||"-"}
+          </p>
+          <hr>
+        `;
+      } else {
+        html += `
+          <p class="${highlightClass}">
+            <a href="https://samsonproperties.net/listing/382-${comp["MLS Number"] || ""}" target="_blank" rel="noopener noreferrer">
+              ${comp.Address || ""}
+            </a><br>
+            ${comp["PR AbvFinSQFT"] || "-"} SqFt ||
+            ${comp.Beds || "-"} Beds ||
+            ${(comp["Bathrooms Full"] || 0)}.${(comp["Bathrooms Half"] || 0)} Baths ||
+            Rent: ${formatCurrency(comp.adjustedRent)} ||
+            DOM ${comp["CDOM"] || "-"} ||
+            Distance: ${comp["distance"] ||"-"}
+          </p>
+          <hr>
+        `;
+      }
+    });
+  }
+
+  container.innerHTML = html;
+}
+///***********************************///
   function showMap(type, subject, comps) {
 
      const mapModal =
@@ -465,72 +529,6 @@ function renderCompTab(type, subject, comps) {
      mapModal.style.display =
        "block";
    }
-   
-  let html = `
-    <h3>Subject Property</h3>
-    <p>
-      <strong>
-        <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${subject.MLS}" target="_blank" rel="noopener noreferrer">
-          ${subject.Address || ""}
-        </a>
-      </strong>
-    </p>
-    <p>${subjectValueHTML}</p>
-    <p>${subjectSqft} SqFt || ${subjectBeds} Beds | ${subjectBaths} Baths || DOM ${subject.CDOM || "-"}</p>
-    <hr>
-    <h3>${type === "sales" ? "Comparable Sales" : "Rental Comps"}</h3>
-  `;
-
-  if (!comps.length) {
-    html += `<p>No comps available.</p>`;
-  } else {
-    comps.forEach(comp => {
-
-      const isHighlighted =
-        (type === "sales" && comp.usedForARV) ||
-        (type === "rent" && comp.usedForRent);
-
-      const highlightClass = isHighlighted ? "highlight-comp" : "";
-
-      if (type === "sales") {
-        html += `
-          <p class="${highlightClass}">
-            <a href="https://samsonproperties.net/listing/382-${comp["MLS Number"] || ""}" target="_blank" rel="noopener noreferrer">
-              ${comp.Address || ""}
-            </a><br>
-            ${comp["PR AbvFinSQFT"] || "-"} SqFt ||
-            ${comp.Beds || "-"} Beds |
-            ${(comp["Bathrooms Full"] || 0)}.${(comp["Bathrooms Half"] || 0)} Baths ||
-            Sold: ${formatCurrency(comp["Close Price"])} ||
-            Adj: ${formatCurrency(comp["adjustedPrice"])} ||
-            DOM ${comp["CDOM"] || "-"} ||
-            Distance: ${comp["distance"] ||"-"}
-          </p>
-          <hr>
-        `;
-      } else {
-        html += `
-          <p class="${highlightClass}">
-            <a href="https://samsonproperties.net/listing/382-${comp["MLS Number"] || ""}" target="_blank" rel="noopener noreferrer">
-              ${comp.Address || ""}
-            </a><br>
-            ${comp["PR AbvFinSQFT"] || "-"} SqFt ||
-            ${comp.Beds || "-"} Beds ||
-            ${(comp["Bathrooms Full"] || 0)}.${(comp["Bathrooms Half"] || 0)} Baths ||
-            Rent: ${formatCurrency(comp.adjustedRent)} ||
-            DOM ${comp["CDOM"] || "-"} ||
-            Distance: ${comp["distance"] ||"-"}
-          </p>
-          <hr>
-        `;
-      }
-    });
-  }
-
-  container.innerHTML = html;
-}
-///***********************************///
-
 
 function renderTable() {
   const tbody = document.querySelector("#dealsTable tbody");
