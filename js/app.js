@@ -481,19 +481,14 @@ function renderCompTab(type, subject, comps) {
       
       let zoom = 15;
       
-      if (maxDistance > 5) {
-        zoom = 10;
-      }
-      else if (maxDistance > 4) {
-        zoom = 11;
-      }
-      else if (maxDistance > 3) {
+      if (maxDistance > 4) {
         zoom = 12;
       }
+     
       else if (maxDistance > 2) {
         zoom = 13;
       }
-      else if (maxDistance > .5) {
+      else if (maxDistance > .75) {
         zoom = 14;
       }
       else {
