@@ -258,18 +258,9 @@ function openCompModal(e) {
    }
 
   // INITIAL RENDER
-  showTab(defaultTab);
-
-   console.log(
-              subject["Latitude"],
-              subject["Longitude"]
-            );
-            
-            console.log(
-              salesComps[0]?.Latitude,
-              salesComps[0]?.Longitude
-            );
+   showTab(defaultTab);
    
+   // MAP BUTTONS
    document
      .getElementById("salesMapBtn")
      .addEventListener("click", () => {
@@ -293,9 +284,9 @@ function openCompModal(e) {
        );
    
      });
-
-  // TAB SWITCH HANDLING
-  body.querySelectorAll(".tabBtn").forEach(btn => {
+   
+   // TAB SWITCH HANDLING
+   body.querySelectorAll(".tabBtn").forEach(btn => {
     btn.addEventListener("click", function () {
       body.querySelectorAll(".tabBtn").forEach(b => b.classList.remove("active"));
       this.classList.add("active");
