@@ -213,12 +213,28 @@ function openCompModal(e) {
   const body = document.getElementById("modalBody");
 
   body.innerHTML = `
-    <div class="modal-tabs">
-      <button class="tabBtn ${defaultTab === "sales" ? "active" : ""}" data-tab="sales">Sales Comps</button>
-      <button class="tabBtn ${defaultTab === "rent" ? "active" : ""}" data-tab="rent">Rental Comps</button>
-    </div>
-    <div id="modalContent"></div>
-  `;
+     <div class="modal-tabs">
+       <button class="tabBtn ${defaultTab === "sales" ? "active" : ""}" data-tab="sales">
+         Sales Comps
+       </button>
+   
+       <button class="tabBtn ${defaultTab === "rent" ? "active" : ""}" data-tab="rent">
+         Rental Comps
+       </button>
+     </div>
+   
+     <div class="map-buttons">
+       <button id="salesMapBtn" class="mapBtn">
+         View Sales Map
+       </button>
+   
+       <button id="rentMapBtn" class="mapBtn">
+         View Rental Map
+       </button>
+     </div>
+   
+     <div id="modalContent"></div>
+   `;
 
   const contentDiv = document.getElementById("modalContent");
   
