@@ -477,7 +477,7 @@ function renderCompTab(type, subject, comps) {
         `https://maps.googleapis.com/maps/api/staticmap?` +
         `size=700x500` +
         center +
-        `&zoom=13` +
+        `&zoom=15` +
         markerString +
        `&key=AIzaSyAzmRrPFCK8iN0YigmtI7IIGTATqCHqQH0`;
    
