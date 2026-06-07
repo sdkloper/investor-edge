@@ -259,25 +259,6 @@ function openCompModal(e) {
 
   // INITIAL RENDER
    showTab(defaultTab);
-   console.log(
-     "Subject Lat:",
-     subject["Latitude"]
-   );
-   
-   console.log(
-     "Subject Lon:",
-     subject["Longitude"]
-   );
-   
-   console.log(
-     "Sales Comp Lat:",
-     salesComps[0]?.Latitude
-   );
-   
-   console.log(
-     "Sales Comp Lon:",
-     salesComps[0]?.Longitude
-   );
    
    // MAP BUTTONS
    document
