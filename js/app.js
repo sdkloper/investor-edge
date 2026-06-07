@@ -1011,7 +1011,7 @@ window.addEventListener("click", function(event) {
   }
 });
 
-//const LOGIN_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbzuGtr2AtmQB9-E0vVxRaS-Jtpgz8anqbHO6LGCxJPGPD3Oom8wV9nFRtdU-HPjPI_x/exec";
+
 
 function updateLastLogin(userId) {
   fetch(WEB_APP_URL, {
