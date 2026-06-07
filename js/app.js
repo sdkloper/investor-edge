@@ -325,6 +325,147 @@ function renderCompTab(type, subject, comps) {
    `;
   }
 
+  function showMap(type, subject, comps) {
+
+     const mapModal =
+       document.getElementById("mapModal");
+   
+     const mapBody =
+       document.getElementById("mapModalBody");
+   
+     const subjectLat =
+       subject["Latitude"];
+   
+     const subjectLon =
+       subject["Longitude"];
+   
+     if (
+       !subjectLat ||
+       !subjectLon
+     ) {
+   
+       mapBody.innerHTML =
+         "<p>Subject coordinates unavailable.</p>";
+   
+       mapModal.style.display =
+         "block";
+   
+       return;
+     }
+   
+     let markers = [];
+   
+     // Subject Marker (Red)
+   
+     markers.push(
+       `color:red|label:S|${subjectLat},${subjectLon}`
+     );
+   
+     comps.forEach(comp => {
+   
+       const lat = comp["Latitude"];
+       const lon = comp["Longitude"];
+   
+       if (!lat || !lon) return;
+   
+       let isAuthoritative = false;
+   
+       if (
+         type === "sales" &&
+         comp.usedForARV
+       ) {
+         isAuthoritative = true;
+       }
+   
+       if (
+         type === "rent" &&
+         comp.usedForRent
+       ) {
+         isAuthoritative = true;
+       }
+   
+       if (isAuthoritative) {
+   
+         markers.push(
+           `color:green|${lat},${lon}`
+         );
+   
+       } else {
+   
+         markers.push(
+           `color:blue|${lat},${lon}`
+         );
+   
+       }
+   
+     });
+   
+     const markerString =
+       markers
+         .map(m => "&markers=" + encodeURIComponent(m))
+         .join("");
+   
+     const mapUrl =
+       `https://maps.googleapis.com/maps/api/staticmap?` +
+       `size=800x600` +
+       markerString +
+       `&key=YOUR_GOOGLE_MAPS_KEY`;
+   
+     mapBody.innerHTML = `
+       <h3>
+         ${type === "sales"
+           ? "Sales Comp Map"
+           : "Rental Comp Map"}
+       </h3>
+   
+       <button
+         id="backToCompsBtn"
+         class="mapBtn">
+         Back To Comps
+       </button>
+   
+       <p>
+         <strong>
+           ${subject.Address}
+         </strong>
+       </p>
+   
+       <img
+         src="${mapUrl}"
+         style="
+           width:100%;
+           max-width:800px;
+           border:1px solid #ccc;
+         "
+       >
+   
+       <hr>
+   
+       <p>🔴 Subject Property</p>
+       <p>🟢 Used For ${
+         type === "sales"
+           ? "ARV"
+           : "Rent"
+       }</p>
+       <p>🔵 Display Only</p>
+     `;
+   
+     document
+       .getElementById("backToCompsBtn")
+       .addEventListener(
+         "click",
+         () => {
+   
+           mapModal.style.display =
+             "none";
+   
+         }
+       );
+   
+     mapModal.style.display =
+       "block";
+   }
+   
   let html = `
     <h3>Subject Property</h3>
     <p>
