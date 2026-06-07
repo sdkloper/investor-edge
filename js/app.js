@@ -260,6 +260,39 @@ function openCompModal(e) {
   // INITIAL RENDER
   showTab(defaultTab);
 
+   document
+     .getElementById("salesMapBtn")
+     .addEventListener("click", () => {
+   
+       showMap(
+          console.log(
+              subject["Latitude"],
+              subject["Longitude"]
+            );
+            
+            console.log(
+              salesComps[0]?.Latitude,
+              salesComps[0]?.Longitude
+            );
+         "sales",
+         subject,
+         salesComps
+       );
+   
+     });
+   
+   document
+     .getElementById("rentMapBtn")
+     .addEventListener("click", () => {
+   
+       showMap(
+         "rent",
+         subject,
+         rentComps
+       );
+   
+     });
+
   // TAB SWITCH HANDLING
   body.querySelectorAll(".tabBtn").forEach(btn => {
     btn.addEventListener("click", function () {
