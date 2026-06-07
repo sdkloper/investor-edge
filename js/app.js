@@ -391,7 +391,10 @@ function renderCompTab(type, subject, comps) {
 ///***********************************///
   function showMap(type, subject, comps) {
       console.log(
-        comps.map(c => c.distance)
+        "Max Distance:",
+        maxDistance,
+        "Zoom:",
+        zoom
       );
      const mapModal =
        document.getElementById("mapModal");
@@ -474,12 +477,39 @@ function renderCompTab(type, subject, comps) {
       // Center map on subject
       const center =
         `&center=${subjectLat},${subjectLon}`;
+
+      const maxDistance = Math.max(
+        ...comps.map(c =>
+          Number(c.distance || 0)
+        )
+      );
       
+      let zoom = 15;
+      
+      if (maxDistance > 5) {
+        zoom = 10;
+      }
+      else if (maxDistance > 4) {
+        zoom = 11;
+      }
+      else if (maxDistance > 3) {
+        zoom = 12;
+      }
+      else if (maxDistance > 2) {
+        zoom = 13;
+      }
+      else if (maxDistance > .5) {
+        zoom = 14;
+      }
+      else {
+        zoom = 15;
+      }
+     
       const mapUrl =
         `https://maps.googleapis.com/maps/api/staticmap?` +
         `size=700x500` +
         center +
-        `&zoom=15` +
+        `&zoom=${zoom}` +
         markerString +
        `&key=AIzaSyAzmRrPFCK8iN0YigmtI7IIGTATqCHqQH0`;
    
