@@ -390,12 +390,7 @@ function renderCompTab(type, subject, comps) {
 }
 ///***********************************///
   function showMap(type, subject, comps) {
-      console.log(
-        "Max Distance:",
-        maxDistance,
-        "Zoom:",
-        zoom
-      );
+      
      const mapModal =
        document.getElementById("mapModal");
    
@@ -504,7 +499,12 @@ function renderCompTab(type, subject, comps) {
       else {
         zoom = 15;
       }
-     
+      console.log(
+        "Max Distance:",
+        maxDistance,
+        "Zoom:",
+        zoom
+      );
       const mapUrl =
         `https://maps.googleapis.com/maps/api/staticmap?` +
         `size=700x500` +
