@@ -175,9 +175,27 @@ function getField(row, key) {
     : "";
 }
 
-const CSV_URL =
-  "https://docs.google.com/spreadsheets/d/1s1h2TRyKsFkqpr-yW6yps-yh-AUTDW8ZkWwh8mYDfiY/export?format=csv&gid=0&t=" +
-  new Date().getTime();
+async function getDealsUrl() {
+
+  const response =
+    await fetch(WEB_APP_URL, {
+
+      method: "POST",
+
+      headers: {
+        "Content-Type":
+          "application/x-www-form-urlencoded"
+      },
+
+      body: new URLSearchParams({
+        type: "getDealsUrl"
+      })
+
+    });
+
+  return await response.json();
+
+}
 
 let deals = [];
 let currentSort = { column: "List Price", asc: true }; // Default sort lowest price
@@ -208,19 +226,67 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* ============================= */
 
-function loadCSV() {
-  Papa.parse(CSV_URL, {
-    download: true,
-    header: true,
-    skipEmptyLines: true,
-    worker: true,
-    complete: function (results) {
-      deals = results.data;
-      populateCountyFilter();
-      renderTable();
-      document.getElementById("dealsLoading").style.display = "none";
-    },
-  });
+async function loadCSV() {
+
+  try {
+
+    const result =
+      await getDealsUrl();
+
+    if (!result.success) {
+
+      console.error(
+        "Unable to retrieve Deals URL"
+      );
+
+      return;
+
+    }
+
+    const csvUrl =
+      result.url +
+      "&t=" +
+      new Date().getTime();
+
+    Papa.parse(csvUrl, {
+
+      download: true,
+
+      header: true,
+
+      skipEmptyLines: true,
+
+      worker: true,
+
+      complete: function(results) {
+
+        deals = results.data;
+
+        populateCountyFilter();
+
+        renderTable();
+
+        document
+          .getElementById(
+            "dealsLoading"
+          )
+          .style.display =
+          "none";
+
+      }
+
+    });
+
+  }
+  catch(err) {
+
+    console.error(
+      "Deals Load Error",
+      err
+    );
+
+  }
+
 }
 
 /* ============================= */
