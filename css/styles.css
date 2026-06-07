@@ -104,6 +104,24 @@ tr.nocomps {
     max-width: 700px;
     overflow-y: auto;
 }
+.map-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.mapBtn {
+  padding: 8px 14px;
+  border: 2px solid #333;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.mapBtn:hover {
+  background: #f0f0f0;
+}
 
 #closeModal {
     float: right;
