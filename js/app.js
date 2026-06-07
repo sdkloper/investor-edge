@@ -409,7 +409,7 @@ function renderCompTab(type, subject, comps) {
        `https://maps.googleapis.com/maps/api/staticmap?` +
        `size=800x600` +
        markerString +
-       `&key=YOUR_GOOGLE_MAPS_KEY`;
+       `&key=AIzaSyAzmRrPFCK8iN0YigmtI7IIGTATqCHqQH0`;
    
      mapBody.innerHTML = `
        <h3>
