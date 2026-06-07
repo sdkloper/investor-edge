@@ -178,7 +178,21 @@ function openCompModal(e) {
   e.preventDefault();
 
   const clicked = e.currentTarget;
-  const subject = JSON.parse(decodeURIComponent(clicked.dataset.row));
+  const mls =
+     clicked.dataset.mls;
+   
+   const subject =
+     deals.find(
+       d => d["MLS"] === mls
+     );
+   
+   if (!subject) {
+     console.error(
+       "Subject not found:",
+       mls
+     );
+     return;
+   }
 
 //*****************************************************************************************   
   // ALWAYS get both datasets from the subject row
@@ -626,7 +640,7 @@ function renderTable() {
      <td>
   <a href="#" class="salesCompLink"
      data-sales-comp='${encodeURIComponent(row["Comp Details"] || "[]")}'
-     data-row='${encodeURIComponent(JSON.stringify(row))}'>
+     data-mls='${row["MLS"]}'>
      ${salesCompCount}
   </a>
 </td>
@@ -636,7 +650,7 @@ function renderTable() {
 <td>
   <a href="#" class="rentCompLink"
      data-rent-comp='${encodeURIComponent(row["Rent Comp Details"] || "[]")}'
-     data-row='${encodeURIComponent(JSON.stringify(row))}'>
+     data-mls='${row["MLS"]}'>
      ${rentCompCount}
   </a>
 </td>
