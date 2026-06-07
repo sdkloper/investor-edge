@@ -42,76 +42,132 @@ function showApp() {
 
   
 // 2. Your existing function with the minor validation upgrade
-function authenticateUser() {
-   
-  const user = document.getElementById("loginUser").value.trim();
-  const pass = document.getElementById("loginPass").value.trim();
+async function authenticateUser() {
 
-  Papa.parse(USER_SHEET_URL, {
-    download: true,
-    header: true,
-    complete: function(results) {
+  const user =
+    document.getElementById("loginUser")
+      .value
+      .trim();
 
-      const users = results.data;
+  const pass =
+    document.getElementById("loginPass")
+      .value
+      .trim();
 
-      const match = users.find(u =>
-        u.UserID === user &&
-        u.Password === pass &&
-        u.Active === "TRUE"
+  try {
+
+    const response =
+      await fetch(WEB_APP_URL, {
+
+        method: "POST",
+
+        headers: {
+          "Content-Type":
+            "application/x-www-form-urlencoded"
+        },
+
+        body: new URLSearchParams({
+
+          type: "login",
+
+          userId: user,
+
+          password: pass
+
+        })
+
+      });
+
+    const result =
+      await response.json();
+
+    if (!result.success) {
+
+      document
+        .getElementById("loginError")
+        .textContent =
+        "Invalid credentials.";
+
+      return;
+
+    }
+
+    const termsCheckbox =
+      document.getElementById("terms");
+
+    const disclaimerStatus =
+      document.getElementById(
+        "disclaimerStatus"
       );
 
-      if (match) {
-         const disclaimerAccepted =
-           String(match["Disclaimer Accepted"])
-             .trim()
-             .toUpperCase() === "TRUE";
-         
-         const termsCheckbox =
-           document.getElementById("terms");
-         
-         const disclaimerStatus =
-           document.getElementById("disclaimerStatus");
-         
-         // Returning user
-         if (disclaimerAccepted) {
-         
-           termsCheckbox.checked = true;
-           termsCheckbox.disabled = true;
-         
-           disclaimerStatus.textContent =
-             "Disclaimer previously accepted on " +
-             match["Disclaimer Timestamp"];
-         
-         }
-         
-         // First-time user
-         else {
-         
-           if (!termsCheckbox.checked) {
-         
-             document.getElementById("loginError").textContent =
-               "You must agree to the Disclaimer before logging in.";
-         
-             return;
-           }
-         
-           // Save acceptance
-           updateDisclaimerAcceptance(match["UserID"]);
-         }
-        sessionStorage.setItem("investorAuth", "true");
-        // Store user identity
-       sessionStorage.setItem("userID", match["UserID"]);
-       sessionStorage.setItem("firstName", match["First Name"] || "");
-       sessionStorage.setItem("lastName", match["Last Name"] || "");
-         
-        updateLastLogin(match["UserID"]);
-        showApp();
-      } else {
-        document.getElementById("loginError").textContent =
-          "Invalid credentials.";
-      }
+    if (result.disclaimerAccepted) {
+
+      termsCheckbox.checked = true;
+
+      termsCheckbox.disabled = true;
+
+      disclaimerStatus.textContent =
+        "Disclaimer previously accepted on " +
+        result.disclaimerTimestamp;
+
     }
-  });
+    else {
+
+      if (!termsCheckbox.checked) {
+
+        document
+          .getElementById("loginError")
+          .textContent =
+          "You must agree to the Disclaimer before logging in.";
+
+        return;
+
+      }
+
+      updateDisclaimerAcceptance(
+        result.userId
+      );
+
+    }
+
+    sessionStorage.setItem(
+      "investorAuth",
+      "true"
+    );
+
+    sessionStorage.setItem(
+      "userID",
+      result.userId
+    );
+
+    sessionStorage.setItem(
+      "firstName",
+      result.firstName || ""
+    );
+
+    sessionStorage.setItem(
+      "lastName",
+      result.lastName || ""
+    );
+
+    updateLastLogin(
+      result.userId
+    );
+
+    showApp();
+
+  }
+  catch(err) {
+
+    console.error(err);
+
+    document
+      .getElementById("loginError")
+      .textContent =
+      "Login failed.";
+
+  }
+
 }
 
 function getField(row, key) {
