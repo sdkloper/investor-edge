@@ -260,12 +260,7 @@ function openCompModal(e) {
   // INITIAL RENDER
   showTab(defaultTab);
 
-   document
-     .getElementById("salesMapBtn")
-     .addEventListener("click", () => {
-   
-       showMap(
-          console.log(
+   console.log(
               subject["Latitude"],
               subject["Longitude"]
             );
@@ -274,6 +269,12 @@ function openCompModal(e) {
               salesComps[0]?.Latitude,
               salesComps[0]?.Longitude
             );
+   
+   document
+     .getElementById("salesMapBtn")
+     .addEventListener("click", () => {
+   
+       showMap(
          "sales",
          subject,
          salesComps
