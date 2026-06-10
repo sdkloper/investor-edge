@@ -28,14 +28,6 @@ function showLogin() {
 }
 function logout() {
 
-  sessionStorage.removeItem(
-    "cachedDeals"
-  );
-
-  sessionStorage.removeItem(
-    "dealsTimestamp"
-  );
-
   sessionStorage.clear();
 
   showLogin();
@@ -259,59 +251,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function loadCSV() {
 
-   const cachedDeals =
-     sessionStorage.getItem(
-       "cachedDeals"
-     );
-   
-   const timestamp =
-     sessionStorage.getItem(
-       "dealsTimestamp"
-     );
-   
-   if (
-     cachedDeals &&
-     timestamp
-   ) {
-   
-     const age =
-       Date.now() -
-       Number(timestamp);
-   
-     const TWENTY_MINUTES =
-       20 * 60 * 1000;
-   
-     if (
-       age <
-       TWENTY_MINUTES
-     ) {
-   
-       console.log(
-         "Using cached deals"
-       );
-   
-       deals =
-         JSON.parse(
-           cachedDeals
-         );
-   
-       populateCountyFilter();
-   
-       renderTable();
-   
-       document
-         .getElementById(
-           "dealsLoading"
-         )
-         .style.display =
-         "none";
-   
-       return;
-   
-     }
-   
-   }
-
   try {
 
     const result =
@@ -346,16 +285,7 @@ async function loadCSV() {
 
         deals = results.data;
 
-         sessionStorage.setItem(
-           "cachedDeals",
-           JSON.stringify(deals)
-         );
-         
-         sessionStorage.setItem(
-           "dealsTimestamp",
-           Date.now()
-         );
-         
+                 
         populateCountyFilter();
 
         renderTable();
