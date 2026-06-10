@@ -53,6 +53,17 @@ async function authenticateUser() {
       .value
       .trim();
 
+   const loginBtn =
+     document.getElementById("loginBtn");
+   
+   loginBtn.disabled = true;
+   loginBtn.textContent =
+     "Loading Investor Edge...";
+   
+   document.getElementById(
+     "loginError"
+   ).textContent = "";
+   
   try {
 
     const response =
@@ -86,7 +97,10 @@ async function authenticateUser() {
         .getElementById("loginError")
         .textContent =
         "Invalid credentials.";
-
+       
+      loginBtn.disabled = false;
+      loginBtn.textContent = "Login";
+       
       return;
 
     }
@@ -119,6 +133,9 @@ async function authenticateUser() {
           .textContent =
           "You must agree to the Disclaimer before logging in.";
 
+         loginBtn.disabled = false;
+         loginBtn.textContent = "Login";
+         
         return;
 
       }
@@ -152,7 +169,10 @@ async function authenticateUser() {
     updateLastLogin(
       result.userId
     );
-
+   
+    loginBtn.disabled = false;
+    loginBtn.textContent = "Login"; 
+     
     showApp();
 
   }
