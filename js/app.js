@@ -488,7 +488,7 @@ function renderCompTab(type, subject, comps) {
     <h3>Subject Property</h3>
     <p>
       <strong>
-        <a href="https://saulkloper6098.listingstogo.com/detail-house.html?mls=${subject.MLS}" target="_blank" rel="noopener noreferrer">
+        <a href="https://www.saulkloper.com/listing-details?property_id=md257_${subject.MLS}" target="_blank" rel="noopener noreferrer">
           ${subject.Address || ""}
         </a>
       </strong>
@@ -513,7 +513,7 @@ function renderCompTab(type, subject, comps) {
       if (type === "sales") {
         html += `
           <p class="${highlightClass}">
-            <a href="https://saulkloper6098.listingstogo.com/detail-house.html?mls=${comp["MLS Number"] || ""}" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.saulkloper.com/listing-details?property_id=md257_${comp["MLS Number"] || ""}" target="_blank" rel="noopener noreferrer">
               ${comp.Address || ""}
             </a><br>
             ${comp["PR AbvFinSQFT"] || "-"} SqFt ||
@@ -529,7 +529,7 @@ function renderCompTab(type, subject, comps) {
       } else {
         html += `
           <p class="${highlightClass}">
-            <a href="https://saulkloper6098.listingstogo.com/detail-house.html?mls=${comp["MLS Number"] || ""}" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.saulkloper.com/listing-details?property_id=md257_${comp["MLS Number"] || ""}" target="_blank" rel="noopener noreferrer">
               ${comp.Address || ""}
             </a><br>
             ${comp["PR AbvFinSQFT"] || "-"} SqFt ||
@@ -760,7 +760,7 @@ function renderTable() {
      
    tr.innerHTML = `
      <td>${icons}
-        <a href="https://saulkloper6098.listingstogo.com/detail-house.html?mls=${row.MLS}" target="_blank" rel="noopener noreferrer">
+        <a href="https://www.saulkloper.com/listing-details?property_id=md257_${row.MLS}" target="_blank" rel="noopener noreferrer">
           ${row.MLS}
         </a>
       </td>
