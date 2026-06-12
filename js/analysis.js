@@ -365,7 +365,7 @@ function populateCompTable(comps) {
 
     tr.innerHTML = `
       <td>
-        <a href="https://samsonproperties.net/listing/382-${comp["MLS Number"] || ""}"
+        <a href="https://www.saulkloper.com/listing-details?property_id=md257_${comp["MLS Number"] || ""}"
            target="_blank">
            ${comp["Address"] || ""}
         </a>
@@ -401,7 +401,7 @@ function populateRentCompTable(rentComps) {
 
     tr.innerHTML = `
       <td>
-        <a href="https://samsonproperties.net/listing/382-${comp["MLS Number"] || ""}"
+        <a href="https://www.saulkloper.com/listing-details?property_id=md257_${comp["MLS Number"] || ""}"
            target="_blank">
            ${comp["Address"] || ""}
         </a>
