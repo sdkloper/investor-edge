@@ -772,12 +772,18 @@ function renderTable() {
      <td>${formatCurrency(row["List Price"])}</td>
    
      <td>
-       ${
-         row.ARV && row.ARV.toString().trim() !== "No Comps"
-           ? formatCurrency(row.ARV)
-           : row.ARV || ""
-       }
-     </td>
+        ${
+          row.ARV && row.ARV.toString().trim() !== "No Comps"
+            ? formatCurrency(row.ARV)
+            : (
+                row.ARV === "No Comps" &&
+                row["Comp Details"] &&
+                row["Comp Details"].trim() !== ""
+              )
+                ? "Limited Data"
+                : (row.ARV || "")
+        }
+      </td>
    
      <td>${formatCurrency(row["Diff"])}</td>
      <td>${formatPercent(row["% Below ARV"])}</td>
@@ -906,7 +912,15 @@ if (specialFilterActive) {
     (row["Structure Type"] || "").toUpperCase() === "CONDO";
 
   const isNoComps =
-    row.ARV && row.ARV.toString().trim() === "No Comps";
+     row.ARV &&
+     row.ARV.toString().trim() === "No Comps" &&
+     (!row["Comp Details"] || row["Comp Details"].trim() === "");
+
+   const isLimitedData =
+     row.ARV &&
+     row.ARV.toString().trim() === "No Comps" &&
+     row["Comp Details"] &&
+     row["Comp Details"].trim() !== "";
 
   const isAuction =
     (row["Sale Type"] || "").toLowerCase().includes("auction");
@@ -928,8 +942,12 @@ if (specialFilterActive) {
   if ((row["Structure Type"] || "").toUpperCase() === "CONDO")
     return false;
 
-  if (row.ARV && row.ARV.toString().trim() === "No Comps")
-    return false;
+  if (
+     row.ARV &&
+     row.ARV.toString().trim() === "No Comps" &&
+     (!row["Comp Details"] || row["Comp Details"].trim() === "")
+   )
+     return false;
 
   if ((row["Sale Type"] || "").toLowerCase().includes("auction"))
     return false;
