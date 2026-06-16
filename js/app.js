@@ -897,14 +897,43 @@ function populateCountyFilter() {
          return false;
      }
    
-     if (!showCondo && (row["Structure Type"] || "").toUpperCase() === "CONDO")
-        return false;
-      
-      if (!showNoComps && row.ARV && row.ARV.toString().trim() === "No Comps")
-       return false;
-   
-     if (!showAuction && (row["Sale Type"] || "").toLowerCase().includes("auction"))
-       return false;
+     // Determine if any special filter is selected
+const specialFilterActive = showCondo || showNoComps || showAuction;
+
+if (specialFilterActive) {
+
+  const isCondo =
+    (row["Structure Type"] || "").toUpperCase() === "CONDO";
+
+  const isNoComps =
+    row.ARV && row.ARV.toString().trim() === "No Comps";
+
+  const isAuction =
+    (row["Sale Type"] || "").toLowerCase().includes("auction");
+
+  // If row does NOT match any selected special filters → hide it
+  if (
+    (showCondo && isCondo) ||
+    (showNoComps && isNoComps) ||
+    (showAuction && isAuction)
+  ) {
+    // allowed
+  } else {
+    return false;
+  }
+
+} else {
+
+  // Default behavior when nothing selected → hide all 3
+  if ((row["Structure Type"] || "").toUpperCase() === "CONDO")
+    return false;
+
+  if (row.ARV && row.ARV.toString().trim() === "No Comps")
+    return false;
+
+  if ((row["Sale Type"] || "").toLowerCase().includes("auction"))
+    return false;
+}
    
      if (hideWaterfront && row.Waterfront === "TRUE")
        return false;
