@@ -777,10 +777,9 @@ function renderTable() {
             ? formatCurrency(row.ARV)
             : (
                 row.ARV === "No Comps" &&
-                row["Comp Details"] &&
-                row["Comp Details"].trim() !== ""
+                Number(row["Comp Count"]) > 0
               )
-                ? "Limited Data"
+                ? "Few Comps"
                 : (row.ARV || "")
         }
       </td>
@@ -914,13 +913,12 @@ if (specialFilterActive) {
   const isNoComps =
      row.ARV &&
      row.ARV.toString().trim() === "No Comps" &&
-     (!row["Comp Details"] || row["Comp Details"].trim() === "");
+     Number(row["Comp Count"]) === 0;
 
    const isLimitedData =
      row.ARV &&
      row.ARV.toString().trim() === "No Comps" &&
-     row["Comp Details"] &&
-     row["Comp Details"].trim() !== "";
+     Number(row["Comp Count"]) > 0;
 
   const isAuction =
     (row["Sale Type"] || "").toLowerCase().includes("auction");
@@ -945,7 +943,7 @@ if (specialFilterActive) {
   if (
      row.ARV &&
      row.ARV.toString().trim() === "No Comps" &&
-     (!row["Comp Details"] || row["Comp Details"].trim() === "")
+     Number(row["Comp Count"]) === 0
    )
      return false;
 
