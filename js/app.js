@@ -889,7 +889,7 @@ function populateCountyFilter() {
      const showCondo = document.getElementById("showCondo").checked === true;
      const showNoComps = document.getElementById("showNoComps").checked;
      const showAuction = document.getElementById("showAuction").checked;
-     const hideWaterfront = document.getElementById("hideWaterfront").checked;
+     
    
      if (selectedCounty && row.County !== selectedCounty)
        return false;
@@ -951,9 +951,7 @@ if (specialFilterActive) {
     return false;
 }
    
-     if (hideWaterfront && row.Waterfront === "TRUE")
-       return false;
-   
+        
      if (maxPrice && parseNumber(row["List Price"]) > maxPrice)
        return false;
    
