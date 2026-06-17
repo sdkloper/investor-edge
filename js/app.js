@@ -468,11 +468,18 @@ function renderCompTab(type, subject, comps) {
   let subjectValueHTML = "";
   if (type === "sales") {
     subjectValueHTML = `
-      List Price: ${formatCurrency(subject["List Price"])} ||
-      ARV: ${subject.ARV && subject.ARV !== "No Comps"
-        ? formatCurrency(subject.ARV)
-        : subject.ARV || "-"}
-    `;
+        List Price: ${formatCurrency(subject["List Price"])} ||
+        ARV: ${
+          subject.ARV && subject.ARV !== "No Comps"
+            ? formatCurrency(subject.ARV)
+            : (
+                subject.ARV === "No Comps" &&
+                Number(subject["Comp Count"]) > 0
+              )
+                ? "Few Comps"
+                : (subject.ARV || "-")
+        }
+      `;
   } else {
    subjectValueHTML = `
      List Price: ${formatCurrency(subject["List Price"])} ||
@@ -497,6 +504,12 @@ function renderCompTab(type, subject, comps) {
     <p>${subjectSqft} SqFt || ${subjectBeds} Beds | ${subjectBaths} Baths || DOM ${subject.CDOM || "-"}</p>
     <hr>
     <h3>${type === "sales" ? "Comparable Sales" : "Rental Comps"}</h3>
+
+   <p class="comp-legend">
+     <span class="arv-marker">*</span> Used For ARV
+     &nbsp;&nbsp;&nbsp;
+     <span class="rent-marker">*</span> Used For Rent
+   </p>
   `;
 
   if (!comps.length) {
@@ -509,12 +522,19 @@ function renderCompTab(type, subject, comps) {
         (type === "rent" && comp.usedForRent);
 
       const highlightClass = isHighlighted ? "highlight-comp" : "";
+       const marker =
+           type === "sales" && comp.usedForARV
+             ? '<span class="arv-marker">*</span> '
+             : type === "rent" && comp.usedForRent
+               ? '<span class="rent-marker">*</span> '
+               : "";
 
       if (type === "sales") {
         html += `
           <p class="${highlightClass}">
             <a href="https://www.saulkloper.com/listing-details?property_id=md257_${comp["MLS Number"] || ""}" target="_blank" rel="noopener noreferrer">
-              ${comp.Address || ""}
+              ${marker}${comp.Address || ""}
+            </a>
             </a><br>
             ${comp["PR AbvFinSQFT"] || "-"} SqFt ||
             ${comp.Beds || "-"} Beds |
@@ -530,7 +550,8 @@ function renderCompTab(type, subject, comps) {
         html += `
           <p class="${highlightClass}">
             <a href="https://www.saulkloper.com/listing-details?property_id=md257_${comp["MLS Number"] || ""}" target="_blank" rel="noopener noreferrer">
-              ${comp.Address || ""}
+                 ${marker}${comp.Address || ""}
+               </a>
             </a><br>
             ${comp["PR AbvFinSQFT"] || "-"} SqFt ||
             ${comp.Beds || "-"} Beds ||
