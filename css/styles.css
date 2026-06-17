@@ -122,6 +122,20 @@ tr.nocomps {
 .mapBtn:hover {
   background: #f0f0f0;
 }
+.arv-marker {
+  color: red;
+  font-weight: bold;
+}
+
+.rent-marker {
+  color: blue;
+  font-weight: bold;
+}
+
+.comp-legend {
+  font-size: 12px;
+  margin-bottom: 10px;
+}
 
 #closeModal {
     float: right;
