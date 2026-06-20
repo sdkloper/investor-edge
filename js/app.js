@@ -495,7 +495,7 @@ function renderCompTab(type, subject, comps) {
     <h3>Subject Property</h3>
     <p>
       <strong>
-        <a href="https://www.saulkloper.com/listing-details?property_id=md257_${subject.MLS}" target="_blank" rel="noopener noreferrer">
+        <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${subject.MLS}" target="_blank" rel="noopener noreferrer">
           ${subject.Address || ""}
         </a>
       </strong>
@@ -532,7 +532,7 @@ function renderCompTab(type, subject, comps) {
       if (type === "sales") {
         html += `
           <p class="${highlightClass}">
-            <a href="https://www.saulkloper.com/listing-details?property_id=md257_${comp["MLS Number"] || ""}" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${comp["MLS Number"] || ""}" target="_blank" rel="noopener noreferrer">
               ${marker}${comp.Address || ""}
             </a>
             </a><br>
@@ -549,7 +549,7 @@ function renderCompTab(type, subject, comps) {
       } else {
         html += `
           <p class="${highlightClass}">
-            <a href="https://www.saulkloper.com/listing-details?property_id=md257_${comp["MLS Number"] || ""}" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${comp["MLS Number"] || ""}" target="_blank" rel="noopener noreferrer">
                  ${marker}${comp.Address || ""}
                </a>
             </a><br>
@@ -781,7 +781,7 @@ function renderTable() {
      
    tr.innerHTML = `
      <td>${icons}
-        <a href="https://www.saulkloper.com/listing-details?property_id=md257_${row.MLS}" target="_blank" rel="noopener noreferrer">
+        <a href="https://www.saulkloper.com/idx/listing/MD-BRIGHT/${row.MLS}" target="_blank" rel="noopener noreferrer">
           ${row.MLS}
         </a>
       </td>
