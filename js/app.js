@@ -809,7 +809,7 @@ function renderTable() {
      <td>${formatPercent(row["% Below ARV"])}</td>
       <td>${row.CDOM ? row.CDOM : "-"}</td>
      <td>
-  <a href="#" class="salesCompLink"
+  <a class="salesCompLink"
      data-sales-comp='${encodeURIComponent(row["Comp Details"] || "[]")}'
      data-mls='${row["MLS"]}'>
      ${salesCompCount}
@@ -819,7 +819,7 @@ function renderTable() {
 <td>${formatCurrency(row["Rent"])}</td>
 
 <td>
-  <a href="#" class="rentCompLink"
+  <a class="rentCompLink"
      data-rent-comp='${encodeURIComponent(row["Rent Comp Details"] || "[]")}'
      data-mls='${row["MLS"]}'>
      ${rentCompCount}
