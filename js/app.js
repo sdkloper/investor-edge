@@ -224,6 +224,7 @@ let deals = [];
 let currentSort = { column: "List Price", asc: true }; // Default sort lowest price
 let rowsToDisplay = 50;
 const ROW_INCREMENT = 50;
+let initialRender = true;
 
 document.addEventListener("DOMContentLoaded", () => {
 
