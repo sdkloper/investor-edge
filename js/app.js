@@ -756,11 +756,8 @@ function renderTable() {
   let filtered = deals.filter(applyFilters);
 
   // Default sort: Lowest Price then Highest Spread
-   if (
-     currentSort.column === "List Price" &&
-     currentSort.asc === true
-   ) {
-   
+   if (initialRender) {
+
      filtered.sort((a, b) => {
    
        const priceA = parseNumber(a["List Price"]);
@@ -777,6 +774,8 @@ function renderTable() {
    
      });
    
+     initialRender = false;
+   
    } else {
    
      filtered.sort((a, b) => {
@@ -791,7 +790,12 @@ function renderTable() {
      });
    
    }
-
+   const totalResults = filtered.length;
+   const displayedResults = Math.min(rowsToDisplay, totalResults);
+   
+   document.getElementById("resultsSummary").innerHTML =
+     `<strong>Showing ${displayedResults}</strong> of <strong>${totalResults}</strong> Investment Opportunities`;
+      
   const fragment = document.createDocumentFragment();
 
   filtered.slice(0, rowsToDisplay).forEach((row) => {
@@ -899,6 +903,23 @@ function renderTable() {
 
    document.querySelectorAll(".analyzeRentalBtn")
      .forEach(btn => btn.addEventListener("click", analyzeRentalDealFromButton));
+
+   const loadMoreBtn = document.getElementById("loadMoreBtn");
+   
+   if (rowsToDisplay < totalResults) {
+   
+     loadMoreBtn.style.display = "inline-block";
+   
+     loadMoreBtn.onclick = function () {
+       rowsToDisplay += ROW_INCREMENT;
+       renderTable();
+     };
+   
+   } else {
+   
+     loadMoreBtn.style.display = "none";
+   
+   }
    
   attachSortHandlers();
   updateSortArrows();
