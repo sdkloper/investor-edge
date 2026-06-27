@@ -222,6 +222,8 @@ async function getDealsUrl() {
 
 let deals = [];
 let currentSort = { column: "List Price", asc: true }; // Default sort lowest price
+let rowsToDisplay = 50;
+const ROW_INCREMENT = 50;
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -752,15 +754,46 @@ function renderTable() {
 
   let filtered = deals.filter(applyFilters);
 
-  filtered.sort((a, b) => {
-    let valA = parseNumber(a[currentSort.column]);
-    let valB = parseNumber(b[currentSort.column]);
-    return currentSort.asc ? valA - valB : valB - valA;
-  });
+  // Default sort: Lowest Price then Highest Spread
+   if (
+     currentSort.column === "List Price" &&
+     currentSort.asc === true
+   ) {
+   
+     filtered.sort((a, b) => {
+   
+       const priceA = parseNumber(a["List Price"]);
+       const priceB = parseNumber(b["List Price"]);
+   
+       if (priceA !== priceB) {
+         return priceA - priceB;
+       }
+   
+       const diffA = parseNumber(a["Diff"]);
+       const diffB = parseNumber(b["Diff"]);
+   
+       return diffB - diffA;
+   
+     });
+   
+   } else {
+   
+     filtered.sort((a, b) => {
+   
+       let valA = parseNumber(a[currentSort.column]);
+       let valB = parseNumber(b[currentSort.column]);
+   
+       return currentSort.asc
+         ? valA - valB
+         : valB - valA;
+   
+     });
+   
+   }
 
   const fragment = document.createDocumentFragment();
 
-  filtered.forEach((row) => {
+  filtered.slice(0, rowsToDisplay).forEach((row) => {
     const tr = document.createElement("tr");
 
     const percentBelow = parseNumber(row["% Below ARV"]);
