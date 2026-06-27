@@ -47,6 +47,18 @@ h8 {
     color: #0073e6;
 }
 
+.results-summary{
+    font-size:15px;
+    font-weight:600;
+    margin:10px 0 15px;
+    color:#fff;
+}
+
+.load-more-container{
+    text-align:center;
+    margin:18px 0;
+}
+
 .filters {
     display: flex;
     flex-wrap: wrap;
