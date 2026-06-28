@@ -222,8 +222,10 @@ async function getDealsUrl() {
 
 let deals = [];
 let currentSort = { column: "List Price", asc: true }; // Default sort lowest price
-let rowsToDisplay = 50;
-const ROW_INCREMENT = 50;
+
+const PAGE_SIZE = 50;
+let currentPage = 1;
+
 let initialRender = true;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -798,7 +800,10 @@ function renderTable() {
       
   const fragment = document.createDocumentFragment();
 
-  filtered.slice(0, rowsToDisplay).forEach((row) => {
+  const startRow = (currentPage - 1) * PAGE_SIZE;
+   const endRow = startRow + PAGE_SIZE;
+   
+   filtered.slice(startRow, endRow).forEach((row) => {
     const tr = document.createElement("tr");
 
     const percentBelow = parseNumber(row["% Below ARV"]);
