@@ -793,7 +793,11 @@ function renderTable() {
    
    }
    const totalResults = filtered.length;
-   const displayedResults = Math.min(rowsToDisplay, totalResults);
+   const startRow = (currentPage - 1) * PAGE_SIZE;
+   const endRow = Math.min(startRow + PAGE_SIZE, totalResults);
+   
+   const displayedStart = totalResults === 0 ? 0 : startRow + 1;
+   const displayedEnd = endRow;
    
    document.getElementById("resultsSummary").innerHTML =
      `<strong>Showing ${displayedResults}</strong> of <strong>${totalResults}</strong> Investment Opportunities`;
@@ -910,20 +914,9 @@ function renderTable() {
      .forEach(btn => btn.addEventListener("click", analyzeRentalDealFromButton));
 
    const loadMoreBtn = document.getElementById("loadMoreBtn");
-   
-   if (rowsToDisplay < totalResults) {
-   
-     loadMoreBtn.style.display = "inline-block";
-   
-     loadMoreBtn.onclick = function () {
-       rowsToDisplay += ROW_INCREMENT;
-       renderTable();
-     };
-   
-   } else {
-   
+
+   if (loadMoreBtn) {
      loadMoreBtn.style.display = "none";
-   
    }
    
   attachSortHandlers();
