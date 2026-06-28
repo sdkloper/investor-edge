@@ -222,10 +222,8 @@ async function getDealsUrl() {
 
 let deals = [];
 let currentSort = { column: "List Price", asc: true }; // Default sort lowest price
-
-const PAGE_SIZE = 50;
-let currentPage = 1;
-
+let rowsToDisplay = 50;
+const ROW_INCREMENT = 50;
 let initialRender = true;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -793,21 +791,14 @@ function renderTable() {
    
    }
    const totalResults = filtered.length;
-   const startRow = (currentPage - 1) * PAGE_SIZE;
-   const endRow = Math.min(startRow + PAGE_SIZE, totalResults);
-   
-   const displayedStart = totalResults === 0 ? 0 : startRow + 1;
-   const displayedEnd = endRow;
+   const displayedResults = Math.min(rowsToDisplay, totalResults);
    
    document.getElementById("resultsSummary").innerHTML =
      `<strong>Showing ${displayedResults}</strong> of <strong>${totalResults}</strong> Investment Opportunities`;
       
   const fragment = document.createDocumentFragment();
 
-  const startRow = (currentPage - 1) * PAGE_SIZE;
-   const endRow = startRow + PAGE_SIZE;
-   
-   filtered.slice(startRow, endRow).forEach((row) => {
+  filtered.slice(0, rowsToDisplay).forEach((row) => {
     const tr = document.createElement("tr");
 
     const percentBelow = parseNumber(row["% Below ARV"]);
@@ -914,9 +905,20 @@ function renderTable() {
      .forEach(btn => btn.addEventListener("click", analyzeRentalDealFromButton));
 
    const loadMoreBtn = document.getElementById("loadMoreBtn");
-
-   if (loadMoreBtn) {
+   
+   if (rowsToDisplay < totalResults) {
+   
+     loadMoreBtn.style.display = "inline-block";
+   
+     loadMoreBtn.onclick = function () {
+       rowsToDisplay += ROW_INCREMENT;
+       renderTable();
+     };
+   
+   } else {
+   
      loadMoreBtn.style.display = "none";
+   
    }
    
   attachSortHandlers();
@@ -1268,22 +1270,3 @@ function analyzeRentalDealFromButton(e) {
   window.location.href = `rental-analyzer.html?${params.toString()}`;
 }, 150);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
