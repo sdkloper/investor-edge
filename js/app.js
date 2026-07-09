@@ -220,6 +220,10 @@ async function getDealsUrl() {
 
 }
 
+const VIEW_CURRENT = "current";
+const VIEW_ALL = "all";
+const VIEW_CUSTOM = "custom";
+
 let deals = [];
 let currentSort = { column: "List Price", asc: true }; // Default sort lowest price
 let rowsToDisplay = 50;
@@ -822,15 +826,15 @@ function renderTable() {
    
      switch (currentView) {
    
-       case "current":
-         summary = "✓ Current Opportunities | 0–3 DOM | $75K+ ARV Diff";
+       case VIEW_CURRENT:
+         summary = "Current Opportunities | 0–3 DOM | $75K+ ARV Diff";
          break;
    
-       case "all":
+       case VIEW_ALL:
          summary = "All Opportunities";
          break;
    
-       case "custom":
+      case VIEW_CUSTOM:
          summary = "Custom Search";
          break;
    
