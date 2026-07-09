@@ -242,28 +242,68 @@ document.addEventListener("DOMContentLoaded", () => {
    
   document
      .getElementById("countyFilter")
-     .addEventListener("change", renderTable);
+     .addEventListener("change", () => {
+
+       currentView = VIEW_CUSTOM;
+       renderTable();
+   
+     });
    
   document.getElementById("showCondo")
-  .addEventListener("change", renderTable);
+  .addEventListener("change", () => {
+
+    currentView = VIEW_CUSTOM;
+    renderTable();
+
+  });
 
   document.getElementById("showAuction")
-    .addEventListener("change", renderTable);
+    .addEventListener("change", () => {
+
+       currentView = VIEW_CUSTOM;
+       renderTable();
+   
+     });
 
   document.getElementById("showNoComps")
-    .addEventListener("change", renderTable);
+    .addEventListener("change", () => {
+
+       currentView = VIEW_CUSTOM;
+       renderTable();
+   
+     });
 
   document.getElementById("priceFilter")
-  .addEventListener("change", renderTable);
+  .addEventListener("change", () => {
+
+    currentView = VIEW_CUSTOM;
+    renderTable();
+
+  });
 
   document.getElementById("diffFilter")
-    .addEventListener("change", renderTable);
+    .addEventListener("change", () => {
+
+       currentView = VIEW_CUSTOM;
+       renderTable();
+   
+     });
 
   document.getElementById("percentFilter")
-    .addEventListener("change", renderTable);
+    .addEventListener("change", () => {
+
+       currentView = VIEW_CUSTOM;
+       renderTable();
+   
+     });
 
   document.getElementById("zipFilter")
-    .addEventListener("change", renderTable);
+    .addEventListener("change", () => {
+
+       currentView = VIEW_CUSTOM;
+       renderTable();
+   
+     });
    
   document
     .getElementById("closeModal")
@@ -959,30 +999,93 @@ function renderTable() {
    document.querySelectorAll(".rentCompLink")
      .forEach(link => link.addEventListener("click", openCompModal));
 }
+function formatSummaryCurrency(value) {
+
+  const num = parseNumber(value);
+
+  if (!num) return "";
+
+  if (num >= 1000000)
+    return `$${(num / 1000000).toFixed(1)}M`;
+
+  return `$${Math.round(num / 1000)}K`;
+
+}
 
 function updateViewSummary() {
 
-     let summary = "";
-   
-     switch (currentView) {
-   
-       case VIEW_CURRENT:
-         summary = "Current Opportunities | 0–3 DOM | $75K+ ARV Diff";
-         break;
-   
-       case VIEW_ALL:
-         summary = "All Opportunities";
-         break;
-   
-      case VIEW_CUSTOM:
-         summary = "Custom Search";
-         break;
-   
-       default:
-         summary = "";
-     }
-   
-     document.getElementById("viewSummary").innerHTML = summary;
+  let summary = "";
+
+  switch (currentView) {
+
+    case VIEW_CURRENT:
+
+      summary = "Current Opportunities | 0–3 DOM | $75K+ ARV Diff";
+      break;
+
+    case VIEW_ALL:
+
+      summary = "All Deals";
+      break;
+
+    case VIEW_CUSTOM: {
+
+      const parts = [];
+
+      const county =
+        document.getElementById("countyFilter").value;
+
+      if (county)
+        parts.push(county);
+
+      const zip =
+        document.getElementById("zipFilter").value.trim();
+
+      if (zip)
+        parts.push(zip);
+
+      const price =
+        document.getElementById("priceFilter").value;
+
+      if (parseNumber(price))
+        parts.push(`Max List ${formatSummaryCurrency(price)}`);
+
+      const diff =
+        document.getElementById("diffFilter").value;
+
+      if (parseNumber(diff))
+        parts.push(`${formatSummaryCurrency(diff)}+ ARV Diff`);
+
+      const percent =
+        document.getElementById("percentFilter").value;
+
+      if (parseNumber(percent))
+        parts.push(`${percent}%+ Below ARV`);
+
+      if (document.getElementById("showCondo").checked)
+        parts.push("Condo Only");
+
+      if (document.getElementById("showAuction").checked)
+        parts.push("Auction Only");
+
+      if (document.getElementById("showNoComps").checked)
+        parts.push("No Comps");
+
+      summary = parts.join(" | ");
+
+      if (!summary)
+        summary = "Custom Search";
+
+      break;
+    }
+
+    default:
+
+      summary = "";
+
+  }
+
+  document.getElementById("viewSummary").innerHTML = summary;
 
 }
 function setCurrentView() {
