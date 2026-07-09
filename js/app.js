@@ -257,7 +257,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .addEventListener("change", enterCustomView);
 
   document.getElementById("diffFilter")
-     .addEventListener("change", enterCustomView);
+     .addEventListener("change", enterCustomViewWithDiff);
 
   document.getElementById("percentFilter")
       .addEventListener("change", enterCustomView);
@@ -1097,6 +1097,19 @@ function enterCustomView() {
 
   useCurrentTopDealsFilter = false;
   document.getElementById("diffFilter").value = "";
+
+  document.getElementById("currentViewBtn").classList.remove("active");
+  document.getElementById("allViewBtn").classList.remove("active");
+
+  renderTable();
+
+}
+
+function enterCustomViewWithDiff() {
+
+  currentView = VIEW_CUSTOM;
+
+  useCurrentTopDealsFilter = false;
 
   document.getElementById("currentViewBtn").classList.remove("active");
   document.getElementById("allViewBtn").classList.remove("active");
