@@ -63,6 +63,33 @@ h8 {
     color:#000;
 }
 
+.results-toolbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:4px;
+}
+
+.view-buttons{
+    display:flex;
+    gap:8px;
+}
+
+.view-btn{
+    padding:6px 12px;
+    border:1px solid #bbb;
+    background:#fff;
+    cursor:pointer;
+    border-radius:4px;
+    font-size:13px;
+}
+
+.view-btn.active{
+    background:#000;
+    color:#fff;
+    border-color:#000;
+}
+
 .load-more-container{
     text-align:center;
     margin:18px 0;
