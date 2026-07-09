@@ -819,6 +819,8 @@ function renderTable() {
    
    document.getElementById("resultsSummary").innerHTML =
      `<strong>Showing ${displayedResults}</strong> of <strong>${totalResults}</strong> Investment Opportunities`;
+
+   updateViewSummary();
    
    function updateViewSummary() {
 
