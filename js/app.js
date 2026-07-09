@@ -224,6 +224,7 @@ let deals = [];
 let currentSort = { column: "List Price", asc: true }; // Default sort lowest price
 let rowsToDisplay = 50;
 const ROW_INCREMENT = 50;
+let currentView = "current";
 let initialRender = true;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -815,7 +816,31 @@ function renderTable() {
    document.getElementById("resultsSummary").innerHTML =
      `<strong>Showing ${displayedResults}</strong> of <strong>${totalResults}</strong> Investment Opportunities`;
    
-   updateViewSummary();
+   function updateViewSummary() {
+
+     let summary = "";
+   
+     switch (currentView) {
+   
+       case "current":
+         summary = "✓ Current Opportunities | 0–3 DOM | $75K+ ARV Diff";
+         break;
+   
+       case "all":
+         summary = "All Opportunities";
+         break;
+   
+       case "custom":
+         summary = "Custom Search";
+         break;
+   
+       default:
+         summary = "";
+     }
+   
+     document.getElementById("viewSummary").innerHTML = summary;
+
+}
       
   const fragment = document.createDocumentFragment();
 
