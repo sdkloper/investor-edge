@@ -231,6 +231,7 @@ let rowsToDisplay = 50;
 const ROW_INCREMENT = 50;
 let currentView = "current";
 let initialRender = true;
+let useCurrentTopDealsFilter = false;
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -240,70 +241,29 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("showCondo").checked = false;
 
    
-  document
-     .getElementById("countyFilter")
-     .addEventListener("change", () => {
-
-       currentView = VIEW_CUSTOM;
-       renderTable();
-   
-     });
+  document.getElementById("countyFilter")
+       .addEventListener("change", enterCustomView);
    
   document.getElementById("showCondo")
-  .addEventListener("change", () => {
-
-    currentView = VIEW_CUSTOM;
-    renderTable();
-
-  });
+    .addEventListener("change", enterCustomView);
 
   document.getElementById("showAuction")
-    .addEventListener("change", () => {
-
-       currentView = VIEW_CUSTOM;
-       renderTable();
-   
-     });
+     .addEventListener("change", enterCustomView);
 
   document.getElementById("showNoComps")
-    .addEventListener("change", () => {
-
-       currentView = VIEW_CUSTOM;
-       renderTable();
-   
-     });
+     .addEventListener("change", enterCustomView);
 
   document.getElementById("priceFilter")
-  .addEventListener("change", () => {
-
-    currentView = VIEW_CUSTOM;
-    renderTable();
-
-  });
+    .addEventListener("change", enterCustomView);
 
   document.getElementById("diffFilter")
-    .addEventListener("change", () => {
-
-       currentView = VIEW_CUSTOM;
-       renderTable();
-   
-     });
+     .addEventListener("change", enterCustomView);
 
   document.getElementById("percentFilter")
-    .addEventListener("change", () => {
-
-       currentView = VIEW_CUSTOM;
-       renderTable();
-   
-     });
+      .addEventListener("change", enterCustomView);
 
   document.getElementById("zipFilter")
-    .addEventListener("change", () => {
-
-       currentView = VIEW_CUSTOM;
-       renderTable();
-   
-     });
+      .addEventListener("change", enterCustomView);
    
   document
     .getElementById("closeModal")
@@ -1020,7 +980,7 @@ function updateViewSummary() {
 
     case VIEW_CURRENT:
 
-      summary = "Current Opportunities | 0–3 DOM | $75K+ ARV Diff";
+      summary = "Current Top Deals | 0–3 DOM | $75K+ ARV Diff";
       break;
 
     case VIEW_ALL:
@@ -1088,14 +1048,30 @@ function updateViewSummary() {
   document.getElementById("viewSummary").innerHTML = summary;
 
 }
+function resetFilters() {
+
+  document.getElementById("countyFilter").value = "";
+  document.getElementById("zipFilter").value = "";
+  document.getElementById("priceFilter").value = "";
+  document.getElementById("diffFilter").value = "";
+  document.getElementById("percentFilter").value = "";
+
+  document.getElementById("showCondo").checked = false;
+  document.getElementById("showAuction").checked = false;
+  document.getElementById("showNoComps").checked = false;
+
+}
 function setCurrentView() {
 
+  resetFilters();
+
+  useCurrentTopDealsFilter = true;
   currentView = VIEW_CURRENT;
+
+  document.getElementById("diffFilter").value = "75000";
 
   document.getElementById("currentViewBtn").classList.add("active");
   document.getElementById("allViewBtn").classList.remove("active");
-
-  document.getElementById("diffFilter").value = "75000";
 
   renderTable();
 
@@ -1103,16 +1079,30 @@ function setCurrentView() {
 
 function setAllView() {
 
+  resetFilters();
+
+  useCurrentTopDealsFilter = false;
   currentView = VIEW_ALL;
 
   document.getElementById("allViewBtn").classList.add("active");
   document.getElementById("currentViewBtn").classList.remove("active");
 
-  document.getElementById("diffFilter").value = "";
-
   renderTable();
 
 } 
+
+function enterCustomView() {
+
+  currentView = VIEW_CUSTOM;
+
+  useCurrentTopDealsFilter = false;
+
+  document.getElementById("currentViewBtn").classList.remove("active");
+  document.getElementById("allViewBtn").classList.remove("active");
+
+  renderTable();
+
+}
 
 /* ============================= */
 function populateCountyFilter() {
@@ -1218,10 +1208,10 @@ if (specialFilterActive) {
 
      // Current Opportunities = 0–3 DOM
      if (
-       currentView === VIEW_CURRENT &&
-       parseNumber(row["CDOM"]) > 3
-     )
-       return false;
+        useCurrentTopDealsFilter &&
+        parseNumber(row["CDOM"]) > 3
+      )
+        return false;
       
      return true;
    }
