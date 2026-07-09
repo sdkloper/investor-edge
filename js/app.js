@@ -1096,6 +1096,7 @@ function enterCustomView() {
   currentView = VIEW_CUSTOM;
 
   useCurrentTopDealsFilter = false;
+  document.getElementById("diffFilter").value = "";
 
   document.getElementById("currentViewBtn").classList.remove("active");
   document.getElementById("allViewBtn").classList.remove("active");
