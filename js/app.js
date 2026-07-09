@@ -235,9 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loadCSV();
 
-  document
-    .getElementById("applyFilters")
-    .addEventListener("click", renderTable);
+
    
   document
      .getElementById("countyFilter")
