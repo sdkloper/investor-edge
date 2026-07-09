@@ -258,6 +258,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("percentFilter")
     .addEventListener("change", renderTable);
+
+  document.getElementById("zipFilter")
+    .addEventListener("change", renderTable);
    
   document
     .getElementById("closeModal")
