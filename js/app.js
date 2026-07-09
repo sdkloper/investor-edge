@@ -39,7 +39,8 @@ function showApp() {
   document.getElementById("appContainer").style.display = "block";
 
   document.getElementById("dealsLoading").style.display = "block";
-   loadCSV(); 
+  setCurrentView();
+  loadCSV(); 
    }
 
   
@@ -238,6 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("showNoComps").checked = false;
   document.getElementById("showCondo").checked = false;
 
+  setCurrentView();
   loadCSV();
 
 
@@ -1114,7 +1116,14 @@ if (specialFilterActive) {
    
      if (!isNaN(minPercent) && parseNumber(row["% Below ARV"]) < minPercent)
        return false;
-   
+
+     // Current Opportunities = 0–3 DOM
+     if (
+       currentView === VIEW_CURRENT &&
+       parseNumber(row["CDOM"]) > 3
+     )
+       return false;
+      
      return true;
    }
 
