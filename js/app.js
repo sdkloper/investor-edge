@@ -847,7 +847,25 @@ function renderTable() {
      document.getElementById("viewSummary").innerHTML = summary;
 
 }
-      
+
+function setCurrentView() {
+
+  currentView = VIEW_CURRENT;
+
+  document.getElementById("currentViewBtn").classList.add("active");
+  document.getElementById("allViewBtn").classList.remove("active");
+
+}
+
+function setAllView() {
+
+  currentView = VIEW_ALL;
+
+  document.getElementById("allViewBtn").classList.add("active");
+  document.getElementById("currentViewBtn").classList.remove("active");
+
+}
+   
   const fragment = document.createDocumentFragment();
 
   filtered.slice(0, rowsToDisplay).forEach((row) => {
@@ -1152,6 +1170,14 @@ function setupCurrencyInputs() {
     });
   });
 }
+
+document
+  .getElementById("currentViewBtn")
+  .addEventListener("click", setCurrentView);
+
+document
+  .getElementById("allViewBtn")
+  .addEventListener("click", setAllView);
 
 /* ============================= */
 /* UTILITIES */
