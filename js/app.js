@@ -249,6 +249,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("showNoComps")
     .addEventListener("change", renderTable);
+
+  document.getElementById("priceFilter")
+  .addEventListener("change", renderTable);
+
+  document.getElementById("diffFilter")
+    .addEventListener("change", renderTable);
+
+  document.getElementById("percentFilter")
+    .addEventListener("change", renderTable);
    
   document
     .getElementById("closeModal")
