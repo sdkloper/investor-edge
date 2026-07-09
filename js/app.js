@@ -240,7 +240,16 @@ document.addEventListener("DOMContentLoaded", () => {
   document
      .getElementById("countyFilter")
      .addEventListener("change", renderTable);
+   
+  document.getElementById("showCondo")
+  .addEventListener("change", renderTable);
 
+  document.getElementById("showAuction")
+    .addEventListener("change", renderTable);
+
+  document.getElementById("showNoComps")
+    .addEventListener("change", renderTable);
+   
   document
     .getElementById("closeModal")
     .addEventListener("click", closeModal);
