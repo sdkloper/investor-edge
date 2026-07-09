@@ -994,6 +994,10 @@ function setCurrentView() {
   document.getElementById("currentViewBtn").classList.add("active");
   document.getElementById("allViewBtn").classList.remove("active");
 
+  document.getElementById("diffFilter").value = "75000";
+
+  renderTable();
+
 }
 
 function setAllView() {
@@ -1003,7 +1007,11 @@ function setAllView() {
   document.getElementById("allViewBtn").classList.add("active");
   document.getElementById("currentViewBtn").classList.remove("active");
 
-}  
+  document.getElementById("diffFilter").value = "";
+
+  renderTable();
+
+} 
 
 /* ============================= */
 function populateCountyFilter() {
