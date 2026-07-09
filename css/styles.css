@@ -61,9 +61,10 @@ h8 {
 
 .results-toolbar{
     display:flex;
-    justify-content:space-between;
+    justify-content:flex-start;
     align-items:center;
-    margin-bottom:4px;
+    gap:20px;
+    margin:12px 0 2px;
 }
 
 .view-buttons{
@@ -104,11 +105,11 @@ h8 {
     padding: 8px;
     font-size: 14px;
 }
-.view-summary {
-    margin: -8px 0 14px 0;
-    font-size: 14px;
-    font-weight: 600;
-    color: #444;
+.view-summary{
+    margin:2px 0 14px;
+    font-size:14px;
+    font-weight:600;
+    color:#444;
 }
 
 .table-container {
