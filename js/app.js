@@ -1091,12 +1091,7 @@ if (specialFilterActive) {
    
      return true;
    }
-   function updateViewSummary() {
 
-     document.getElementById("viewSummary").innerHTML =
-       "✓ Current Opportunities | 0–3 DOM | $75K+ ARV Diff";
-   
-   }
 
 /* ============================= */
 /* SORT */
