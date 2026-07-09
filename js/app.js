@@ -239,7 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("showNoComps").checked = false;
   document.getElementById("showCondo").checked = false;
 
-  setCurrentView();
+  
   loadCSV();
 
 
