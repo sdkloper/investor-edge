@@ -81,6 +81,12 @@ h8 {
     padding: 8px;
     font-size: 14px;
 }
+.view-summary {
+    margin: -8px 0 14px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #444;
+}
 
 .table-container {
     overflow-x: auto;
