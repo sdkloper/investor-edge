@@ -814,6 +814,8 @@ function renderTable() {
    
    document.getElementById("resultsSummary").innerHTML =
      `<strong>Showing ${displayedResults}</strong> of <strong>${totalResults}</strong> Investment Opportunities`;
+   
+   updateViewSummary();
       
   const fragment = document.createDocumentFragment();
 
@@ -1058,7 +1060,12 @@ if (specialFilterActive) {
    
      return true;
    }
+   function updateViewSummary() {
 
+     document.getElementById("viewSummary").innerHTML =
+       "✓ Current Opportunities | 0–3 DOM | $75K+ ARV Diff";
+   
+   }
 
 /* ============================= */
 /* SORT */
