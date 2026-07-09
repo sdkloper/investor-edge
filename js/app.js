@@ -822,48 +822,7 @@ function renderTable() {
 
    updateViewSummary();
    
-   function updateViewSummary() {
-
-     let summary = "";
-   
-     switch (currentView) {
-   
-       case VIEW_CURRENT:
-         summary = "Current Opportunities | 0–3 DOM | $75K+ ARV Diff";
-         break;
-   
-       case VIEW_ALL:
-         summary = "All Opportunities";
-         break;
-   
-      case VIEW_CUSTOM:
-         summary = "Custom Search";
-         break;
-   
-       default:
-         summary = "";
-     }
-   
-     document.getElementById("viewSummary").innerHTML = summary;
-
-}
-function setCurrentView() {
-
-  currentView = VIEW_CURRENT;
-
-  document.getElementById("currentViewBtn").classList.add("active");
-  document.getElementById("allViewBtn").classList.remove("active");
-
-}
-
-function setAllView() {
-
-  currentView = VIEW_ALL;
-
-  document.getElementById("allViewBtn").classList.add("active");
-  document.getElementById("currentViewBtn").classList.remove("active");
-
-}   
+    
   const fragment = document.createDocumentFragment();
 
   filtered.slice(0, rowsToDisplay).forEach((row) => {
@@ -1002,6 +961,49 @@ function setAllView() {
    document.querySelectorAll(".rentCompLink")
      .forEach(link => link.addEventListener("click", openCompModal));
 }
+
+function updateViewSummary() {
+
+     let summary = "";
+   
+     switch (currentView) {
+   
+       case VIEW_CURRENT:
+         summary = "Current Opportunities | 0–3 DOM | $75K+ ARV Diff";
+         break;
+   
+       case VIEW_ALL:
+         summary = "All Opportunities";
+         break;
+   
+      case VIEW_CUSTOM:
+         summary = "Custom Search";
+         break;
+   
+       default:
+         summary = "";
+     }
+   
+     document.getElementById("viewSummary").innerHTML = summary;
+
+}
+function setCurrentView() {
+
+  currentView = VIEW_CURRENT;
+
+  document.getElementById("currentViewBtn").classList.add("active");
+  document.getElementById("allViewBtn").classList.remove("active");
+
+}
+
+function setAllView() {
+
+  currentView = VIEW_ALL;
+
+  document.getElementById("allViewBtn").classList.add("active");
+  document.getElementById("currentViewBtn").classList.remove("active");
+
+}  
 
 /* ============================= */
 function populateCountyFilter() {
