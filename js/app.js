@@ -847,7 +847,6 @@ function renderTable() {
      document.getElementById("viewSummary").innerHTML = summary;
 
 }
-
 function setCurrentView() {
 
   currentView = VIEW_CURRENT;
@@ -864,8 +863,7 @@ function setAllView() {
   document.getElementById("allViewBtn").classList.add("active");
   document.getElementById("currentViewBtn").classList.remove("active");
 
-}
-   
+}   
   const fragment = document.createDocumentFragment();
 
   filtered.slice(0, rowsToDisplay).forEach((row) => {
