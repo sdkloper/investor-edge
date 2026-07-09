@@ -498,7 +498,7 @@ function renderCompTab(type, subject, comps) {
                 subject.ARV === "No Comps" &&
                 Number(subject["Comp Count"]) > 0
               )
-                ? "Few Comps"
+                ? "Too Few Comps"
                 : (subject.ARV || "-")
         }
       `;
@@ -857,7 +857,7 @@ function renderTable() {
                 row.ARV === "No Comps" &&
                 Number(row["Comp Count"]) > 0
               )
-                ? "Few Comps"
+                ? "Too Few Comps"
                 : (row.ARV || "")
         }
       </td>
