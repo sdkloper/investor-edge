@@ -949,7 +949,6 @@ function renderTable() {
   attachSortHandlers();
   updateSortArrows();
 
-  resizeParentFrame();
 
   document
     .querySelectorAll(".compLink")
