@@ -149,6 +149,15 @@ tr.nocomps {
     background: #f0f0f0;
 }
 
+#dealsTable thead th {
+
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 20;
+
+}
+
 .modal {
     display: none;
     position: fixed;
