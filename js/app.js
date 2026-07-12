@@ -1437,15 +1437,19 @@ function analyzeDealFromButton(e) {
 
 function resizeParentFrame() {
 
-  // Do nothing if not running inside an iframe
+  console.log("Sending resize:", Math.max(
+    document.body.scrollHeight,
+    document.documentElement.scrollHeight
+  ));
+
   if (window.parent === window) return;
 
   window.parent.postMessage(
     {
       type: "investorsEdgeResize",
       height: Math.max(
-          document.body.scrollHeight,
-          document.documentElement.scrollHeight
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight
       )
     },
     "*"
