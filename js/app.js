@@ -949,6 +949,8 @@ function renderTable() {
   attachSortHandlers();
   updateSortArrows();
 
+  resizeParentFrame();
+
   document
     .querySelectorAll(".compLink")
     .forEach((link) => link.addEventListener("click", openCompModal));
@@ -1431,6 +1433,24 @@ function analyzeDealFromButton(e) {
   setTimeout(() => {
   window.location.href = `analyzer.html?${params.toString()}`;
 }, 150);
+}
+
+function resizeParentFrame() {
+
+  // Do nothing if not running inside an iframe
+  if (window.parent === window) return;
+
+  window.parent.postMessage(
+    {
+      type: "investorsEdgeResize",
+      height: Math.max(
+          document.body.scrollHeight,
+          document.documentElement.scrollHeight
+      )
+    },
+    "*"
+  );
+
 }
 
 function analyzeRentalDealFromButton(e) {
