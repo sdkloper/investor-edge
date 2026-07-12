@@ -344,20 +344,7 @@ input, select {
   display: none;
 }
 
-.table-wrapper {
-  overflow-x: auto;
-}
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th, td {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #333;
-}
 /* ======================================
    ANALYSIS PAGE - MATCH DEALS STYLING
 ====================================== */
