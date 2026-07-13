@@ -797,35 +797,31 @@ function renderTable() {
 
   let filtered = deals.filter(applyFilters);
 
-  // Default sort: Lowest Price then Highest Spread
-   if (initialRender) {
-
+   // Sorting
+   if (currentSort.state === "default") {
+   
+     // Investor default:
+     // Lowest List Price first
      filtered.sort((a, b) => {
    
-       const priceA = parseNumber(a["List Price"]);
-       const priceB = parseNumber(b["List Price"]);
-   
-       if (priceA !== priceB) {
-         return priceA - priceB;
-       }
-   
-       const diffA = parseNumber(a["Diff"]);
-       const diffB = parseNumber(b["Diff"]);
-   
-       return diffB - diffA;
+       return (
+         parseNumber(a["List Price"]) -
+         parseNumber(b["List Price"])
+       );
    
      });
-   
-     initialRender = false;
    
    } else {
    
      filtered.sort((a, b) => {
    
-       let valA = parseNumber(a[currentSort.column]);
-       let valB = parseNumber(b[currentSort.column]);
+       const valA =
+         parseNumber(a[currentSort.column]);
    
-       return currentSort.asc
+       const valB =
+         parseNumber(b[currentSort.column]);
+   
+       return currentSort.state === "asc"
          ? valA - valB
          : valB - valA;
    
