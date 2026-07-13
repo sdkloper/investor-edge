@@ -314,23 +314,23 @@ async function loadCSV() {
         populateCountyFilter();
 
         renderTable();
-         
-        try {
-
-        logActivity({
-          page: "Deals Page",
-          action: "Deals Page Load"
-        });
       
-      } catch (err) {
-
-  console.warn(
-    "Deals page activity logging failed:",
-    err
-  );
-
-}
-         
+        try {
+      
+          logActivity({
+            page: "Deals Page",
+            action: "Deals Page Load"
+          });
+      
+        } catch (err) {
+      
+          console.warn(
+            "Deals page activity logging failed:",
+            err
+          );
+      
+        }
+      
         document
           .getElementById(
             "dealsLoading"
