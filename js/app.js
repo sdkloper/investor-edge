@@ -1307,19 +1307,43 @@ function attachSortHandlers() {
 }
 
 function updateSortArrows() {
-  document.querySelectorAll(".sort-arrow").forEach((el) => {
-    el.textContent = "⇅";
-    el.classList.remove("sort-asc", "sort-desc");
-  });
 
-  const active = document.querySelector(
-    `.sortable[data-sort="${currentSort.column}"] .sort-arrow`
-  );
+  document
+    .querySelectorAll(".sort-arrow")
+    .forEach((el) => {
 
-  if (active) {
-    active.textContent = currentSort.asc ? "▲" : "▼";
-    active.classList.add(currentSort.asc ? "sort-asc" : "sort-desc");
+      el.textContent = "⇅";
+
+      el.classList.remove(
+        "sort-asc",
+        "sort-desc"
+      );
+
+    });
+
+  if (currentSort.state === "default")
+    return;
+
+  const active =
+    document.querySelector(
+      `.sortable[data-sort="${currentSort.column}"] .sort-arrow`
+    );
+
+  if (!active)
+    return;
+
+  if (currentSort.state === "asc") {
+
+    active.textContent = "▲";
+    active.classList.add("sort-asc");
+
+  } else {
+
+    active.textContent = "▼";
+    active.classList.add("sort-desc");
+
   }
+
 }
 
 /* ============================= */
