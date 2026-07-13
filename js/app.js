@@ -1,6 +1,6 @@
 
 /* =========================================
-   INVESTOR EDGE - ENHANCED UX VERSION
+   INVESTORS EDGE - ENHANCED UX VERSION
    ========================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -62,7 +62,7 @@ async function authenticateUser() {
    
    loginBtn.disabled = true;
    loginBtn.textContent =
-     "Loading Investor Edge...";
+     "Loading Investors Edge...";
    
    document.getElementById(
      "loginError"
