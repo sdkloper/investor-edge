@@ -226,7 +226,11 @@ const VIEW_ALL = "all";
 const VIEW_CUSTOM = "custom";
 
 let deals = [];
-let currentSort = { column: "List Price", asc: true }; // Default sort lowest price
+let currentSort = {
+  column: "List Price",
+  asc: true,
+  state: "default"
+}; // Default sort = lowest List Price
 let rowsToDisplay = 50;
 const ROW_INCREMENT = 50;
 let currentView = "current";
@@ -1253,20 +1257,57 @@ if (specialFilterActive) {
 /* ============================= */
 
 function attachSortHandlers() {
+
   document.querySelectorAll(".sortable").forEach((th) => {
+
     th.onclick = () => {
+
       const column = th.dataset.sort;
 
-      if (currentSort.column === column) {
-        currentSort.asc = !currentSort.asc;
-      } else {
+      // New column selected
+      if (currentSort.column !== column) {
+
         currentSort.column = column;
+        currentSort.state = "asc";
         currentSort.asc = true;
+
+      } else {
+
+        // Same column clicked
+        switch (currentSort.state) {
+
+          case "default":
+
+            currentSort.state = "asc";
+            currentSort.asc = true;
+            break;
+
+          case "asc":
+
+            currentSort.state = "desc";
+            currentSort.asc = false;
+            break;
+
+          case "desc":
+
+            currentSort.state = "default";
+
+            // Keep asc=true so existing code
+            // continues working until Step 3
+            currentSort.asc = true;
+
+            break;
+
+        }
+
       }
 
       renderTable();
+
     };
+
   });
+
 }
 
 function updateSortArrows() {
