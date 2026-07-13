@@ -1113,6 +1113,11 @@ function enterCustomView() {
   currentView = VIEW_CUSTOM;
 
   useCurrentTopDealsFilter = false;
+
+   currentSort.column = "List Price";
+   currentSort.state = "default";
+   currentSort.asc = true;
+   
   document.getElementById("diffFilter").value = "";
 
   document.getElementById("currentViewBtn").classList.remove("active");
