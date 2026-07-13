@@ -234,7 +234,7 @@ let currentSort = {
 let rowsToDisplay = 50;
 const ROW_INCREMENT = 50;
 let currentView = "current";
-let initialRender = true;
+
 let useCurrentTopDealsFilter = false;
 
 document.addEventListener("DOMContentLoaded", () => {
