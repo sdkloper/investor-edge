@@ -280,11 +280,69 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* ============================= */
 
+function startDealsLoadingState() {
+
+  const loading =
+    document.getElementById("dealsLoading");
+
+  loading.innerHTML =
+    "Loading Deals...";
+
+  loading.style.display = "block";
+
+  clearTimeout(loadingMessageTimer);
+  clearTimeout(loadingRetryTimer);
+
+  loadingMessageTimer = setTimeout(() => {
+
+    loading.innerHTML = `
+      <div>Still loading...</div>
+      <div style="margin-top:8px;font-size:14px;">
+        Retrieving the latest deals.
+        This is taking longer than expected.
+      </div>
+    `;
+
+  }, 10000);
+
+  loadingRetryTimer = setTimeout(() => {
+
+    loading.innerHTML = `
+      <div>We're having trouble retrieving today's deals.</div>
+
+      <div style="margin-top:8px;">
+        <button id="reloadDealsBtn">
+          Reload Deals
+        </button>
+      </div>
+    `;
+
+    document
+      .getElementById("reloadDealsBtn")
+      .onclick = () => window.location.reload();
+
+  }, 15000);
+
+}
+
+function stopDealsLoadingState() {
+
+  clearTimeout(loadingMessageTimer);
+  clearTimeout(loadingRetryTimer);
+
+  document
+    .getElementById("dealsLoading")
+    .style.display = "none";
+
+}
+
 async function loadCSV() {
   console.time("Deals Load");
 
   try {
 
+    startDealsLoadingState();
+     
     const result =
       await getDealsUrl();
       console.timeLog("Deals Load", "Deals URL retrieved");
@@ -333,20 +391,16 @@ async function loadCSV() {
       
         } catch (err) {
       
-          console.warn(
+         
+           console.warn(
             "Deals page activity logging failed:",
             err
           );
       
         }
       
-        document
-          .getElementById(
-            "dealsLoading"
-          )
-          .style.display =
-          "none";
-         console.timeEnd("Deals Load");
+        stopDealsLoadingState();
+        console.timeEnd("Deals Load");
       }
 
     });
@@ -354,6 +408,8 @@ async function loadCSV() {
   }
   catch(err) {
 
+    stopDealsLoadingState();
+     
     console.error(
       "Deals Load Error",
       err
