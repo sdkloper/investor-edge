@@ -279,12 +279,14 @@ document.addEventListener("DOMContentLoaded", () => {
 /* ============================= */
 
 async function loadCSV() {
+  console.time("Deals Load");
 
   try {
 
     const result =
       await getDealsUrl();
-
+      console.timeLog("Deals Load", "Deals URL retrieved");
+     
     if (!result.success) {
 
       console.error(
@@ -311,7 +313,8 @@ async function loadCSV() {
       worker: true,
 
       complete: function(results) {
-
+      console.timeLog("Deals Load", "CSV downloaded");
+         
         deals = results.data;
 
                  
@@ -341,7 +344,7 @@ async function loadCSV() {
           )
           .style.display =
           "none";
-
+         console.timeEnd("Deals Load");
       }
 
     });
