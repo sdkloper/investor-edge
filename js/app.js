@@ -345,6 +345,9 @@ async function loadCSV() {
      
     const result =
       await getDealsUrl();
+      await new Promise(resolve =>
+      setTimeout(resolve, 6000)
+    );
       console.timeLog("Deals Load", "Deals URL retrieved");
      
     if (!result.success) {
