@@ -303,7 +303,7 @@ function startDealsLoadingState() {
       </div>
     `;
 
-  }, 2000);
+  }, 10000);
 
   loadingRetryTimer = setTimeout(() => {
 
@@ -321,7 +321,7 @@ function startDealsLoadingState() {
       .getElementById("reloadDealsBtn")
       .onclick = () => window.location.reload();
 
-  }, 4000);
+  }, 15000);
 
 }
 
@@ -345,9 +345,6 @@ async function loadCSV() {
      
     const result =
       await getDealsUrl();
-      await new Promise(resolve =>
-      setTimeout(resolve, 6000)
-    );
       console.timeLog("Deals Load", "Deals URL retrieved");
      
     if (!result.success) {
