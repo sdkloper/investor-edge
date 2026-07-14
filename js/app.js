@@ -231,6 +231,8 @@ let currentSort = {
   asc: true,
   state: "default"
 }; // Default sort = lowest List Price
+let loadingMessageTimer = null;
+let loadingRetryTimer = null;
 let rowsToDisplay = 50;
 const ROW_INCREMENT = 50;
 let currentView = "current";
