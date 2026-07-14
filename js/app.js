@@ -303,7 +303,7 @@ function startDealsLoadingState() {
       </div>
     `;
 
-  }, 10000);
+  }, 2000);
 
   loadingRetryTimer = setTimeout(() => {
 
@@ -321,7 +321,7 @@ function startDealsLoadingState() {
       .getElementById("reloadDealsBtn")
       .onclick = () => window.location.reload();
 
-  }, 15000);
+  }, 4000);
 
 }
 
