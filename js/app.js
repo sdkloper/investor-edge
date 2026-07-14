@@ -560,6 +560,8 @@ function openCompModal(e) {
   });
 
   modal.style.display = "block";
+  document.body.style.overflow = "hidden";
+   
 }
 
 function renderCompTab(type, subject, comps) {
@@ -1483,6 +1485,7 @@ function formatPercent(val) {
 
 function closeModal() {
   document.getElementById("compModal").style.display = "none";
+  document.body.style.overflow = "";
 }
 
 /* ============================= */
@@ -1493,6 +1496,7 @@ window.addEventListener("click", function(event) {
   const modal = document.getElementById("compModal");
   if (event.target === modal) {
     modal.style.display = "none";
+    document.body.style.overflow = "";
   }
 });
 
