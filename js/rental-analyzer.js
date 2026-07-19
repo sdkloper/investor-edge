@@ -30,6 +30,22 @@ document.addEventListener("DOMContentLoaded", function() {
     return;
   }
 
+  try {
+
+    logActivity({
+      page: "Rental Analyzer Page",
+      action: "Rental Analyzer Page Load"
+    });
+  
+  } catch (err) {
+  
+    console.warn(
+      "Rental Analyzer page activity logging failed:",
+      err
+    );
+  
+  }
+  
   // 🔓 Logout handler
   const logoutBtn = document.getElementById("logoutBtn");
 
