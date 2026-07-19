@@ -30,6 +30,22 @@ document.addEventListener("DOMContentLoaded", function() {
     return;
   }
 
+  try {
+
+    logActivity({
+      page: "Analyzer Page",
+      action: "Analyzer Page Load"
+    });
+  
+  } catch (err) {
+  
+    console.warn(
+      "Analyzer page activity logging failed:",
+      err
+    );
+  
+  }
+  
   // 🔓 Logout handler
   const logoutBtn = document.getElementById("logoutBtn");
 
