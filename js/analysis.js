@@ -341,7 +341,7 @@ function displayResults(data) {
         logActivity({
           action: "Analyze Rental",
           page: "Comps Page",
-          address: address,address: document.getElementById("address")?.value || "",
+          address: document.getElementById("address")?.value || "",
           price: document.getElementById("listPrice")?.value || "",
           arv: data.arv || "",
           rent: data.rent || ""
