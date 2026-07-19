@@ -87,6 +87,22 @@ document.addEventListener("DOMContentLoaded", function() {
     return;
   }
 
+  try {
+
+     logActivity({
+       page: "Comps Page",
+       action: "Comps Page Load"
+     });
+   
+   } catch (err) {
+   
+     console.warn(
+       "Comps page activity logging failed:",
+       err
+     );
+   
+   }
+   
   // 🔓 Logout handler (if page has one)
   const logoutBtn = document.getElementById("logoutBtn");
   if (logoutBtn) {
