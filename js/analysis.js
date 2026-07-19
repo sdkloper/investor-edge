@@ -329,7 +329,9 @@ function displayResults(data) {
         console.warn("Logging failed:", err);
       }
       
-     window.location.href = url;
+     setTimeout(() => {
+          window.location.href = url;
+      }, 150);
    };
    
    document.getElementById("analyzeRentBtn").onclick = function () {
@@ -348,7 +350,9 @@ function displayResults(data) {
         console.warn("Logging failed:", err);
       }
       
-     window.location.href = url;
+     setTimeout(() => {
+          window.location.href = url;
+      }, 150);
    };
 }
 
