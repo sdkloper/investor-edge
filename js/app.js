@@ -1602,7 +1602,7 @@ function analyzeRentalDealFromButton(e) {
    // ✅ Correct logging
       try {
         logActivity({
-          action: "Analyze Rentals",
+          action: "Analyze Rental",
           page: "Deals Page",
           address: decodeURIComponent(btn.dataset.address || ""),
           price: btn.dataset.price || "",
