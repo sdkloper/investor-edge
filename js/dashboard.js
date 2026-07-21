@@ -42,7 +42,7 @@ function showApp() {
 
     document.getElementById("appContainer").style.display = "block";
 
-    loadDashboard();
+    //loadDashboard();
 
 }
 
