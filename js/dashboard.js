@@ -109,47 +109,7 @@ async function authenticateUser() {
 
     }
 
-    const termsCheckbox =
-      document.getElementById("terms");
-
-    const disclaimerStatus =
-      document.getElementById(
-        "disclaimerStatus"
-      );
-
-    if (result.disclaimerAccepted) {
-
-      termsCheckbox.checked = true;
-
-      termsCheckbox.disabled = true;
-
-      disclaimerStatus.textContent =
-        "Disclaimer previously accepted on " +
-        result.disclaimerTimestamp;
-
-    }
-    else {
-
-      if (!termsCheckbox.checked) {
-
-        document
-          .getElementById("loginError")
-          .textContent =
-          "You must agree to the Disclaimer before logging in.";
-
-         loginBtn.disabled = false;
-         loginBtn.textContent = "Login";
-         
-        return;
-
-      }
-
-      updateDisclaimerAcceptance(
-        result.userId
-      );
-
-    }
-
+    
     sessionStorage.setItem(
       "investorAuth",
       "true"
