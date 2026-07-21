@@ -48,13 +48,14 @@ if (result.userId !== "sklope") {
 }
 
 function showApp() {
-  document.getElementById("loginScreen").style.display = "none";
-  document.getElementById("appContainer").style.display = "block";
 
-  document.getElementById("dealsLoading").style.display = "block";
-  setCurrentView();
-  loadCSV(); 
-   }
+    document.getElementById("loginScreen").style.display = "none";
+
+    document.getElementById("appContainer").style.display = "block";
+
+    loadDashboard();
+
+}
 
   
 // 2. Your existing function with the minor validation upgrade
