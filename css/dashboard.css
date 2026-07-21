@@ -1,1 +1,248 @@
+/* ======================================================
+   INVESTORS EDGE ADMIN DASHBOARD
+====================================================== */
 
+body{
+    background:#f4f6f9;
+}
+
+
+/* ======================================================
+   MAIN LAYOUT
+====================================================== */
+
+.dashboard-container{
+
+    max-width:1300px;
+    margin:25px auto;
+    padding:0 20px;
+
+}
+
+.dashboard-section{
+
+    margin-bottom:25px;
+
+}
+
+
+/* ======================================================
+   SECTION HEADERS
+====================================================== */
+
+.dashboard-section h2{
+
+    margin:0 0 12px 0;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    color:#333;
+
+}
+
+
+/* ======================================================
+   KPI CARDS
+====================================================== */
+
+.dashboard-cards{
+
+    display:grid;
+
+    grid-template-columns:repeat(6,1fr);
+
+    gap:15px;
+
+}
+
+.dashboard-card{
+
+    background:#fff;
+
+    border-radius:8px;
+
+    padding:16px;
+
+    text-align:center;
+
+    box-shadow:0 1px 4px rgba(0,0,0,.10);
+
+}
+
+.card-title{
+
+    font-size:12px;
+
+    color:#777;
+
+    margin-bottom:8px;
+
+    text-transform:uppercase;
+
+    letter-spacing:.5px;
+
+}
+
+.card-value{
+
+    font-size:28px;
+
+    font-weight:700;
+
+    color:#222;
+
+}
+
+
+/* ======================================================
+   TABLES
+====================================================== */
+
+.dashboard-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    background:#fff;
+
+}
+
+.dashboard-table th{
+
+    font-size:13px;
+
+    padding:10px;
+
+    background:#f2f2f2;
+
+    text-align:center;
+
+}
+
+.dashboard-table td{
+
+    font-size:12px;
+
+    padding:9px;
+
+    text-align:center;
+
+}
+
+.dashboard-table td:first-child{
+
+    text-align:left;
+
+    font-weight:600;
+
+}
+
+
+/* ======================================================
+   PANELS
+====================================================== */
+
+.dashboard-panel{
+
+    background:#fff;
+
+    border-radius:8px;
+
+    padding:18px;
+
+    box-shadow:0 1px 4px rgba(0,0,0,.10);
+
+}
+
+
+/* ======================================================
+   TOP ROW
+====================================================== */
+
+.dashboard-split{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:20px;
+
+}
+
+
+/* ======================================================
+   WARNINGS
+====================================================== */
+
+#warningsContainer{
+
+    background:#fff;
+
+    border-radius:8px;
+
+    padding:18px;
+
+    min-height:60px;
+
+    box-shadow:0 1px 4px rgba(0,0,0,.10);
+
+    font-size:13px;
+
+}
+
+
+/* ======================================================
+   ALL USERS / ALL PROPERTIES
+====================================================== */
+
+#propertiesContainer,
+#usersContainer{
+
+    background:#fff;
+
+    border-radius:8px;
+
+    padding:18px;
+
+    min-height:80px;
+
+    box-shadow:0 1px 4px rgba(0,0,0,.10);
+
+    font-size:13px;
+
+}
+
+
+/* ======================================================
+   RESPONSIVE
+====================================================== */
+
+@media (max-width:1100px){
+
+    .dashboard-cards{
+
+        grid-template-columns:repeat(3,1fr);
+
+    }
+
+}
+
+
+@media (max-width:700px){
+
+    .dashboard-cards{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+    .dashboard-split{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
