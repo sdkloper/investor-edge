@@ -34,18 +34,7 @@ function logout() {
 
 }
 
-if (result.userId !== "sklope") {
 
-    document.getElementById("loginError").textContent =
-        "You are not authorized to access the Admin Dashboard.";
-
-    sessionStorage.clear();
-
-    loginBtn.disabled = false;
-    loginBtn.textContent = "Login";
-
-    return;
-}
 
 function showApp() {
 
@@ -106,8 +95,8 @@ async function authenticateUser() {
 
       });
 
-    const result =
-      await response.json();
+    const result = await response.json();
+     
 
     if (!result.success) {
 
@@ -123,6 +112,18 @@ async function authenticateUser() {
 
     }
 
+    if (result.userId !== "sklope") {
+
+       document.getElementById("loginError").textContent =
+           "You are not authorized to access the Admin Dashboard.";
+   
+       sessionStorage.clear();
+   
+       loginBtn.disabled = false;
+       loginBtn.textContent = "Login";
+   
+       return;
+   }
     
     sessionStorage.setItem(
       "investorAuth",
