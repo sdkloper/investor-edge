@@ -1,1 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saul Kloper – Investors Edge</title>
 
+<link rel="stylesheet" href="css/styles.css">
+<meta http-equiv="Cache-Control" content="no-store" />
+<!-- PapaParse -->
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+</head>
+
+<body>
+<div id="loginScreen" class="login-container">
+  <h2>Investors Edge Login</h2>
+
+  <input type="text" id="loginUser" placeholder="User ID">
+  <input type="password" id="loginPass" placeholder="Password">
+
+  <button id="loginBtn">Login</button>
+  
+  <p id="loginError" class="login-error"></p>
+  </br> <a href="https://saulkloper.com/requestaccess/" target="_top">Request Access</a>
+
+<hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+  
+
+    <h2>Private Broker Tool Data Disclaimer</h2> 
+    <p style="font-size: 13px; margin-bottom: 15px;">
+
+Investors Edge is a private brokerage tool provided by Saul Kloper of Samson Properties for authorized clients only. Access is restricted to individuals actively working with Saul Kloper under a real estate brokerage 
+relationship and who have a bona fide interest in the purchase, sale, or lease of real estate. Property information displayed within Investors Edge is provided solely to support the user's real estate brokerage relationship 
+      with Saul Kloper and Samson Properties.</br></br>
+    
+Property information displayed within this portal is derived from sources deemed reliable, including Bright MLS, but is not guaranteed and is subject to errors, omissions, changes in price, prior sale, condition, 
+  withdrawal, or other modifications without notice. Information may not reflect real-time market activity and may be delayed.</br></br>
+    
+Investors Edge analytics, including After Repair Value (ARV), rent projections, investment metrics, and comparative analyses, are independently generated proprietary analyses created by Saul Kloper and are not 
+  provided, endorsed, guaranteed, or approved by Bright MLS.</br></br>
+    
+Investors Edge estimates are not appraisals and should not be relied upon as a substitute for professional appraisal, inspection, legal, tax, financial, or investment advice.</br></br>
+    
+Properties displayed within this portal may already be under contract, sold, withdrawn, unavailable, or otherwise modified.</br></br>
+    
+By accessing this portal, you acknowledge and agree to the Investors Edge <a href="https://www.saulkloper.com/useraccess" target="_blank">Portal Access Agreement and Terms of Use.</a></br></br>
+By accessing this portal, you agree to the Investors Edge <a href="https://www.saulkloper.com/useraccess" target="_blank">Portal Access Agreement and Terms of Use.</a></br></br>
+
+  
+
+<!-- Checkbox Container (Forced Left Alignment) -->
+<div style="text-align: left !important; width: 100% !important; margin: 15px 0 !important; display: block !important;">
+  <table style="border: none !important; background: transparent !important; margin: 0 !important; padding: 0 !important; border-collapse: collapse !important; width: auto !important;">
+    <tr>
+      <td style="padding: 0 8px 0 0 !important; vertical-align: middle !important; width: 20px !important;">
+        <input type="checkbox" id="terms" required style="margin: 0 !important; display: inline-block !important; float: none !important; width: auto !important;">
+      </td>
+      <td style="padding: 0 !important; vertical-align: middle !important; text-align: left !important; white-space: nowrap !important; font-size: 13px !important; color: #333 !important;">
+        <label for="terms" style="display: inline !important; cursor: pointer !important; text-align: left !important; margin: 0 !important; padding: 0 !important;">
+          I agree to the Disclaimer</br>
+          <div id="disclaimerStatus"
+           style="font-size:12px;color:#777;margin-top:4px;">
+          </div>
+        </label>
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+  <!-- Copyright Footer (Using valid small text paragraph styling) -->
+  <p style="font-size: 11px; color: #666; text-align: left; margin-top: 20px; line-height: 1.4;">
+    © 2026 Saul Kloper of Samson Properties. All rights reserved.<br>
+   
+  </p>
+</div> <!-- Closes #loginScreen / login-container -->
+
+<div id="appContainer" style="display:none;">
+
+  <!-- EVERYTHING ELSE ON YOUR SITE WRAPPED INSIDE THIS -->
+
+<header>
+  <p></p>
+    <h1> Investors Edge</h1>
+    <p>Admin Dashboard</p>
+  
+        <button id="logoutBtn" class="menu-btn logout-btn">Logout</button>
+         </div>
+    </div>
+     
+</header>
