@@ -48,10 +48,227 @@
          
      
 </header>
+<main class="dashboard-container">
+
+    <!-- ========================= -->
+    <!-- KPI SUMMARY -->
+    <!-- ========================= -->
+
+    <section class="dashboard-section">
+
+        <div class="dashboard-cards">
+
+            <div class="dashboard-card">
+                <div class="card-title">Total Users</div>
+                <div class="card-value" id="totalUsers">--</div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-title">Active Users</div>
+                <div class="card-value" id="activeUsers">--</div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-title">Total Logins</div>
+                <div class="card-value" id="totalLogins">--</div>
+            </div>
+
+        </div>
+
+    </section>
 
 
+    <!-- ========================= -->
+    <!-- ACTIVITY SUMMARY -->
+    <!-- ========================= -->
+
+    <section class="dashboard-section">
+
+        <h2>Activity Summary</h2>
+
+        <table class="dashboard-table">
+
+            <thead>
+
+                <tr>
+                    <th></th>
+                    <th>Today</th>
+                    <th>Last 7 Days</th>
+                    <th>Last 30 Days</th>
+                    <th>Lifetime</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>Deals Page</td>
+                    <td id="todayDeals">--</td>
+                    <td id="weekDeals">--</td>
+                    <td id="monthDeals">--</td>
+                    <td id="lifeDeals">--</td>
+                </tr>
+
+                <tr>
+                    <td>Comps Page</td>
+                    <td id="todayComps">--</td>
+                    <td id="weekComps">--</td>
+                    <td id="monthComps">--</td>
+                    <td id="lifeComps">--</td>
+                </tr>
+
+                <tr>
+                    <td>Flip Analyzer</td>
+                    <td id="todayFlipAnalyzer">--</td>
+                    <td id="weekFlipAnalyzer">--</td>
+                    <td id="monthFlipAnalyzer">--</td>
+                    <td id="lifeFlipAnalyzer">--</td>
+                </tr>
+
+                <tr>
+                    <td>Rental Analyzer</td>
+                    <td id="todayRentalAnalyzer">--</td>
+                    <td id="weekRentalAnalyzer">--</td>
+                    <td id="monthRentalAnalyzer">--</td>
+                    <td id="lifeRentalAnalyzer">--</td>
+                </tr>
+
+                <tr>
+                    <td>Deals → Flip</td>
+                    <td id="todayDealsFlip">--</td>
+                    <td id="weekDealsFlip">--</td>
+                    <td id="monthDealsFlip">--</td>
+                    <td id="lifeDealsFlip">--</td>
+                </tr>
+
+                <tr>
+                    <td>Deals → Rental</td>
+                    <td id="todayDealsRental">--</td>
+                    <td id="weekDealsRental">--</td>
+                    <td id="monthDealsRental">--</td>
+                    <td id="lifeDealsRental">--</td>
+                </tr>
+
+                <tr>
+                    <td>Comps → Flip</td>
+                    <td id="todayCompsFlip">--</td>
+                    <td id="weekCompsFlip">--</td>
+                    <td id="monthCompsFlip">--</td>
+                    <td id="lifeCompsFlip">--</td>
+                </tr>
+
+                <tr>
+                    <td>Comps → Rental</td>
+                    <td id="todayCompsRental">--</td>
+                    <td id="weekCompsRental">--</td>
+                    <td id="monthCompsRental">--</td>
+                    <td id="lifeCompsRental">--</td>
+                </tr>
+
+                <tr>
+                    <td>View Comps</td>
+                    <td id="todayViewComps">--</td>
+                    <td id="weekViewComps">--</td>
+                    <td id="monthViewComps">--</td>
+                    <td id="lifeViewComps">--</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- WARNINGS -->
+    <!-- ========================= -->
+
+    <section class="dashboard-section">
+
+        <h2>Warnings</h2>
+
+        <div id="warningsContainer">
+
+            Loading...
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- TOP ROW -->
+    <!-- ========================= -->
+
+    <section class="dashboard-split">
+
+        <div class="dashboard-panel">
+
+            <h2>Top Properties</h2>
+
+            <div id="topProperties">
+
+                Loading...
+
+            </div>
+
+        </div>
+
+        <div class="dashboard-panel">
+
+            <h2>Top Users</h2>
+
+            <div id="topUsers">
+
+                Loading...
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- ALL PROPERTIES -->
+    <!-- ========================= -->
+
+    <section class="dashboard-section">
+
+        <h2>All Properties</h2>
+
+        <div id="propertiesContainer">
+
+            Loading...
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- ALL USERS -->
+    <!-- ========================= -->
+
+    <section class="dashboard-section">
+
+        <h2>All Users</h2>
+
+        <div id="usersContainer">
+
+            Loading...
+
+        </div>
+
+    </section>
+
+</main>
+  
+</div>
     <script src="js/shared.js"></script>
     <script src="js/dashboard.js" defer></script>
-</div>
+
   </body>
 </html>
