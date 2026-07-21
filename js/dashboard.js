@@ -34,6 +34,19 @@ function logout() {
 
 }
 
+if (result.userId !== "sklope") {
+
+    document.getElementById("loginError").textContent =
+        "You are not authorized to access the Admin Dashboard.";
+
+    sessionStorage.clear();
+
+    loginBtn.disabled = false;
+    loginBtn.textContent = "Login";
+
+    return;
+}
+
 function showApp() {
   document.getElementById("loginScreen").style.display = "none";
   document.getElementById("appContainer").style.display = "block";
