@@ -3,6 +3,7 @@
 // ===============================
 
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzuGtr2AtmQB9-E0vVxRaS-Jtpgz8anqbHO6LGCxJPGPD3Oom8wV9nFRtdU-HPjPI_x/exec";
+const WEB_APP_URL2 = "https://script.google.com/macros/s/AKfycbzqyvYcZzBtYIinRTVudZtNoLVWWp1pbETebfi7y2lppemyBCACwqQRFomMsJFTN94/exec";
 
 // Alias for analysis calls
 const BACKEND_URL = WEB_APP_URL;
