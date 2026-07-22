@@ -51,7 +51,7 @@ async function loadDashboard() {
     try {
 
         const response = await fetch(
-            `${WEB_APP_URL}?action=getSummary`
+            `${WEB_APP_URL2}?action=getSummary`
         );
 
         if (!response.ok) {
@@ -141,7 +141,7 @@ async function authenticateUser() {
   try {
 
     const response =
-      await fetch(WEB_APP_URL, {
+      await fetch(WEB_APP_URL2, {
 
         method: "POST",
 
