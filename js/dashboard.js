@@ -51,7 +51,7 @@ async function loadDashboard() {
     try {
 
         const response = await fetch(
-            `${WEB_APP_URL2}?action=getSummary`
+            `${WEB_APP_URL2}?action=summary`
         );
 
         if (!response.ok) {
