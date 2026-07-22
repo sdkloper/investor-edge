@@ -66,6 +66,8 @@ async function loadDashboard() {
 
         populateSummaryCards(data);
 
+       populateActivitySummary(data);
+
     }
     catch (err) {
 
@@ -113,7 +115,64 @@ function populateSummaryCards(data) {
     }
 
 }
-  
+
+
+function populateActivitySummary(data) {
+
+    //
+    // Page Views
+    //
+
+    const periods = [
+        ["today", "today"],
+        ["last7Days", "week"],
+        ["last30Days", "month"],
+        ["lifetime", "life"]
+    ];
+
+    periods.forEach(([jsonKey, prefix]) => {
+
+        const pageViews = data.summary[jsonKey].pageViews;
+        const activity = data.summary[jsonKey].activity;
+
+        //
+        // Page Views
+        //
+
+        document.getElementById(`${prefix}Deals`).textContent =
+            pageViews.deals;
+
+        document.getElementById(`${prefix}Comps`).textContent =
+            pageViews.comps;
+
+        document.getElementById(`${prefix}FlipAnalyzer`).textContent =
+            pageViews.analyzer;
+
+        document.getElementById(`${prefix}RentalAnalyzer`).textContent =
+            pageViews.rentalAnalyzer;
+
+        //
+        // Activity
+        //
+
+        document.getElementById(`${prefix}DealsFlip`).textContent =
+            activity.dealsFlip;
+
+        document.getElementById(`${prefix}DealsRental`).textContent =
+            activity.dealsRental;
+
+        document.getElementById(`${prefix}CompsFlip`).textContent =
+            activity.compsFlip;
+
+        document.getElementById(`${prefix}CompsRental`).textContent =
+            activity.compsRental;
+
+        document.getElementById(`${prefix}ViewComps`).textContent =
+            activity.viewComps;
+
+    });
+
+}
 // 2. Your existing function with the minor validation upgrade
 async function authenticateUser() {
 
