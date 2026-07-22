@@ -98,17 +98,17 @@ function populateSummaryCards(data) {
     // Total Logins
     //
 
-    if (data.dashboard.totalLogins !== undefined) {
+    if (data.summary.totalLogins !== undefined) {
 
         document.getElementById("totalLogins").textContent =
-            data.dashboard.totalLogins;
+            data.summary.totalLogins;
 
     }
     else {
 
         document.getElementById("totalLogins").textContent = "--";
 
-        console.warn("dashboard.totalLogins not returned by API.");
+        console.warn("summary.totalLogins not returned by API.");
 
     }
 
