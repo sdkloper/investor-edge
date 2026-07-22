@@ -42,10 +42,77 @@ function showApp() {
 
     document.getElementById("appContainer").style.display = "block";
 
-    
+    loadDashboard();    
 
 }
 
+async function loadDashboard() {
+
+    try {
+
+        const response = await fetch(
+            `${WEB_APP_URL}?action=getSummary`
+        );
+
+        if (!response.ok) {
+
+            throw new Error("Unable to load dashboard.");
+
+        }
+
+        const data = await response.json();
+
+        console.log("Dashboard Data", data);
+
+        populateSummaryCards(data);
+
+    }
+    catch (err) {
+
+        console.error(err);
+
+        alert("Unable to load dashboard.");
+
+    }
+
+}
+
+function populateSummaryCards(data) {
+
+    document.getElementById("totalUsers").textContent =
+        data.users.length;
+
+    document.getElementById("totalDeals").textContent =
+        data.summary.lifetime.pageViews.deals;
+
+    document.getElementById("totalComps").textContent =
+        data.summary.lifetime.pageViews.comps;
+
+    document.getElementById("totalFlip").textContent =
+        data.summary.lifetime.pageViews.analyzer;
+
+    document.getElementById("totalRental").textContent =
+        data.summary.lifetime.pageViews.rentalAnalyzer;
+
+    //
+    // Total Logins
+    //
+
+    if (data.dashboard.totalLogins !== undefined) {
+
+        document.getElementById("totalLogins").textContent =
+            data.dashboard.totalLogins;
+
+    }
+    else {
+
+        document.getElementById("totalLogins").textContent = "--";
+
+        console.warn("dashboard.totalLogins not returned by API.");
+
+    }
+
+}
   
 // 2. Your existing function with the minor validation upgrade
 async function authenticateUser() {
