@@ -217,20 +217,41 @@ function populateWarnings(data) {
     });
 
     //
-    // High Comp Usage
-    //
-
-    data.dashboard.userWarnings.highCompsUsage.forEach(user => {
-
-        warnings.push(
-            `<div class="warning-item warning-highusage">
-                <span class="warning-label">High Comp Usage</span>
-                <strong>${user.firstName} ${user.lastName}</strong>
-                <span class="warning-detail">${user.viewComps} Views</span>
-            </div>`
-        );
-
-    });
+   // High Comp Usage
+   //
+   
+   data.dashboard.userWarnings.highCompsUsage.forEach(user => {
+   
+       warnings.push(
+           `<div class="warning-item warning-highusage">
+   
+               <div class="warning-label">
+                   High Comp Usage
+               </div>
+   
+               <div class="warning-content">
+   
+                   <strong>${user.firstName} ${user.lastName}</strong>
+   
+                   <div class="warning-subtext">
+   
+                       Deals: ${user.dealClicks}
+                       &nbsp;&nbsp;&nbsp;
+   
+                       Comps: ${user.viewComps}
+                       &nbsp;&nbsp;&nbsp;
+   
+                       Utilization:
+                       <strong>${user.utilizationPercent}%</strong>
+   
+                   </div>
+   
+               </div>
+   
+           </div>`
+       );
+   
+   });
 
     if (warnings.length === 0) {
 
