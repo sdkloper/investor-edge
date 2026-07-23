@@ -246,3 +246,31 @@ body{
     }
 
 }
+
+/* ======================================================
+   WARNINGS
+====================================================== */
+
+.warning-item{
+
+    padding:8px 0;
+
+    border-bottom:1px solid #ececec;
+
+    font-size:13px;
+
+}
+
+.warning-item:last-child{
+
+    border-bottom:none;
+
+}
+
+.no-warning{
+
+    color:#2e7d32;
+
+    font-weight:600;
+
+}
