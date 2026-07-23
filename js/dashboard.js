@@ -68,6 +68,8 @@ async function loadDashboard() {
 
        populateActivitySummary(data);
 
+       populateWarnings(data);
+
     }
     catch (err) {
 
@@ -171,6 +173,76 @@ function populateActivitySummary(data) {
             activity.viewComps;
 
     });
+
+}
+
+function populateWarnings(data) {
+
+    const container = document.getElementById("warningsContainer");
+
+    container.innerHTML = "";
+
+    const warnings = [];
+
+    //
+    // Inactive Users
+    //
+
+    data.dashboard.userWarnings.inactiveUsers.forEach(user => {
+
+        warnings.push(
+            `<div class="warning-item">
+                <strong>${user.firstName} ${user.lastName}</strong>
+                has not logged in for
+                <strong>${user.daysSinceLogin}</strong> days.
+            </div>`
+        );
+
+    });
+
+    //
+    // Agreements Expiring
+    //
+
+    data.dashboard.userWarnings.expiringAgreements.forEach(user => {
+
+        warnings.push(
+            `<div class="warning-item">
+                <strong>${user.firstName} ${user.lastName}</strong>
+                agreement expires in
+                <strong>${user.daysRemaining}</strong> days.
+            </div>`
+        );
+
+    });
+
+    //
+    // High Comp Usage
+    //
+
+    data.dashboard.userWarnings.highCompsUsage.forEach(user => {
+
+        warnings.push(
+            `<div class="warning-item">
+                <strong>${user.firstName} ${user.lastName}</strong>
+                viewed comps
+                <strong>${user.viewComps}</strong>
+                times during the last 7 days.
+            </div>`
+        );
+
+    });
+
+    if (warnings.length === 0) {
+
+        container.innerHTML =
+            "<div class='no-warning'>✓ No warnings.</div>";
+
+        return;
+
+    }
+
+    container.innerHTML = warnings.join("");
 
 }
 // 2. Your existing function with the minor validation upgrade
