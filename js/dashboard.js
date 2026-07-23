@@ -294,7 +294,7 @@ async function authenticateUser() {
   try {
 
     const response =
-      await fetch(WEB_APP_URL2, {
+      await fetch(WEB_APP_URL, {
 
         method: "POST",
 
