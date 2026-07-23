@@ -253,11 +253,13 @@ body{
 
 .warning-item{
 
-    display:flex;
+    display:grid;
 
-    justify-content:space-between;
+    grid-template-columns:170px 220px 100px;
 
     align-items:center;
+
+    column-gap:20px;
 
     padding:10px 12px;
 
@@ -271,9 +273,7 @@ body{
 
 .warning-item strong{
 
-    flex:1;
-
-    margin-left:15px;
+    margin:0;
 
     color:#333;
 
