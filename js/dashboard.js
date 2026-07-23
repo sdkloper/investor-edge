@@ -191,10 +191,10 @@ function populateWarnings(data) {
     data.dashboard.userWarnings.inactiveUsers.forEach(user => {
 
         warnings.push(
-            `<div class="warning-item">
+            `<div class="warning-item warning-inactive">
+                <span class="warning-label">Inactive User</span>
                 <strong>${user.firstName} ${user.lastName}</strong>
-                has not logged in for
-                <strong>${user.daysSinceLogin}</strong> days.
+                <span class="warning-detail">${user.daysSinceLogin} days</span>
             </div>`
         );
 
@@ -207,10 +207,10 @@ function populateWarnings(data) {
     data.dashboard.userWarnings.expiringAgreements.forEach(user => {
 
         warnings.push(
-            `<div class="warning-item">
+            `<div class="warning-item warning-expiring">
+                <span class="warning-label">Agreement Expiring</span>
                 <strong>${user.firstName} ${user.lastName}</strong>
-                agreement expires in
-                <strong>${user.daysRemaining}</strong> days.
+                <span class="warning-detail">${user.daysRemaining} days</span>
             </div>`
         );
 
@@ -223,11 +223,10 @@ function populateWarnings(data) {
     data.dashboard.userWarnings.highCompsUsage.forEach(user => {
 
         warnings.push(
-            `<div class="warning-item">
+            `<div class="warning-item warning-highusage">
+                <span class="warning-label">High Comp Usage</span>
                 <strong>${user.firstName} ${user.lastName}</strong>
-                viewed comps
-                <strong>${user.viewComps}</strong>
-                times during the last 7 days.
+                <span class="warning-detail">${user.viewComps} Views</span>
             </div>`
         );
 
@@ -236,7 +235,9 @@ function populateWarnings(data) {
     if (warnings.length === 0) {
 
         container.innerHTML =
-            "<div class='no-warning'>✓ No warnings.</div>";
+            `<div class="no-warning">
+                ✓ No warnings requiring attention.
+            </div>`;
 
         return;
 
