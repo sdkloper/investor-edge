@@ -280,7 +280,7 @@ function populateUsers(data) {
     data.users.forEach((user, index) => {
 
         const last7 =
-            user.activity.last7Days.pageViews;
+            user.pageViews.last7Days;
 
         tbody.insertAdjacentHTML(
 
@@ -296,9 +296,9 @@ function populateUsers(data) {
 
                 <td>${user.agentName}</td>
 
-                <td>${user.agreementExpiration}</td>
+                <td>${formatDate(user.agreementExpiration)}</td>
 
-                <td>${user.lastLogin}</td>
+                <td>${formatDate(user.lastLogin)}</td>
 
                 <td>${last7.deals}</td>
 
@@ -323,6 +323,14 @@ function populateUsers(data) {
         );
 
     });
+
+}
+
+function formatDate(dateString) {
+
+    if (!dateString) return "";
+
+    return new Date(dateString).toLocaleDateString();
 
 }
 // 2. Your existing function with the minor validation upgrade
