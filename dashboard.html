@@ -232,7 +232,7 @@
 
             <tr>
 
-                <th style="width:35px;"></th>
+                <td class="expand-toggle" data-user="${index}">▶</td>
                 <th>User</th>
                 <th>Active</th>
                 <th>Agent</th>
@@ -244,6 +244,16 @@
                 <th>Rental</th>
 
             </tr>
+
+          <tr class="user-detail-row" id="detail-${index}" style="display:none;">
+
+              <td colspan="10">
+          
+                  ${renderActivityTable(user)}
+          
+              </td>
+          
+          </tr>
 
         </thead>
 
