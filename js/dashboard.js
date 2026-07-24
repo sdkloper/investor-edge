@@ -298,9 +298,15 @@ function populateUsers(data) {
 
             `
             <tr class="user-row"
-                data-user="${index}">
+                data-user="${user.userID}">
 
-                <td class="expand-arrow">▶</td>
+                <td class="expand-toggle"
+
+                   data-user="${user.userID}">
+               
+                   ▶
+               
+               </td>
 
                 <td>${user.firstName} ${user.lastName}</td>
 
@@ -328,12 +334,16 @@ function populateUsers(data) {
 
             <tr class="user-detail-row"
 
-                id="detail-${index}"
-
+                id="detail-${user.userID}"
+            
                 style="display:none;">
-
-                <td colspan="9"></td>
-
+            
+                <td colspan="10">
+            
+                    ${renderActivityTable(user)}
+            
+                </td>
+            
             </tr>
             `
         );
