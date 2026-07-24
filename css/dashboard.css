@@ -403,3 +403,37 @@ body{
     text-align:center;
 
 }
+
+.activity-detail-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0;
+}
+
+.activity-detail-table th,
+.activity-detail-table td {
+    padding: 6px 10px;
+    text-align: center;
+}
+
+.activity-detail-table td:first-child,
+.activity-detail-table th:first-child {
+    text-align: left;
+}
+
+.section-header td {
+    background: #f3f4f6;
+    font-weight: 600;
+    text-align: left !important;
+    padding-top: 10px;
+}
+
+.user-detail-row td {
+    background: #fafafa;
+}
+
+.expand-toggle {
+    cursor: pointer;
+    user-select: none;
+    text-align: center;
+}
