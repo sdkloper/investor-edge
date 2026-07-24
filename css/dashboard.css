@@ -383,3 +383,23 @@ body{
     background:#fafafa;
 
 }
+
+.status-active{
+
+    color:#2e7d32;
+
+    font-size:18px;
+
+    text-align:center;
+
+}
+
+.status-inactive{
+
+    color:#d32f2f;
+
+    font-size:18px;
+
+    text-align:center;
+
+}
