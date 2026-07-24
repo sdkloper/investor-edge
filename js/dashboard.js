@@ -72,6 +72,8 @@ async function loadDashboard() {
 
        populateUsers(data);
 
+       populateProperties(data);
+
     }
     catch (err) {
 
@@ -480,6 +482,150 @@ function renderActivityTable(user) {
         </table>
    
     `;
+}
+
+function populateProperties(data) {
+
+    const tbody =
+        document.getElementById("propertiesTableBody");
+
+    tbody.innerHTML = "";
+
+    const properties =
+        Object.values(data.properties);
+
+    properties.sort((a, b) => {
+
+        const scoreA =
+            a.activity.dealsFlip +
+            a.activity.dealsRental +
+            a.activity.viewComps;
+
+        const scoreB =
+            b.activity.dealsFlip +
+            b.activity.dealsRental +
+            b.activity.viewComps;
+
+        return scoreB - scoreA;
+
+    });
+
+    properties.forEach(property => {
+
+        const userCount =
+            Object.keys(property.users).length;
+
+        tbody.insertAdjacentHTML(
+
+            "beforeend",
+
+            `
+            <tr class="property-row">
+
+                <td class="property-toggle"
+                    data-address="${property.address}">
+
+                    ▶
+
+                </td>
+
+                <td>${property.address}</td>
+
+                <td>${userCount}</td>
+
+                <td>${property.activity.dealsFlip}</td>
+
+                <td>${property.activity.dealsRental}</td>
+
+                <td>${property.activity.viewComps}</td>
+
+            </tr>
+
+            <tr class="property-detail-row"
+
+                id="property-${property.address}"
+
+                style="display:none;">
+
+                <td colspan="6">
+
+                    ${renderPropertyDetails(property)}
+
+                </td>
+
+            </tr>
+            `
+        );
+
+    });
+
+    document.querySelectorAll(".property-toggle").forEach(toggle => {
+
+        toggle.onclick = function () {
+
+            const id = this.dataset.address;
+
+            const row =
+                document.getElementById(`property-${id}`);
+
+            const open =
+                row.style.display === "table-row";
+
+            row.style.display =
+                open ? "none" : "table-row";
+
+            this.textContent =
+                open ? "▶" : "▼";
+
+        };
+
+    });
+
+}
+
+function renderPropertyDetails(property) {
+
+    const users =
+        Object.values(property.users)
+            .map(u => `${u.firstName} ${u.lastName}`)
+            .join("<br>");
+
+    return `
+
+        <div class="property-detail">
+
+            <strong>Users</strong>
+
+            <p>${users}</p>
+
+            <hr>
+
+            <strong>Runtime</strong>
+
+            <table class="activity-detail-table">
+
+                <tr>
+
+                    <td>Last 7 Flip</td>
+
+                    <td>${property.runtime.last7Flip}</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Last 7 Rental</td>
+
+                    <td>${property.runtime.last7Rental}</td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+    `;
+
 }
 
 function formatDate(dateString) {
