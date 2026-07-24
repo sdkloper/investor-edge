@@ -277,7 +277,17 @@ function populateUsers(data) {
 
     tbody.innerHTML = "";
 
-    data.users.forEach((user, index) => {
+   const users = [...data.users];
+
+   users.sort((a, b) =>
+   
+       b.pageViews.last7Days.deals -
+   
+       a.pageViews.last7Days.deals
+   
+   );
+
+    users.forEach((user, index) => {
 
         const last7 =
             user.pageViews.last7Days;
@@ -294,7 +304,13 @@ function populateUsers(data) {
 
                 <td>${user.firstName} ${user.lastName}</td>
 
-                <td>${user.agentName}</td>
+                <td class="${user.active ? "status-active" : "status-inactive"}">
+
+                   ${user.active ? "●" : "●"}
+               
+               </td>
+               
+               <td>${user.agentFirstName} ${user.agentLastName}</td>
 
                 <td>${formatDate(user.agreementExpiration)}</td>
 
@@ -325,6 +341,8 @@ function populateUsers(data) {
     });
 
 }
+
+
 
 function formatDate(dateString) {
 
