@@ -587,40 +587,26 @@ function renderPropertyDetails(property) {
 
     const users =
         Object.values(property.users)
-            .map(u => `${u.firstName} ${u.lastName}`)
+            .map(u => `• ${u.firstName} ${u.lastName}`)
             .join("<br>");
 
     return `
 
         <div class="property-detail">
 
-            <strong>Users</strong>
+            <strong>Users</strong><br><br>
 
-            <p>${users}</p>
+            ${users}
 
             <hr>
 
-            <strong>Runtime</strong>
+            <strong>Activity (Last 7 Days)</strong><br><br>
 
-            <table class="activity-detail-table">
+            Flip: <strong>${property.runtime.last7Flip}</strong>
 
-                <tr>
+            &nbsp;&nbsp;&nbsp;&nbsp;
 
-                    <td>Last 7 Flip</td>
-
-                    <td>${property.runtime.last7Flip}</td>
-
-                </tr>
-
-                <tr>
-
-                    <td>Last 7 Rental</td>
-
-                    <td>${property.runtime.last7Rental}</td>
-
-                </tr>
-
-            </table>
+            Rental: <strong>${property.runtime.last7Rental}</strong>
 
         </div>
 
