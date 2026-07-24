@@ -70,6 +70,8 @@ async function loadDashboard() {
 
        populateWarnings(data);
 
+       populateUsers(data);
+
     }
     catch (err) {
 
@@ -265,6 +267,62 @@ function populateWarnings(data) {
     }
 
     container.innerHTML = warnings.join("");
+
+}
+
+function populateUsers(data) {
+
+    const tbody =
+        document.getElementById("usersTableBody");
+
+    tbody.innerHTML = "";
+
+    data.users.forEach((user, index) => {
+
+        const last7 =
+            user.activity.last7Days.pageViews;
+
+        tbody.insertAdjacentHTML(
+
+            "beforeend",
+
+            `
+            <tr class="user-row"
+                data-user="${index}">
+
+                <td class="expand-arrow">▶</td>
+
+                <td>${user.firstName} ${user.lastName}</td>
+
+                <td>${user.agentName}</td>
+
+                <td>${user.agreementExpiration}</td>
+
+                <td>${user.lastLogin}</td>
+
+                <td>${last7.deals}</td>
+
+                <td>${last7.comps}</td>
+
+                <td>${last7.analyzer}</td>
+
+                <td>${last7.rentalAnalyzer}</td>
+
+            </tr>
+
+            <tr class="user-detail-row"
+
+                id="detail-${index}"
+
+                style="display:none;">
+
+                <td colspan="9"></td>
+
+            </tr>
+            `
+        );
+
+    });
 
 }
 // 2. Your existing function with the minor validation upgrade
