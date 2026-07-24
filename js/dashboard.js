@@ -340,7 +340,26 @@ function populateUsers(data) {
 
     });
 
+   document.querySelectorAll(".expand-toggle").forEach(toggle => {
+
+        toggle.onclick = function () {
+
+            const id = this.dataset.user;
+
+            const row = document.getElementById(`detail-${id}`);
+
+            const open = row.style.display === "table-row";
+
+            row.style.display = open ? "none" : "table-row";
+
+            this.textContent = open ? "▶" : "▼";
+
+        };
+
+    });
+
 }
+
 
 function renderActivityTable(user) {
 
@@ -450,23 +469,7 @@ function renderActivityTable(user) {
 
         </table>
    
-    document.querySelectorAll(".expand-toggle").forEach(toggle => {
-
-    toggle.onclick = function () {
-
-        const id = this.dataset.user;
-
-        const row = document.getElementById(`detail-${id}`);
-
-        const open = row.style.display === "table-row";
-
-        row.style.display = open ? "none" : "table-row";
-
-        this.textContent = open ? "▶" : "▼";
-
-    };
-
-});
+    `;
 }
 
 function formatDate(dateString) {
