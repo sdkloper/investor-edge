@@ -342,7 +342,132 @@ function populateUsers(data) {
 
 }
 
+function renderActivityTable(user) {
 
+    const pv = user.pageViews;
+    const act = user.activity;
+
+    return `
+        <table class="activity-detail-table">
+
+            <thead>
+
+                <tr>
+
+                    <th></th>
+                    <th>Today</th>
+                    <th>7 Days</th>
+                    <th>30 Days</th>
+                    <th>Lifetime</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr class="section-header">
+                    <td colspan="5">Page Views</td>
+                </tr>
+
+                <tr>
+                    <td>Deals</td>
+                    <td>${pv.today.deals}</td>
+                    <td>${pv.last7Days.deals}</td>
+                    <td>${pv.last30Days.deals}</td>
+                    <td>${pv.lifetime.deals}</td>
+                </tr>
+
+                <tr>
+                    <td>Comps</td>
+                    <td>${pv.today.comps}</td>
+                    <td>${pv.last7Days.comps}</td>
+                    <td>${pv.last30Days.comps}</td>
+                    <td>${pv.lifetime.comps}</td>
+                </tr>
+
+                <tr>
+                    <td>Analyzer</td>
+                    <td>${pv.today.analyzer}</td>
+                    <td>${pv.last7Days.analyzer}</td>
+                    <td>${pv.last30Days.analyzer}</td>
+                    <td>${pv.lifetime.analyzer}</td>
+                </tr>
+
+                <tr>
+                    <td>Rental</td>
+                    <td>${pv.today.rentalAnalyzer}</td>
+                    <td>${pv.last7Days.rentalAnalyzer}</td>
+                    <td>${pv.last30Days.rentalAnalyzer}</td>
+                    <td>${pv.lifetime.rentalAnalyzer}</td>
+                </tr>
+
+                <tr class="section-header">
+                    <td colspan="5">Activity</td>
+                </tr>
+
+                <tr>
+                    <td>Deals → Flip</td>
+                    <td>${act.today.dealsFlip}</td>
+                    <td>${act.last7Days.dealsFlip}</td>
+                    <td>${act.last30Days.dealsFlip}</td>
+                    <td>${act.lifetime.dealsFlip}</td>
+                </tr>
+
+                <tr>
+                    <td>Deals → Rental</td>
+                    <td>${act.today.dealsRental}</td>
+                    <td>${act.last7Days.dealsRental}</td>
+                    <td>${act.last30Days.dealsRental}</td>
+                    <td>${act.lifetime.dealsRental}</td>
+                </tr>
+
+                <tr>
+                    <td>Comps → Flip</td>
+                    <td>${act.today.compsFlip}</td>
+                    <td>${act.last7Days.compsFlip}</td>
+                    <td>${act.last30Days.compsFlip}</td>
+                    <td>${act.lifetime.compsFlip}</td>
+                </tr>
+
+                <tr>
+                    <td>Comps → Rental</td>
+                    <td>${act.today.compsRental}</td>
+                    <td>${act.last7Days.compsRental}</td>
+                    <td>${act.last30Days.compsRental}</td>
+                    <td>${act.lifetime.compsRental}</td>
+                </tr>
+
+                <tr>
+                    <td>View Comps</td>
+                    <td>${act.today.viewComps}</td>
+                    <td>${act.last7Days.viewComps}</td>
+                    <td>${act.last30Days.viewComps}</td>
+                    <td>${act.lifetime.viewComps}</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+   
+    document.querySelectorAll(".expand-toggle").forEach(toggle => {
+
+    toggle.onclick = function () {
+
+        const id = this.dataset.user;
+
+        const row = document.getElementById(`detail-${id}`);
+
+        const open = row.style.display === "table-row";
+
+        row.style.display = open ? "none" : "table-row";
+
+        this.textContent = open ? "▶" : "▼";
+
+    };
+
+});
+}
 
 function formatDate(dateString) {
 
