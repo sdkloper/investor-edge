@@ -584,30 +584,49 @@ function populateProperties(data) {
 
 function renderPropertyDetails(property) {
 
-    const users =
-        Object.values(property.users)
-            .map(u => `• ${u.firstName} ${u.lastName}`)
-            .join("<br>");
+    const rows = Object.values(property.users).map(user => `
+
+        <tr>
+
+            <td>${user.firstName} ${user.lastName}</td>
+
+            <td>${user.activity.last7Flip}</td>
+
+            <td>${user.activity.last7Rental}</td>
+
+            <td>${user.activity.last7ViewComps}</td>
+
+        </tr>
+
+    `).join("");
 
     return `
 
-        <div class="property-detail">
+        <table class="activity-detail-table">
 
-            <strong>Users</strong><br><br>
+            <thead>
 
-            ${users}
+                <tr>
 
-            <hr>
+                    <th>User</th>
 
-            <strong>Activity (Last 7 Days)</strong><br><br>
+                    <th>Flip (7d)</th>
 
-            Flip: <strong>${property.runtime.last7Flip}</strong>
+                    <th>Rental (7d)</th>
 
-            &nbsp;&nbsp;&nbsp;&nbsp;
+                    <th>View Comps (7d)</th>
 
-            Rental: <strong>${property.runtime.last7Rental}</strong>
+                </tr>
 
-        </div>
+            </thead>
+
+            <tbody>
+
+                ${rows}
+
+            </tbody>
+
+        </table>
 
     `;
 
