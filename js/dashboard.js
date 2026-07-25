@@ -496,19 +496,18 @@ function populateProperties(data) {
 
     properties.sort((a, b) => {
 
-        const scoreA =
-            a.activity.dealsFlip +
-            a.activity.dealsRental +
-            a.activity.viewComps;
-
-        const scoreB =
-            b.activity.dealsFlip +
-            b.activity.dealsRental +
-            b.activity.viewComps;
-
-        return scoreB - scoreA;
-
-    });
+       if (b.runtime.last7Flip !== a.runtime.last7Flip) {
+           return b.runtime.last7Flip - a.runtime.last7Flip;
+       }
+   
+       if (b.runtime.last7Rental !== a.runtime.last7Rental) {
+           return b.runtime.last7Rental - a.runtime.last7Rental;
+       }
+   
+       return (b.runtime.last7ViewComps ?? b.activity.viewComps) -
+              (a.runtime.last7ViewComps ?? a.activity.viewComps);
+   
+   });
 
     properties.forEach(property => {
 
