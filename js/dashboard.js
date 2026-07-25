@@ -533,11 +533,11 @@ function populateProperties(data) {
 
                 <td>${userCount}</td>
 
-                <td>${property.activity.dealsFlip}</td>
+                <td>${property.runtime.last7Flip}</td>
 
-                <td>${property.activity.dealsRental}</td>
+               <td>${property.runtime.last7Rental}</td>
 
-                <td>${property.activity.viewComps}</td>
+               <td>${property.runtime.last7ViewComps ?? property.activity.viewComps}</td>
 
             </tr>
 
