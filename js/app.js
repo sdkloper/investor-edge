@@ -1560,6 +1560,34 @@ function analyzeDealFromButton(e) {
     condoFreq: normalizeFrequency(btn.dataset.condofreq),
     address: decodeURIComponent(btn.dataset.address || "")
   });
+   saveAnalysisContext({
+
+    source: "deals",
+
+    property: {
+
+        price: btn.dataset.price || 0,
+
+        arv: btn.dataset.arv || 0,
+
+        rent: btn.dataset.rent || 0,
+
+        taxes: btn.dataset.taxes || 0,
+
+        hoa: btn.dataset.hoa || 0,
+
+        hoaFreq: normalizeFrequency(btn.dataset.hoafreq),
+
+        condo: btn.dataset.condo || 0,
+
+        condoFreq: normalizeFrequency(btn.dataset.condofreq),
+
+        address:
+            decodeURIComponent(btn.dataset.address || "")
+
+    }
+
+});
 
   // ✅ Correct logging
          try {
@@ -1599,6 +1627,34 @@ function analyzeRentalDealFromButton(e) {
     condoFreq: normalizeFrequency(btn.dataset.condofreq),
     address: decodeURIComponent(btn.dataset.address || "")
   });
+   saveAnalysisContext({
+
+    source: "deals",
+
+    property: {
+
+        price: btn.dataset.price || 0,
+
+        arv: btn.dataset.arv || 0,
+
+        rent: btn.dataset.rent || 0,
+
+        taxes: btn.dataset.taxes || 0,
+
+        hoa: btn.dataset.hoa || 0,
+
+        hoaFreq: normalizeFrequency(btn.dataset.hoafreq),
+
+        condo: btn.dataset.condo || 0,
+
+        condoFreq: normalizeFrequency(btn.dataset.condofreq),
+
+        address:
+            decodeURIComponent(btn.dataset.address || "")
+
+    }
+
+});
    // ✅ Correct logging
       try {
         logActivity({
