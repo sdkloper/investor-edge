@@ -70,3 +70,35 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+/* =========================================
+   ANALYSIS CONTEXT
+   ========================================= */
+
+function saveAnalysisContext(context) {
+
+    sessionStorage.setItem(
+        "analysisContext",
+        JSON.stringify(context)
+    );
+
+}
+
+function getAnalysisContext() {
+
+    const json =
+        sessionStorage.getItem("analysisContext");
+
+    return json
+        ? JSON.parse(json)
+        : null;
+
+}
+
+function clearAnalysisContext() {
+
+    sessionStorage.removeItem(
+        "analysisContext"
+    );
+
+}
