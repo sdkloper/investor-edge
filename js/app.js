@@ -1560,34 +1560,39 @@ function analyzeDealFromButton(e) {
     condoFreq: normalizeFrequency(btn.dataset.condofreq),
     address: decodeURIComponent(btn.dataset.address || "")
   });
-   saveAnalysisContext({
+   localStorage.setItem(
 
-    source: "deals",
+    "analysisContext",
 
-    property: {
+    JSON.stringify({
 
-        price: btn.dataset.price || 0,
+        source: "deals",
 
-        arv: btn.dataset.arv || 0,
+        property: {
 
-        rent: btn.dataset.rent || 0,
+            price: btn.dataset.price || 0,
 
-        taxes: btn.dataset.taxes || 0,
+            arv: btn.dataset.arv || 0,
 
-        hoa: btn.dataset.hoa || 0,
+            rent: btn.dataset.rent || 0,
 
-        hoaFreq: normalizeFrequency(btn.dataset.hoafreq),
+            taxes: btn.dataset.taxes || 0,
 
-        condo: btn.dataset.condo || 0,
+            hoa: btn.dataset.hoa || 0,
 
-        condoFreq: normalizeFrequency(btn.dataset.condofreq),
+            hoaFreq: normalizeFrequency(btn.dataset.hoafreq),
 
-        address:
-            decodeURIComponent(btn.dataset.address || "")
+            condo: btn.dataset.condo || 0,
 
-    }
+            condoFreq: normalizeFrequency(btn.dataset.condofreq),
 
-});
+            address: decodeURIComponent(btn.dataset.address || "")
+
+        }
+
+    })
+
+);
 
   // ✅ Correct logging
          try {
@@ -1627,34 +1632,29 @@ function analyzeRentalDealFromButton(e) {
     condoFreq: normalizeFrequency(btn.dataset.condofreq),
     address: decodeURIComponent(btn.dataset.address || "")
   });
-   saveAnalysisContext({
+   localStorage.setItem(
 
-    source: "deals",
+    "analysisContext",
 
-    property: {
+    JSON.stringify({
 
-        price: btn.dataset.price || 0,
+        source: "manual",
 
-        arv: btn.dataset.arv || 0,
+        property: {
 
-        rent: btn.dataset.rent || 0,
+            price: price || 0,
 
-        taxes: btn.dataset.taxes || 0,
+            arv: data.arv || 0,
 
-        hoa: btn.dataset.hoa || 0,
+            rent: data.rent || 0,
 
-        hoaFreq: normalizeFrequency(btn.dataset.hoafreq),
+            address: address || ""
 
-        condo: btn.dataset.condo || 0,
+        }
 
-        condoFreq: normalizeFrequency(btn.dataset.condofreq),
+    })
 
-        address:
-            decodeURIComponent(btn.dataset.address || "")
-
-    }
-
-});
+);
    // ✅ Correct logging
       try {
         logActivity({
