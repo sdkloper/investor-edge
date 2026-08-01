@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function saveAnalysisContext(context) {
 
-    sessionStorage.setItem(
+    localStorage.setItem(
         "analysisContext",
         JSON.stringify(context)
     );
@@ -87,7 +87,7 @@ function saveAnalysisContext(context) {
 function getAnalysisContext() {
 
     const json =
-        sessionStorage.getItem("analysisContext");
+        localStorage.getItem("analysisContext");
 
     return json
         ? JSON.parse(json)
@@ -97,7 +97,7 @@ function getAnalysisContext() {
 
 function clearAnalysisContext() {
 
-    sessionStorage.removeItem(
+    localStorage.removeItem(
         "analysisContext"
     );
 
