@@ -75,30 +75,30 @@ document.addEventListener("DOMContentLoaded", () => {
    ANALYSIS CONTEXT
    ========================================= */
 
-function saveAnalysisContext(context) {
+//function saveAnalysisContext(context) {
 
-    localStorage.setItem(
-        "analysisContext",
-        JSON.stringify(context)
-    );
+//    localStorage.setItem(
+//        "analysisContext",
+//        JSON.stringify(context)
+//    );
 
-}
+//}
 
-function getAnalysisContext() {
+//function getAnalysisContext() {
 
-    const json =
-        localStorage.getItem("analysisContext");
+ //   const json =
+ //       localStorage.getItem("analysisContext");
 
-    return json
-        ? JSON.parse(json)
-        : null;
+ //   return json
+ //       ? JSON.parse(json)
+ //       : null;
 
-}
+//}
 
-function clearAnalysisContext() {
+//function clearAnalysisContext() {
 
-    localStorage.removeItem(
-        "analysisContext"
-    );
+//    localStorage.removeItem(
+//        "analysisContext"
+//    );
 
-}
+//}
