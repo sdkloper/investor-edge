@@ -653,6 +653,29 @@ window.addEventListener("DOMContentLoaded", () => {
 
   loadFromURL();
 
+  /* =======================================
+     ANALYSIS NAVIGATION
+     ======================================= */
+
+  const rentalNavBtn =
+    document.getElementById("rentalNavBtn");
+
+  if (rentalNavBtn) {
+
+    rentalNavBtn.addEventListener("click", () => {
+
+      const params =
+        new URLSearchParams(
+          window.location.search
+        );
+
+      window.location.href =
+        `rental-analyzer.html?${params.toString()}`;
+
+    });
+
+  }
+
   const currencyFields = [
     "purchase",
     "rehab",
