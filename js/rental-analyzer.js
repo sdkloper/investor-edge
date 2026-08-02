@@ -470,6 +470,8 @@ function loadFromURL(){
   if(p.get("arv")) document.getElementById("arv").value=p.get("arv");
   if(p.get("rent")) document.getElementById("rent").value=p.get("rent");
   if(p.get("taxes")) document.getElementById("taxes").value=p.get("taxes");
+  if(p.get("rehab")) document.getElementById("rehab").value=p.get("rehab");
+  if(p.get("insurance")) document.getElementById("insurance").value=p.get("insurance");
   const addressFromURL =
   p.get("address");
 
@@ -504,9 +506,9 @@ function loadFromURL(){
   
     }
 
-  if(p.get("hoa")){
-    document.getElementById("hoa").value=p.get("hoa");
-    function normalizeFreq(val) {
+    if(p.get("hoa")){
+      document.getElementById("hoa").value=p.get("hoa");
+      function normalizeFreq(val) {
       if (!val) return "Monthly";
     
       val = val.toLowerCase();
@@ -579,6 +581,16 @@ function buildFlipAnalyzerURL() {
 
       condoFreq:
         document.getElementById("condoFreq").value,
+
+      rehab:
+          parseNumber(
+              document.getElementById("rehab").value
+          ),
+      
+      insurance:
+          parseNumber(
+              document.getElementById("insurance").value
+          ),
 
       address:
         document.getElementById("address").value,
