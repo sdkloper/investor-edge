@@ -506,22 +506,30 @@ function loadFromURL(){
   
     }
 
-    if(p.get("hoa")){
-      document.getElementById("hoa").value=p.get("hoa");
-      function normalizeFreq(val) {
-      if (!val) return "Monthly";
+    function normalizeFreq(val) {
+
+        if (!val) return "Monthly";
     
-      val = val.toLowerCase();
+        val = val.toLowerCase();
     
-      if (val.includes("month")) return "Monthly";
-      if (val.includes("quarter")) return "Quarterly";
-      if (val.includes("annual")) return "Annually";
+        if (val.includes("month")) return "Monthly";
+        if (val.includes("quarter")) return "Quarterly";
+        if (val.includes("annual")) return "Annually";
     
-      return "Monthly";
+        return "Monthly";
+    
     }
+    
     if (p.get("hoa")) {
-      document.getElementById("hoa").value = p.get("hoa");
-      document.getElementById("hoaFreq").value = normalizeFreq(p.get("hoaFreq"));
+    
+        document.getElementById("hoa").value =
+            p.get("hoa");
+    
+        document.getElementById("hoaFreq").value =
+            normalizeFreq(
+                p.get("hoaFreq")
+            );
+    
     }
     
     if (p.get("condo")) {
