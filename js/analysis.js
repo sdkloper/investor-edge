@@ -112,6 +112,39 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
+  /* =======================================
+   RESTORE PREVIOUS ANALYSIS
+======================================= */
+
+const restoreAnalysis =
+    sessionStorage.getItem(
+        "restoreCompAnalysis"
+    );
+
+if (restoreAnalysis === "true") {
+
+    sessionStorage.removeItem(
+        "restoreCompAnalysis"
+    );
+
+    const saved =
+        sessionStorage.getItem(
+            "lastCompAnalysis"
+        );
+
+    if (saved) {
+
+        const analysis =
+            JSON.parse(saved);
+
+        restoreCompAnalysis(
+            analysis
+        );
+
+    }
+
+}  
+   
   // ===============================
   // Load URL Parameters
   // ===============================
@@ -385,6 +418,58 @@ function displayResults(data) {
    };
 }
 
+/* =======================================
+   RESTORE SAVED ANALYSIS
+======================================= */
+
+function restoreCompAnalysis(
+    analysis
+) {
+
+    const inputs =
+        analysis.inputs;
+
+    document.getElementById("address").value =
+        inputs.address || "";
+
+    document.getElementById("structure").value =
+        inputs.structure || "";
+
+    document.getElementById("beds").value =
+        inputs.beds || "";
+
+    document.getElementById("fullBath").value =
+        inputs.fullBath || "";
+
+    document.getElementById("halfBath").value =
+        inputs.halfBath || "";
+
+    document.getElementById("sqft").value =
+        inputs.sqft || "";
+
+    document.getElementById("waterfront").value =
+        inputs.waterfront || "";
+
+    document.getElementById("listPrice").value =
+        inputs.listPrice || "";
+
+    document.getElementById("yearBuilt").value =
+        inputs.yearBuilt || "";
+
+    document.getElementById("garage").value =
+        inputs.garageSpaces > 0
+            ? "1"
+            : "0";
+
+    document.getElementById("garageSpaces").value =
+        inputs.garageSpaces || "";
+
+    displayResults(
+        analysis.results
+    );
+
+}
+   
 function showError(message) {
   const errorCard = document.getElementById("errorCard");
   errorCard.innerHTML = message;
