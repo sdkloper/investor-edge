@@ -667,7 +667,61 @@ function loadFromURL() {
   }
 
 }
+function buildRentalAnalyzerURL() {
 
+    const original =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const params =
+        new URLSearchParams({
+
+            price:
+                parseNumber(
+                    document.getElementById("purchase").value
+                ),
+
+            arv:
+                parseNumber(
+                    document.getElementById("arv").value
+                ),
+
+            rent:
+                original.get("rent") || 0,
+
+            taxes:
+                parseNumber(
+                    document.getElementById("taxes").value
+                ),
+
+            hoa:
+                parseNumber(
+                    document.getElementById("hoa").value
+                ),
+
+            hoaFreq:
+                original.get("hoaFreq") || "monthly",
+
+            condo:
+                parseNumber(
+                    document.getElementById("condo").value
+                ),
+
+            condoFreq:
+                original.get("condoFreq") || "monthly",
+
+            address:
+                document.getElementById("address").value,
+
+            source:
+                original.get("source")
+
+        });
+
+    return params;
+
+}
 //listener
 window.addEventListener("DOMContentLoaded", () => {
 
@@ -685,11 +739,9 @@ window.addEventListener("DOMContentLoaded", () => {
     rentalNavBtn.addEventListener("click", () => {
 
       const params =
-        new URLSearchParams(
-          window.location.search
-        );
-
-      window.location.href =
+        buildRentalAnalyzerURL();
+    
+    window.location.href =
         `rental-analyzer.html?${params.toString()}`;
 
     });
