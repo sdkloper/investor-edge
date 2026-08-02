@@ -501,7 +501,8 @@ function loadFromURL(){
         decodedAddress;
   
     }
-  
+    const source =
+    params.get("source");
   }
 
   if(p.get("hoa")){
