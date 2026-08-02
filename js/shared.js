@@ -70,7 +70,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+/* =========================================
+   PARSE NUMBER
+   ========================================= */
 
+function parseNumber(value) {
+
+    if (value === null || value === undefined) {
+
+        return 0;
+
+    }
+
+    return Number(
+        String(value)
+            .replace(/[^0-9.-]/g, "")
+    ) || 0;
+
+}
 /* =========================================
    ANALYSIS CONTEXT
    ========================================= */
