@@ -695,6 +695,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const currencyFields = [
     "purchase",
+    "rent",
     "rehab",
     "brokerFee",
     "utilities",
