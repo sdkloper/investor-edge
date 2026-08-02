@@ -515,6 +515,9 @@ function loadFromURL() {
   const arv =
     params.get("arv");
 
+  const rent =
+    params.get("rent");
+
   const taxes =
     params.get("taxes");
 
@@ -556,6 +559,20 @@ function loadFromURL() {
     formatCurrencyInput(
       document.getElementById(
         "arv"
+      )
+    );
+
+  }
+
+  if (rent) {
+
+    document.getElementById(
+      "rent"
+    ).value = rent;
+
+    formatCurrencyInput(
+      document.getElementById(
+        "rent"
       )
     );
 
