@@ -272,23 +272,6 @@ function buildAnalyzeURL(type, data) {
     address: address || ""
   });
 
-   saveAnalysisContext({
-
-    source: "manual",
-
-    property: {
-
-        price: price || 0,
-
-        arv: data.arv || 0,
-
-        rent: data.rent || 0,
-
-        address: address || ""
-
-    }
-
-});
 
   return `${baseURL}?${params.toString()}`;
 }
