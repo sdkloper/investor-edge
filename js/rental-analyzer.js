@@ -537,9 +537,8 @@ function loadFromURL(){
       document.getElementById("condoFreq").value = normalizeFreq(p.get("condoFreq"));
     }
 
-    }
 }
-}
+
 /* =======================================
    BUILD FLIP ANALYZER URL
 ======================================= */
