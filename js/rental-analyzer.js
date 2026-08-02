@@ -561,6 +561,38 @@ window.addEventListener("DOMContentLoaded", () => {
 
   }
 
+  const returnBtn =
+    document.getElementById("returnBtn");
+
+if (returnBtn) {
+
+    returnBtn.addEventListener("click", () => {
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        const source =
+            params.get("source");
+
+        if (source === "deals") {
+
+            window.location.href =
+                "index.html";
+
+        }
+        else if (source === "comps") {
+
+            window.location.href =
+                "analysis.html";
+
+        }
+
+    });
+
+}
+  
   // ✅ DEFINE ONCE
   const currencyFields = [
     "purchase",
