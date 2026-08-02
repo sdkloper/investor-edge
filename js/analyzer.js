@@ -564,19 +564,19 @@ function loadFromURL() {
 
   }
 
-  if (rent) {
+ // if (rent) {
 
-    document.getElementById(
-      "rent"
-    ).value = rent;
+//    document.getElementById(
+ //     "rent"
+//    ).value = rent;
 
-    formatCurrencyInput(
-      document.getElementById(
-        "rent"
-      )
-    );
+ //   formatCurrencyInput(
+ //     document.getElementById(
+//        "rent"
+//      )
+//    );
 
-  }
+//}
 
   if (taxes) {
 
