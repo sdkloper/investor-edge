@@ -221,6 +221,37 @@ async function analyzeProperty() {
     } else {
       displayResults(data);
 
+   sessionStorage.setItem(
+
+       "lastCompAnalysis",
+   
+       JSON.stringify({
+   
+           source: "comps",
+   
+           analyzedAt: Date.now(),
+   
+           inputs: {
+   
+               address,
+               structure,
+               beds,
+               fullBath,
+               halfBath,
+               sqft,
+               waterfront,
+               garageSpaces,
+               listPrice,
+               yearBuilt
+   
+           },
+   
+           results: data
+   
+       })
+   
+   );
+       
       try {
         logActivity({
           action: "View Comps",
