@@ -533,6 +533,12 @@ function loadFromURL() {
   const condoFreq =
     params.get("condoFreq");
 
+  const rehab =
+    params.get("rehab");
+
+  const insurance =
+      params.get("insurance");
+
   const address =
     params.get("address");
 
@@ -567,19 +573,25 @@ function loadFromURL() {
 
   }
 
- // if (rent) {
+  if (rehab) {
 
-//    document.getElementById(
- //     "rent"
-//    ).value = rent;
+      document.getElementById("rehab").value = rehab;
+  
+      formatCurrencyInput(
+          document.getElementById("rehab")
+      );
+  
+  }
 
- //   formatCurrencyInput(
- //     document.getElementById(
-//        "rent"
-//      )
-//    );
-
-//}
+  if (insurance) {
+  
+      document.getElementById("insurance").value = insurance;
+  
+      formatCurrencyInput(
+          document.getElementById("insurance")
+      );
+  
+  }
 
   if (taxes) {
 
@@ -710,6 +722,16 @@ function buildRentalAnalyzerURL() {
 
             condoFreq:
                 original.get("condoFreq") || "monthly",
+
+            rehab:
+                parseNumber(
+                    document.getElementById("rehab").value
+                ),
+            
+            insurance:
+                parseNumber(
+                    document.getElementById("insurance").value
+                ),
 
             address:
                 document.getElementById("address").value,
