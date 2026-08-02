@@ -492,7 +492,7 @@ if (spreadEl) {
            address: document.getElementById("address")?.value || "",
            price: document.getElementById("purchase")?.value || "",
            arv: document.getElementById("arv")?.value || "",
-           rent: ""
+           rent: document.getElementById("rent")?.value || ""
          });
       } catch (err) {
         console.warn("Logging failed:", err);
