@@ -719,10 +719,15 @@ if (returnBtn) {
         }
         else if (source === "comps") {
 
-            window.location.href =
-                "analysis.html";
-
-        }
+                sessionStorage.setItem(
+                    "restoreCompAnalysis",
+                    "true"
+                );
+            
+                window.location.href =
+                    "analysis.html";
+            
+            }
 
     });
 
