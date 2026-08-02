@@ -463,6 +463,8 @@ document.getElementById("trehab").innerText = f(rehab);
 function loadFromURL(){
 
   const p=new URLSearchParams(window.location.search);
+  
+  const source = p.get("source");
 
   if(p.get("price")) document.getElementById("purchase").value=p.get("price");
   if(p.get("arv")) document.getElementById("arv").value=p.get("arv");
@@ -501,9 +503,6 @@ function loadFromURL(){
         decodedAddress;
   
     }
-    const source =
-    params.get("source");
-  }
 
   if(p.get("hoa")){
     document.getElementById("hoa").value=p.get("hoa");
