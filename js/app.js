@@ -339,6 +339,39 @@ function stopDealsLoadingState() {
 async function loadCSV() {
   console.time("Deals Load");
 
+   /* =========================================
+      SESSION DATASET
+      ========================================= */
+   
+   const cachedDeals =
+       sessionStorage.getItem(
+           "dealsDataset"
+       );
+   
+   if (cachedDeals) {
+   
+       console.timeLog(
+           "Deals Load",
+           "Using session dataset"
+       );
+   
+       deals =
+           JSON.parse(cachedDeals);
+   
+       populateCountyFilter();
+   
+       renderTable();
+   
+       stopDealsLoadingState();
+   
+       console.timeEnd(
+           "Deals Load"
+       );
+   
+       return;
+   
+   }
+
   try {
 
     startDealsLoadingState();
@@ -376,6 +409,14 @@ async function loadCSV() {
       console.timeLog("Deals Load", "CSV downloaded");
          
         deals = results.data;
+
+        sessionStorage.setItem(
+
+             "dealsDataset",
+         
+             JSON.stringify(deals)
+         
+         );
 
                  
         populateCountyFilter();
