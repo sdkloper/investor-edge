@@ -529,7 +529,7 @@ function loadFromURL(){
 
     }
 }
-
+}
 
 window.addEventListener("DOMContentLoaded", () => {
 
