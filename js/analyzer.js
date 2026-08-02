@@ -152,11 +152,11 @@ function convertToMonthly(amount, frequency) {
       return amount;
   }
 }
-function parseNumber(val) {
-  if (!val) return 0;
-  const cleaned = val.toString().replace(/[^0-9.]/g, "");
-  return parseFloat(cleaned) || 0;
-}
+//function parseNumber(val) {
+//  if (!val) return 0;
+//  const cleaned = val.toString().replace(/[^0-9.]/g, "");
+//  return parseFloat(cleaned) || 0;
+//}
 
 function getNumericValue(id) {
   const el = document.getElementById(id);
