@@ -530,7 +530,67 @@ function loadFromURL(){
     }
 }
 }
+/* =======================================
+   BUILD FLIP ANALYZER URL
+======================================= */
 
+function buildFlipAnalyzerURL() {
+
+  const original =
+    new URLSearchParams(
+      window.location.search
+    );
+
+  const params =
+    new URLSearchParams({
+
+      price:
+        parseNumber(
+          document.getElementById("purchase").value
+        ),
+
+      arv:
+        parseNumber(
+          document.getElementById("arv").value
+        ),
+
+      rent:
+        parseNumber(
+          document.getElementById("rent").value
+        ),
+
+      taxes:
+        parseNumber(
+          document.getElementById("taxes").value
+        ),
+
+      hoa:
+        parseNumber(
+          document.getElementById("hoa").value
+        ),
+
+      hoaFreq:
+        document.getElementById("hoaFreq").value,
+
+      condo:
+        parseNumber(
+          document.getElementById("condo").value
+        ),
+
+      condoFreq:
+        document.getElementById("condoFreq").value,
+
+      address:
+        document.getElementById("address").value,
+
+      source:
+        original.get("source")
+
+    });
+
+  return params;
+
+}
 window.addEventListener("DOMContentLoaded", () => {
 
   loadFromURL();
@@ -549,10 +609,8 @@ window.addEventListener("DOMContentLoaded", () => {
     flipNavBtn.addEventListener("click", () => {
 
       const params =
-        new URLSearchParams(
-          window.location.search
-        );
-
+        buildFlipAnalyzerURL();
+      
       window.location.href =
         `analyzer.html?${params.toString()}`;
 
