@@ -356,7 +356,14 @@ async function loadCSV() {
        );
    
        deals =
-           JSON.parse(cachedDeals);
+        JSON.parse(cachedDeals);
+
+       console.timeLog(
+           "Deals Load",
+           "Loaded " +
+           deals.length +
+           " cached properties"
+       );
    
        populateCountyFilter();
    
