@@ -537,6 +537,29 @@ window.addEventListener("DOMContentLoaded", () => {
 
   toggleLoanFields();
 
+  /* =======================================
+     ANALYSIS NAVIGATION
+     ======================================= */
+
+  const flipNavBtn =
+    document.getElementById("flipNavBtn");
+
+  if (flipNavBtn) {
+
+    flipNavBtn.addEventListener("click", () => {
+
+      const params =
+        new URLSearchParams(
+          window.location.search
+        );
+
+      window.location.href =
+        `analyzer.html?${params.toString()}`;
+
+    });
+
+  }
+
   // ✅ DEFINE ONCE
   const currencyFields = [
     "purchase",
