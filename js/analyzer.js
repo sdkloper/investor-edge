@@ -536,6 +536,9 @@ function loadFromURL() {
   const address =
     params.get("address");
 
+  const source =
+    params.get("source");
+
   if (price) {
 
     document.getElementById(
