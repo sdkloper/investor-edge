@@ -138,11 +138,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-/* ===============================
-   CONFIG
-================================ */
 
-//const BACKEND_URL = "https://script.google.com/macros/s/AKfycbzuGtr2AtmQB9-E0vVxRaS-Jtpgz8anqbHO6LGCxJPGPD3Oom8wV9nFRtdU-HPjPI_x/exec";
 
 
 /* ===============================
