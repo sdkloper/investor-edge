@@ -269,7 +269,8 @@ function buildAnalyzeURL(type, data) {
     price: price || 0,
     arv: data.arv || 0,
     rent: data.rent || 0,
-    address: address || ""
+    address: address || "",
+    source: "comps"
   });
 
 
