@@ -1553,6 +1553,7 @@ function analyzeDealFromButton(e) {
   const params = new URLSearchParams({
     price: btn.dataset.price || 0,
     arv: btn.dataset.arv || 0,
+    rent: btn.dataset.rent || 0,
     taxes: btn.dataset.taxes || 0,
     hoa: btn.dataset.hoa || 0,
     hoaFreq: normalizeFrequency(btn.dataset.hoafreq),
