@@ -1638,17 +1638,27 @@ function analyzeRentalDealFromButton(e) {
 
     JSON.stringify({
 
-        source: "manual",
+        source: "deals",
 
         property: {
 
-            price: price || 0,
+            price: btn.dataset.price || 0,
 
-            arv: data.arv || 0,
+            arv: btn.dataset.arv || 0,
 
-            rent: data.rent || 0,
+            rent: btn.dataset.rent || 0,
 
-            address: address || ""
+            taxes: btn.dataset.taxes || 0,
+
+            hoa: btn.dataset.hoa || 0,
+
+            hoaFreq: normalizeFrequency(btn.dataset.hoafreq),
+
+            condo: btn.dataset.condo || 0,
+
+            condoFreq: normalizeFrequency(btn.dataset.condofreq),
+
+            address: decodeURIComponent(btn.dataset.address || "")
 
         }
 
