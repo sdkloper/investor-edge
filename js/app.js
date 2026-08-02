@@ -1560,7 +1560,8 @@ function analyzeDealFromButton(e) {
     hoaFreq: normalizeFrequency(btn.dataset.hoafreq),
     condo: btn.dataset.condo || 0,
     condoFreq: normalizeFrequency(btn.dataset.condofreq),
-    address: decodeURIComponent(btn.dataset.address || "")
+    address: decodeURIComponent(btn.dataset.address || ""),
+    source: "deals"
   });
    
    
@@ -1601,7 +1602,8 @@ function analyzeRentalDealFromButton(e) {
     hoaFreq: normalizeFrequency(btn.dataset.hoafreq),
     condo: btn.dataset.condo || 0,
     condoFreq: normalizeFrequency(btn.dataset.condofreq),
-    address: decodeURIComponent(btn.dataset.address || "")
+    address: decodeURIComponent(btn.dataset.address || ""),
+    source: "deals"
   });
   
    // ✅ Correct logging
