@@ -536,7 +536,7 @@ function loadFromURL(){
       document.getElementById("condo").value = p.get("condo");
       document.getElementById("condoFreq").value = normalizeFreq(p.get("condoFreq"));
     }
-
+  }
 }
 
 /* =======================================
