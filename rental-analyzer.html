@@ -16,8 +16,6 @@
     <div class="menu-left">
       <a class="menu-btn" onclick="window.location.href='https://sdkloper.github.io/investor-edge/index.html';">Deals</a>
       <a class="menu-btn" onclick="window.location.href='https://sdkloper.github.io/investor-edge/analysis.html';">Comps</a>
-       <a class="menu-btn" onclick="window.location.href='https://sdkloper.github.io/investor-edge/analyzer.html';">Analyze</a>
-       <a class="menu-btn" onclick="window.location.href='https://sdkloper.github.io/investor-edge/rental-analyzer.html';">Rent Analyze</a>
     </div>
          <div class="menu-right">
         <label>
@@ -32,7 +30,22 @@
 <body class="analysis-page">
 
  <h3 id="addressDisplay"></h3>
+<div class="analysis-nav">
 
+    <button id="returnBtn">
+        ← Return to Property
+    </button>
+
+    <button id="flipNavBtn">
+        Flip Analysis
+    </button>
+
+    <button id="rentalNavBtn"
+            class="active">
+        Rental Analysis
+    </button>
+
+</div>
 <div class="main-container">
 <div class="analysis-layout">
 
