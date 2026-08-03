@@ -499,7 +499,7 @@ async function loadCSV() {
    COMPS + RENTAL COMPS MODAL
    ============================= */
 
-function openCompModal(e) {
+async function openCompModal(e) {
   e.preventDefault();
 
   const clicked = e.currentTarget;
@@ -520,27 +520,70 @@ function openCompModal(e) {
    }
 
 //*****************************************************************************************   
-  // ALWAYS get both datasets from the subject row
-  let salesComps = [];
-  let rentComps = [];
-
-  try {
-    salesComps = subject["Comp Details"]
-      ? JSON.parse(subject["Comp Details"])
-      : [];
-  } catch (err) {
-    console.error("Error parsing sales comps JSON:", err);
-    salesComps = [];
-  }
-
-  try {
-    rentComps = subject["Rent Comp Details"]
-      ? JSON.parse(subject["Rent Comp Details"])
-      : [];
-  } catch (err) {
-    console.error("Error parsing rental comps JSON:", err);
-    rentComps = [];
-  }
+  /* =========================================
+      LOAD PROPERTY COMPS
+   ========================================= */
+   
+   let salesComps = [];
+   let rentComps = [];
+   
+   try {
+   
+       const formData =
+           new URLSearchParams();
+   
+       formData.append(
+           "type",
+           "getPropertyComps"
+       );
+   
+       formData.append(
+           "mls",
+           mls
+       );
+   
+       const response =
+           await fetch(
+               WEB_APP_URL,
+               {
+                   method: "POST",
+                   headers: {
+                       "Content-Type":
+                           "application/x-www-form-urlencoded"
+                   },
+                   body: formData
+               }
+           );
+   
+       const result =
+           await response.json();
+   
+       salesComps =
+           result.compDetails
+               ? JSON.parse(
+                   result.compDetails
+                 )
+               : [];
+   
+       rentComps =
+           result.rentCompDetails
+               ? JSON.parse(
+                   result.rentCompDetails
+                 )
+               : [];
+   
+   }
+   catch (err) {
+   
+       console.error(
+           "Unable to load property comps:",
+           err
+       );
+   
+       salesComps = [];
+       rentComps = [];
+   
+   }
 
    
   // Determine starting tab
