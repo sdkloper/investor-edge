@@ -574,14 +574,41 @@ async function openCompModal(e) {
    
    }
    catch (err) {
-   
+
        console.error(
            "Unable to load property comps:",
            err
        );
    
-       salesComps = [];
-       rentComps = [];
+       body.innerHTML = `
+           <div style="
+               text-align:center;
+               padding:50px 20px;
+           ">
+   
+               <h3>
+                   Unable to retrieve comparable sales.
+               </h3>
+   
+               <div style="margin-top:10px;">
+                   Please try again.
+               </div>
+   
+               <button
+                   id="retryCompBtn"
+                   style="margin-top:20px;"
+               >
+                   Retry
+               </button>
+   
+           </div>
+       `;
+   
+       document
+           .getElementById("retryCompBtn")
+           .onclick = () => openCompModal(e);
+   
+       return;
    
    }
 
@@ -593,6 +620,30 @@ async function openCompModal(e) {
 
   const modal = document.getElementById("compModal");
   const body = document.getElementById("modalBody");
+
+   /* =========================================
+      SHOW LOADING IMMEDIATELY
+   ========================================= */
+   
+   modal.style.display = "block";
+   
+   body.innerHTML = `
+       <div style="
+           text-align:center;
+           padding:50px 20px;
+           font-size:18px;
+       ">
+   
+           <div style="font-size:32px;margin-bottom:15px;">
+               ⏳
+           </div>
+   
+           <div>
+               Loading Comparable Sales...
+           </div>
+   
+       </div>
+   `;
 
   body.innerHTML = `
      <div class="modal-tabs">
