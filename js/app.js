@@ -377,36 +377,41 @@ async function loadCSV() {
          
         deals = results.data;
 
-           // ===== TEMPORARY DIAGNOSTICS =====
-
-           const json = JSON.stringify(deals);
+         /* =========================================
+            BUILD LIGHTWEIGHT CACHE
+         ========================================= */
          
-           console.log(
-             "Rows:",
-             deals.length
-           );
+         const cachedDeals =
+             deals.map(row => {
          
-           console.log(
-             "JSON Size:",
-             (json.length / 1024 / 1024).toFixed(2),
+                 const copy = { ...row };
+         
+                 delete copy["Comp Details"];
+                 delete copy["Rent Comp Details"];
+         
+                 return copy;
+         
+             });
+         
+         console.log(
+             "Full Dataset:",
+             (
+                 JSON.stringify(deals).length /
+                 1024 /
+                 1024
+             ).toFixed(2),
              "MB"
-           );
+         );
          
-           console.table(
-             Object.keys(deals[0]).map(key => ({
-               field: key,
-               avgLength:
-                 Math.round(
-                   deals.reduce(
-                     (sum, row) =>
-                       sum + String(row[key] || "").length,
-                     0
-                   ) / deals.length
-                 )
-             }))
-           );
-         
-           // ================================
+         console.log(
+             "Cached Dataset:",
+             (
+                 JSON.stringify(cachedDeals).length /
+                 1024 /
+                 1024
+             ).toFixed(2),
+             "MB"
+         );
 
 
                  
