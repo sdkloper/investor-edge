@@ -535,11 +535,12 @@ async function openCompModal(e) {
      modal.style.display = "block";
    
      body.innerHTML = `
-         <div style="
-             text-align:center;
-             padding:50px 20px;
-             font-size:18px;
-         ">
+         <div id="compLoading"
+             style="
+                text-align:center;
+                padding:50px 20px;
+                font-size:18px;
+            ">
              <div style="font-size:32px;margin-bottom:15px;">
                  ⏳
              </div>
@@ -624,13 +625,18 @@ async function openCompModal(e) {
                    Unable to retrieve comparable sales.
                </h3>
    
-               <div style="margin-top:10px;">
-                   Please try again.
+               <div style="
+                   margin-top:10px;
+                   color:#666;
+               ">
+                   This is taking longer than expected.
                </div>
    
                <button
                    id="retryCompBtn"
-                   style="margin-top:20px;"
+                   style="
+                       margin-top:20px;
+                   "
                >
                    Retry
                </button>
@@ -640,7 +646,11 @@ async function openCompModal(e) {
    
        document
            .getElementById("retryCompBtn")
-           .onclick = () => openCompModal(e);
+           .addEventListener("click", () => {
+   
+               openCompModal(e);
+   
+           });
    
        return;
    
