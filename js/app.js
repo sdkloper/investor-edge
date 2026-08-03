@@ -412,8 +412,38 @@ async function loadCSV() {
              ).toFixed(2),
              "MB"
          );
+      
+         try {
 
-
+             sessionStorage.setItem(
+                 "dealsDataset",
+                 JSON.stringify(cachedDeals)
+             );
+         
+             console.log(
+                 "Deals cache saved successfully."
+             );
+         
+         }
+         catch (err) {
+         
+             console.error(
+                 "Deals cache failed:",
+                 err
+             );
+         
+         }
+         const cached =
+             JSON.parse(
+                 sessionStorage.getItem(
+                     "dealsDataset"
+                 )
+             );
+         
+         console.log(
+             "Cached Rows:",
+             cached.length
+         );
                  
         populateCountyFilter();
 
