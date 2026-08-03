@@ -377,18 +377,36 @@ async function loadCSV() {
          
         deals = results.data;
 
-         const json = JSON.stringify(deals);
+           // ===== TEMPORARY DIAGNOSTICS =====
 
-         console.log(
-           "CSV Rows:",
-           deals.length
-         );
+           const json = JSON.stringify(deals);
          
-         console.log(
-           "JSON Size:",
-           (json.length / 1024 / 1024).toFixed(2),
-           "MB"
-         );
+           console.log(
+             "Rows:",
+             deals.length
+           );
+         
+           console.log(
+             "JSON Size:",
+             (json.length / 1024 / 1024).toFixed(2),
+             "MB"
+           );
+         
+           console.table(
+             Object.keys(deals[0]).map(key => ({
+               field: key,
+               avgLength:
+                 Math.round(
+                   deals.reduce(
+                     (sum, row) =>
+                       sum + String(row[key] || "").length,
+                     0
+                   ) / deals.length
+                 )
+             }))
+           );
+         
+           // ================================
 
 
                  
