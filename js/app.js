@@ -518,7 +518,41 @@ async function openCompModal(e) {
      );
      return;
    }
-
+    /* =======================================
+        GET MODAL ELEMENTS FIRST
+     ======================================= */
+   
+     const modal =
+       document.getElementById("compModal");
+   
+     const body =
+       document.getElementById("modalBody");
+   
+     /* =======================================
+        SHOW LOADING IMMEDIATELY
+     ======================================= */
+   
+     modal.style.display = "block";
+   
+     body.innerHTML = `
+         <div style="
+             text-align:center;
+             padding:50px 20px;
+             font-size:18px;
+         ">
+             <div style="font-size:32px;margin-bottom:15px;">
+                 ⏳
+             </div>
+   
+             <div>
+                 Loading Comparable Sales...
+             </div>
+   
+             <div style="margin-top:10px;font-size:14px;color:#666;">
+                 Retrieving the latest valuation evidence...
+             </div>
+         </div>
+     `;
 //*****************************************************************************************   
   /* =========================================
       LOAD PROPERTY COMPS
@@ -618,32 +652,7 @@ async function openCompModal(e) {
     ? "rent"
     : "sales";
 
-  const modal = document.getElementById("compModal");
-  const body = document.getElementById("modalBody");
-
-   /* =========================================
-      SHOW LOADING IMMEDIATELY
-   ========================================= */
-   
-   modal.style.display = "block";
-   
-   body.innerHTML = `
-       <div style="
-           text-align:center;
-           padding:50px 20px;
-           font-size:18px;
-       ">
-   
-           <div style="font-size:32px;margin-bottom:15px;">
-               ⏳
-           </div>
-   
-           <div>
-               Loading Comparable Sales...
-           </div>
-   
-       </div>
-   `;
+  
 
   body.innerHTML = `
      <div class="modal-tabs">
