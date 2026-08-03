@@ -358,6 +358,8 @@ async function loadCSV() {
            JSON.parse(cachedDeals);
    
        populateCountyFilter();
+
+       stopDealsLoadingState();
    
        renderTable();
    
@@ -365,9 +367,11 @@ async function loadCSV() {
    
    }
 
+   startDealsLoadingState();
+
   try {
 
-    startDealsLoadingState();
+    
      
     const result =
       await getDealsUrl();
