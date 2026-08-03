@@ -339,6 +339,32 @@ function stopDealsLoadingState() {
 async function loadCSV() {
   console.time("Deals Load");
 
+   /* =========================================
+      SESSION CACHE
+   ========================================= */
+   
+   const cachedDeals =
+       sessionStorage.getItem(
+           "dealsDataset"
+       );
+   
+   if (cachedDeals) {
+   
+       console.log(
+           "Loading Deals from Session Cache..."
+       );
+   
+       deals =
+           JSON.parse(cachedDeals);
+   
+       populateCountyFilter();
+   
+       renderTable();
+   
+       return;
+   
+   }
+
   try {
 
     startDealsLoadingState();
@@ -381,7 +407,7 @@ async function loadCSV() {
             BUILD LIGHTWEIGHT CACHE
          ========================================= */
          
-         const cachedDeals =
+         const cacheData =
              deals.map(row => {
          
                  const copy = { ...row };
@@ -393,36 +419,16 @@ async function loadCSV() {
          
              });
          
-         console.log(
-             "Full Dataset:",
-             (
-                 JSON.stringify(deals).length /
-                 1024 /
-                 1024
-             ).toFixed(2),
-             "MB"
-         );
-         
-         console.log(
-             "Cached Dataset:",
-             (
-                 JSON.stringify(cachedDeals).length /
-                 1024 /
-                 1024
-             ).toFixed(2),
-             "MB"
-         );
+     
       
          try {
 
              sessionStorage.setItem(
                  "dealsDataset",
-                 JSON.stringify(cachedDeals)
+                 JSON.stringify(cacheData)
              );
          
-             console.log(
-                 "Deals cache saved successfully."
-             );
+             
          
          }
          catch (err) {
@@ -440,10 +446,7 @@ async function loadCSV() {
                  )
              );
          
-         console.log(
-             "Cached Rows:",
-             cached.length
-         );
+         
                  
         populateCountyFilter();
 
