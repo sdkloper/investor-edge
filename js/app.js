@@ -377,6 +377,19 @@ async function loadCSV() {
          
         deals = results.data;
 
+         const json = JSON.stringify(deals);
+
+         console.log(
+           "CSV Rows:",
+           deals.length
+         );
+         
+         console.log(
+           "JSON Size:",
+           (json.length / 1024 / 1024).toFixed(2),
+           "MB"
+         );
+
 
                  
         populateCountyFilter();
