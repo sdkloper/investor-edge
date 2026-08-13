@@ -590,8 +590,16 @@ async function openCompModal(e) {
                }
            );
    
-       const result =
-           await response.json();
+       const text =
+          await response.text();
+      
+      console.log(
+          "Comp Response:",
+          text
+      );
+      
+      const result =
+          JSON.parse(text);
    
        salesComps =
            result.compDetails
