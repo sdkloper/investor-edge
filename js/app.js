@@ -851,7 +851,8 @@ function renderCompTab(type, subject, comps) {
             ${comp["PR AbvFinSQFT"] || "-"} SqFt ||
             ${comp.Beds || "-"} Beds ||
             ${(comp["Bathrooms Full"] || 0)}.${(comp["Bathrooms Half"] || 0)} Baths ||
-            Rent: ${formatCurrency(comp.adjustedRent)} ||
+            Rent: ${formatCurrency(comp.Rent)} ||
+            Adj: ${formatCurrency(comp["adjustedRent"])} ||
             DOM ${comp["CDOM"] || "-"} ||
             Distance: ${comp["distance"] ||"-"}
           </p>
