@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (sessionStorage.getItem("investorAuth") === "true") {
     showApp();
   } else {
-    showLogin();const response =
+    showLogin(); 
   }
 
   const loginBtn = document.getElementById("loginBtn");
