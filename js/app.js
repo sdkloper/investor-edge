@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (sessionStorage.getItem("investorAuth") === "true") {
     showApp();
   } else {
-    showLogin();
+    showLogin();const response =
   }
 
   const loginBtn = document.getElementById("loginBtn");
@@ -589,13 +589,19 @@ async function openCompModal(e) {
                    body: formData
                }
            );
-   
+
+      console.log("HTTP Status:", response.status);
+      console.log("Redirected:", response.redirected);
+      console.log("Final URL:", response.url);
+      console.log("Content-Type:", response.headers.get("content-type"));
+      
        const text =
           await response.text();
       
       console.log(
           "Comp Response:",
           text
+         
       );
       
       const result =
