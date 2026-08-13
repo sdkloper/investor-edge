@@ -590,19 +590,8 @@ async function openCompModal(e) {
               }
           );
       
-      console.log("HTTP Status:", response.status);
-      console.log("Redirected:", response.redirected);
-      console.log("Final URL:", response.url);
-      console.log("Content-Type:", response.headers.get("content-type"));
-      
-      const text =
-          await response.text();
-      
-      console.log("Comp Response:");
-      console.log(text);
-      
       const result =
-          JSON.parse(text);
+          await response.json();
    
        salesComps =
            result.compDetails
