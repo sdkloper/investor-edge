@@ -844,6 +844,7 @@ function activityLink(value, properties, title) {
 function showRegisteredActivity(id) {
 
     const item = activityRegistry[id];
+    console.log("Registry:", id, item);
 
     if (!item) return;
 
