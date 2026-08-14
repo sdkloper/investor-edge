@@ -545,10 +545,29 @@ function renderActivityTable(user) {
                
                <tr>
                    <td>View Comps</td>
-                   <td>${act.today.viewComps}</td>
-                   <td>${act.last7Days.viewComps}</td>
-                   <td>${act.last30Days.viewComps}</td>
-                   <td>${act.lifetime.viewComps}</td>
+                   <td>${activityLink(
+                       act.today.viewComps,
+                       act.today.properties.viewComps,
+                       "View Comps (Today)"
+                   )}</td>
+               
+                   <td>${activityLink(
+                       act.last7Days.viewComps,
+                       act.last7Days.properties.viewComps,
+                       "View Comps (7 Days)"
+                   )}</td>
+               
+                   <td>${activityLink(
+                       act.last30Days.viewComps,
+                       act.last30Days.properties.viewComps,
+                       "View Comps (30 Days)"
+                   )}</td>
+               
+                   <td>${activityLink(
+                       act.lifetime.viewComps,
+                       act.lifetime.properties.viewComps,
+                       "View Comps (Lifetime)"
+                   )}</td>
                </tr>
                
                <tr>
