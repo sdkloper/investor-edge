@@ -737,7 +737,8 @@ function renderActivityProperties() {
         document.getElementById(
             "activityPropertyList"
         );
-
+      console.log("Container:", container);
+   
     if (!container) return;
 
     const rows =
@@ -800,7 +801,13 @@ function renderActivityProperties() {
     }
 
     html += `</div>`;
-
+   
+   console.log(
+       "Rendering",
+       currentActivityTitle,
+       rows.length
+   );
+   
     container.innerHTML = html;
 
     const btn =
