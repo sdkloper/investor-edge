@@ -868,6 +868,11 @@ function showActivityProperties(
            properties || {}
        );
 
+   console.log("showActivityProperties");
+   console.log("Title:", title);
+   console.log("Rows:", currentActivityRows);
+   console.log("Row Count:", currentActivityRows.length);
+   
     currentActivityRows.sort((a, b) => {
 
        if (b.count !== a.count)
