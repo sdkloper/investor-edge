@@ -40,6 +40,10 @@ let activityOffset = 0;
 let currentActivityRows = [];
 let currentActivityTitle = "";
 
+const activityRegistry = {};
+let activityRegistryId = 0;
+
+
 function showApp() {
 
     document.getElementById("loginScreen").style.display = "none";
@@ -381,9 +385,11 @@ function renderActivityTable(user) {
 
     const pv = user.pageViews;
     const act = user.activity;
+    
 
     return `
-        <table class="activity-detail-table">
+   
+       <table class="activity-detail-table">
 
             <thead>
 
@@ -437,40 +443,104 @@ function renderActivityTable(user) {
                     <td>${pv.lifetime.rentalAnalyzer}</td>
                 </tr>
 
-                <tr class="section-header">
+               <tr class="section-header">
                    <td colspan="5">Activity</td>
                </tr>
                
                <tr>
                    <td>Deals → Flip</td>
-                   <td>${activityLink(act.today.dealsFlip, act.today.properties.dealsFlip, "Deals → Flip (Today)")}</td>
-                   <td>${activityLink(act.last7Days.dealsFlip, act.last7Days.properties.dealsFlip, "Deals → Flip (7 Days)")}</td>
-                   <td>${activityLink(act.last30Days.dealsFlip, act.last30Days.properties.dealsFlip, "Deals → Flip (30 Days)")}</td>
-                   <td>${activityLink(act.lifetime.dealsFlip, act.lifetime.properties.dealsFlip, "Deals → Flip (Lifetime)")}</td>
+                   <td>${activityLink(
+                       act.today.dealsFlip,
+                       act.today.properties.dealsFlip,
+                       "Deals → Flip (Today)"
+                   )}</td>
+                   <td>${activityLink(
+                       act.last7Days.dealsFlip,
+                       act.last7Days.properties.dealsFlip,
+                       "Deals → Flip (7 Days)"
+                   )}</td>
+                   <td>${activityLink(
+                       act.last30Days.dealsFlip,
+                       act.last30Days.properties.dealsFlip,
+                       "Deals → Flip (30 Days)"
+                   )}</td>
+                   <td>${activityLink(
+                       act.lifetime.dealsFlip,
+                       act.lifetime.properties.dealsFlip,
+                       "Deals → Flip (Lifetime)"
+                   )}</td>
                </tr>
                
                <tr>
                    <td>Deals → Rental</td>
-                   <td>${activityLink(act.today.dealsRental, act.today.properties.dealsRental, "Deals → Rental (Today)")}</td>
-                   <td>${activityLink(act.last7Days.dealsRental, act.last7Days.properties.dealsRental, "Deals → Rental (7 Days)")}</td>
-                   <td>${activityLink(act.last30Days.dealsRental, act.last30Days.properties.dealsRental, "Deals → Rental (30 Days)")}</td>
-                   <td>${activityLink(act.lifetime.dealsRental, act.lifetime.properties.dealsRental, "Deals → Rental (Lifetime)")}</td>
+                   <td>${activityLink(
+                       act.today.dealsRental,
+                       act.today.properties.dealsRental,
+                       "Deals → Rental (Today)"
+                   )}</td>
+                   <td>${activityLink(
+                       act.last7Days.dealsRental,
+                       act.last7Days.properties.dealsRental,
+                       "Deals → Rental (7 Days)"
+                   )}</td>
+                   <td>${activityLink(
+                       act.last30Days.dealsRental,
+                       act.last30Days.properties.dealsRental,
+                       "Deals → Rental (30 Days)"
+                   )}</td>
+                   <td>${activityLink(
+                       act.lifetime.dealsRental,
+                       act.lifetime.properties.dealsRental,
+                       "Deals → Rental (Lifetime)"
+                   )}</td>
                </tr>
                
                <tr>
                    <td>Comps → Flip</td>
-                   <td>${activityLink(act.today.compsFlip, act.today.properties.compsFlip, "Comps → Flip (Today)")}</td>
-                   <td>${activityLink(act.last7Days.compsFlip, act.last7Days.properties.compsFlip, "Comps → Flip (7 Days)")}</td>
-                   <td>${activityLink(act.last30Days.compsFlip, act.last30Days.properties.compsFlip, "Comps → Flip (30 Days)")}</td>
-                   <td>${activityLink(act.lifetime.compsFlip, act.lifetime.properties.compsFlip, "Comps → Flip (Lifetime)")}</td>
+                   <td>${activityLink(
+                       act.today.compsFlip,
+                       act.today.properties.compsFlip,
+                       "Comps → Flip (Today)"
+                   )}</td>
+                   <td>${activityLink(
+                       act.last7Days.compsFlip,
+                       act.last7Days.properties.compsFlip,
+                       "Comps → Flip (7 Days)"
+                   )}</td>
+                   <td>${activityLink(
+                       act.last30Days.compsFlip,
+                       act.last30Days.properties.compsFlip,
+                       "Comps → Flip (30 Days)"
+                   )}</td>
+                   <td>${activityLink(
+                       act.lifetime.compsFlip,
+                       act.lifetime.properties.compsFlip,
+                       "Comps → Flip (Lifetime)"
+                   )}</td>
                </tr>
                
                <tr>
                    <td>Comps → Rental</td>
-                   <td>${activityLink(act.today.compsRental, act.today.properties.compsRental, "Comps → Rental (Today)")}</td>
-                   <td>${activityLink(act.last7Days.compsRental, act.last7Days.properties.compsRental, "Comps → Rental (7 Days)")}</td>
-                   <td>${activityLink(act.last30Days.compsRental, act.last30Days.properties.compsRental, "Comps → Rental (30 Days)")}</td>
-                   <td>${activityLink(act.lifetime.compsRental, act.lifetime.properties.compsRental, "Comps → Rental (Lifetime)")}</td>
+                   <td>${activityLink(
+                       act.today.compsRental,
+                       act.today.properties.compsRental,
+                       "Comps → Rental (Today)"
+                   )}</td>
+                   <td>${activityLink(
+                       act.last7Days.compsRental,
+                       act.last7Days.properties.compsRental,
+                       "Comps → Rental (7 Days)"
+                   )}</td>
+                   <td>${activityLink(
+                       act.last30Days.compsRental,
+                       act.last30Days.properties.compsRental,
+                       "Comps → Rental (30 Days)"
+                   )}</td>
+                   <td>${activityLink(
+                       act.lifetime.compsRental,
+                       act.lifetime.properties.compsRental,
+                       "Comps → Rental (Lifetime)"
+                   )}</td>
                </tr>
                
                <tr>
@@ -482,16 +552,16 @@ function renderActivityTable(user) {
                </tr>
                
                <tr>
-                   <td colspan="6">
+                   <td colspan="5">
                        <div id="activityPropertyList"></div>
                    </td>
                </tr>
 
             </tbody>
 
-        </table>
-   
-    `;
+           </table>
+      
+      `;
 }
 
 function populateProperties(data) {
@@ -738,20 +808,30 @@ function activityLink(value, properties, title) {
 
     if (!value) return "0";
 
-    const encoded =
-        encodeURIComponent(
-            JSON.stringify(properties || {})
-        );
+    const id = "a" + (++activityRegistryId);
+
+    activityRegistry[id] = {
+        properties: properties || {},
+        title: title
+    };
 
     return `
         <a href="#"
-           onclick="showActivityProperties(
-               JSON.parse(decodeURIComponent('${encoded}')),
-               '${title}'
-           ); return false;">
-           ${value}
+           onclick="showRegisteredActivity('${id}'); return false;">
+            ${value}
         </a>
     `;
+}
+function showRegisteredActivity(id) {
+
+    const item = activityRegistry[id];
+
+    if (!item) return;
+
+    showActivityProperties(
+        item.properties,
+        item.title
+    );
 
 }
 
@@ -764,13 +844,18 @@ function showActivityProperties(
         title;
 
     currentActivityRows =
-        Object.values(properties || {});
+       Object.values(
+           properties || {}
+       );
 
     currentActivityRows.sort((a, b) => {
 
-        return b.count - a.count;
-
-    });
+       if (b.count !== a.count)
+           return b.count - a.count;
+   
+       return a.address.localeCompare(b.address);
+   
+   });
 
     activityOffset = 0;
 
