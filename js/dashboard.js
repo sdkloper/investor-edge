@@ -42,6 +42,7 @@ let currentActivityTitle = "";
 
 const activityRegistry = {};
 let activityRegistryId = 0;
+let currentActivityUser = "";
 
 
 function showApp() {
@@ -385,6 +386,7 @@ function renderActivityTable(user) {
 
     const pv = user.pageViews;
     const act = user.activity;
+    currentActivityUser = user.userID;
     
 
     return `
@@ -572,7 +574,7 @@ function renderActivityTable(user) {
                
                <tr>
                    <td colspan="5">
-                       <div id="activityPropertyList"></div>
+                       <div id="activityPropertyList-${user.userID}"></div>
                    </td>
                </tr>
 
@@ -734,9 +736,10 @@ function renderPropertyDetails(property) {
 function renderActivityProperties() {
 
     const container =
-        document.getElementById(
-            "activityPropertyList"
-        );
+       document.getElementById(
+           "activityPropertyList-" +
+           currentActivityUser
+       );
       console.log("Container:", container);
    
     if (!container) return;
@@ -837,9 +840,10 @@ function activityLink(value, properties, title) {
     const id = "a" + (++activityRegistryId);
 
     activityRegistry[id] = {
-        properties: properties || {},
-        title: title
-    };
+       properties: properties || {},
+       title: title,
+       userId: currentActivityUser
+   };
 
     return `
         <a href="#"
@@ -857,16 +861,18 @@ function showRegisteredActivity(id) {
 
     showActivityProperties(
         item.properties,
-        item.title
+        item.title,
+        item.userId
     );
 
 }
 
 function showActivityProperties(
     properties,
-    title
+    title,
+    userId
 ) {
-
+   currentActivityUser = userId;
     currentActivityTitle =
         title;
 
