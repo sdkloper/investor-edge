@@ -359,11 +359,31 @@ async function loadCSV() {
    
        populateCountyFilter();
 
-       stopDealsLoadingState();
-   
-       renderTable();
-   
-       return;
+      if (
+          sessionStorage.getItem("restoreDealsState") === "true"
+      ) {
+      
+          restoreDealsFilters();
+      
+      }
+      
+      renderTable();
+      
+      if (
+          sessionStorage.getItem("restoreDealsState") === "true"
+      ) {
+      
+          restoreDealsScroll();
+      
+          sessionStorage.removeItem(
+              "restoreDealsState"
+          );
+      
+      }
+      
+      stopDealsLoadingState();
+      
+      return;
    
    }
 
@@ -452,9 +472,29 @@ async function loadCSV() {
          
          
                  
-        populateCountyFilter();
+      populateCountyFilter();
 
-        renderTable();
+      if (
+          sessionStorage.getItem("restoreDealsState") === "true"
+      ) {
+      
+          restoreDealsFilters();
+      
+      }
+      
+      renderTable();
+      
+      if (
+          sessionStorage.getItem("restoreDealsState") === "true"
+      ) {
+      
+          restoreDealsScroll();
+      
+          sessionStorage.removeItem(
+              "restoreDealsState"
+          );
+      
+      }
       
         try {
       
