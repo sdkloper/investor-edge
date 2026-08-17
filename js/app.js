@@ -1864,25 +1864,28 @@ function saveDealsState(selectedMLS = "") {
     const state = {
 
         county:
-            document.getElementById("countyFilter").value,
+            document.getElementById("countyFilter")?.value || "",
 
         zip:
-            document.getElementById("zipFilter").value,
+            document.getElementById("zipFilter")?.value || "",
 
         maxPrice:
-            document.getElementById("maxPrice").value,
+            document.getElementById("priceFilter")?.value || "",
 
-        minSpread:
-            document.getElementById("minDiff").value,
+        minDiff:
+            document.getElementById("diffFilter")?.value || "",
 
-        hideCondos:
-            document.getElementById("hideCondos").checked,
+        minPercent:
+            document.getElementById("percentFilter")?.value || "",
+
+        showCondos:
+            document.getElementById("showCondo")?.checked || false,
 
         showAuctions:
-            document.getElementById("showAuctions").checked,
+            document.getElementById("showAuction")?.checked || false,
 
         showNoComps:
-            document.getElementById("showNoComps").checked,
+            document.getElementById("showNoComps")?.checked || false,
 
         rowsToDisplay,
 
@@ -1905,6 +1908,7 @@ function saveDealsState(selectedMLS = "") {
     );
 
 }
+
 function restoreDealsFilters() {
 
     const json =
