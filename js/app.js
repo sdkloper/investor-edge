@@ -1912,9 +1912,7 @@ function saveDealsState(selectedMLS = "") {
 function restoreDealsFilters() {
 
     const json =
-        sessionStorage.getItem(
-            "dealsState"
-        );
+        sessionStorage.getItem("dealsState");
 
     if (!json)
         return false;
@@ -1923,28 +1921,31 @@ function restoreDealsFilters() {
         JSON.parse(json);
 
     document.getElementById("countyFilter").value =
-        state.county;
+        state.county || "";
 
     document.getElementById("zipFilter").value =
-        state.zip;
+        state.zip || "";
 
-    document.getElementById("maxPrice").value =
-        state.maxPrice;
+    document.getElementById("priceFilter").value =
+        state.maxPrice || "";
 
-    document.getElementById("minDiff").value =
-        state.minSpread;
+    document.getElementById("diffFilter").value =
+        state.minDiff || "";
 
-    document.getElementById("hideCondos").checked =
-        state.hideCondos;
+    document.getElementById("percentFilter").value =
+        state.minPercent || "";
 
-    document.getElementById("showAuctions").checked =
-        state.showAuctions;
+    document.getElementById("showCondo").checked =
+        state.showCondos || false;
+
+    document.getElementById("showAuction").checked =
+        state.showAuctions || false;
 
     document.getElementById("showNoComps").checked =
-        state.showNoComps;
+        state.showNoComps || false;
 
     rowsToDisplay =
-        state.rowsToDisplay;
+        state.rowsToDisplay || ROW_INCREMENT;
 
     currentSort.column =
         state.sortColumn;
@@ -1955,6 +1956,7 @@ function restoreDealsFilters() {
     return true;
 
 }
+
 function restoreDealsScroll() {
 
     const json =
