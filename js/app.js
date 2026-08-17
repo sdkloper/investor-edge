@@ -1865,10 +1865,12 @@ function saveDealsState(selectedMLS = "") {
     );
 
 }
-function restoreDealsState() {
+function restoreDealsFilters() {
 
     const json =
-        sessionStorage.getItem("dealsState");
+        sessionStorage.getItem(
+            "dealsState"
+        );
 
     if (!json)
         return false;
@@ -1906,15 +1908,29 @@ function restoreDealsState() {
     currentSort.state =
         state.sortState;
 
+    return true;
+
+}
+function restoreDealsScroll() {
+
+    const json =
+        sessionStorage.getItem(
+            "dealsState"
+        );
+
+    if (!json)
+        return;
+
+    const state =
+        JSON.parse(json);
+
     requestAnimationFrame(() => {
 
         window.scrollTo(
             0,
-            state.scrollY
+            state.scrollY || 0
         );
 
     });
-
-    return true;
 
 }
