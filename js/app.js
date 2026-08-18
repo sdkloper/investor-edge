@@ -458,8 +458,6 @@ async function loadCSV() {
       
      
       
-      }
-      
         try {
       
           logActivity({
