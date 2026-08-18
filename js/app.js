@@ -238,6 +238,7 @@ const ROW_INCREMENT = 50;
 let currentView = "current";
 
 let useCurrentTopDealsFilter = false;
+let dealsSession = null;
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -1384,6 +1385,58 @@ function enterCustomViewWithDiff() {
 
 }
 
+function captureDealsSession() {
+
+    dealsSession = {
+
+        currentView: currentView,
+
+        county:
+            document.getElementById("countyFilter").value,
+
+        zip:
+            document.getElementById("zipFilter").value,
+
+        price:
+            document.getElementById("priceFilter").value,
+
+        diff:
+            document.getElementById("diffFilter").value,
+
+        percent:
+            document.getElementById("percentFilter").value,
+
+        showCondo:
+            document.getElementById("showCondo").checked,
+
+        showAuction:
+            document.getElementById("showAuction").checked,
+
+        showNoComps:
+            document.getElementById("showNoComps").checked,
+
+        sort: {
+
+            column: currentSort.column,
+            state: currentSort.state,
+            asc: currentSort.asc
+
+        },
+
+        rowsToDisplay,
+
+        scrollY:
+            window.scrollY
+
+    };
+
+    sessionStorage.setItem(
+        "dealsSession",
+        JSON.stringify(dealsSession)
+    );
+
+}
+
 /* ============================= */
 function populateCountyFilter() {
   const counties = [...new Set(deals.map(d => d.County).filter(Boolean))].sort();
@@ -1760,7 +1813,7 @@ function analyzeDealFromButton(e) {
            console.warn("Logging failed:", err);
          }
     
- 
+  captureDealsSession();
   setTimeout(() => {
   window.location.href = `analyzer.html?${params.toString()}`;
 }, 150);
@@ -1801,7 +1854,7 @@ function analyzeRentalDealFromButton(e) {
       }
     
  
-
+  captureDealsSession();
   setTimeout(() => {
   window.location.href = `rental-analyzer.html?${params.toString()}`;
 }, 150);
