@@ -654,9 +654,12 @@ if (returnBtn) {
 
         if (source === "deals") {
 
-                    
-            window.location.href =
-                "index.html";
+            sessionStorage.setItem(
+                "restoreDealsState",
+                "true"
+            );
+        
+            window.location.href = "index.html";
         
         }
         else if (source === "comps") {
