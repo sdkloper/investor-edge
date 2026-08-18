@@ -1199,7 +1199,6 @@ function renderTable() {
 
       <td>
         <button class="analyzeFlipBtn"
-          data-mls="${row["MLS"]}"
           data-price="${row["List Price"]}"
           data-arv="${row["ARV"]}"
           data-rent="${row["Rent"]}"
@@ -1212,7 +1211,6 @@ function renderTable() {
           Flip
         </button>
         <button class="analyzeRentalBtn"
-           data-mls="${row["MLS"]}"
            data-price="${row["List Price"]}"
            data-rent="${row["Rent"]}"
            data-arv="${row["ARV"]}"
@@ -1810,9 +1808,7 @@ function analyzeDealFromButton(e) {
            console.warn("Logging failed:", err);
          }
     
-  saveDealsState(
-       btn.dataset.mls || ""
-   );
+ 
   setTimeout(() => {
   window.location.href = `analyzer.html?${params.toString()}`;
 }, 150);
@@ -1852,131 +1848,9 @@ function analyzeRentalDealFromButton(e) {
         console.warn("Logging failed:", err);
       }
     
-  saveDealsState(
-       btn.dataset.mls || ""
+ 
    );
   setTimeout(() => {
   window.location.href = `rental-analyzer.html?${params.toString()}`;
 }, 150);
-}
-function saveDealsState(selectedMLS = "") {
-
-    const state = {
-
-        county:
-            document.getElementById("countyFilter")?.value || "",
-
-        zip:
-            document.getElementById("zipFilter")?.value || "",
-
-        maxPrice:
-            document.getElementById("priceFilter")?.value || "",
-
-        minDiff:
-            document.getElementById("diffFilter")?.value || "",
-
-        minPercent:
-            document.getElementById("percentFilter")?.value || "",
-
-        showCondos:
-            document.getElementById("showCondo")?.checked || false,
-
-        showAuctions:
-            document.getElementById("showAuction")?.checked || false,
-
-        showNoComps:
-            document.getElementById("showNoComps")?.checked || false,
-
-        rowsToDisplay,
-
-        sortColumn:
-            currentSort.column,
-
-        sortState:
-            currentSort.state,
-
-        scrollY:
-            window.scrollY,
-
-        selectedMLS
-
-    };
-
-    sessionStorage.setItem(
-        "dealsState",
-        JSON.stringify(state)
-    );
-
-}
-
-function restoreDealsFilters() {
-
-    const json =
-        sessionStorage.getItem("dealsState");
-
-    if (!json)
-        return false;
-
-    const state =
-        JSON.parse(json);
-
-    document.getElementById("countyFilter").value =
-        state.county || "";
-
-    document.getElementById("zipFilter").value =
-        state.zip || "";
-
-    document.getElementById("priceFilter").value =
-        state.maxPrice || "";
-
-    document.getElementById("diffFilter").value =
-        state.minDiff || "";
-
-    document.getElementById("percentFilter").value =
-        state.minPercent || "";
-
-    document.getElementById("showCondo").checked =
-        state.showCondos || false;
-
-    document.getElementById("showAuction").checked =
-        state.showAuctions || false;
-
-    document.getElementById("showNoComps").checked =
-        state.showNoComps || false;
-
-    rowsToDisplay =
-        state.rowsToDisplay || ROW_INCREMENT;
-
-    currentSort.column =
-        state.sortColumn;
-
-    currentSort.state =
-        state.sortState;
-
-    return true;
-
-}
-
-function restoreDealsScroll() {
-
-    const json =
-        sessionStorage.getItem(
-            "dealsState"
-        );
-
-    if (!json)
-        return;
-
-    const state =
-        JSON.parse(json);
-
-    requestAnimationFrame(() => {
-
-        window.scrollTo(
-            0,
-            state.scrollY || 0
-        );
-
-    });
-
 }
