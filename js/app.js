@@ -359,29 +359,9 @@ async function loadCSV() {
    
        populateCountyFilter();
 
-      if (
-          sessionStorage.getItem("restoreDealsState") === "true"
-      ) {
-      
-          restoreDealsFilters();
-      
-      }
+      stopDealsLoadingState();
       
       renderTable();
-      
-      if (
-          sessionStorage.getItem("restoreDealsState") === "true"
-      ) {
-      
-          restoreDealsScroll();
-      
-          sessionStorage.removeItem(
-              "restoreDealsState"
-          );
-      
-      }
-      
-      stopDealsLoadingState();
       
       return;
    
@@ -473,26 +453,10 @@ async function loadCSV() {
          
                  
       populateCountyFilter();
-
-      if (
-          sessionStorage.getItem("restoreDealsState") === "true"
-      ) {
-      
-          restoreDealsFilters();
-      
-      }
       
       renderTable();
       
-      if (
-          sessionStorage.getItem("restoreDealsState") === "true"
-      ) {
-      
-          restoreDealsScroll();
-      
-          sessionStorage.removeItem(
-              "restoreDealsState"
-          );
+     
       
       }
       
