@@ -453,30 +453,27 @@ async function loadCSV() {
          
                  
       populateCountyFilter();
-      
+
       renderTable();
       
-     
-      
-        try {
+      try {
       
           logActivity({
-            page: "Deals Page",
-            action: "Deals Page Load"
+              page: "Deals Page",
+              action: "Deals Page Load"
           });
       
-        } catch (err) {
+      } catch (err) {
       
-         
-           console.warn(
-            "Deals page activity logging failed:",
-            err
+          console.warn(
+              "Deals page activity logging failed:",
+              err
           );
       
-        }
+      }
       
-        stopDealsLoadingState();
-        console.timeEnd("Deals Load");
+      stopDealsLoadingState();
+      console.timeEnd("Deals Load");
       }
 
     });
