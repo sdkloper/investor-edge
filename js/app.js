@@ -1541,9 +1541,8 @@ function restoreDealsSession() {
         saved.scrollY || 0
     );
 
-    sessionStorage.removeItem(
-        "restoreDealsState"
-    );
+    sessionStorage.removeItem("restoreDealsState");
+    sessionStorage.removeItem("dealsSession");
 
 }
 
