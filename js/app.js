@@ -443,13 +443,6 @@ async function loadCSV() {
              );
          
          }
-         const cached =
-             JSON.parse(
-                 sessionStorage.getItem(
-                     "dealsDataset"
-                 )
-             );
-         
          
                  
       populateCountyFilter();
