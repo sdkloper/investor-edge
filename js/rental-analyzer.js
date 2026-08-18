@@ -654,11 +654,7 @@ if (returnBtn) {
 
         if (source === "deals") {
 
-            sessionStorage.setItem(
-                "restoreDealsState",
-                "true"
-            );
-        
+                    
             window.location.href =
                 "index.html";
         
