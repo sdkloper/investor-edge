@@ -787,14 +787,9 @@ if (returnBtn) {
 
         if (source === "deals") {
 
-            sessionStorage.setItem(
-                "restoreDealsState",
-                "true"
-            );
-
-            history.back();
-            //window.location.href =
-             //   "index.html";
+            
+            window.location.href =
+                "index.html";
         
         }
         else if (source === "comps") {
