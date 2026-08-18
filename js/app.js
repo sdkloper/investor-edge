@@ -1387,6 +1387,8 @@ function enterCustomViewWithDiff() {
 
 function captureDealsSession() {
 
+   console.log("captureDealsSession called");
+
     dealsSession = {
 
         currentView: currentView,
@@ -1434,6 +1436,11 @@ function captureDealsSession() {
         "dealsSession",
         JSON.stringify(dealsSession)
     );
+
+   console.log(
+       "Saved:",
+       sessionStorage.getItem("dealsSession")
+   );
 
 }
 
