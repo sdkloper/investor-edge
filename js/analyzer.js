@@ -791,9 +791,10 @@ if (returnBtn) {
                 "restoreDealsState",
                 "true"
             );
-        
-            window.location.href =
-                "index.html";
+
+            history.back();
+            //window.location.href =
+             //   "index.html";
         
         }
         else if (source === "comps") {
