@@ -1808,7 +1808,7 @@ function analyzeRentalDealFromButton(e) {
       }
     
  
-   );
+
   setTimeout(() => {
   window.location.href = `rental-analyzer.html?${params.toString()}`;
 }, 150);
