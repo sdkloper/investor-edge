@@ -363,6 +363,8 @@ async function loadCSV() {
       stopDealsLoadingState();
       
       renderTable();
+
+      restoreDealsSession();
       
       return;
    
@@ -449,6 +451,8 @@ async function loadCSV() {
       populateCountyFilter();
 
       renderTable();
+
+      restoreDealsSession();
       
       try {
       
@@ -1441,6 +1445,105 @@ function captureDealsSession() {
        "Saved:",
        sessionStorage.getItem("dealsSession")
    );
+
+}
+
+function restoreDealsSession() {
+
+    const restore =
+        sessionStorage.getItem(
+            "restoreDealsState"
+        );
+
+    if (!restore)
+        return;
+
+    const saved =
+        JSON.parse(
+            sessionStorage.getItem(
+                "dealsSession"
+            )
+        );
+
+    if (!saved)
+        return;
+
+    console.log(
+        "Restoring Deals Session",
+        saved
+    );
+
+    if (saved.currentView === VIEW_CURRENT) {
+
+        setCurrentView();
+
+    }
+    else if (saved.currentView === VIEW_ALL) {
+
+        setAllView();
+
+    }
+    else {
+
+        currentView = VIEW_CUSTOM;
+        useCurrentTopDealsFilter = false;
+
+        document
+            .getElementById("currentViewBtn")
+            .classList.remove("active");
+
+        document
+            .getElementById("allViewBtn")
+            .classList.remove("active");
+
+    }
+
+    document.getElementById("countyFilter").value =
+        saved.county;
+
+    document.getElementById("zipFilter").value =
+        saved.zip;
+
+    document.getElementById("priceFilter").value =
+        saved.price;
+
+    document.getElementById("diffFilter").value =
+        saved.diff;
+
+    document.getElementById("percentFilter").value =
+        saved.percent;
+
+    document.getElementById("showCondo").checked =
+        saved.showCondo;
+
+    document.getElementById("showAuction").checked =
+        saved.showAuction;
+
+    document.getElementById("showNoComps").checked =
+        saved.showNoComps;
+
+    currentSort.column =
+        saved.sort.column;
+
+    currentSort.state =
+        saved.sort.state;
+
+    currentSort.asc =
+        saved.sort.asc;
+
+    rowsToDisplay =
+        saved.rowsToDisplay;
+
+    renderTable();
+
+    window.scrollTo(
+        0,
+        saved.scrollY || 0
+    );
+
+    sessionStorage.removeItem(
+        "restoreDealsState"
+    );
 
 }
 
