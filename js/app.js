@@ -409,7 +409,7 @@ async function loadCSV() {
       console.timeLog("Deals Load", "CSV downloaded");
          
         deals = results.data;
-
+         console.log(Object.keys(deals[0]));
          /* =========================================
             BUILD LIGHTWEIGHT CACHE
          ========================================= */
