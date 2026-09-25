@@ -507,17 +507,7 @@ async function openCompModal(e) {
      deals.find(
        d => d["MLS"] === mls
      );
-console.log(subject);
 
-console.log(
-    "Comp Details:",
-    subject["Comp Details"]
-);
-
-console.log(
-    "Rent Comp Details:",
-    subject["Rent Comp Details"]
-);
 
    
    if (!subject) {
