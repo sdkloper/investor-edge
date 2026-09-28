@@ -653,9 +653,14 @@ async function openCompModal(e) {
    
        if (!property) {
    
-           throw new Error(
-               "Property not found in comp cache."
-           );
+           console.error(
+                "MLS not found in comp cache:",
+                mls
+            );
+            
+            throw new Error(
+                "Property not found."
+            );
    
        }
    
