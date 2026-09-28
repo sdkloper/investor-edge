@@ -460,11 +460,7 @@ async function loadCSV() {
          const compressedComp =
              LZString.compressToUTF16(rawComp);
          
-         console.log(
-             "Compressed length:",
-             compressedComp.length
-         );
-         
+                  
          try {
          
              sessionStorage.setItem(
@@ -472,9 +468,7 @@ async function loadCSV() {
                  compressedComp
              );
          
-             console.log(
-                 "Stored compDataset successfully."
-             );
+            
          
          }
          catch (err) {
@@ -577,18 +571,7 @@ async function openCompModal(e) {
    const cachedProperty =
        getCompLookup()?.[mls];
    
-   console.log(
-    Object.keys(subject)
-   );
    
-   console.log(
-       subject["Comp Details"]
-   );
-   
-   console.log(
-       subject["Rent Comp Details"]
-   );
-
    
    if (!subject) {
      console.error(
