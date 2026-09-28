@@ -426,7 +426,49 @@ async function loadCSV() {
          
              });
          
-     
+     /* =========================================
+         CACHE SIZE TEST
+      ========================================= */
+      
+      const dealsCache =
+          JSON.stringify(cacheData);
+      
+      console.log(
+          "Deals Cache:",
+          (dealsCache.length / 1024).toFixed(1),
+          "KB"
+      );
+      
+      const compLookup = {};
+      
+      deals.forEach(row => {
+      
+          compLookup[row["MLS"]] = {
+      
+              sales: row["Comp Details"],
+              rent: row["Rent Comp Details"]
+      
+          };
+      
+      });
+      
+      const compCache =
+          JSON.stringify(compLookup);
+      
+      console.log(
+          "Comp Cache:",
+          (compCache.length / 1024).toFixed(1),
+          "KB"
+      );
+      
+      console.log(
+          "Combined:",
+          (
+              (dealsCache.length + compCache.length)
+              / 1024
+          ).toFixed(1),
+          "KB"
+      );
       
          try {
 
