@@ -1874,8 +1874,15 @@ function formatPercent(val) {
 
 function getCompLookup() {
 
-    if (compLookup)
-        return compLookup;
+    if (compLookup) {
+
+       console.log(
+           "Comp cache loaded from memory."
+       );
+   
+       return compLookup;
+   
+   }
 
     const compressed =
         sessionStorage.getItem(
