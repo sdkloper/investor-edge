@@ -574,13 +574,8 @@ async function openCompModal(e) {
        d => d["MLS"] === mls
      );
 
-   const property =
+   const cachedProperty =
        getCompLookup()?.[mls];
-   
-   const property =
-       lookup
-           ? lookup[mls]
-           : null;
    
    console.log(
     Object.keys(subject)
@@ -648,10 +643,10 @@ async function openCompModal(e) {
    
    try {
    
-       const property =
+       const cachedProperty =
            getCompLookup()?.[mls];
    
-       if (!property) {
+       if (!cachedProperty) {
    
            console.error(
                 "MLS not found in comp cache:",
@@ -665,16 +660,16 @@ async function openCompModal(e) {
        }
    
        salesComps =
-           property.sales
+           cachedProperty.sales
                ? JSON.parse(
-                   property.sales
+                   cachedProperty.sales
                )
                : [];
    
        rentComps =
-           property.rent
+           cachedProperty.rent
                ? JSON.parse(
-                   property.rent
+                   cachedProperty.rent
                )
                : [];
    
