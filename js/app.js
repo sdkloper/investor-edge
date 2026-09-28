@@ -433,11 +433,7 @@ async function loadCSV() {
       const dealsCache =
           JSON.stringify(cacheData);
       
-      console.log(
-          "Deals Cache:",
-          (dealsCache.length / 1024).toFixed(1),
-          "KB"
-      );
+      
       
       const compLookup = {};
 
@@ -463,10 +459,31 @@ async function loadCSV() {
          const compressedComp =
              LZString.compressToUTF16(rawComp);
          
-         sessionStorage.setItem(
-             "compDataset",
-             compressedComp
+         console.log(
+             "Compressed length:",
+             compressedComp.length
          );
+         
+         try {
+         
+             sessionStorage.setItem(
+                 "compDataset",
+                 compressedComp
+             );
+         
+             console.log(
+                 "Stored compDataset successfully."
+             );
+         
+         }
+         catch (err) {
+         
+             console.error(
+                 "Unable to store compDataset:",
+                 err
+             );
+         
+         }
          
          
 
@@ -474,20 +491,7 @@ async function loadCSV() {
       const compCache =
           JSON.stringify(compLookup);
       
-      console.log(
-          "Comp Cache:",
-          (compCache.length / 1024).toFixed(1),
-          "KB"
-      );
       
-      console.log(
-          "Combined:",
-          (
-              (dealsCache.length + compCache.length)
-              / 1024
-          ).toFixed(1),
-          "KB"
-      );
       
          try {
 
