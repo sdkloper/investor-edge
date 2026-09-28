@@ -573,6 +573,15 @@ async function openCompModal(e) {
      deals.find(
        d => d["MLS"] === mls
      );
+
+   const property =
+       getCompLookup()?.[mls];
+   
+   const property =
+       lookup
+           ? lookup[mls]
+           : null;
+   
    console.log(
     Object.keys(subject)
    );
@@ -639,52 +648,34 @@ async function openCompModal(e) {
    
    try {
    
-       const formData =
-           new URLSearchParams();
+       const property =
+           getCompLookup()?.[mls];
    
-       formData.append(
-           "type",
-           "getPropertyComps"
-       );
+       if (!property) {
    
-       formData.append(
-           "mls",
-           mls
-       );
+           throw new Error(
+               "Property not found in comp cache."
+           );
    
-       const response =
-          await fetch(
-              WEB_APP_URL,
-              {
-                  method: "POST",
-                  headers: {
-                      "Content-Type":
-                          "application/x-www-form-urlencoded"
-                  },
-                  body: formData
-              }
-          );
-      
-      const result =
-          await response.json();
+       }
    
        salesComps =
-           result.compDetails
+           property.sales
                ? JSON.parse(
-                   result.compDetails
-                 )
+                   property.sales
+               )
                : [];
    
        rentComps =
-           result.rentCompDetails
+           property.rent
                ? JSON.parse(
-                   result.rentCompDetails
-                 )
+                   property.rent
+               )
                : [];
    
    }
    catch (err) {
-
+   
        console.error(
            "Unable to load property comps:",
            err
