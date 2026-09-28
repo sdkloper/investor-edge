@@ -441,34 +441,7 @@ async function loadCSV() {
       
       const compLookup = {};
 
-      const rawComp =
-          JSON.stringify(compLookup);
-      
-      const compressedComp =
-          LZString.compressToUTF16(rawComp);
-      
-      console.log(
-          "Raw:",
-          (rawComp.length / 1024).toFixed(1),
-          "KB"
-      );
-      
-      console.log(
-          "Compressed:",
-          (compressedComp.length / 1024).toFixed(1),
-          "KB"
-      );
-      
-      console.log(
-          "Compression:",
-          (
-              compressedComp.length /
-              rawComp.length *
-              100
-          ).toFixed(1),
-          "%"
-      );
-      
+            
       deals.forEach(row => {
       
           compLookup[row["MLS"]] = {
@@ -479,7 +452,50 @@ async function loadCSV() {
           };
       
       });
-      
+
+         /* =========================================
+            NOW measure it
+         ========================================= */
+         
+         const rawComp =
+             JSON.stringify(compLookup);
+         
+         const compressedComp =
+             LZString.compressToUTF16(rawComp);
+         
+         console.log(
+             "Raw:",
+             (rawComp.length / 1024).toFixed(1),
+             "KB"
+         );
+         
+         console.log(
+             "Compressed:",
+             (compressedComp.length / 1024).toFixed(1),
+             "KB"
+         );
+         
+         console.log(
+             "Compression:",
+             (
+                 compressedComp.length /
+                 rawComp.length *
+                 100
+             ).toFixed(1),
+             "%"
+         );
+         
+         console.log(
+             "Combined:",
+             (
+                 (dealsCache.length +
+                  compressedComp.length)
+                 / 1024
+             ).toFixed(1),
+             "KB"
+         );
+
+         /*************/
       const compCache =
           JSON.stringify(compLookup);
       
