@@ -463,37 +463,12 @@ async function loadCSV() {
          const compressedComp =
              LZString.compressToUTF16(rawComp);
          
-         console.log(
-             "Raw:",
-             (rawComp.length / 1024).toFixed(1),
-             "KB"
+         sessionStorage.setItem(
+             "compDataset",
+             compressedComp
          );
          
-         console.log(
-             "Compressed:",
-             (compressedComp.length / 1024).toFixed(1),
-             "KB"
-         );
          
-         console.log(
-             "Compression:",
-             (
-                 compressedComp.length /
-                 rawComp.length *
-                 100
-             ).toFixed(1),
-             "%"
-         );
-         
-         console.log(
-             "Combined:",
-             (
-                 (dealsCache.length +
-                  compressedComp.length)
-                 / 1024
-             ).toFixed(1),
-             "KB"
-         );
 
          /*************/
       const compCache =
