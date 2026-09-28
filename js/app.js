@@ -226,6 +226,7 @@ const VIEW_ALL = "all";
 const VIEW_CUSTOM = "custom";
 
 let deals = [];
+let compLookup = null;
 let currentSort = {
   column: "List Price",
   asc: true,
@@ -1897,7 +1898,37 @@ function formatPercent(val) {
 
 /* ============================= */
 
+function getCompLookup() {
 
+    if (compLookup)
+        return compLookup;
+
+    const compressed =
+        sessionStorage.getItem(
+            "compDataset"
+        );
+
+    if (!compressed)
+        return null;
+
+    console.time(
+        "Comp Decompression"
+    );
+
+    compLookup =
+        JSON.parse(
+            LZString.decompressFromUTF16(
+                compressed
+            )
+        );
+
+    console.timeEnd(
+        "Comp Decompression"
+    );
+
+    return compLookup;
+
+}
 
 /* ============================= */
 /* CLOSE MODAL */
